@@ -165,3 +165,18 @@ export async function setupAccount(formData: FormData) {
   revalidatePath("/", "layout");
   redirect("/");
 }
+
+export async function signInWithGoogle() {
+  const supabase = createClient();
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: "google",
+  });
+
+  if (error) {
+    return {
+      error: error.message,
+    };
+  }
+
+  redirect(data.url);
+}
