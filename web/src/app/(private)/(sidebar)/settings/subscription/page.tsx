@@ -35,11 +35,7 @@ export default async function Subscription() {
         <Active dict={dict.active} {...subscription} />
       ) : (
         subscription && (
-          <Form
-            dict={dict.form}
-            language={settings.language}
-            {...subscription}
-          />
+          <Form dict={dict.form} settings={settings} {...subscription} />
         )
       )}
 
