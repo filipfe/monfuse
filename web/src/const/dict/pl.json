@@ -129,7 +129,8 @@
                 },
                 "_submit": {
                   "label": "Zapisz"
-                }
+                },
+                "_success": "Pomyślnie zmodyfikowano operację!"
               }
             },
             "delete": {
@@ -138,7 +139,8 @@
               "button": {
                 "_close": "Anuluj",
                 "_submit": "Usuń"
-              }
+              },
+              "_success": "Pomyślnie usunięto operację!"
             }
           }
         },

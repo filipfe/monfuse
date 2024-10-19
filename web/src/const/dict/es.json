@@ -130,7 +130,8 @@
                 },
                 "_submit": {
                   "label": "Guardar"
-                }
+                },
+                "_success": "¡Operación modificada con éxito!"
               }
             },
             "delete": {
@@ -139,7 +140,8 @@
               "button": {
                 "_close": "Cancelar",
                 "_submit": "Eliminar"
-              }
+              },
+              "_success": "¡Operación eliminada con éxito!"
             }
           }
         },

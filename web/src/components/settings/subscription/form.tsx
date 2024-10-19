@@ -19,8 +19,9 @@ export default function Form({
     <div className="px-10 py-8 border bg-light rounded-md">
       <Elements
         options={{
+          clientSecret,
+          locale: settings.language,
           // currency: settings.currency.toLowerCase(),
-          // locale: settings.language,
           appearance: {
             variables: {
               colorPrimary: "#177981",
