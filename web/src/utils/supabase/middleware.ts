@@ -79,7 +79,7 @@ export async function updateSession(request: NextRequest) {
     url.pathname = `/${locale}/sign-in`;
     return NextResponse.redirect(url);
   }
-
+  console.log({ user });
   if (user) {
     // User tried accessing public path being authenticated
     if (PUBLIC_ROUTES.includes(request.nextUrl.pathname)) {
@@ -147,13 +147,14 @@ export async function updateSession(request: NextRequest) {
   }
 
   // User accesses public path with locale
-
+  console.log(LOCALE_ROUTES.includes(request.nextUrl.pathname));
   if (LOCALE_ROUTES.includes(request.nextUrl.pathname)) {
     const url = request.nextUrl.clone();
     const locale = getLocale(request);
     url.pathname = `/${locale}${url.pathname}`;
     return NextResponse.redirect(url);
   }
+  console.log("FINAL");
 
   return supabaseResponse;
 }

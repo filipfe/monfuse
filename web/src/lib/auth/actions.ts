@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export async function requestPasswordChange(
-  formData: FormData
+  formData: FormData,
 ): Promise<SupabaseResponse<any>> {
   const email = formData.get("email")?.toString();
 
@@ -26,7 +26,7 @@ export async function requestPasswordChange(
 }
 
 export async function resetPassword(
-  formData: FormData
+  formData: FormData,
 ): Promise<SupabaseResponse<any>> {
   const password = formData.get("password")?.toString();
   const shouldRedirect = formData.get("redirect")?.toString() === "true";
@@ -179,6 +179,9 @@ export async function signInWithGoogle() {
   const supabase = createClient();
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
+    options: {
+      redirectTo: `http://localhost:3000/auth/confirm`,
+    },
   });
 
   if (error) {
