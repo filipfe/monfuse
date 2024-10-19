@@ -17,7 +17,10 @@
       "settings/notifications": "Notificaciones",
       "_logout": "Cerrar sesión"
     },
-    "general": { "incomes": "Ingresos", "expenses": "Gastos" },
+    "general": {
+      "incomes": "Ingresos",
+      "expenses": "Gastos"
+    },
     "dashboard": {
       "latest-operations": {
         "title": "Últimas operaciones",
@@ -377,6 +380,7 @@
         }
       },
       "preferences": {
+        "_success": "¡Datos actualizados con éxito!",
         "default-currency": {
           "title": "Moneda predeterminada",
           "description": "Se utiliza de forma predeterminada en la aplicación",
@@ -421,9 +425,14 @@
         }
       },
       "notifications": {
+        "_error": "Ocurrió un error al cambiar la configuración",
         "telegram": {
           "title": "Notificaciones de Telegram",
-          "description": "Enviadas automáticamente por Telegram Bot"
+          "description": "Enviadas automáticamente por Telegram Bot",
+          "tooltip": {
+            "title": "¡Tu bot no está activo!",
+            "button": "Activar el bot"
+          }
         },
         "email": {
           "title": "Notificaciones por correo electrónico",

@@ -7,7 +7,9 @@ export default function LocationInput({
   dict,
 }: {
   languageCode: Locale;
-  dict: Dict["private"]["settings"]["preferences"]["location"];
+  dict: Dict["private"]["settings"]["preferences"]["location"] & {
+    _success: string;
+  };
 }) {
   return (
     <div className="flex flex-col gap-4">
@@ -15,7 +17,10 @@ export default function LocationInput({
         <h3>{dict.title}</h3>
         <p className="text-sm text-font/60">{dict.description}</p>
       </div>
-      <LanguageSelect dict={dict.language} defaultValue={languageCode} />
+      <LanguageSelect
+        dict={{ ...dict.language, _success: dict._success }}
+        defaultValue={languageCode}
+      />
       <TimezoneSelect dict={dict.timezone} />
     </div>
   );

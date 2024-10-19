@@ -9,10 +9,16 @@ interface Props extends Pick<Account, "email"> {
   dict: Dict["private"]["settings"]["account"]["email"];
 }
 
-export default function EmailInput({ email: initialEmail, dict }: Props) {
+export default function EmailInput({ dict, email: initialEmail }: Props) {
   const [email, setEmail] = useState(initialEmail || "");
   return (
-    <Form buttonProps={{ size: "sm", radius: "md", children: "Zapisz" }}>
+    <Form
+      buttonProps={{
+        size: "sm",
+        radius: "md",
+        children: dict.form._submit.label,
+      }}
+    >
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-2 mb-2">
           <h3>{dict.title}</h3>

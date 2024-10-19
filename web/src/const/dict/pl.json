@@ -17,7 +17,10 @@
       "settings/notifications": "Powiadomienia",
       "_logout": "Wyloguj"
     },
-    "general": { "incomes": "Przychody", "expenses": "Wydatki" },
+    "general": {
+      "incomes": "Przychody",
+      "expenses": "Wydatki"
+    },
     "dashboard": {
       "latest-operations": {
         "title": "Ostatnie operacje",
@@ -376,6 +379,7 @@
         }
       },
       "preferences": {
+        "_success": "Pomyślnie zmieniono dane!",
         "default-currency": {
           "title": "Domyślna waluta",
           "description": "Używana domyślnie w aplikacji",
@@ -422,9 +426,14 @@
         }
       },
       "notifications": {
+        "_error": "Wystąpił błąd przy zmienianiu ustawienia",
         "telegram": {
           "title": "Powiadomienia Telegram",
-          "description": "Wysyłane automatycznie przez Telegram Bota"
+          "description": "Wysyłane automatycznie przez Telegram Bota",
+          "tooltip": {
+            "title": "Twój bot nie jest aktywny!",
+            "button": "Aktywuj bota"
+          }
         },
         "email": {
           "title": "Powiadomienia Email",

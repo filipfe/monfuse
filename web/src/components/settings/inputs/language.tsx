@@ -10,11 +10,13 @@ import toast from "react-hot-toast";
 import useSWR from "swr";
 
 type Props = {
-  dict: Dict["private"]["settings"]["preferences"]["location"]["language"];
+  dict: Dict["private"]["settings"]["preferences"]["location"]["language"] & {
+    _success: string;
+  };
   defaultValue: string;
 };
 
-export default function LanguageSelect({ defaultValue, dict }: Props) {
+export default function LanguageSelect({ dict, defaultValue }: Props) {
   const [isPending, startTransition] = useTransition();
   const [selected, setSelected] = useState(defaultValue);
   const formRef = useRef<HTMLFormElement | null>(null);
@@ -37,7 +39,7 @@ export default function LanguageSelect({ defaultValue, dict }: Props) {
       } else {
         mutate();
         toast.custom((t) => (
-          <Toast {...t} type="success" message="Pomyślnie zmieniono dane!" />
+          <Toast {...t} type="success" message={dict._success} />
         ));
       }
     });
