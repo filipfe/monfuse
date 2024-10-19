@@ -7,19 +7,20 @@ import { Dict } from "@/const/dict";
 
 export default function Form({
   dict,
-  language,
+  settings,
   discount,
   client_secret: clientSecret,
   ...subscription
 }: Subscription & {
   dict: Dict["private"]["settings"]["subscription"]["form"];
-  language: Locale;
+  settings: Settings;
 }) {
   return (
     <div className="px-10 py-8 border bg-light rounded-md">
       <Elements
         options={{
-          locale: language,
+          // currency: settings.currency.toLowerCase(),
+          // locale: settings.language,
           appearance: {
             variables: {
               colorPrimary: "#177981",
@@ -32,7 +33,7 @@ export default function Form({
           <h4>{dict.title}</h4>
           <p className="inline-flex items-end">
             <strong className="text-2xl sm:text-3xl lg:text-4xl">
-              {new Intl.NumberFormat(language, {
+              {new Intl.NumberFormat(settings.language, {
                 style: "currency",
                 currency: subscription.plan.currency,
               }).format(subscription.plan.amount / 100)}

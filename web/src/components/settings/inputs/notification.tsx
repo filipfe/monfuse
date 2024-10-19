@@ -1,5 +1,6 @@
 "use client";
 
+import { Dict } from "@/const/dict";
 import { useSettings } from "@/lib/general/queries";
 import { updateSettings } from "@/lib/settings/queries";
 import toast from "@/utils/toast";
@@ -7,16 +8,11 @@ import { Button, Switch, Tooltip } from "@nextui-org/react";
 import Link from "next/link";
 
 type Props = {
-  title: string;
-  description: string;
+  dict: Dict["private"]["settings"]["notifications"];
   field: keyof Settings["notifications"];
 };
 
-export default function NotificationSwitch({
-  title,
-  description,
-  field,
-}: Props) {
+export default function NotificationSwitch({ dict, field }: Props) {
   const { data: settings, mutate, isLoading, error } = useSettings();
   const onValueChange = async (isSelected: boolean) => {
     try {
@@ -29,7 +25,7 @@ export default function NotificationSwitch({
     } catch (e) {
       toast({
         type: "error",
-        message: "Wystąpił błąd przy zmienianiu ustawienia",
+        message: dict._error,
       });
     }
   };
@@ -40,8 +36,8 @@ export default function NotificationSwitch({
   return (
     <div className="flex items-center justify-between gap-4">
       <div className="flex flex-col gap-2 mb-2">
-        <h3>{title}</h3>
-        <p className="text-sm text-font/60">{description}</p>
+        <h3>{dict[field].title}</h3>
+        <p className="text-sm text-font/60">{dict[field].description}</p>
       </div>
       {isDisabled ? (
         <Tooltip
@@ -49,7 +45,7 @@ export default function NotificationSwitch({
           radius="md"
           content={
             <div className="flex flex-col items-center gap-2 py-2 px-2">
-              <p className="text-sm">Twój bot nie jest aktywny!</p>
+              <p className="text-sm">{dict.telegram.tooltip.title}</p>
               <Link href="/automation">
                 <Button
                   color="primary"
@@ -58,7 +54,7 @@ export default function NotificationSwitch({
                   disableRipple
                   as="div"
                 >
-                  Aktywuj bota
+                  {dict.telegram.tooltip.button}
                 </Button>
               </Link>
             </div>

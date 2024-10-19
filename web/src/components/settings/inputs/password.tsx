@@ -22,7 +22,11 @@ export default function PasswordInput({
       </div>
       <Form
         mutation={resetPassword}
-        buttonProps={{ size: "sm", radius: "md", children: "Zmień hasło" }}
+        buttonProps={{
+          size: "sm",
+          radius: "md",
+          children: dict.form._submit.label,
+        }}
         successMessage={dict.form._toast.success}
       >
         <div className="flex flex-col gap-4">

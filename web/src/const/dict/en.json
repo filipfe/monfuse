@@ -380,6 +380,7 @@
         }
       },
       "preferences": {
+        "_success": "Data successfully updated!",
         "default-currency": {
           "title": "Default currency",
           "description": "Used by default in the application",
@@ -426,9 +427,14 @@
         }
       },
       "notifications": {
+        "_error": "An error occurred while changing the setting",
         "telegram": {
           "title": "Telegram Notifications",
-          "description": "Sent automatically by Telegram Bot"
+          "description": "Sent automatically by Telegram Bot",
+          "tooltip": {
+            "title": "Your bot is not active!",
+            "button": "Activate the bot"
+          }
         },
         "email": {
           "title": "Email Notifications",

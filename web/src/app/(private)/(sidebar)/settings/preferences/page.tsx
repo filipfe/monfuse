@@ -23,11 +23,17 @@ export default async function Preferences() {
             </p>
           </div>
           <CurrencySelect
-            dict={dict["default-currency"].select}
+            dict={{
+              ...dict["default-currency"].select,
+              _success: dict._success,
+            }}
             defaultValue={settings.currency}
           />
         </div>
-        <LocationInput dict={dict.location} languageCode={settings.language} />
+        <LocationInput
+          dict={{ ...dict.location, _success: dict._success }}
+          languageCode={settings.language}
+        />
       </div>
     </div>
   );
