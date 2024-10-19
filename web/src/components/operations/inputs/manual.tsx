@@ -3,8 +3,10 @@ import { CURRENCIES } from "@/const";
 import { Input, Textarea } from "@nextui-org/react";
 import LabelInput from "./label";
 import AmountInput from "./amount";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 import { Dict } from "@/const/dict";
+import { useSettings } from "@/lib/general/queries";
+import { toZonedTime } from "date-fns-tz";
 
 interface Props {
   dict: Dict["private"]["operations"]["operation-table"]["dropdown"]["modal"]["edit"]["form"];
@@ -14,8 +16,6 @@ interface Props {
   withLabel?: boolean;
 }
 
-const now = new Date();
-
 export default function Manual({
   dict,
   type,
@@ -23,7 +23,13 @@ export default function Manual({
   defaultCurrency,
   withLabel,
 }: Props) {
+  const { data: settings } = useSettings();
   const currency = initialValue?.currency || defaultCurrency;
+
+  const issuedAtDate = initialValue?.issued_at
+    ? parseISO(initialValue.issued_at)
+    : new Date();
+  const zonedDate = toZonedTime(issuedAtDate, settings?.timezone || "UTC");
 
   return (
     <>
@@ -57,7 +63,7 @@ export default function Manual({
           label={dict["issued-at"].label}
           placeholder="24.01.2024"
           type="date"
-          defaultValue={initialValue?.issued_at || format(now, "yyyy-MM-dd")}
+          defaultValue={format(zonedDate, "yyyy-MM-dd")}
         />
         {/* <Textarea
           className="col-span-2"
