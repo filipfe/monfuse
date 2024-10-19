@@ -130,7 +130,8 @@
                 },
                 "_submit": {
                   "label": "Save"
-                }
+                },
+                "_success": "Operation successfully modified!"
               }
             },
             "delete": {
@@ -139,7 +140,8 @@
               "button": {
                 "_close": "Cancel",
                 "_submit": "Delete"
-              }
+              },
+              "_success": "Operation successfully deleted!"
             }
           }
         },
@@ -380,6 +382,7 @@
         }
       },
       "preferences": {
+        "_success": "Data successfully updated!",
         "default-currency": {
           "title": "Default currency",
           "description": "Used by default in the application",
@@ -400,10 +403,40 @@
           }
         }
       },
+      "subscription": {
+        "_error": "Could not retrieve information about the subscription",
+        "form": {
+          "title": "Monfuse Subscription",
+          "month": "month",
+          "_submit": "Pay now"
+        },
+        "active": {
+          "title": ["Subscription active", "Trial period active"],
+          "description": "Thank you for using Monfuse",
+          "month": "month",
+          "button": "Deactivate"
+        },
+        "benefits": {
+          "title": "What do you get?",
+          "list": [
+            "Unlimited income and expenses",
+            "Periodic statistics",
+            "Telegram bot integration",
+            "Goal management",
+            "Recurring payments"
+          ],
+          "button": "Learn more"
+        }
+      },
       "notifications": {
+        "_error": "An error occurred while changing the setting",
         "telegram": {
           "title": "Telegram Notifications",
-          "description": "Sent automatically by Telegram Bot"
+          "description": "Sent automatically by Telegram Bot",
+          "tooltip": {
+            "title": "Your bot is not active!",
+            "button": "Activate the bot"
+          }
         },
         "email": {
           "title": "Email Notifications",

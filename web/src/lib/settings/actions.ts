@@ -27,7 +27,7 @@ export async function getAccount(): Promise<
 }
 
 export async function activateService(
-  formData: FormData,
+  formData: FormData
 ): Promise<SupabaseResponse<any>> {
   const service = formData.get("service")!.toString();
   const isActive = formData.get("is-active")!.toString();

@@ -69,15 +69,7 @@ export default function DeleteModal({ dict, deleted, type, onClose }: Props) {
                       );
                       onClose();
                       toast.custom((t) => (
-                        <Toast
-                          {...t}
-                          type="success"
-                          message={`Pomyślnie usunięto ${
-                            deleted.length === 1
-                              ? `operację ${deleted[0].title}`
-                              : "operacje"
-                          }!`}
-                        />
+                        <Toast {...t} type="success" message={dict._success} />
                       ));
                     }
                   })

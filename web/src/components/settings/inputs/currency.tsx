@@ -9,11 +9,13 @@ import { useEffect, useRef, useState, useTransition } from "react";
 import toast from "react-hot-toast";
 
 type Props = {
-  dict: Dict["private"]["settings"]["preferences"]["default-currency"]["select"];
+  dict: Dict["private"]["settings"]["preferences"]["default-currency"]["select"] & {
+    _success: string;
+  };
   defaultValue: string;
 };
 
-export default function CurrencySelect({ defaultValue, dict }: Props) {
+export default function CurrencySelect({ dict, defaultValue }: Props) {
   const [isPending, startTransition] = useTransition();
   const [selected, setSelected] = useState(defaultValue);
   const formRef = useRef<HTMLFormElement | null>(null);
@@ -30,7 +32,7 @@ export default function CurrencySelect({ defaultValue, dict }: Props) {
         toast.custom((t) => <Toast {...t} message={res.error} type="error" />);
       } else {
         toast.custom((t) => (
-          <Toast {...t} type="success" message="Pomyślnie zmieniono dane!" />
+          <Toast {...t} type="success" message={dict._success} />
         ));
       }
     });

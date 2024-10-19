@@ -1,6 +1,10 @@
+import en from "./en.ts";
+import es from "./es.ts";
 import pl from "./pl.ts";
 
 const locales = {
+  en,
+  es,
   pl,
 };
 

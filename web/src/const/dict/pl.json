@@ -17,7 +17,10 @@
       "settings/notifications": "Powiadomienia",
       "_logout": "Wyloguj"
     },
-    "general": { "incomes": "Przychody", "expenses": "Wydatki" },
+    "general": {
+      "incomes": "Przychody",
+      "expenses": "Wydatki"
+    },
     "dashboard": {
       "latest-operations": {
         "title": "Ostatnie operacje",
@@ -126,7 +129,8 @@
                 },
                 "_submit": {
                   "label": "Zapisz"
-                }
+                },
+                "_success": "Pomyślnie zmodyfikowano operację!"
               }
             },
             "delete": {
@@ -135,7 +139,8 @@
               "button": {
                 "_close": "Anuluj",
                 "_submit": "Usuń"
-              }
+              },
+              "_success": "Pomyślnie usunięto operację!"
             }
           }
         },
@@ -376,6 +381,7 @@
         }
       },
       "preferences": {
+        "_success": "Pomyślnie zmieniono dane!",
         "default-currency": {
           "title": "Domyślna waluta",
           "description": "Używana domyślnie w aplikacji",
@@ -396,11 +402,40 @@
           }
         }
       },
-      "subscription": {},
+      "subscription": {
+        "_error": "Nie udało się pobrać informacji o subskrypcji",
+        "form": {
+          "title": "Subskrypcja Monfuse",
+          "month": "miesiąc",
+          "_submit": "Zapłać teraz"
+        },
+        "active": {
+          "title": ["Subskrypcja aktywna", "Okres próbny aktywny"],
+          "description": "Dziękujemy za korzystanie z Monfuse",
+          "month": "miesiąc",
+          "button": "Dezaktywuj"
+        },
+        "benefits": {
+          "title": "Co zyskujesz?",
+          "list": [
+            "Nielimitowane przychody i wydatki",
+            "Statystyki okresowe",
+            "Integracja bota Telegram",
+            "Zarządzanie celami",
+            "Płatności cykliczne"
+          ],
+          "button": "Dowiedz się więcej"
+        }
+      },
       "notifications": {
+        "_error": "Wystąpił błąd przy zmienianiu ustawienia",
         "telegram": {
           "title": "Powiadomienia Telegram",
-          "description": "Wysyłane automatycznie przez Telegram Bota"
+          "description": "Wysyłane automatycznie przez Telegram Bota",
+          "tooltip": {
+            "title": "Twój bot nie jest aktywny!",
+            "button": "Aktywuj bota"
+          }
         },
         "email": {
           "title": "Powiadomienia Email",

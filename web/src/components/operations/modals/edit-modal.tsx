@@ -59,8 +59,11 @@ export default function EditModal({
           mutation={onEdit ? undefined : updateOperation}
           onSubmit={onEdit ? onSubmit : undefined}
           onClose={onClose}
-          successMessage={`Pomyślnie zmodyfikowano operację ${edited?.title}!`}
+          successMessage={dict.form._success}
           callback={onClose}
+          buttonProps={{
+            children: dict.form._submit.label,
+          }}
         >
           <ModalBody className="relative flex items-center justify-center min-h-48 py-0 [&:has(+button)]:z-40 my-3">
             {edited && (

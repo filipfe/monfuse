@@ -1,8 +1,15 @@
+import { Dict } from "@/const/dict";
 import { getSettings } from "@/lib/general/actions";
 import { Button } from "@nextui-org/react";
 import { Check } from "lucide-react";
 
-export default async function Active({ status, plan }: Subscription) {
+export default async function Active({
+  dict,
+  status,
+  plan,
+}: Subscription & {
+  dict: Dict["private"]["settings"]["subscription"]["active"];
+}) {
   const settings = await getSettings();
 
   return (
@@ -12,9 +19,9 @@ export default async function Active({ status, plan }: Subscription) {
           <Check size={32} color="white" />
         </div>
         <h3 className="sm:text-lg lg:text-xl">
-          {status === "active" ? "Subskrypcja aktywna" : "Okres próbny aktywny"}
+          {dict.title[status === "active" ? 0 : 1]}
         </h3>
-        <p className="text-sm">Dziękujemy za korzystanie z Monfuse</p>
+        <p className="text-sm">{dict.description}</p>
       </div>
       <p className="inline-flex items-end">
         <strong className="text-2xl sm:text-3xl lg:text-4xl">
@@ -23,10 +30,10 @@ export default async function Active({ status, plan }: Subscription) {
             currency: plan.currency,
           }).format(plan.amount / 100)}
         </strong>
-        <sub className="text-sm mb-1 ml-2 opacity-80">/ miesiąc</sub>
+        <sub className="text-sm mb-1 ml-2 opacity-80">/ {dict.month}</sub>
       </p>
       <Button className="border bg-white" disableRipple>
-        Dezaktywuj
+        {dict.button}
       </Button>
     </div>
   );

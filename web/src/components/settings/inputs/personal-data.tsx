@@ -12,9 +12,9 @@ interface Props extends Pick<Account, "first_name" | "last_name"> {
 }
 
 export default function PersonalDataInput({
+  dict,
   first_name,
   last_name,
-  dict,
 }: Props) {
   const [firstName, setFirstName] = useState(first_name);
   const [lastName, setLastName] = useState(last_name);
@@ -35,7 +35,13 @@ export default function PersonalDataInput({
   };
 
   return (
-    <Form buttonProps={{ size: "sm", radius: "md", children: "Zapisz" }}>
+    <Form
+      buttonProps={{
+        size: "sm",
+        radius: "md",
+        children: dict.form._submit.label,
+      }}
+    >
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-2 mb-2">
           <h3>{dict.title}</h3>
