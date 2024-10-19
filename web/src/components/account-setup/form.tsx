@@ -58,7 +58,7 @@ export default function AccountSetupForm({
     });
 
   useEffect(() => {
-    setSubmitAvailable(step > 1);
+    setSubmitAvailable(step > 2);
   }, [step]);
 
   return (
@@ -216,9 +216,9 @@ export default function AccountSetupForm({
               className="font-medium disabled:opacity-60"
               disableRipple
               type={submitAvailable ? "submit" : "button"}
-              onPress={() => step < 2 && setStep((prev) => prev + 1)}
+              onPress={() => step < 3 && setStep((prev) => prev + 1)}
             >
-              {step < 2 ? "Dalej" : "Rozpocznij"}
+              {step < 3 ? "Dalej" : "Rozpocznij"}
             </Button>
           </div>
         </div>
