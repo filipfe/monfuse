@@ -130,7 +130,8 @@
                 },
                 "_submit": {
                   "label": "Save"
-                }
+                },
+                "_success": "Operation successfully modified!"
               }
             },
             "delete": {
@@ -139,7 +140,8 @@
               "button": {
                 "_close": "Cancel",
                 "_submit": "Delete"
-              }
+              },
+              "_success": "Operation successfully deleted!"
             }
           }
         },
