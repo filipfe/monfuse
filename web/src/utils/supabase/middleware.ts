@@ -1,11 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { type NextRequest, NextResponse } from "next/server";
-import { match } from "@formatjs/intl-localematcher";
 import { createClient } from "@supabase/supabase-js";
-import Negotiator from "negotiator";
-
-const locales = ["en", "pl"];
-const defaultLocale = "en";
+import getLocale from "../get-locale";
 
 const LOCALE_ROUTES = [
   "/sign-in",
@@ -18,14 +14,6 @@ const PUBLIC_ROUTES = [...LOCALE_ROUTES, "/auth/confirm"];
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
-
-function getLocale(req: NextRequest) {
-  const headers: Record<string, string> = {};
-  req.headers.forEach((value, key) => (headers[key] = value));
-  const languages = new Negotiator({ headers }).languages();
-  const locale = match(languages, locales, defaultLocale);
-  return locale;
-}
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
