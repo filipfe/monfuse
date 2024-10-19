@@ -400,6 +400,31 @@
           }
         }
       },
+      "subscription": {
+        "_error": "Could not retrieve information about the subscription",
+        "form": {
+          "title": "Monfuse Subscription",
+          "month": "month",
+          "_submit": "Pay now"
+        },
+        "active": {
+          "title": ["Subscription active", "Trial period active"],
+          "description": "Thank you for using Monfuse",
+          "month": "month",
+          "button": "Deactivate"
+        },
+        "benefits": {
+          "title": "What do you get?",
+          "list": [
+            "Unlimited income and expenses",
+            "Periodic statistics",
+            "Telegram bot integration",
+            "Goal management",
+            "Recurring payments"
+          ],
+          "button": "Learn more"
+        }
+      },
       "notifications": {
         "telegram": {
           "title": "Telegram Notifications",

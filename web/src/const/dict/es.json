@@ -395,6 +395,31 @@
           }
         }
       },
+      "subscription": {
+        "_error": "No se pudo obtener información sobre la suscripción",
+        "form": {
+          "title": "Suscripción Monfuse",
+          "month": "mes",
+          "_submit": "Pagar ahora"
+        },
+        "active": {
+          "title": ["Suscripción activa", "Período de prueba activo"],
+          "description": "Gracias por usar Monfuse",
+          "month": "mes",
+          "button": "Desactivar"
+        },
+        "benefits": {
+          "title": "¿Qué obtienes?",
+          "list": [
+            "Ingresos y gastos ilimitados",
+            "Estadísticas periódicas",
+            "Integración con el bot de Telegram",
+            "Gestión de objetivos",
+            "Pagos recurrentes"
+          ],
+          "button": "Saber más"
+        }
+      },
       "notifications": {
         "telegram": {
           "title": "Notificaciones de Telegram",
