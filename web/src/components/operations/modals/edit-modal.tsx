@@ -56,7 +56,8 @@ export default function EditModal({
       <ModalContent>
         <ModalHeader className="font-normal">
           <span>
-            {dict.title} <span className="font-bold">{edited.title}</span>
+            {dict.title[type as "income" | "expense"]}{" "}
+            <span className="font-bold">{edited.title}</span>
           </span>
         </ModalHeader>
         <Form

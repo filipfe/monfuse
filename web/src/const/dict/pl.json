@@ -103,7 +103,10 @@
           },
           "modal": {
             "edit": {
-              "title": "Edytuj wydatek",
+              "title": {
+                "income": "Edytuj przychód",
+                "expense": "Edytuj wydatek"
+              },
               "form": {
                 "title": {
                   "label": "Tytuł",
@@ -168,6 +171,10 @@
               "title": "Podgląd"
             }
           }
+        },
+        "form": {
+          "_submit": "Zapisz",
+          "_success": "Pomyślnie dodano operację!"
         }
       },
       "expenses": {
