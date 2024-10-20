@@ -13,6 +13,8 @@ import { updateOperation } from "@/lib/operations/actions";
 import formDataToOperation from "@/utils/operations/form-data-to-operation";
 import Form from "@/components/ui/form";
 import { Dict } from "@/const/dict";
+import { useSettings } from "@/lib/general/queries";
+import dateFormat from "@/utils/formatters/dateFormat";
 
 interface Props extends ReturnType<typeof useDisclosure> {
   dict: Dict["private"]["operations"]["operation-table"]["dropdown"]["modal"]["edit"];
@@ -32,11 +34,15 @@ export default function EditModal({
   onClose,
   onOpenChange,
 }: Props) {
+  const { data: settings } = useSettings();
+
+  if (!edited) return;
+
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!onEdit) return;
     const formData = new FormData(e.target as HTMLFormElement);
-    onEdit(formDataToOperation(formData, edited?.id) as Operation);
+    onEdit(formDataToOperation(formData, edited.id) as Operation);
     onClose();
   };
 
@@ -50,13 +56,26 @@ export default function EditModal({
       <ModalContent>
         <ModalHeader className="font-normal">
           <span>
-            {dict.title} <span className="font-bold">{edited?.title}</span>
+            {dict.title} <span className="font-bold">{edited.title}</span>
           </span>
         </ModalHeader>
         <Form
           id="edit-modal"
           buttonWrapperClassName="pb-6 px-6"
-          mutation={onEdit ? undefined : updateOperation}
+          mutation={
+            onEdit
+              ? undefined
+              : (data) =>
+                  updateOperation(
+                    data,
+                    settings?.timezone || "UTC",
+                    dateFormat(
+                      edited.issued_at,
+                      settings?.timezone || "UTC",
+                      "yyyy-MM-dd"
+                    )
+                  )
+          }
           onSubmit={onEdit ? onSubmit : undefined}
           onClose={onClose}
           successMessage={dict.form._success}
@@ -69,6 +88,7 @@ export default function EditModal({
             {edited && (
               <Manual
                 dict={dict.form}
+                timezone={settings?.timezone}
                 withLabel={!onEdit}
                 initialValue={edited}
                 type={type}
