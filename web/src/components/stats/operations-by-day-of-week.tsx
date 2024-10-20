@@ -39,6 +39,16 @@ export default function OperationsByDayOfWeek({
     weekday: "short",
   });
 
+  const maxIncomes = results
+    ? Math.max(...results.map((item) => item.total_incomes), 0)
+    : 0;
+  const maxExpenses = results
+    ? Math.max(...results.map((item) => item.total_expenses), 0)
+    : 0;
+
+  const incomesDomain = maxIncomes === 0 ? [-1, 3] : [-1, "auto"];
+  const expensesDomain = maxExpenses === 0 ? [-1, 3] : [-1, "auto"];
+
   return (
     <Block className="col-span-2" title={dict.title}>
       <div className="flex max-h-[361px] h-[361px] w-full justify-between">
@@ -54,7 +64,7 @@ export default function OperationsByDayOfWeek({
             />
             <PolarRadiusAxis
               angle={65}
-              domain={[-1, "auto"]}
+              domain={[-1, maxIncomes > 0 ? "auto" : 3]}
               tick={false}
               axisLine={false}
             />
@@ -82,7 +92,7 @@ export default function OperationsByDayOfWeek({
             />
             <PolarRadiusAxis
               angle={65}
-              domain={[-1, "auto"]}
+              domain={[-1, maxExpenses > 0 ? "auto" : 3]}
               tick={false}
               axisLine={false}
             />

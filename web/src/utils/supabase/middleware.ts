@@ -131,14 +131,12 @@ export async function updateSession(request: NextRequest) {
   }
 
   // User accesses public path with locale
-  console.log(LOCALE_ROUTES.includes(request.nextUrl.pathname));
   if (LOCALE_ROUTES.includes(request.nextUrl.pathname)) {
     const url = request.nextUrl.clone();
     const locale = getLocale(request);
     url.pathname = `/${locale}${url.pathname}`;
     return NextResponse.redirect(url);
   }
-  console.log("FINAL");
 
   return supabaseResponse;
 }
