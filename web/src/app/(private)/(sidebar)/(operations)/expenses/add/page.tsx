@@ -13,11 +13,7 @@ export default async function Page() {
 
   return (
     <div className="sm:px-10 py-4 sm:py-8 h-full flex items-center justify-center">
-      <AddForm
-        dict={{ table, add: dict }}
-        type="expense"
-        defaultCurrency={settings.currency}
-      />
+      <AddForm dict={{ table, add: dict }} type="expense" settings={settings} />
     </div>
   );
 }
