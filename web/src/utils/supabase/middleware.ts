@@ -3,11 +3,7 @@ import { type NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import getLocale from "../get-locale";
 
-const LOCALE_ROUTES = [
-  "/sign-in",
-  "/sign-up",
-  "/forgot-password",
-];
+const LOCALE_ROUTES = ["/sign-in", "/sign-up", "/forgot-password"];
 
 const PUBLIC_ROUTES = [...LOCALE_ROUTES, "/auth/confirm"];
 
@@ -20,38 +16,35 @@ export async function updateSession(request: NextRequest) {
     request,
   });
 
-  const supabase = createServerClient(
-    SUPABASE_URL!,
-    SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll() {
-          return request.cookies.getAll();
-        },
-        setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options }) =>
-            request.cookies.set(name, value)
-          );
-          supabaseResponse = NextResponse.next({
-            request,
-          });
-          cookiesToSet.forEach(({ name, value, options }) =>
-            supabaseResponse.cookies.set(name, value, options)
-          );
-        },
+  const supabase = createServerClient(SUPABASE_URL!, SUPABASE_ANON_KEY!, {
+    cookies: {
+      getAll() {
+        return request.cookies.getAll();
+      },
+      setAll(cookiesToSet) {
+        cookiesToSet.forEach(({ name, value, options }) =>
+          request.cookies.set(name, value)
+        );
+        supabaseResponse = NextResponse.next({
+          request,
+        });
+        cookiesToSet.forEach(({ name, value, options }) =>
+          supabaseResponse.cookies.set(name, value, options)
+        );
       },
     },
-  );
+  });
 
   // IMPORTANT: Avoid writing any logic between createServerClient and
   // supabase.auth.getUser(). A simple mistake could make it very hard to debug
   // issues with users being randomly logged out.
 
-  const {
-    data: user,
-  } = await supabase.from("profiles").select(
-    "id, first_name, last_name, ...settings(currency, timezone, language)",
-  ).single();
+  const { data: user } = await supabase
+    .from("profiles")
+    .select(
+      "id, first_name, last_name, ...settings(currency, timezone, language)"
+    )
+    .single();
 
   // User tried accessing private path without being authenticated
 
@@ -59,7 +52,7 @@ export async function updateSession(request: NextRequest) {
     !user &&
     !PUBLIC_ROUTES.includes(request.nextUrl.pathname) &&
     !PUBLIC_ROUTES.includes(
-      "/" + request.nextUrl.pathname.split("/").slice(2).join("/"),
+      "/" + request.nextUrl.pathname.split("/").slice(2).join("/")
     )
   ) {
     const url = request.nextUrl.clone();
@@ -67,7 +60,7 @@ export async function updateSession(request: NextRequest) {
     url.pathname = `/${locale}/sign-in`;
     return NextResponse.redirect(url);
   }
-  console.log({ user });
+
   if (user) {
     // User tried accessing public path being authenticated
     if (PUBLIC_ROUTES.includes(request.nextUrl.pathname)) {
@@ -76,8 +69,11 @@ export async function updateSession(request: NextRequest) {
       return NextResponse.redirect(url);
     }
 
-    const isAccountSetup = !!user.first_name && !!user.last_name &&
-      !!user.currency && !!user.language &&
+    const isAccountSetup =
+      !!user.first_name &&
+      !!user.last_name &&
+      !!user.currency &&
+      !!user.language &&
       !!user.timezone;
 
     if (request.nextUrl.pathname === "/account-setup" && !isAccountSetup) {
@@ -106,12 +102,11 @@ export async function updateSession(request: NextRequest) {
           autoRefreshToken: false,
           detectSessionInUrl: false,
         },
-      },
+      }
     );
 
-    const { data: subscription, error } = await supabaseServiceRole.schema(
-      "stripe",
-    )
+    const { data: subscription, error } = await supabaseServiceRole
+      .schema("stripe")
       .from("subscriptions")
       .select("attrs")
       .eq("customer", user.id)
@@ -123,7 +118,8 @@ export async function updateSession(request: NextRequest) {
       return NextResponse.redirect(url);
     }
 
-    const isActive = subscription &&
+    const isActive =
+      subscription &&
       (subscription.attrs.status === "active" ||
         subscription.attrs.status === "trialing");
 
