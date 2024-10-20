@@ -104,7 +104,10 @@
           },
           "modal": {
             "edit": {
-              "title": "Edit expense",
+              "title": {
+                "income": "Edit income",
+                "expense": "Edit expense"
+              },
               "form": {
                 "title": {
                   "label": "Title",
@@ -169,6 +172,10 @@
               "title": "Preview"
             }
           }
+        },
+        "form": {
+          "_submit": "Save",
+          "_success": "Operation successfully added!"
         }
       },
       "expenses": {

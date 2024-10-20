@@ -104,7 +104,10 @@
           },
           "modal": {
             "edit": {
-              "title": "Editar gasto",
+              "title": {
+                "income": "Editar ingreso",
+                "expense": "Editar gasto"
+              },
               "form": {
                 "title": {
                   "label": "Título",
@@ -169,6 +172,10 @@
               "title": "Vista previa"
             }
           }
+        },
+        "form": {
+          "_submit": "Guardar",
+          "_success": "¡Operación añadida con éxito!"
         }
       },
       "expenses": {

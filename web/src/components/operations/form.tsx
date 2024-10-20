@@ -37,7 +37,7 @@ export default function AddForm({
     >
       <Form
         mutation={(data) => addOperations(data, settings.timezone)}
-        successMessage="Pomyślnie dodano operacje!"
+        successMessage={dict.add.form._success}
       >
         <div className="flex flex-col justify-end h-full mt-6">
           {type === "expense" && (
@@ -72,8 +72,8 @@ export default function AddForm({
           <Form
             mutation={(data) => addOperations(data, settings.timezone)}
             id="add-form"
-            buttonProps={{ form: "add-form", children: "Zapisz" }}
-            successMessage="Pomyślnie dodano operację!"
+            buttonProps={{ form: "add-form", children: dict.add.form._submit }}
+            successMessage={dict.add.form._success}
           >
             <Manual
               dict={dict.table.dropdown.modal.edit.form}
