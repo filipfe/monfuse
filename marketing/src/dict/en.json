@@ -2,6 +2,7 @@
   "landing": {
     "hero": {
       "title": "Manage all your finances with ease",
+      "description": "Effortlessly track income and expenses, set goals, and gain insights with our finance web app. Start your journey to financial freedom today!",
       "cta": {
         "primary": "Start now",
         "secondary": "Learn more"
@@ -22,6 +23,56 @@
         "title": "Recurring Payments",
         "description": "Manage your recurring payments to have full control over subscriptions, regular payments, and avoid unexpected charges."
       }
+    },
+    "services": {
+      "category": "Services",
+      "title": "Empower Your Finances",
+      "operations": {
+        "title": "Track Operations",
+        "description": "Easily monitor your income, expenses, and recurring payments. Categorize transactions and set spending limits."
+      },
+      "goals": {
+        "title": "Achieve Your Goals",
+        "description": "Set and track financial goals effortlessly. Whether saving or paying off debt, ensure your financial ambitions stay within reach."
+      },
+      "navigation": {
+        "title": "Navigate Seamlessly",
+        "description": "Quickly switch between pages with our streamlined navigation. Access all data easily and manage your finances without hassle."
+      },
+      "stats": {
+        "title": "Explore Period Stats",
+        "description": "View monthly financial insights at a glance. Track spending patterns, income trends, and progress toward your goals with clear visual reports."
+      }
+    },
+    "faq": {
+      "category": "FAQ",
+      "title": "Frequently asked questions",
+      "items": [
+        {
+          "question": "What is the purpose of this finance web app?",
+          "answer": "Our app helps you track expenses, manage financial goals, set spending limits, and receive personalized insights—all in one place. It simplifies your budgeting and makes it easy to stay on top of your finances."
+        },
+        {
+          "question": "How can I track my income and expenses?",
+          "answer": "You can easily track all your income and expenses by adding transactions manually or through the Telegram Bot. You can categorize expenses by labels and provides a clear overview of your spending patterns."
+        },
+        {
+          "question": "How do I set financial goals in the app?",
+          "answer": "Simply create a new goal, define the amount you want to save or spend, and set target dates. The app tracks your progress and helps you stay motivated by monitoring payments toward your goal."
+        },
+        {
+          "question": "Can I receive notifications for spending limits and recurring payments?",
+          "answer": "Yes! You’ll get real-time notifications if you exceed spending limits or if recurring payments are added. You can also opt to receive weekly summaries of your financial activity via email or Telegram."
+        },
+        {
+          "question": "What kind of financial statistics can I view?",
+          "answer": "The app provides detailed monthly stats, including spending patterns, income trends, and progress toward financial goals. Visual reports make it easy to understand your financial health."
+        },
+        {
+          "question": "How can I get financial insights through the AI assistant?",
+          "answer": "Our AI assistant can answer questions about your transactions, spending habits, goals, and more. Simply type your query, and the assistant will provide personalized financial insights based on your data."
+        }
+      ]
     }
   },
   "banner": {

@@ -9,7 +9,7 @@ export default function Banner({ dict: { title } }: { dict: Dict["banner"] }) {
     <section className="py-24 sm:px-6">
       <div className="max-w-7xl mx-auto sm:rounded-xl bg-primary-dark py-32 sm:py-16 relative overflow-hidden px-6 sm:px-0">
         <div className="flex flex-col items-center gap-6 relative z-20">
-          <h2 className="text-white text-3xl lg:text-4xl lg:leading-tight leading-tight font-black max-w-md lg:max-w-xl text-center">
+          <h2 className="text-white text-3xl lg:text-4xl lg:leading-tight leading-tight font-black max-w-md lg:max-w-xl text-center [text-shadow:_4px_4px_0_rgb(11_60_64)]">
             {title}
           </h2>
           <div className="bg-primary/20 rounded-md p-1 flex items-center">
