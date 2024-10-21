@@ -49,11 +49,11 @@ const sendNotification = async (user: Profile, { message, options }: Body) => {
       body: { user, date: new Date().toISOString() },
     });
     if (!user.telegram_id || !telegram_notifications) return;
-    await bot.api.sendPhoto(user.telegram_id, graph, {
-      caption: message ||
-        `Cześć ${user.first_name}!
-📊 Oto twój wykres wydatków z poprzedniego tygodnia na podstawie etykiet. Tak trzymaj!`,
-    });
+    // await bot.api.sendPhoto(user.telegram_id, graph, {
+    //   caption: message ||
+    //     `Cześć ${user.first_name}!
+    // 📊 Oto twój wykres wydatków z poprzedniego tygodnia na podstawie etykiet. Tak trzymaj!`,
+    // });
   } else {
     if (!user.telegram_id || !telegram_notifications || !message) return;
     await bot.api.sendMessage(user.telegram_id, message);
@@ -84,7 +84,7 @@ Deno.serve(async (req) => {
   await Promise.all(
     (body.options?.graph
       ? users.filter(({ settings: { timezone } }) =>
-        toZonedTime(new Date(), timezone).getHours() === 8
+        toZonedTime(new Date(), timezone).getHours() === 16
       )
       : users).map((user) => sendNotification(user, body)),
   );
