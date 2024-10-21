@@ -11,7 +11,7 @@ export default function AIAssistant() {
               Just 3 steps to get started
             </h3>
           </div>
-          <div className="mx-auto my-12 h-full grid lg:grid-cols-2 gap-10 items-center">
+          <div className="mx-auto my-6 sm:my-12 h-full grid lg:grid-cols-2 gap-10 items-center">
             <div className=" hidden lg:flex order-1 lg:order-[0] justify-start">
               <div className="" data-orientation="vertical">
                 <div
@@ -228,12 +228,12 @@ export default function AIAssistant() {
             </div>
             <div className="h-[350px] min-h-[200px] w-auto  false">
               <img
-                src="/dashboard.png"
+                src="/app/ai-assistant/response.png"
                 alt="feature"
                 className="aspect-auto h-full w-full rounded-xl border border-neutral-300/50 object-cover object-left-top p-1 shadow-lg"
               />
             </div>
-            <ul className="px-6 flex h-full snap-x flex-nowrap overflow-x-auto py-10 [-ms-overflow-style:none] [-webkit-mask-image:linear-gradient(90deg,transparent,black_20%,white_80%,transparent)] [mask-image:linear-gradient(90deg,transparent,black_20%,white_80%,transparent)] [scrollbar-width:none] lg:hidden [&amp;::-webkit-scrollbar]:hidden snap-mandatory">
+            <ul className="px-6 flex h-full snap-x flex-nowrap overflow-x-auto py-10 [-ms-overflow-style:none] sm:[-webkit-mask-image:linear-gradient(90deg,transparent,black_20%,white_80%,transparent)] sm:[mask-image:linear-gradient(90deg,transparent,black_20%,white_80%,transparent)] [scrollbar-width:none] lg:hidden [&amp;::-webkit-scrollbar]:hidden snap-mandatory">
               <div className="min-w-[calc(100vw-64px)] relative grid h-full max-w-60 shrink-0 items-start justify-center py-4 last:mr-0 snap-center">
                 <div className="absolute bottom-0 left-0 right-auto top-0 h-0.5 w-full overflow-hidden rounded-lg bg-neutral-300/50 dark:bg-neutral-300/30">
                   <div className="absolute left-0 top-0 h-full w-full origin-top bg-primary transition-all ease-linear"></div>
