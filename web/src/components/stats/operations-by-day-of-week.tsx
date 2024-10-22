@@ -46,9 +46,6 @@ export default function OperationsByDayOfWeek({
     ? Math.max(...results.map((item) => item.total_expenses), 0)
     : 0;
 
-  const incomesDomain = maxIncomes === 0 ? [-1, 3] : [-1, "auto"];
-  const expensesDomain = maxExpenses === 0 ? [-1, 3] : [-1, "auto"];
-
   return (
     <Block className="col-span-2" title={dict.title}>
       <div className="flex max-h-[361px] h-[361px] w-full justify-between">

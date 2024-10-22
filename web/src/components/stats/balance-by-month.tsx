@@ -27,13 +27,13 @@ import NumberFormat from "@/utils/formatters/currency";
 import { Dict } from "@/const/dict";
 
 const CustomTooltip = ({
-  recordLabels,
+  dict,
   active,
   payload,
   labelFormatter,
   currency,
 }: TooltipProps<ValueType, NameType> & {
-  recordLabels: {
+  dict: {
     incomes: Dict["private"]["general"]["incomes"];
     expenses: Dict["private"]["general"]["expenses"];
   };
@@ -67,8 +67,8 @@ const CustomTooltip = ({
               )}
               <span className="text-sm">
                 {record.dataKey === "total_expenses"
-                  ? recordLabels.expenses
-                  : recordLabels.incomes}
+                  ? dict.expenses
+                  : dict.incomes}
               </span>
             </div>
             <strong className="font-medium text-sm">
@@ -173,7 +173,7 @@ export default function BalanceByMonth({
                 content={(props) => (
                   <CustomTooltip
                     {...props}
-                    recordLabels={dict.general}
+                    dict={{ ...dict.general }}
                     labelFormatter={(label) =>
                       new Intl.DateTimeFormat(settings.language, {
                         dateStyle: "full",
