@@ -1,79 +1,108 @@
 import Link from "next/link";
 import Wrapper from "./wrapper";
+import { Dict } from "@/dict";
 import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuIndicator,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
-  NavigationMenuViewport,
-} from "@/components/ui/navigation-menu";
-import { cn } from "@/utils/cn";
-import { forwardRef } from "react";
+  CheckCircle,
+  ChevronRight,
+  Coins,
+  Repeat,
+  Wallet2,
+} from "lucide-react";
+import DropdownLink from "./dropdown";
 
-const components: { title: string; href: string; description: string }[] = [
-  {
-    title: "Alert Dialog",
-    href: "/docs/primitives/alert-dialog",
-    description:
-      "A modal dialog that interrupts the user with important content and expects a response.",
-  },
-  {
-    title: "Hover Card",
-    href: "/docs/primitives/hover-card",
-    description:
-      "For sighted users to preview content available behind a link.",
-  },
-  {
-    title: "Progress",
-    href: "/docs/primitives/progress",
-    description:
-      "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
-  },
-  {
-    title: "Scroll-area",
-    href: "/docs/primitives/scroll-area",
-    description: "Visually or semantically separates content.",
-  },
-  {
-    title: "Tabs",
-    href: "/docs/primitives/tabs",
-    description:
-      "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
-  },
-  {
-    title: "Tooltip",
-    href: "/docs/primitives/tooltip",
-    description:
-      "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
-  },
-];
-
-export default function Header() {
+export default function Header({ dict }: { dict: Dict }) {
   return (
-    <header>
+    <header className="relative z-50">
       <Wrapper>
         <Link href="/" className="ml-3 text-sm">
           Logo
         </Link>
-        <nav className="flex items-center gap-12 h-full">
-          <Link className="text-sm font-medium text-foreground" href="/">
-            Usługi
-          </Link>
-          <Link className="text-sm font-medium text-foreground" href="/blog">
-            Blog
-          </Link>
-          <Link className="text-sm font-medium text-foreground" href="/contact">
-            Kontakt
-          </Link>
+        <nav aria-labelledby="mainmenulabel">
+          <h2 id="mainmenulabel" className="sr-only">
+            Main Menu
+          </h2>
+          <ul>
+            <DropdownLink title={dict.services.title}>
+              <ul className="bg-white rounded-md border p-3 grid grid-cols-2 gap-1.5">
+                <li>
+                  <Link
+                    className="text-sm !text-foreground rounded-md"
+                    href="/services/incomes"
+                  >
+                    <div className="grid grid-cols-[14px_1fr] items-center gap-2 py-3 px-4 rounded-md border border-transparent hover:border-border hover:bg-neutral-100">
+                      <Wallet2 size={14} />
+                      <h3>{dict.services.items.incomes.title}</h3>
+                      <p className="opacity-60 max-w-xs col-span-2 line-clamp-2">
+                        {dict.services.items.incomes.description}
+                      </p>
+                    </div>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="text-sm !text-foreground rounded-md"
+                    href="/services/expenses"
+                  >
+                    <div className="grid grid-cols-[14px_1fr] items-center gap-2 py-3 px-4 rounded-md border border-transparent hover:border-border hover:bg-neutral-100">
+                      <Coins size={14} />
+                      <h3>{dict.services.items.expenses.title}</h3>
+                      <p className="opacity-60 max-w-xs col-span-2 line-clamp-2">
+                        {dict.services.items.expenses.description}
+                      </p>
+                    </div>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="text-sm !text-foreground rounded-md"
+                    href="/services/recurring-payments"
+                  >
+                    <div className="grid grid-cols-[14px_1fr] items-center gap-2 py-3 px-4 rounded-md border border-transparent hover:border-border hover:bg-neutral-100">
+                      <Repeat size={14} />
+                      <h3>{dict.services.items["recurring-payments"].title}</h3>
+                      <p className="opacity-60 max-w-xs col-span-2 line-clamp-2">
+                        {dict.services.items["recurring-payments"].description}
+                      </p>
+                    </div>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="text-sm !text-foreground rounded-md"
+                    href="/services/goals"
+                  >
+                    <div className="grid grid-cols-[14px_1fr] items-center gap-2 py-3 px-4 rounded-md border border-transparent hover:border-border hover:bg-neutral-100">
+                      <CheckCircle size={14} />
+                      <h3>{dict.services.items.goals.title}</h3>
+                      <p className="opacity-60 max-w-xs col-span-2 line-clamp-2">
+                        {dict.services.items.goals.description}
+                      </p>
+                    </div>
+                  </Link>
+                </li>
+              </ul>
+            </DropdownLink>
+            <li className="inline-block">
+              <Link className="text-sm font-medium px-6 py-3" href="/pricing">
+                {dict.pricing.title}
+              </Link>
+            </li>
+            <li className="inline-block">
+              <Link className="text-sm font-medium px-6 py-3" href="/blog">
+                Blog
+              </Link>
+            </li>
+            <li className="inline-block">
+              <Link className="text-sm font-medium px-6 py-3" href="/contact">
+                Kontakt
+              </Link>
+            </li>
+          </ul>
         </nav>
         <div className="bg-primary/20 rounded-lg p-1 flex items-center">
           <Link
             href="https://app.monfuse.com"
-            className="bg-primary py-2.5 text-sm px-5 rounded-md text-white"
+            className="bg-primary py-2.5 text-sm px-5 rounded-md !text-white"
           >
             Rozpocznij
           </Link>
@@ -83,28 +112,19 @@ export default function Header() {
   );
 }
 
-const ListItem = forwardRef<
-  React.ElementRef<"a">,
-  React.ComponentPropsWithoutRef<"a">
->(({ className, title, children, ...props }, ref) => {
-  return (
-    <li>
-      <NavigationMenuLink asChild>
-        <a
-          ref={ref}
-          className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-            className
-          )}
-          {...props}
-        >
-          <div className="text-sm font-medium leading-none">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-            {children}
-          </p>
-        </a>
-      </NavigationMenuLink>
-    </li>
-  );
-});
-ListItem.displayName = "ListItem";
+// type NavLinkProps = { href: string; title: string; items?: NavLinkProps[] };
+
+// const NavLink = ({ href, title, items }: NavLinkProps) => (
+//   <li className="inline-block">
+//     <Link className="text-sm font-medium text-white px-6 py-3" href={href}>
+//       {title}
+//     </Link>
+//     {items && (
+//       <div className="bg-white rounded-md border p-6 group-hover:opacity-100 opacity-0 group-hover:pointer-events-auto pointer-events-none absolute top-full left-1/2 -translate-x-1/2">
+//         <ul className="grid grid-cols-2">
+//           {items.map(link => <NavLink />)}
+//         </ul>
+//       </div>
+//     )}
+//   </li>
+// );
