@@ -1,4 +1,30 @@
 {
+  "_metadata": {
+    "title": "Monfuse - Twój Krok w Kierunku Wolności Finansowej",
+    "description": "Przejmij kontrolę nad swoimi finansami z Monfuse. Bez wysiłku śledź przychody, wydatki i płatności cykliczne, a także ustalaj spersonalizowane cele finansowe. Dzięki sztucznej inteligencji Monfuse dostarcza wglądów i rekomendacji, które pomogą zoptymalizować Twoje zdrowie finansowe. Podejmuj świadome decyzje i rozpocznij swoją drogę do finansowej wolności już dziś!",
+    "keywords": [
+      "aplikacja finansowa",
+      "zarządzanie finansami osobistymi",
+      "śledzenie wydatków",
+      "zarządzanie dochodami",
+      "cele finansowe",
+      "narzędzie do budżetowania",
+      "płatności cykliczne",
+      "śledzenie wydatków",
+      "informacje finansowe",
+      "zarządzanie pieniędzmi",
+      "cele oszczędnościowe",
+      "limity wydatków",
+      "statystyki finansowe",
+      "planowanie budżetu",
+      "dobrobyt finansowy",
+      "śledzenie dochodów",
+      "ustalanie celów",
+      "inteligentne wydawanie",
+      "powiadomienia finansowe",
+      "asystent finansowy AI"
+    ]
+  },
   "landing": {
     "hero": {
       "title": "Zarządzaj wszelkimi finansami z łatwością",
@@ -74,6 +100,145 @@
         }
       ]
     }
+  },
+  "services": {
+    "title": "Usługi",
+    "items": {
+      "incomes": {
+        "_metadata": {
+          "title": "Przychody, Zarządzaj Zarobkami i Ustal Cele Finansowe | Monfuse",
+          "description": "Śledź i zarządzaj swoimi przychodami bez wysiłku dzięki Monfuse. Monitoruj swoje zarobki, ustalaj cele finansowe i zyskaj wgląd w swoją kondycję finansową. Zacznij optymalizować swoje przychody już dziś, aby osiągnąć swoje cele finansowe!"
+        },
+        "title": "Przychody",
+        "description": "Z łatwością śledź wszystkie źródła dochodów i przeglądaj szczegółowe raporty, aby zrozumieć swoje wzorce zarobków.",
+        "faq": [
+          {
+            "question": "How can I add a new income source?",
+            "answer": "You can add a new income source by navigating to the 'Incomes' section, clicking the 'Add' button, and filling out the necessary details like amount, date and currency. You can also add incomes through our Telegram Bot after connecting your account."
+          },
+          {
+            "question": "Can I edit or delete an income entry?",
+            "answer": "Yes, you can edit or delete any income entry by selecting the entry from the 'Incomes' section and choosing the appropriate action."
+          },
+          {
+            "question": "Can I view reports on my income?",
+            "answer": "Yes, our app provides detailed reports and visual charts showing your income trends over time, categorized by source, amount, and date."
+          },
+          {
+            "question": "How do I track recurring income?",
+            "answer": "To track recurring income, you can set up the entry as a recurring payment, and the app will automatically track it on the specified schedule."
+          }
+        ]
+      },
+      "expenses": {
+        "_metadata": {
+          "title": "Wydatki, Śledź Wydatki i Zarządzaj Budżetami | Monfuse",
+          "description": "Bez wysiłku śledź i zarządzaj swoimi wydatkami dzięki Monfuse. Zyskaj wgląd w swoje nawyki wydatkowe, ustalaj limity budżetowe i optymalizuj swoją kondycję finansową. Zacznij kontrolować swoje wydatki już dziś, aby osiągnąć swoje cele finansowe!"
+        },
+        "title": "Wydatki",
+        "description": "Monitoruj i kategoryzuj swoje wydatki, aby nie przekraczać budżetu i efektywnie zarządzać finansami.",
+        "faq": [
+          {
+            "question": "How can I add a new expense?",
+            "answer": "To add a new expense, navigate to the 'Expenses' section, click the 'Add Expense' button, and enter the necessary details such as amount, date, and category."
+          },
+          {
+            "question": "Can I categorize my expenses?",
+            "answer": "Yes, you can categorize your expenses when adding or editing an entry. This helps you organize your spending and understand where your money goes."
+          },
+          {
+            "question": "How do I track my spending limits?",
+            "answer": "You can set spending limits for each category in the 'Expenses' section. The app will notify you if you exceed these limits."
+          },
+          {
+            "question": "Can I edit or delete an expense entry?",
+            "answer": "Absolutely! You can edit or delete any expense entry by selecting it from the 'Expenses' section and choosing the appropriate action."
+          },
+          {
+            "question": "How do I view my spending statistics?",
+            "answer": "You can view detailed spending statistics in the 'Stats' section, which shows you trends, patterns, and breakdowns of your expenses by category and time period."
+          }
+        ]
+      },
+      "recurring-payments": {
+        "_metadata": {
+          "title": "Płatności Cykliczne, Zarządzaj Subskrypcjami i Automatycznymi Rachunkami | Monfuse",
+          "description": "Bądź na bieżąco z finansami, zarządzając płatnościami cyklicznymi za pomocą Monfuse. Łatwo śledź subskrypcje, automatyzuj płatności rachunków i uzyskuj wgląd w swoje regularne wydatki. Uprość swoje budżetowanie i unikaj zaległych płatności już dziś!"
+        },
+        "title": "Płatności Cykliczne",
+        "description": "Konfiguruj i śledź płatności cykliczne, takie jak subskrypcje lub rachunki, dzięki przypomnieniom, dzięki którym będziesz na bieżąco.",
+        "faq": [
+          {
+            "question": "How do I set up a recurring payment?",
+            "answer": "To set up a recurring payment, navigate to the 'Recurring Payments' section, click the 'Add Recurring Payment' button, and fill in the necessary details, including amount, frequency, and start date."
+          },
+          {
+            "question": "Can I edit or cancel a recurring payment?",
+            "answer": "Yes, you can edit or cancel any recurring payment by selecting it from the 'Recurring Payments' list and choosing the appropriate action."
+          },
+          {
+            "question": "Will I receive notifications for recurring payments?",
+            "answer": "Yes, you will receive notifications after a recurring payment is due, so you can ensure you have sufficient funds."
+          },
+          {
+            "question": "How do I view my recurring payments?",
+            "answer": "You can view all your recurring payments in the 'Recurring Payments' section, where you can see details such as amount, frequency, and next payment date."
+          },
+          {
+            "question": "Can I categorize my recurring payments?",
+            "answer": "Yes, you can assign categories to your recurring payments to help you manage and track your expenses more effectively."
+          }
+        ]
+      },
+      "goals": {
+        "_metadata": {
+          "title": "Cele, Ustal i Osiągnij Swoje Finansowe Założenia | Monfuse",
+          "description": "Zdefiniuj i śledź swoje cele finansowe z Monfuse. Twórz spersonalizowane cele oszczędnościowe, monitoruj swoje postępy i utrzymuj motywację do osiągania swoich aspiracji finansowych. Zacznij realizować swoje marzenia już dziś, ustalając jasne cele finansowe!"
+        },
+        "title": "Cele",
+        "description": "Wyznaczaj cele finansowe, śledź swoje postępy i zarządzaj płatnościami, aby osiągnąć cele w zakresie oszczędności lub wydatków.",
+        "faq": [
+          {
+            "question": "Jak ustawić cel finansowy?",
+            "answer": "Aby ustawić cel finansowy, przejdź do sekcji 'Cele', kliknij przycisk 'Dodaj cel' i wprowadź niezbędne szczegóły, w tym kwotę celu, datę docelową i opis."
+          },
+          {
+            "question": "Czy mogę śledzić postępy w realizacji moich celów?",
+            "answer": "Tak, aplikacja pozwala śledzić postępy w realizacji każdego celu, pokazując, ile zaoszczędziłeś oraz jak blisko jesteś osiągnięcia swojego celu."
+          },
+          {
+            "question": "Jak edytować lub usunąć cel?",
+            "answer": "Możesz edytować lub usunąć cel, wybierając go w sekcji 'Cele' i wybierając odpowiednią akcję."
+          },
+          {
+            "question": "Jakie rodzaje celów mogę ustawić?",
+            "answer": "Możesz ustawić różne rodzaje celów, takie jak cele oszczędnościowe, cele spłaty długów lub cele budżetowe, w zależności od twoich celów finansowych."
+          }
+        ]
+      }
+    }
+  },
+  "pricing": {
+    "title": "Cennik",
+    "description": "Odblokuj pełen potencjał zarządzania finansami dzięki jednemu, przystępnemu planowi cenowemu Monfuse.",
+    "faq": [
+      {
+        "question": "Co jest zawarte w planie cenowym?",
+        "answer": "Nasz plan cenowy obejmuje dostęp do wszystkich funkcji Monfuse, w tym śledzenia przychodów, zarządzania wydatkami, ustalania celów oraz analiz opartych na sztucznej inteligencji."
+      },
+      {
+        "question": "Czy dostępny jest okres próbny?",
+        "answer": "Tak, możesz wypróbować Monfuse za darmo przez 7 dni, aby zapoznać się ze wszystkimi funkcjami przed podjęciem decyzji o subskrypcji."
+      },
+      {
+        "question": "Czy mogę anulować subskrypcję w dowolnym momencie?",
+        "answer": "Oczywiście! Możesz anulować subskrypcję w dowolnym momencie, a dostęp do wszystkich funkcji będzie kontynuowany do końca okresu rozliczeniowego."
+      },
+      {
+        "question": "Czy są jakieś ukryte opłaty?",
+        "answer": "Nie, nie ma żadnych ukrytych opłat. Cena, którą widzisz, to kwota, którą płacisz, i obejmuje wszystkie funkcje aplikacji."
+      }
+    ]
   },
   "banner": {
     "title": "Przejmij pełną kontrolę nad finansami osobistymi"
