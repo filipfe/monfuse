@@ -78,7 +78,7 @@ export default async function Timeline() {
   const { results } = await getTimeline();
 
   return (
-    <Block className="xl:row-start-1 xl:row-end-4 col-span-2" title="Timeline">
+    <Block className="xl:row-start-1 xl:row-end-4 col-span-5" title="Timeline">
       <div className="flex justify-between items-end h-[127px]">
         {results.map(({ date, incomes, expenses }, index) => (
           <Ref

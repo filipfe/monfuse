@@ -22,7 +22,7 @@ export default function RecurringPaymentsTable() {
   const columns = [
     {
       key: "type",
-      label: "TYPE",
+      label: "",
     },
     {
       key: "title",
@@ -71,13 +71,17 @@ export default function RecurringPaymentsTable() {
     }
   }, []);
 
-  const { isLoading, data, error } = useActivePayments(page);
+  const { isLoading, data } = useActivePayments(page);
   if (isLoading) return;
   const results = data?.results || [];
   const count = data?.count || 0;
 
   return (
-    <Block title={"Aktywne"} className="w-screen sm:w-full" hideTitleMobile>
+    <Block
+      title={"Aktywne"}
+      className="w-screen sm:w-full col-span-3"
+      hideTitleMobile
+    >
       <ScrollShadow orientation="horizontal" hideScrollBar>
         <Table
           removeWrapper
@@ -120,7 +124,7 @@ export default function RecurringPaymentsTable() {
             }}
             page={page}
             isDisabled={isLoading}
-            total={Math.ceil(count / 10)}
+            total={Math.ceil(count / 8)}
             onChange={setPage}
           />
         </div>

@@ -43,8 +43,8 @@ export async function getRecurringPayments(
   };
 }
 
-export async function getUpcomingRecurringPayments(): Promise<
-  SupabaseResponse<UpcomingRecurringPayment>
+export async function getUpcomingPayments(): Promise<
+  SupabaseResponse<UpcomingPayment>
 > {
   const supabase = createClient();
   const { data, error } = await supabase.rpc(

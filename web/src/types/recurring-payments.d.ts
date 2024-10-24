@@ -7,6 +7,8 @@ type TimelinePayment = {
 
 type RecurringPayment = TimelinePayment & {
   type: "income" | "expense";
+  interval_amount: number;
+  interval_amount: "day" | "week" | "month" | "year";
   last_payment: string;
   next_payment: string;
 };
@@ -17,11 +19,10 @@ type TimelineEntry = {
   expenses: TimelinePayment[];
 };
 
-interface UpcomingRecurringPayment extends Payment {
+type UpcomingPayment = {
   payment_date: string;
-  interval_amount: number;
-  interval_unit: string;
-}
+  payments: Array<TimelinePayment & { type: "income" | "expense" }>;
+};
 
 type Year = {
   year: number;

@@ -1,19 +1,28 @@
-import OperationRef from "@/components/operations/ref";
 import Block from "@/components/ui/block";
-import Empty from "@/components/ui/empty";
-import HorizontalScroll from "@/components/ui/horizontal-scroll";
-import { getUpcomingRecurringPayments } from "@/lib/recurring-payments/actions";
+import { getUpcomingPayments } from "@/lib/recurring-payments/actions";
+import Timer from "./timer";
+import Ref from "./ref";
 
-export default async function Upcoming({
-  languageCode,
-}: {
-  languageCode: Locale;
-}) {
-  const { results: payments } = await getUpcomingRecurringPayments();
+export default async function Upcoming() {
+  const { results } = await getUpcomingPayments();
 
   return (
-    <Block title="Nadchodzące">
-      {payments.length > 0 ? (
+    <Block title="Nadchodzące" className="col-span-2">
+      {results.map(({ payment_date, payments }) => (
+        <div key={payment_date}>
+          <Timer paymentDate={payment_date + " " + "20:00:00"} />
+          <ul>
+            {payments.map((payment) => (
+              <Ref key={payment.id} payment={payment} />
+            ))}
+          </ul>
+        </div>
+      ))}
+      <div>
+        <Timer paymentDate={"2024-10-22 20:00:00"} />
+      </div>
+      {/* // <Timer paymentDate={"2024-10-22 19:42:00"} /> */}
+      {/* {payments.length > 0 ? (
         <HorizontalScroll>
           {payments
             .filter(
@@ -36,7 +45,7 @@ export default async function Upcoming({
             href: "/recurring-payments/add",
           }}
         />
-      )}
+      )} */}
     </Block>
   );
 }

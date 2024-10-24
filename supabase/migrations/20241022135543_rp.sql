@@ -1,4 +1,4 @@
-drop trigger if exists "after_profile_update" on "public"."profiles";
+drop function if exists "public"."get_recurring_payments_active_payments"(p_page integer);
 
 alter table "public"."recurring_payments" alter column "counter" set default '0'::smallint;
 
@@ -124,35 +124,5 @@ begin
 end;
 $function$
 ;
-
-CREATE OR REPLACE FUNCTION public.handle_new_user()
- RETURNS trigger
- LANGUAGE plpgsql
- SECURITY DEFINER
- SET search_path TO 'public'
-AS $function$
-begin
-  insert into profiles (id, email, first_name, last_name)
-  values (
-    new.id,
-    new.email,
-    new.raw_user_meta_data ->> 'first_name',
-    new.raw_user_meta_data ->> 'last_name'
-  );
-  insert into settings (user_id, timezone, language, currency) 
-  values (
-    new.id,
-    new.raw_user_meta_data ->> 'timezone',
-    new.raw_user_meta_data ->> 'language',
-    (new.raw_user_meta_data ->> 'currency')::currency_type
-  );
-
-  return new;
-end;
-$function$
-;
-
-CREATE TRIGGER after_profile_update AFTER UPDATE ON public.profiles FOR EACH ROW EXECUTE FUNCTION update_stripe_customer();
-ALTER TABLE "public"."profiles" DISABLE TRIGGER "after_profile_update";
 
 
