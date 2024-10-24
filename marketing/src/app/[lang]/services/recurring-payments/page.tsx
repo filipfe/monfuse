@@ -8,16 +8,12 @@ export async function generateMetadata({
   params: { lang },
 }: PageProps): Promise<Metadata> {
   const {
-    services: {
-      items: {
-        expenses: { _metadata },
-      },
-    },
+    services: { items },
   } = await getDictionary(lang);
   return {
-    ..._metadata,
+    ...items["recurring-payments"]._metadata,
     openGraph: {
-      ..._metadata,
+      ...items["recurring-payments"]._metadata,
       url: new URL(
         `https://www.monfuse.com/${lang}/services/recurring-payments`
       ),

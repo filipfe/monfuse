@@ -10,7 +10,7 @@ export async function generateMetadata({
   const {
     services: {
       items: {
-        expenses: { _metadata },
+        incomes: { _metadata },
       },
     },
   } = await getDictionary(lang);

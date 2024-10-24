@@ -3,6 +3,9 @@ import Skeleton from "@/components/services/skeleton";
 import GoalCard from "@/components/landing/cards/goal";
 import FAQ from "@/components/landing/faq";
 import { Metadata } from "next";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import Description from "@/components/services/description";
 
 export async function generateMetadata({
   params: { lang },
@@ -10,7 +13,7 @@ export async function generateMetadata({
   const {
     services: {
       items: {
-        expenses: { _metadata },
+        goals: { _metadata },
       },
     },
   } = await getDictionary(lang);
@@ -38,6 +41,7 @@ export default async function Page({ params: { lang } }: PageProps) {
       <Skeleton dict={{ ...goals, cta }}>
         <GoalCard />
       </Skeleton>
+      <Description />
       <FAQ dict={{ title: faqTitle, items: goals.faq }} />
     </div>
   );
