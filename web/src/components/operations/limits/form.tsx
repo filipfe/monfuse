@@ -75,6 +75,9 @@ export default function LimitForm({
               buttonWrapperClassName="pb-4 px-6 mt-4"
               onClose={onClose}
               isLoading={isLoading}
+              buttonProps={{
+                children: dict.form._submit.label,
+              }}
             >
               <ModalBody>
                 <div className="grid grid-cols-[1fr_128px] gap-4">

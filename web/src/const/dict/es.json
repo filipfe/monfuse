@@ -17,7 +17,10 @@
       "settings/notifications": "Notificaciones",
       "_logout": "Cerrar sesión"
     },
-    "general": { "incomes": "Ingresos", "expenses": "Gastos" },
+    "general": {
+      "incomes": "Ingresos",
+      "expenses": "Gastos"
+    },
     "dashboard": {
       "latest-operations": {
         "title": "Últimas operaciones",
@@ -101,7 +104,10 @@
           },
           "modal": {
             "edit": {
-              "title": "Editar gasto",
+              "title": {
+                "income": "Editar ingreso",
+                "expense": "Editar gasto"
+              },
               "form": {
                 "title": {
                   "label": "Título",
@@ -127,7 +133,8 @@
                 },
                 "_submit": {
                   "label": "Guardar"
-                }
+                },
+                "_success": "¡Operación modificada con éxito!"
               }
             },
             "delete": {
@@ -136,7 +143,8 @@
               "button": {
                 "_close": "Cancelar",
                 "_submit": "Eliminar"
-              }
+              },
+              "_success": "¡Operación eliminada con éxito!"
             }
           }
         },
@@ -164,6 +172,10 @@
               "title": "Vista previa"
             }
           }
+        },
+        "form": {
+          "_submit": "Guardar",
+          "_success": "¡Operación añadida con éxito!"
         }
       },
       "expenses": {
@@ -252,12 +264,32 @@
     "ai-assistant": {
       "chat": {
         "recomendation": [
-          "Resumen mensual",
-          "Visión general semanal",
-          "Recomendaciones financieras",
-          "Ver predicciones",
-          "Calcular tasa de ahorro",
-          "Plan para completar el objetivo"
+          {
+            "title": "Resumen Mensual",
+            "category": "Análisis"
+          },
+          {
+            "title": "Revisión Semanal",
+            "category": "Análisis"
+          },
+          {
+            "title": "Recomendaciones Financieras",
+            "category": "Análisis"
+          },
+          {
+            "title": "Consultar Pronósticos",
+            "category": "Análisis"
+          },
+          {
+            "title": "Calcular Tasa de Ahorro",
+            "category": "Operaciones",
+            "requirements": ["operations"]
+          },
+          {
+            "title": "Planificar Logro de Objetivos",
+            "category": "Objetivos",
+            "requirements": ["goals"]
+          }
         ],
         "input": {
           "placeholder": "Detecta anomalías en los gastos de esta semana"
@@ -357,6 +389,7 @@
         }
       },
       "preferences": {
+        "_success": "¡Datos actualizados con éxito!",
         "default-currency": {
           "title": "Moneda predeterminada",
           "description": "Se utiliza de forma predeterminada en la aplicación",
@@ -375,10 +408,40 @@
           }
         }
       },
+      "subscription": {
+        "_error": "No se pudo obtener información sobre la suscripción",
+        "form": {
+          "title": "Suscripción Monfuse",
+          "month": "mes",
+          "_submit": "Pagar ahora"
+        },
+        "active": {
+          "title": ["Suscripción activa", "Período de prueba activo"],
+          "description": "Gracias por usar Monfuse",
+          "month": "mes",
+          "button": "Desactivar"
+        },
+        "benefits": {
+          "title": "¿Qué obtienes?",
+          "list": [
+            "Ingresos y gastos ilimitados",
+            "Estadísticas periódicas",
+            "Integración con el bot de Telegram",
+            "Gestión de objetivos",
+            "Pagos recurrentes"
+          ],
+          "button": "Saber más"
+        }
+      },
       "notifications": {
+        "_error": "Ocurrió un error al cambiar la configuración",
         "telegram": {
           "title": "Notificaciones de Telegram",
-          "description": "Enviadas automáticamente por Telegram Bot"
+          "description": "Enviadas automáticamente por Telegram Bot",
+          "tooltip": {
+            "title": "¡Tu bot no está activo!",
+            "button": "Activar el bot"
+          }
         },
         "email": {
           "title": "Notificaciones por correo electrónico",
@@ -416,7 +479,7 @@
         }
       },
       "sign-up": {
-        "title": "¡Bienvenido a Credivio!",
+        "title": "¡Bienvenido a Monfuse!",
         "description": "Regístrate para continuar",
         "form": {
           "first-name": {

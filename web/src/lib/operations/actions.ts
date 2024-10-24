@@ -1,5 +1,6 @@
 "use server";
 
+import dateFormat from "@/utils/formatters/dateFormat";
 import { createClient } from "@/utils/supabase/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -34,10 +35,11 @@ export async function getLatestOperations(
 }
 
 export async function addOperations(
-  formData: FormData
+  formData: FormData,
+  timezone: string
 ): Promise<SupabaseResponse<Operation>> {
   const type = formData.get("type")!.toString() as OperationType;
-  const label = formData.get("label")?.toString() || null;
+  const label = formData.get("label")?.toString() || undefined;
   const data = formData.get("data")?.toString();
 
   const supabase = createClient();
@@ -59,10 +61,16 @@ export async function addOperations(
   if (data) {
     try {
       const operations = JSON.parse(data);
+
+      const updatedOperations = operations.map((op: Operation) => ({
+        ...op,
+        issued_at: dateFormat(op.issued_at, timezone),
+      }));
+
       const { error: insertError } = await supabase.rpc(
         "actions_insert_operations",
         {
-          p_operations: operations,
+          p_operations: updatedOperations,
           p_user_id: user.id,
           p_type: type,
           p_label: label,
@@ -84,14 +92,33 @@ export async function addOperations(
     const issued_at = formData.get("issued_at")?.toString();
     const description = formData.get("description")?.toString();
 
-    const { error: insertError } = await supabase.from(`${type}s`).insert({
+    const operation: Record<string, string | undefined> = {
       title,
       amount,
       currency,
-      issued_at,
       description,
       ...(type === "expense" ? { label } : {}),
-    });
+    };
+
+    if (issued_at) {
+      const currentDate = new Date();
+      const formattedCurrentDate = dateFormat(
+        currentDate,
+        timezone,
+        "yyyy-MM-dd"
+      );
+      const formattedIssuedAt = dateFormat(issued_at, timezone, "yyyy-MM-dd");
+
+      if (formattedIssuedAt === formattedCurrentDate) {
+        operation.issued_at = dateFormat(currentDate, timezone);
+      } else {
+        operation.issued_at = dateFormat(issued_at, timezone);
+      }
+    }
+
+    const { error: insertError } = await supabase
+      .from(`${type}s`)
+      .insert(operation);
 
     error = insertError;
   }
@@ -154,18 +181,39 @@ export async function getPortfolioBudgets(): Promise<SupabaseResponse<Budget>> {
   };
 }
 
-export async function updateOperation(formData: FormData) {
+export async function updateOperation(
+  formData: FormData,
+  timezone: string,
+  prevIssuedAt: string
+) {
   try {
     const id = formData.get("id")?.toString();
     const type = formData.get("type")?.toString();
-    const operation = {
+    const issued_at = formData.get("issued_at")?.toString();
+
+    const operation: Record<string, string | undefined> = {
       title: formData.get("title")?.toString(),
       amount: formData.get("amount")?.toString(),
-      issued_at: formData.get("issued_at")?.toString(),
       currency: formData.get("currency")?.toString(),
       description: formData.get("description")?.toString(),
       label: formData.get("label")?.toString(),
     };
+
+    if (issued_at && issued_at !== prevIssuedAt) {
+      const currentDate = new Date();
+      const formattedCurrentDate = dateFormat(
+        currentDate,
+        timezone,
+        "yyyy-MM-dd"
+      );
+      const formattedIssuedAt = dateFormat(issued_at, timezone);
+
+      if (issued_at === formattedCurrentDate) {
+        operation.issued_at = dateFormat(currentDate, timezone);
+      } else {
+        operation.issued_at = formattedIssuedAt;
+      }
+    }
 
     const supabase = createClient();
     const { error } = await supabase

@@ -15,14 +15,14 @@ import { Dict } from "@/const/dict";
 export default function AddForm({
   dict,
   type,
-  defaultCurrency,
+  settings,
 }: {
   dict: {
     add: Dict["private"]["operations"]["add"];
     table: Dict["private"]["operations"]["operation-table"];
   };
   type: OperationType;
-  defaultCurrency: string;
+  settings: Settings;
 }) {
   const [records, setRecords] = useState<Operation[]>([]);
 
@@ -36,8 +36,8 @@ export default function AddForm({
       setRows={setRecords as any}
     >
       <Form
-        mutation={addOperations}
-        successMessage="Pomyślnie dodano operacje!"
+        mutation={(data) => addOperations(data, settings.timezone)}
+        successMessage={dict.add.form._success}
       >
         <div className="flex flex-col justify-end h-full mt-6">
           {type === "expense" && (
@@ -70,16 +70,17 @@ export default function AddForm({
           }
         >
           <Form
-            mutation={addOperations}
+            mutation={(data) => addOperations(data, settings.timezone)}
             id="add-form"
-            buttonProps={{ form: "add-form", children: "Zapisz" }}
-            successMessage="Pomyślnie dodano operację!"
+            buttonProps={{ form: "add-form", children: dict.add.form._submit }}
+            successMessage={dict.add.form._success}
           >
             <Manual
               dict={dict.table.dropdown.modal.edit.form}
               withLabel={type === "expense"}
               type={type}
-              defaultCurrency={defaultCurrency}
+              defaultCurrency={settings.currency}
+              timezone={settings.timezone}
             />
           </Form>
         </Tab>

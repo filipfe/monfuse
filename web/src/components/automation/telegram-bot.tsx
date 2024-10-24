@@ -38,7 +38,7 @@ export default function TelegramBot({
           <h3 className="sm:text-lg text-base">Telegram Bot</h3>
           <Link
             className="bg-light border grid place-content-center h-7 w-7 rounded-md"
-            href="https://t.me/CredivioBot"
+            href="https://t.me/MonfuseBot"
             target="_blank"
             rel="noreferrer"
           >
@@ -69,10 +69,21 @@ export default function TelegramBot({
           ))}
           <div className="flex items-center gap-3 max-w-lg">
             <TokenInput token={settings.telegram_token} dict={dict.input} />
-            <Button className="font-medium" color="primary" as="div">
-              <Send size={16} />
-              Wyślij
-            </Button>
+            <Link
+              href="https://t.me/CredivioBot"
+              rel="noreferrer"
+              target="_blank"
+            >
+              <Button
+                disableRipple
+                className="font-medium"
+                color="primary"
+                as="div"
+              >
+                <Send size={16} />
+                Wyślij
+              </Button>
+            </Link>
           </div>
         </div>
         {children}

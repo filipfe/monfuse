@@ -104,7 +104,10 @@
           },
           "modal": {
             "edit": {
-              "title": "Edit expense",
+              "title": {
+                "income": "Edit income",
+                "expense": "Edit expense"
+              },
               "form": {
                 "title": {
                   "label": "Title",
@@ -130,7 +133,8 @@
                 },
                 "_submit": {
                   "label": "Save"
-                }
+                },
+                "_success": "Operation successfully modified!"
               }
             },
             "delete": {
@@ -139,7 +143,8 @@
               "button": {
                 "_close": "Cancel",
                 "_submit": "Delete"
-              }
+              },
+              "_success": "Operation successfully deleted!"
             }
           }
         },
@@ -167,6 +172,10 @@
               "title": "Preview"
             }
           }
+        },
+        "form": {
+          "_submit": "Save",
+          "_success": "Operation successfully added!"
         }
       },
       "expenses": {
@@ -255,12 +264,32 @@
     "ai-assistant": {
       "chat": {
         "recomendation": [
-          "Monthly Summary",
-          "Weekly Overview",
-          "Financial Recommendations",
-          "View Predictions",
-          "Calculate Savings Rate",
-          "Plan for Goal Completion"
+          {
+            "title": "Monthly Summary",
+            "category": "Analysis"
+          },
+          {
+            "title": "Weekly Review",
+            "category": "Analysis"
+          },
+          {
+            "title": "Financial Recommendations",
+            "category": "Analysis"
+          },
+          {
+            "title": "Check Forecasts",
+            "category": "Analysis"
+          },
+          {
+            "title": "Calculate Savings Rate",
+            "category": "Operations",
+            "requirements": ["operations"]
+          },
+          {
+            "title": "Plan Goal Achievement",
+            "category": "Goals",
+            "requirements": ["goals"]
+          }
         ],
         "input": {
           "placeholder": "Detect anomalies in this week's expenses"
@@ -360,6 +389,7 @@
         }
       },
       "preferences": {
+        "_success": "Data successfully updated!",
         "default-currency": {
           "title": "Default currency",
           "description": "Used by default in the application",
@@ -380,10 +410,40 @@
           }
         }
       },
+      "subscription": {
+        "_error": "Could not retrieve information about the subscription",
+        "form": {
+          "title": "Monfuse Subscription",
+          "month": "month",
+          "_submit": "Pay now"
+        },
+        "active": {
+          "title": ["Subscription active", "Trial period active"],
+          "description": "Thank you for using Monfuse",
+          "month": "month",
+          "button": "Deactivate"
+        },
+        "benefits": {
+          "title": "What do you get?",
+          "list": [
+            "Unlimited income and expenses",
+            "Periodic statistics",
+            "Telegram bot integration",
+            "Goal management",
+            "Recurring payments"
+          ],
+          "button": "Learn more"
+        }
+      },
       "notifications": {
+        "_error": "An error occurred while changing the setting",
         "telegram": {
           "title": "Telegram Notifications",
-          "description": "Sent automatically by Telegram Bot"
+          "description": "Sent automatically by Telegram Bot",
+          "tooltip": {
+            "title": "Your bot is not active!",
+            "button": "Activate the bot"
+          }
         },
         "email": {
           "title": "Email Notifications",
@@ -421,7 +481,7 @@
         }
       },
       "sign-up": {
-        "title": "Welcome to Credivio!",
+        "title": "Welcome to Monfuse!",
         "description": "Sign up to continue",
         "form": {
           "first-name": {

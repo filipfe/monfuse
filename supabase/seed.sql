@@ -1,3 +1,5 @@
+alter table profiles disable trigger after_profile_update;
+
 create or replace function public.handle_new_user()
 returns trigger
 language plpgsql
@@ -148,7 +150,7 @@ with cte1 as (
         'Prezenty', 'Urlop', 'Zdrowie', 'Mieszkanie', 'Sport', 'Kultura', 'Elektronika'
       ])[floor(random() * 7 + 1)]
     end as label
-  from generate_series(1, 500)
+  from generate_series(1, 1000)
 )
 insert into expenses (title, amount, currency, user_id, label, recurring, from_telegram, issued_at)
 select
@@ -199,18 +201,38 @@ select
 from cte1 c1;
 
 -- INCOMES
+with cte1 as(
+  select
+    case
+      when random() < 0.5 then 'Wypłata'
+      when random() < 0.7 then (array['Projekt freelance', 'Konsultacje', 'Dodatkowa praca'])[floor(random() * 3 + 1)]
+      when random() < 0.8 then (array['Premia od pracodawcy', 'Premia roczna', 'Premia za wyniki'])[floor(random() * 3 + 1)]
+      when random() < 0.85 then (array['Zwrot z inwestycji', 'Dywidenda', 'Zysk z handlu kryptowalutami'])[floor(random() * 3 + 1)]
+      when random() < 0.9 then (array['Prezent od rodziny', 'Spadek'])[floor(random() * 2 + 1)]
+      when random() < 0.95 then 'Dochód z wynajmu'
+      else 'Zwrot podatku'
+    end as title
+  from generate_series(1, 70)
+)
 insert into incomes (title, amount, currency, user_id, recurring, from_telegram, issued_at)
 select
+  c1.title,
   case
-    when random() < 0.5 then 'Wypłata'
-    when random() < 0.7 then (array['Projekt freelance', 'Konsultacje', 'Dodatkowa praca'])[floor(random() * 3 + 1)]
-    when random() < 0.8 then (array['Premia od pracodawcy', 'Premia roczna', 'Premia za wyniki'])[floor(random() * 3 + 1)]
-    when random() < 0.85 then (array['Zwrot z inwestycji', 'Dywidenda', 'Zysk z handlu kryptowalutami'])[floor(random() * 3 + 1)]
-    when random() < 0.9 then (array['Prezent od rodziny', 'Spadek'])[floor(random() * 2 + 1)]
-    when random() < 0.95 then 'Dochód z wynajmu'
-    else 'Zwrot podatku'
+    when c1.title = 'Wypłata' then round((random() * 2000 + 6000)::numeric, 2)
+    when c1.title = 'Projekt freelance' then round((random() * 2000 + 2500)::numeric, 2)
+    when c1.title = 'Konsultacje' then round((random() * 2000 + 3000)::numeric, 2)
+    when c1.title = 'Dodatkowa praca' then round((random() * 1500 + 2000)::numeric, 2)
+    when c1.title = 'Premia od pracodawcy' then round((random() * 2000 + 3000)::numeric, 2)
+    when c1.title = 'Premia roczna' then round((random() * 2000 + 4000)::numeric, 2)
+    when c1.title = 'Premia za wyniki' then round((random() * 2000 + 3500)::numeric, 2)
+    when c1.title = 'Zwrot z inwestycji' then round((random() * 7000 + 5000)::numeric, 2)
+    when c1.title = 'Dywidenda' then round((random() * 5000 + 5000)::numeric, 2)
+    when c1.title = 'Zysk z handlu kryptowalutami' then round((random() * 7000 + 8000)::numeric, 2)
+    when c1.title = 'Prezent od rodziny' then round((random() * 2000 + 1000)::numeric, 2)
+    when c1.title = 'Spadek' then round((random() * 13000 + 7000)::numeric, 2)
+    when c1.title = 'Dochód z wynajmu' then round((random() * 2000 + 4000)::numeric, 2)
+    else round((random() * 1000 + 1000)::numeric, 2)
   end,
-  round((random() * (case when random() < 0.7 then 3000 else 10000 end))::numeric, 2),
   ( 
     case
       when random() < 0.9 then 'PLN'
@@ -219,12 +241,12 @@ select
   )::currency_type,
   '8d65ee5d-3897-4f61-b467-9bdc8df6f07f',
   case
-    when random() < 0.2 then true
+    when title = 'Wypłata' or title = 'Dochód z wynajmu' then true
     else false
-  end as recurring,
+  end,
   random() < 0.2 as from_telegram,
   now() - (random() * interval '1 year')
-from generate_series(1, 100);
+from cte1 c1;
 
 -- RECURRING PAYMENTS
 with cte1 as (

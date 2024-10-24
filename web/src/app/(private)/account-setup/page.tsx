@@ -5,7 +5,7 @@ import { getSettings } from "@/lib/general/actions";
 export default async function AccountSetup() {
   const settings = await getSettings();
 
-  const { private: dict } = await getDictionary(settings.language);
+  const { private: dict } = await getDictionary(settings.language || "en");
 
   return (
     <div className="h-screen sm:h-auto min-h-screen sm:px-10 py-4 sm:py-8 flex items-center justify-center">

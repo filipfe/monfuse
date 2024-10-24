@@ -10,10 +10,10 @@ export async function getOrCreateSubscription(): Promise<
 > {
   const supabase = createClient();
 
-  const { data: user, error: authError } = await supabase.from("profiles")
-    .select(
-      "id",
-    ).single();
+  const { data: user, error: authError } = await supabase
+    .from("profiles")
+    .select("id")
+    .single();
 
   if (authError) {
     return {
@@ -31,14 +31,13 @@ export async function getOrCreateSubscription(): Promise<
         autoRefreshToken: false,
         detectSessionInUrl: false,
       },
-    },
+    }
   );
 
-  const { data: pastSubscription, error } = await supabaseServiceRole.schema(
-    "stripe",
-  ).from(
-    "subscriptions",
-  ).select("attrs")
+  const { data: pastSubscription, error } = await supabaseServiceRole
+    .schema("stripe")
+    .from("subscriptions")
+    .select("attrs")
     .eq("customer", user.id)
     .maybeSingle();
 
@@ -57,7 +56,7 @@ export async function getOrCreateSubscription(): Promise<
 
     if (!pastSubscription) {
       const newSubscription = await stripe.subscriptions.create({
-        "customer": user.id,
+        customer: user.id,
         items: [
           {
             price: "price_1Q29GeHYqwp6mI9OmhDOBQ1G",
@@ -68,22 +67,24 @@ export async function getOrCreateSubscription(): Promise<
         expand: ["latest_invoice.payment_intent"],
       });
       subscription = newSubscription;
-      client_secret = ((newSubscription.latest_invoice as Stripe.Invoice)
-        .payment_intent as Stripe.PaymentIntent).client_secret;
+      client_secret = (
+        (newSubscription.latest_invoice as Stripe.Invoice)
+          .payment_intent as Stripe.PaymentIntent
+      ).client_secret;
     } else {
       const { payment_intent } = await stripe.invoices.retrieve(
-        pastSubscription.attrs.latest_invoice as string,
+        pastSubscription.attrs.latest_invoice as string
       );
 
       const paymentIntent = await stripe.paymentIntents.retrieve(
-        payment_intent as string,
+        payment_intent as string
       );
 
       client_secret = paymentIntent.client_secret;
     }
     return {
       result: {
-        ...subscription as Subscription,
+        ...(subscription as Subscription),
         client_secret: client_secret as string,
       },
     };
