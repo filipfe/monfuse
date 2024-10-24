@@ -17,7 +17,7 @@ export default function Header({ dict }: { dict: Dict }) {
         <Link href="/" className="ml-3 text-sm">
           Logo
         </Link>
-        <nav aria-labelledby="mainmenulabel">
+        <nav className="sr-only sm:not-sr-only" aria-labelledby="mainmenulabel">
           <h2 id="mainmenulabel" className="sr-only">
             Main Menu
           </h2>
@@ -27,7 +27,7 @@ export default function Header({ dict }: { dict: Dict }) {
                 <li>
                   <Link
                     className="text-sm !text-foreground rounded-md"
-                    href="/services/incomes"
+                    href="/incomes"
                   >
                     <div className="grid grid-cols-[14px_1fr] items-center gap-2 py-3 px-4 rounded-md border border-transparent hover:border-border hover:bg-neutral-100">
                       <Wallet2 size={14} />
@@ -41,7 +41,7 @@ export default function Header({ dict }: { dict: Dict }) {
                 <li>
                   <Link
                     className="text-sm !text-foreground rounded-md"
-                    href="/services/expenses"
+                    href="/expenses"
                   >
                     <div className="grid grid-cols-[14px_1fr] items-center gap-2 py-3 px-4 rounded-md border border-transparent hover:border-border hover:bg-neutral-100">
                       <Coins size={14} />
@@ -55,7 +55,7 @@ export default function Header({ dict }: { dict: Dict }) {
                 <li>
                   <Link
                     className="text-sm !text-foreground rounded-md"
-                    href="/services/recurring-payments"
+                    href="/recurring-payments"
                   >
                     <div className="grid grid-cols-[14px_1fr] items-center gap-2 py-3 px-4 rounded-md border border-transparent hover:border-border hover:bg-neutral-100">
                       <Repeat size={14} />
@@ -69,7 +69,7 @@ export default function Header({ dict }: { dict: Dict }) {
                 <li>
                   <Link
                     className="text-sm !text-foreground rounded-md"
-                    href="/services/goals"
+                    href="/goals"
                   >
                     <div className="grid grid-cols-[14px_1fr] items-center gap-2 py-3 px-4 rounded-md border border-transparent hover:border-border hover:bg-neutral-100">
                       <CheckCircle size={14} />
@@ -82,6 +82,14 @@ export default function Header({ dict }: { dict: Dict }) {
                 </li>
               </ul>
             </DropdownLink>
+            <li className="inline-block">
+              <Link
+                className="text-sm font-medium px-6 py-3"
+                href="/ai-assistant"
+              >
+                {dict["ai-assistant"].title}
+              </Link>
+            </li>
             <li className="inline-block">
               <Link className="text-sm font-medium px-6 py-3" href="/pricing">
                 {dict.pricing.title}

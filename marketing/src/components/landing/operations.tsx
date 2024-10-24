@@ -1,5 +1,6 @@
 import { Dict } from "@/dict";
 import { Coins, Repeat, Wallet2 } from "lucide-react";
+import Motion from "../services/motion";
 
 type Operation = {
   icon: React.ReactNode;
@@ -39,8 +40,8 @@ export default function Operations({
             </h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-12 lg:gap-16 mt-6 sm:mt-12">
-            {operations.map(({ icon, type }) => (
-              <OperationRef icon={icon} {...dict[type]} key={type} />
+            {operations.map(({ icon, type }, i) => (
+              <OperationRef icon={icon} index={i} {...dict[type]} key={type} />
             ))}
           </div>
         </div>
@@ -53,8 +54,16 @@ const OperationRef = ({
   icon,
   title,
   description,
-}: Pick<Operation, "icon"> & Dict["landing"]["operations"]["incomes"]) => (
-  <div className="rounded-lg border text-card-foreground bg-background border-none shadow-none">
+  index,
+}: Pick<Operation, "icon"> &
+  Dict["landing"]["operations"]["incomes"] & { index: number }) => (
+  <Motion
+    initial={{ translateX: -24, opacity: 0 }}
+    whileInView={{ translateX: 0, opacity: 1 }}
+    transition={{ delay: index * 0.05 }}
+    viewport={{ once: true, amount: 1 }}
+    className="rounded-lg border text-card-foreground bg-background border-none shadow-none"
+  >
     <div className="flex flex-col gap-3">
       <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center">
         {icon}
@@ -62,5 +71,5 @@ const OperationRef = ({
       <h3 className="text-lg lg:text-xl font-semibold mt-3">{title}</h3>
       <p className="text-font/60 text-sm leading-relaxed">{description}</p>
     </div>
-  </div>
+  </Motion>
 );

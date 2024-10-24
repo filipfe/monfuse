@@ -36,7 +36,7 @@
     },
     "operations": {
       "category": "Operations",
-      "title": "All categories in one place",
+      "title": "All in one place",
       "incomes": {
         "title": "Incomes",
         "description": "Monitor and analyze your income sources to easily identify trends and make better decisions that will accelerate the growth of your budget."
@@ -217,6 +217,9 @@
         ]
       }
     }
+  },
+  "ai-assistant": {
+    "title": "AI Assistant"
   },
   "pricing": {
     "title": "Pricing",

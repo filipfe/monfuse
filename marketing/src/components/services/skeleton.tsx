@@ -15,7 +15,7 @@ export default function Skeleton({ dict, children }: Props) {
           <h1 className="text-4xl max-w-lg sm:text-5xl sm:max-w-xl lg:text-6xl text-white font-black lg:max-w-3xl [text-shadow:_6px_6px_0_rgb(11_60_64)]">
             {dict.title}
           </h1>
-          <p className="text-white/80 text-sm sm:text-base my-4 max-w-xl">
+          <p className="text-white/80 text-sm sm:text-base my-2 sm:my-4 max-w-xl leading-relaxed sm:leading-relaxed">
             {dict.description}
           </p>
           {dict.cta && (
@@ -29,9 +29,12 @@ export default function Skeleton({ dict, children }: Props) {
                 </Link>
               </div>
               <div className="border border-white/5 rounded-md p-1 flex-1">
-                <button className="whitespace-nowrap rounded-md py-2.5 text-sm px-5 backdrop-blur-md border border-white/10 text-white">
+                <Link
+                  href="#description"
+                  className="whitespace-nowrap rounded-md py-2.5 text-sm px-5 backdrop-blur-md border border-white/10 text-white"
+                >
                   {dict.cta.secondary}
-                </button>
+                </Link>
               </div>
             </div>
           )}

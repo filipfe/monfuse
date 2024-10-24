@@ -1,8 +1,9 @@
-import getDictionary from "@/dict";
+import getDictionary, { langs } from "@/dict";
 import Skeleton from "@/components/services/skeleton";
 import FAQ from "@/components/landing/faq";
 import IncomeCard from "@/components/landing/cards/income";
 import { Metadata } from "next";
+import metadata, { openGraph } from "@/app/shared-metadata";
 
 export async function generateMetadata({
   params: { lang },
@@ -16,9 +17,22 @@ export async function generateMetadata({
   } = await getDictionary(lang);
   return {
     ..._metadata,
+    ...metadata,
     openGraph: {
       ..._metadata,
-      url: new URL(`https://www.monfuse.com/${lang}/services/incomes`),
+      url: new URL(`https://www.monfuse.com/${lang}/incomes`),
+      locale: lang,
+      ...openGraph,
+    },
+    alternates: {
+      canonical: new URL(`https://www.monfuse.com/${lang}/incomes`),
+      languages: langs.reduce(
+        (prev, lang) => ({
+          ...prev,
+          [lang]: `https://www.monfuse.com/${lang}/incomes`,
+        }),
+        {}
+      ),
     },
   };
 }
