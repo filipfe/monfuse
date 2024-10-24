@@ -36,7 +36,7 @@
     },
     "operations": {
       "category": "Operacje",
-      "title": "Wszystkie kategorie w jednym miejscu",
+      "title": "Wszystkie w jednym miejscu",
       "incomes": {
         "title": "Przychody",
         "description": "Monitoruj i analizuj swoje źródła przychodów, aby łatwiej identyfikować trendy oraz podejmować lepsze decyzje, które przyspieszą rozwój twojego budżetu."
@@ -217,6 +217,9 @@
         ]
       }
     }
+  },
+  "ai-assistant": {
+    "title": "Asystent AI"
   },
   "pricing": {
     "title": "Cennik",

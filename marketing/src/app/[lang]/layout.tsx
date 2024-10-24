@@ -5,6 +5,8 @@ import Header from "@/components/ui/header/content";
 import Footer from "@/components/ui/footer";
 import Banner from "@/components/ui/banner";
 import getDictionary, { langs } from "@/dict";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import metadata, { openGraph } from "../shared-metadata";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,16 +16,13 @@ export async function generateMetadata({
   const { _metadata } = await getDictionary(lang);
   return {
     ..._metadata,
-    metadataBase: new URL("https://www.monfuse.com"),
+    ...metadata,
     openGraph: {
       title: _metadata.title,
       description: _metadata.description,
-      type: "website",
-      url: new URL("https://www.monfuse.com"),
-      emails: ["team@monfuse.com"],
-      siteName: "Monfuse",
+      url: new URL(`https://www.monfuse.com/${lang}`),
       locale: lang,
-      alternateLocale: langs,
+      ...openGraph,
     },
     twitter: {
       title: _metadata.title,
@@ -31,7 +30,14 @@ export async function generateMetadata({
       card: "summary_large_image",
     },
     alternates: {
-      canonical: "./",
+      canonical: new URL("https://www.monfuse.com"),
+      languages: langs.reduce(
+        (prev, lang) => ({
+          ...prev,
+          [lang]: `https://www.monfuse.com/${lang}`,
+        }),
+        {}
+      ),
     },
   };
 }
@@ -57,6 +63,7 @@ export default async function RootLayout({
         <main>{children}</main>
         <Banner dict={banner} />
         <Footer dict={dict} />
+        <SpeedInsights />
       </body>
     </html>
   );

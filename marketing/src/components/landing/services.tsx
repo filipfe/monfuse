@@ -47,7 +47,7 @@ export default function Services({
             height={320}
             className="-mb-3 max-h-80 w-full select-none drop-shadow-[0_0_28px_rgba(0,0,0,.1)] group-hover:-translate-y-3 transition-all duration-300"
             src="/app/goals.png"
-            alt="Goals app page"
+            alt="Goals page showing goal progress and payment breakdown."
           />
           <div className="absolute bottom-0 left-0 h-32 w-full bg-gradient-to-t from-neutral-50 pointer-events-none"></div>
         </div>
@@ -64,7 +64,7 @@ export default function Services({
               height={1024}
               className="-mb-48 max-h-96 sm:max-h-[720px] rounded-tl-md mt-12 -mr-4 select-none drop-shadow-[0_0_28px_rgba(0,0,0,.1)] group-hover:translate-x-[-10px] transition-all duration-300 object-cover object-left-top"
               src="/app/nav.png"
-              alt="App navbar"
+              alt="Site navbar with key navigation options."
             />
           </div>
           <div className="absolute bottom-0 left-0 h-32 w-full bg-gradient-to-t from-neutral-50 dark:from-neutral-900 pointer-events-none"></div>
@@ -81,7 +81,7 @@ export default function Services({
             height={512}
             className="-mb-3 max-h-80 px-6 w-full select-none drop-shadow-[0_0_28px_rgba(0,0,0,.1)] group-hover:-translate-y-3 transition-all duration-300 object-cover object-top"
             src="/app/stats.png"
-            alt="Goals app page"
+            alt="Stats page displaying graphs and summaries."
           />
           <div className="absolute bottom-0 left-0 h-32 w-full bg-gradient-to-t from-neutral-50 dark:from-neutral-900 pointer-events-none"></div>
         </div>

@@ -10,12 +10,12 @@ type Props = {
 export default function Skeleton({ dict, children }: Props) {
   return (
     <section className="bg-primary-dark sm:px-6 flex flex-col items-center gap-8 overflow-hidden relative pb-4">
-      <div className="relative max-w-7xl mx-auto z-10 overflow-hidden gap-4 px-12 py-12 sm:py-16 lg:py-24 w-full sm:rounded-lg border border-white/10 bg-gradient-to-br from-[rgba(255,255,255,0.05)] to-[rgba(255,255,255,0)]">
+      <div className="relative max-w-7xl mx-auto z-10 overflow-hidden gap-4 sm:px-12 py-12 sm:py-16 lg:py-24 w-full sm:rounded-lg border border-white/10 bg-gradient-to-br from-[rgba(255,255,255,0.05)] to-[rgba(255,255,255,0)]">
         <div className="px-6 flex flex-col gap-4">
           <h1 className="text-4xl max-w-lg sm:text-5xl sm:max-w-xl lg:text-6xl text-white font-black lg:max-w-3xl [text-shadow:_6px_6px_0_rgb(11_60_64)]">
             {dict.title}
           </h1>
-          <p className="text-white/80 text-sm sm:text-base my-4 max-w-xl">
+          <p className="text-white/80 text-sm sm:text-base my-2 sm:my-4 max-w-xl leading-relaxed sm:leading-relaxed">
             {dict.description}
           </p>
           {dict.cta && (
@@ -29,14 +29,17 @@ export default function Skeleton({ dict, children }: Props) {
                 </Link>
               </div>
               <div className="border border-white/5 rounded-md p-1 flex-1">
-                <button className="whitespace-nowrap rounded-md py-2.5 text-sm px-5 backdrop-blur-md border border-white/10 text-white">
+                <Link
+                  href="#description"
+                  className="whitespace-nowrap rounded-md py-2.5 text-sm px-5 backdrop-blur-md border border-white/10 text-white"
+                >
                   {dict.cta.secondary}
-                </button>
+                </Link>
               </div>
             </div>
           )}
         </div>
-        <div className="absolute -right-4 -bottom-4 scale-125 origin-bottom-right">
+        <div className="absolute -right-4 -bottom-4 lg:block hidden scale-125 origin-bottom-right">
           {children}
         </div>
       </div>

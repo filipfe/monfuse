@@ -3,11 +3,13 @@ import type { MetadataRoute } from "next";
 
 const urls = [
   "",
-  "/services/incomes",
-  "/services/expenses",
-  "/services/incomes",
-  "/services/recurring-payments",
-  "/services/goals",
+  "/incomes",
+  "/expenses",
+  "/incomes",
+  "/recurring-payments",
+  "/goals",
+  "/ai-assistant",
+  "/contact",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

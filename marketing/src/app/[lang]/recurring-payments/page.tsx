@@ -1,25 +1,33 @@
-import getDictionary from "@/dict";
+import getDictionary, { langs } from "@/dict";
 import Skeleton from "@/components/services/skeleton";
 import FAQ from "@/components/landing/faq";
 import IncomeCard from "@/components/landing/cards/income";
 import { Metadata } from "next";
+import metadata, { openGraph } from "@/app/shared-metadata";
 
 export async function generateMetadata({
   params: { lang },
 }: PageProps): Promise<Metadata> {
   const {
-    services: {
-      items: {
-        expenses: { _metadata },
-      },
-    },
+    services: { items },
   } = await getDictionary(lang);
   return {
-    ..._metadata,
+    ...items["recurring-payments"]._metadata,
+    ...metadata,
     openGraph: {
-      ..._metadata,
-      url: new URL(
-        `https://www.monfuse.com/${lang}/services/recurring-payments`
+      ...items["recurring-payments"]._metadata,
+      url: new URL(`https://www.monfuse.com/${lang}/recurring-payments`),
+      locale: lang,
+      ...openGraph,
+    },
+    alternates: {
+      canonical: new URL("https://www.monfuse.com/recurring-payments"),
+      languages: langs.reduce(
+        (prev, lang) => ({
+          ...prev,
+          [lang]: `https://www.monfuse.com/${lang}/recurring-payments`,
+        }),
+        {}
       ),
     },
   };

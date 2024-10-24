@@ -14,34 +14,25 @@ export default function Footer({ dict }: { dict: Dict }) {
               <h3 className="font-medium">{dict.services.title}</h3>
               <ul className="mt-2">
                 <li className="py-1">
-                  <Link
-                    className="text-sm text-white/80"
-                    href="/services/incomes"
-                  >
+                  <Link className="text-sm text-white/80" href="/incomes">
                     {dict.services.items.incomes.title}
                   </Link>
                 </li>
                 <li className="py-1">
-                  <Link
-                    className="text-sm text-white/80"
-                    href="/services/expenses"
-                  >
+                  <Link className="text-sm text-white/80" href="/expenses">
                     {dict.services.items.expenses.title}
                   </Link>
                 </li>
                 <li className="py-1">
                   <Link
                     className="text-sm text-white/80"
-                    href="/services/recurring-payments"
+                    href="/recurring-payments"
                   >
                     {dict.services.items["recurring-payments"].title}
                   </Link>
                 </li>
                 <li className="py-1">
-                  <Link
-                    className="text-sm text-white/80"
-                    href="/services/goals"
-                  >
+                  <Link className="text-sm text-white/80" href="/goals">
                     {dict.services.items.goals.title}
                   </Link>
                 </li>
