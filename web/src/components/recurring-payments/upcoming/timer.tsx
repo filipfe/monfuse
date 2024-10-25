@@ -1,10 +1,16 @@
 "use client";
 
+import dateFormat from "@/utils/formatters/dateFormat";
 import { useEffect, useState } from "react";
 
-function getTimeRemaining(paymentDate: Date) {
-  const now = new Date().getTime();
-  const timeDiff = new Date(paymentDate).getTime() - now;
+function getTimeRemaining(datetime: string, timezone: string) {
+  const nowInTimezone = dateFormat(new Date(), timezone);
+  const targetDateInTimezone = dateFormat(datetime, timezone);
+
+  const now = new Date(nowInTimezone).getTime();
+  const target = new Date(targetDateInTimezone).getTime();
+
+  const timeDiff = target - now;
 
   const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
   const hours = String(Math.floor((timeDiff / (1000 * 60 * 60)) % 24)).padStart(
@@ -20,27 +26,40 @@ function getTimeRemaining(paymentDate: Date) {
   return { days, hours, minutes, seconds };
 }
 
-export default function Timer({ paymentDate }: { paymentDate: string }) {
+type Props = {
+  timezone: string;
+  paymentDatetime: string;
+  onExpire: () => void;
+};
+
+export default function Timer({ timezone, paymentDatetime, onExpire }: Props) {
   const [timeRemaining, setTimeRemaining] = useState(
-    getTimeRemaining(new Date(paymentDate))
+    getTimeRemaining(paymentDatetime, timezone)
   );
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setTimeRemaining(getTimeRemaining(new Date(paymentDate)));
+      const updatedTime = getTimeRemaining(paymentDatetime, timezone);
+      setTimeRemaining(updatedTime);
+
+      if (timeRemaining.days < 0) {
+        clearInterval(intervalId);
+        onExpire();
+      }
     }, 1000);
 
     return () => clearInterval(intervalId);
-  }, [paymentDate]);
+  }, [paymentDatetime]);
 
-  if (timeRemaining.days < 0) {
-    return <span>Payment date passed</span>;
-  }
+  const renderTimeUnit = (unit: string | number) => {
+    return <span className="border-1 bg-light rounded-md p-0.5">{unit}</span>;
+  };
 
   return (
     <strong>
-      {timeRemaining.days}:{timeRemaining.hours}:{timeRemaining.minutes}:
-      {timeRemaining.seconds}
+      {renderTimeUnit(timeRemaining.days)}:{renderTimeUnit(timeRemaining.hours)}
+      :{renderTimeUnit(timeRemaining.minutes)}:
+      {renderTimeUnit(timeRemaining.seconds)}
     </strong>
   );
 }

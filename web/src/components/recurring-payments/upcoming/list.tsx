@@ -1,42 +1,44 @@
+"use client";
+
 import Block from "@/components/ui/block";
 import { getUpcomingPayments } from "@/lib/recurring-payments/actions";
 import Timer from "./timer";
 import Ref from "./ref";
+import Empty from "@/components/ui/empty";
+import { useEffect, useState } from "react";
 
-export default async function Upcoming() {
-  const { results } = await getUpcomingPayments();
+export default function Upcoming({ timezone }: { timezone: string }) {
+  const [payments, setPayments] = useState<UpcomingPayment[]>([]);
+  const [refreshKey, setRefreshKey] = useState(Date.now());
+
+  const fetchPayments = async () => {
+    const { results } = await getUpcomingPayments();
+    setPayments(results);
+    setRefreshKey(Date.now());
+  };
+
+  useEffect(() => {
+    fetchPayments();
+  }, []);
 
   return (
-    <Block title="Nadchodzące" className="col-span-2">
-      {results.map(({ payment_date, payments }) => (
-        <div key={payment_date}>
-          <Timer paymentDate={payment_date + " " + "20:00:00"} />
-          <ul>
-            {payments.map((payment) => (
-              <Ref key={payment.id} payment={payment} />
-            ))}
-          </ul>
-        </div>
-      ))}
-      <div>
-        <Timer paymentDate={"2024-10-22 20:00:00"} />
-      </div>
-      {/* // <Timer paymentDate={"2024-10-22 19:42:00"} /> */}
-      {/* {payments.length > 0 ? (
-        <HorizontalScroll>
-          {payments
-            .filter(
-              ({ payment_date }) =>
-                new Date(payment_date).getTime() > new Date().getTime()
-            )
-            .map((payment) => (
-              <OperationRef
-                languageCode={languageCode}
-                payment={{ ...payment, issued_at: payment.payment_date }}
-                key={payment.id}
+    <Block title="Nadchodzące" className="row-span-1">
+      {payments.length > 0 ? (
+        <div className="flex">
+          {payments.map((payment) => (
+            <div
+              key={`${payment.id}-${refreshKey}`}
+              className="flex flex-col gap-2 max-w-1/3 w-1/3"
+            >
+              <Timer
+                timezone={timezone}
+                paymentDatetime={payment.payment_datetime}
+                onExpire={fetchPayments}
               />
-            ))}
-        </HorizontalScroll>
+              <Ref payment={payment} />
+            </div>
+          ))}
+        </div>
       ) : (
         <Empty
           title="Brak nadchodzących płatności!"
@@ -45,7 +47,7 @@ export default async function Upcoming() {
             href: "/recurring-payments/add",
           }}
         />
-      )} */}
+      )}
     </Block>
   );
 }

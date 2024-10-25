@@ -1,12 +1,24 @@
 drop function if exists "public"."get_recurring_payments_active_payments"(p_page integer);
 
+drop function if exists "public"."get_recurring_payments_timeline"();
+
+drop function if exists "public"."get_recurring_payments_upcoming_payments"();
+
 alter table "public"."recurring_payments" alter column "counter" set default '0'::smallint;
 
 alter table "public"."settings" alter column "language" drop not null;
 
+alter table "public"."recurring_payments" add column "start_datetime" timestamp without time zone;
+
+update "public"."recurring_payments" set "start_datetime" = "start_date";
+
+alter table "public"."recurring_payments" alter column "start_datetime" set not null;
+
+alter table "public"."recurring_payments" drop column "start_date";
+
 set check_function_bodies = off;
 
-CREATE OR REPLACE FUNCTION public.get_recurring_payments_timeline()
+CREATE OR REPLACE FUNCTION public.get_recurring_payments_timeline(p_timezone text)
  RETURNS TABLE(date date, incomes jsonb, expenses jsonb)
  LANGUAGE plpgsql
  SET search_path TO 'public'
@@ -15,8 +27,8 @@ begin
   return query
   with recursive cte1 as (
     select generate_series(
-      current_date - interval '7 day',
-      current_date + interval '7 day',
+      (current_timestamp at time zone p_timezone)::date - interval '7 day',
+      (current_timestamp at time zone p_timezone)::date + interval '7 day',
       interval '1 day'
     )::date as date
   ), 
@@ -27,7 +39,7 @@ begin
       rp.type,
       rp.amount,
       rp.currency,
-      rp.start_date,
+      rp.start_datetime,
       rp.interval_unit,
       rp.interval_amount
     from recurring_payments rp
@@ -39,11 +51,11 @@ begin
       c2.type,
       c2.amount,
       c2.currency,
-      c2.start_date as payment_date,
+      c2.start_datetime::date as payment_date,
       c2.interval_unit,
       c2.interval_amount
     from cte2 c2
-    where c2.start_date <= current_date + interval '7 day'
+    where c2.start_datetime::date <= (current_timestamp at time zone p_timezone)::date + interval '7 day'
     union all
     select
       c3.id,
@@ -55,7 +67,7 @@ begin
       c3.interval_unit,
       c3.interval_amount
     from cte3 c3
-    where (c3.payment_date + (c3.interval_amount || ' ' || c3.interval_unit)::interval)::date <= current_date + interval '7 day'
+    where (c3.payment_date + (c3.interval_amount || ' ' || c3.interval_unit)::interval)::date <= (current_timestamp at time zone p_timezone)::date + interval '7 day'
   )
   select
     c1.date,
@@ -99,9 +111,12 @@ begin
       rp.type,
       rp.amount,
       rp.currency,
-      (rp.start_date + ((rp.interval_amount * rp.counter) || ' ' || rp.interval_unit)::interval)::date as last_payment,
-      (rp.start_date + ((rp.interval_amount * (rp.counter + 1)) || ' ' || rp.interval_unit)::interval)::date as next_payment
+      rp.interval_amount,
+      rp.interval_unit,
+      (rp.start_datetime + ((rp.interval_amount * rp.counter) || ' ' || rp.interval_unit)::interval)::date as last_payment,
+      (rp.start_datetime + ((rp.interval_amount * (rp.counter + 1)) || ' ' || rp.interval_unit)::interval)::date as next_payment
     from recurring_payments rp
+    order by rp.created_at desc
     limit 8 offset (p_page - 1) * 8
   )
   select
@@ -112,6 +127,8 @@ begin
         'title', c1.title, 
         'amount', c1.amount,
         'currency', c1.currency,
+        'interval_amount', c1.interval_amount,
+        'interval_unit', c1.interval_unit,
         'last_payment', c1.last_payment,
         'next_payment', c1.next_payment
       )),
@@ -121,6 +138,27 @@ begin
   from cte1 c1;
   
   return result;
+end;
+$function$
+;
+
+CREATE OR REPLACE FUNCTION public.get_recurring_payments_upcoming_payments()
+ RETURNS TABLE(payment_datetime timestamp without time zone, id uuid, title text, type operation_type, amount double precision, currency currency_type)
+ LANGUAGE plpgsql
+ SET search_path TO 'public'
+AS $function$
+begin
+  return query
+  select 
+    (rp.start_datetime + ((rp.interval_amount * (rp.counter + 1)) || ' ' || rp.interval_unit)::interval) as payment_datetime,
+    rp.id,
+    rp.title,
+    rp.type,
+    rp.amount,
+    rp.currency
+  from recurring_payments rp
+  order by payment_datetime, rp.amount desc, rp.id
+  limit 3;
 end;
 $function$
 ;
