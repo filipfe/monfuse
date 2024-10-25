@@ -1,4 +1,5 @@
 import NumberFormat from "@/utils/formatters/currency";
+import dateFormat from "@/utils/formatters/dateFormat";
 import { Skeleton, cn } from "@nextui-org/react";
 import { formatDistance } from "date-fns";
 import * as locales from "date-fns/locale";
@@ -13,7 +14,6 @@ export default function OperationRef({
   payment: { title, issued_at, type, currency, amount },
   languageCode,
 }: Props) {
-  const [language, country] = languageCode.split("-");
   return (
     <div className="rounded-md bg-primary max-w-max">
       <div className="border shadow-[inset_0px_2px_9px_rgba(255,255,255,0.4)] border-white/10 bg-gradient-to-b from-white/5 to-white/[0.01] p-4 rounded-md backdrop-blur-lg flex flex-col gap-2 min-w-64">
@@ -25,16 +25,9 @@ export default function OperationRef({
             </h4>
           </div>
           <small className="text-white/80">
-            {formatDistance(issued_at, new Date(), {
+            {formatDistance(issued_at, dateFormat(new Date(), "UTC"), {
               addSuffix: true,
-              locale:
-                locales[
-                  country
-                    ? ((language.toLowerCase() === country.toLowerCase()
-                        ? language
-                        : `${language}${country}`) as keyof typeof locales)
-                    : (language as keyof typeof locales)
-                ],
+              locale: locales[languageCode as keyof typeof locales],
               includeSeconds: false,
             })}
           </small>

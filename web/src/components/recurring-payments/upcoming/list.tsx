@@ -1,33 +1,44 @@
-import OperationRef from "@/components/operations/ref";
-import Block from "@/components/ui/block";
-import Empty from "@/components/ui/empty";
-import HorizontalScroll from "@/components/ui/horizontal-scroll";
-import { getUpcomingRecurringPayments } from "@/lib/recurring-payments/actions";
+"use client";
 
-export default async function Upcoming({
-  languageCode,
-}: {
-  languageCode: Locale;
-}) {
-  const { results: payments } = await getUpcomingRecurringPayments();
+import Block from "@/components/ui/block";
+import { getUpcomingPayments } from "@/lib/recurring-payments/actions";
+import Timer from "./timer";
+import Ref from "./ref";
+import Empty from "@/components/ui/empty";
+import { useEffect, useState } from "react";
+
+export default function Upcoming({ timezone }: { timezone: string }) {
+  const [payments, setPayments] = useState<UpcomingPayment[]>([]);
+  const [refreshKey, setRefreshKey] = useState(Date.now());
+
+  const fetchPayments = async () => {
+    const { results } = await getUpcomingPayments(timezone);
+    setPayments(results);
+    setRefreshKey(Date.now());
+  };
+
+  useEffect(() => {
+    fetchPayments();
+  }, []);
 
   return (
-    <Block title="Nadchodzące">
+    <Block title="Nadchodzące" className="row-span-1">
       {payments.length > 0 ? (
-        <HorizontalScroll>
-          {payments
-            .filter(
-              ({ payment_date }) =>
-                new Date(payment_date).getTime() > new Date().getTime()
-            )
-            .map((payment) => (
-              <OperationRef
-                languageCode={languageCode}
-                payment={{ ...payment, issued_at: payment.payment_date }}
-                key={payment.id}
+        <div className="flex">
+          {payments.map((payment) => (
+            <div
+              key={`${payment.id}-${refreshKey}`}
+              className="flex flex-col gap-2 max-w-1/3 w-1/3"
+            >
+              <Timer
+                timezone={timezone}
+                paymentDatetime={payment.payment_datetime}
+                onExpire={fetchPayments}
               />
-            ))}
-        </HorizontalScroll>
+              <Ref payment={payment} />
+            </div>
+          ))}
+        </div>
       ) : (
         <Empty
           title="Brak nadchodzących płatności!"
