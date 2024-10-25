@@ -2,6 +2,10 @@ import "https://esm.sh/@supabase/functions-js/src/edge-runtime.d.ts";
 import { createClient } from "supabase";
 import { corsHeaders } from "../_shared/cors.ts";
 import { Payment } from "../_shared/types.ts";
+import { toZonedTime } from "npm:date-fns-tz";
+import { endOfWeek, startOfWeek, subWeeks } from "npm:date-fns";
+import { fromZonedTime } from "npm:date-fns-tz";
+import { format } from "npm:date-fns-tz";
 
 const HCTI_API_KEY = Deno.env.get("HCTI_API_KEY");
 const HCTI_USER_ID = Deno.env.get("HCTI_USER_ID");
@@ -32,20 +36,18 @@ if (!SUPABASE_SERVICE_ROLE_KEY) {
 const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 
 type GraphProps = {
-  currency: string;
-  language_code: string;
-  from: string;
-  to: string;
+  settings: Profile["settings"];
+  from: Date;
   expenses: Payment[];
+  limit: number | null;
 };
 
 type DayProps = {
   date: Date;
-  language_code: string;
   expenses: Payment[];
   weekSum: number;
-  currency: string;
   labels: Record<string, { amount: number; color: string }>;
+  settings: Profile["settings"];
 };
 
 const colors = ["#177981", "#fdbb2d", "#40E0D0", "#ff7f50"];
@@ -70,19 +72,22 @@ const assignColors = (expenses: Payment[]) => {
 };
 
 const currencyFormat = (
-  { language_code, amount, currency }:
-    & Pick<GraphProps, "currency" | "language_code">
-    & { amount: number },
+  { amount, settings, notation }: {
+    amount: number;
+    settings: Profile["settings"];
+    notation?: Intl.NumberFormatOptions["notation"];
+  },
 ) =>
-  new Intl.NumberFormat(language_code, {
-    currency,
+  new Intl.NumberFormat(settings.language, {
+    currency: settings.currency,
     style: "currency",
+    notation,
   }).format(amount);
 
 const renderDay = (
-  { date, language_code, labels, expenses, weekSum, currency }: DayProps,
+  { date, settings, labels, expenses, weekSum }: DayProps,
 ) => {
-  const weekday = new Intl.DateTimeFormat(language_code, {
+  const weekday = new Intl.DateTimeFormat(settings.language, {
     weekday: "short",
   }).format(date).toUpperCase();
 
@@ -106,38 +111,39 @@ const renderDay = (
       <div style="height: ${
     daySum / weekSum * 100
   }%;" class="relative flex flex-col-reverse">
-        <h3 class="self-center absolute -top-8">${
-    currencyFormat({ language_code, currency, amount: daySum })
-  }</h3>
         ${
     Object.entries(groupedByLabel).sort(([_aL, aA], [_bL, bA]) => bA - aA).map((
       [label, amount],
     ) => `
-          <div
-            style="background-color: ${labels[label].color}; height: ${
+      <div
+        style="background-color: ${labels[label].color}; height: ${
       amount / daySum * 100
     }%;"
-            class="flex flex-col gap-2 text-white items-center justify-center w-full"
-          ></div>
-          `).join("")
+        class="flex flex-col gap-2 text-white items-center justify-center w-full"
+      ></div>
+      `).join("")
   }
       </div> 
     </div>
-    <h2 class="font-bold">${weekday}</h2>
+    <div class="flex flex-col items-center">
+      <h2 class="font-bold">${weekday}</h2>
+      <h3 class="text-center">${
+    currencyFormat({ settings, amount: daySum, notation: "compact" })
+  }</h3>
+    </div>
   </div>
   `;
 };
 
 const renderGraph = (
-  { from, to, language_code, expenses, currency }: GraphProps,
+  { from, limit, settings, expenses }: GraphProps,
 ) => {
-  const days = getDateArray(from, to);
   const weekSum = expenses.reduce((prev, { amount }) => prev + amount, 0);
   const labels = assignColors(expenses);
 
   return `
   <!DOCTYPE html>
-    <html lang=${language_code.split("-")[0]}>
+    <html lang="${settings.language}">
       <head>
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -149,42 +155,50 @@ const renderGraph = (
           <div class="flex w-full items-center justify-center gap-12">
             <div class="flex flex-col items-start">
               <div class="flex gap-4 w-full text-base leading-normal text-black">
-                <div class="border-r mb-9 mr-3 flex flex-col justify-between items-end self-stretch">
+                <div class="border-r mb-14 mr-3 flex flex-col justify-between items-end self-stretch">
                   <div class="relative flex h-px min-w-max items-center border-b pr-2">
                     <div class="bg-white px-0.5">
                       <p class="mr-2 min-w-max text-sm font-semibold leading-none">${
-    currencyFormat({ currency, language_code, amount: weekSum })
+    currencyFormat({ settings, amount: weekSum })
   }</p>
                     </div>
                   </div>
                   <div class="relative flex h-px min-w-max items-center border-b pr-2">
                     <div class="bg-white px-0.5">
                       <p class="mr-2 min-w-max text-sm font-semibold leading-none">${
-    currencyFormat({ currency, language_code, amount: Math.floor(weekSum / 2) })
+    currencyFormat({ settings, amount: Math.floor(weekSum / 2) })
   }</p>
                     </div>
                   </div>
                   <div class="relative flex h-px min-w-max items-center border-b pr-2">
                     <div class="bg-white px-0.5">
                       <p class="mr-2 min-w-max text-sm font-semibold leading-none">${
-    currencyFormat({ currency, language_code, amount: 0 })
+    currencyFormat({ settings, amount: 0 })
   }</p>
                     </div>
                   </div>
                 </div>
                 ${
-    days.map((day) =>
-      renderDay({
-        date: day,
-        language_code,
+    Array.from(Array(7)).map((_d, i) => {
+      const date = new Date(from);
+      date.setDate(date.getDate() + i);
+      const zonedDate = toZonedTime(date, settings.timezone);
+      return renderDay({
+        date: zonedDate,
         weekSum,
-        currency,
-        expenses: expenses.filter((item) =>
-          new Date(item.issued_at).toDateString() === day.toDateString()
+        settings,
+        expenses: expenses.filter((expense) =>
+          format(
+            toZonedTime(expense.issued_at, settings.timezone),
+            "yyyy-MM-dd",
+            {
+              timeZone: settings.timezone,
+            },
+          ) === format(zonedDate, "yyyy-MM-dd", { timeZone: settings.timezone })
         ),
         labels,
-      })
-    ).join(
+      });
+    }).join(
       "",
     )
   }
@@ -194,10 +208,15 @@ const renderGraph = (
               <div class='flex flex-col gap-0.5'>
                 <p class="text-lg text-black">Wydano</p>
                 <h3 class="text-5xl font-bold text-black">
-                  ${
-    currencyFormat({ language_code, currency, amount: weekSum })
-  }
+                  ${currencyFormat({ settings, amount: weekSum })}
                 </h3>
+                ${
+    limit
+      ? `<h4 class="text-black opacity-60 text-2xl mt-2">/ ${
+        currencyFormat({ settings, amount: limit })
+      }</h4>`
+      : ""
+  }
               </div>
               <div>
                 ${
@@ -206,7 +225,7 @@ const renderGraph = (
                     <div style="background-color: ${color};" class="h-3 w-5 rounded"></div>
                     <h4 class="mb-1 font-semibold">${label}</h4>
                     <span class="opacity-80 text-sm font-medium">(${
-      currencyFormat({ language_code, amount, currency })
+      currencyFormat({ settings, amount })
     })</span>
                   </div>
                 `).join("")
@@ -219,46 +238,12 @@ const renderGraph = (
     </html>`;
 };
 
-const getDateArray = (from: string, to: string) => {
-  const dateArray: Date[] = [];
-  const startDate = new Date(from);
-  const endDate = new Date(to);
-  const currentDate = new Date(startDate);
-
-  while (currentDate <= endDate) {
-    // Push a new Date object so that we don't reference the same date
-    dateArray.push(new Date(currentDate));
-    // Add one day
-    currentDate.setDate(currentDate.getDate() + 1);
-  }
-
-  return dateArray;
-};
-
-const getWeekPeriod = (date: Date) => {
-  const startOfWeek = new Date(date);
-  const currentDayOfWeek = date.getDay();
-  const startDiff = date.getDate() - currentDayOfWeek +
-    (currentDayOfWeek === 0 ? -6 : 1);
-  startOfWeek.setDate(startDiff);
-  const endOfWeek = new Date(startOfWeek);
-  endOfWeek.setDate(startOfWeek.getDate() + 6);
-  return {
-    from: `${startOfWeek.getFullYear()}-${
-      startOfWeek.getMonth() + 1
-    }-${startOfWeek.getDate()}`,
-    to: `${endOfWeek.getFullYear()}-${
-      endOfWeek.getMonth() + 1
-    }-${endOfWeek.getDate()}`,
-  };
-};
-
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
   }
 
-  const { date, user } = await req.json();
+  const { user } = await req.json() as { user: Profile };
 
   if (!user) {
     return new Response(
@@ -267,17 +252,28 @@ Deno.serve(async (req) => {
     );
   }
 
-  const { from, to } = getWeekPeriod(new Date(date));
+  // const { from, to } = getWeekPeriod(
+  //   toZonedTime(new Date(), user.settings.timezone),
+  // );
+
+  const zonedTime = toZonedTime(new Date(), user.settings.timezone);
+
+  const startOfCurrentWeek = startOfWeek(zonedTime, { weekStartsOn: 1 });
+  const startOfPreviousWeek = subWeeks(startOfCurrentWeek, 1);
+
+  const from = fromZonedTime(startOfPreviousWeek, user.settings.timezone);
+  const to = fromZonedTime(
+    endOfWeek(startOfPreviousWeek, { weekStartsOn: 1 }),
+    user.settings.timezone,
+  );
 
   const { data: expenses, error } = await supabase.from("expenses").select(
     "amount, label, issued_at",
   )
-    .gte("issued_at", from)
-    .lte("issued_at", to)
-    .match({ user_id: user.id, currency: user.currency || "PLN" })
+    .gte("issued_at", from.toUTCString())
+    .lte("issued_at", to.toUTCString())
+    .match({ user_id: user.id, currency: user.settings.currency })
     .returns<Payment[]>();
-
-  console.log({ expenses, error });
 
   if (error) {
     console.error("Couldn't get expenses: ", error);
@@ -295,45 +291,69 @@ Deno.serve(async (req) => {
     );
   }
 
-  const html = renderGraph({
-    language_code: user.language_code,
-    from,
-    to,
-    expenses,
-    currency: user.currency,
-  });
+  const { data: limit, error: limitError } = await supabase.from("limits")
+    .select("amount").match({
+      period: "weekly",
+      user_id: user.id,
+      currency: user.settings.currency,
+    }).maybeSingle();
 
-  const response = await fetch("https://hcti.io/v1/image", {
-    method: "POST",
-    body: JSON.stringify({
-      html,
-      selector: "div[id='wrapper']",
-    }),
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Basic ${btoa(HCTI_USER_ID + ":" + HCTI_API_KEY)}`,
-    },
-  });
-
-  if (!response.ok) {
+  if (limitError) {
+    console.error("Couldn't get limit: ", limitError);
     return new Response(
       JSON.stringify({
-        message: response.statusText ||
-          "There was an error generating a graph",
+        message: "There was a problem gathering limit",
       }),
       {
-        ...response,
+        status: 500,
         headers: {
           "Content-Type": "application/json",
+          ...corsHeaders,
         },
       },
     );
   }
 
-  const data = await response.json();
+  const html = renderGraph({
+    from,
+    expenses,
+    settings: user.settings,
+    limit: limit?.amount,
+  });
+  console.log(html);
+
+  // const response = await fetch("https://hcti.io/v1/image", {
+  //   method: "POST",
+  //   body: JSON.stringify({
+  //     html,
+  //     selector: "div[id='wrapper']",
+  //   }),
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     Authorization: `Basic ${btoa(HCTI_USER_ID + ":" + HCTI_API_KEY)}`,
+  //   },
+  // });
+
+  // if (!response.ok) {
+  //   return new Response(
+  //     JSON.stringify({
+  //       message: response.statusText ||
+  //         "There was an error generating a graph",
+  //     }),
+  //     {
+  //       ...response,
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     },
+  //   );
+  // }
+
+  // const data = await response.json();
 
   return new Response(
-    data.url,
+    // data.url,
+    "",
     { headers: corsHeaders },
   );
 });

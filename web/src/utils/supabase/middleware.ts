@@ -42,7 +42,7 @@ export async function updateSession(request: NextRequest) {
   const { data: user } = await supabase
     .from("profiles")
     .select(
-      "id, first_name, last_name, ...settings(currency, timezone, language)"
+      "id, first_name, last_name, ...settings(currency, timezone, language)",
     )
     .single();
 
@@ -52,7 +52,7 @@ export async function updateSession(request: NextRequest) {
     !user &&
     !PUBLIC_ROUTES.includes(request.nextUrl.pathname) &&
     !PUBLIC_ROUTES.includes(
-      "/" + request.nextUrl.pathname.split("/").slice(2).join("/")
+      "/" + request.nextUrl.pathname.split("/").slice(2).join("/"),
     )
   ) {
     const url = request.nextUrl.clone();
@@ -69,8 +69,7 @@ export async function updateSession(request: NextRequest) {
       return NextResponse.redirect(url);
     }
 
-    const isAccountSetup =
-      !!user.first_name &&
+    const isAccountSetup = !!user.first_name &&
       !!user.last_name &&
       !!user.currency &&
       !!user.language &&
@@ -102,7 +101,7 @@ export async function updateSession(request: NextRequest) {
           autoRefreshToken: false,
           detectSessionInUrl: false,
         },
-      }
+      },
     );
 
     const { data: subscription, error } = await supabaseServiceRole
@@ -118,8 +117,7 @@ export async function updateSession(request: NextRequest) {
       return NextResponse.redirect(url);
     }
 
-    const isActive =
-      subscription &&
+    const isActive = subscription &&
       (subscription.attrs.status === "active" ||
         subscription.attrs.status === "trialing");
 

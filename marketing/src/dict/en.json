@@ -1,7 +1,34 @@
 {
+  "_metadata": {
+    "title": "Monfuse - Your Ultimate Financial Management App",
+    "description": "Take control of your finances with Monfuse. Effortlessly track income, expenses, and recurring payments while setting personalized financial goals. Powered by AI, Monfuse provides insights and recommendations to optimize your financial health. Make informed decisions and start your journey towards financial freedom today!",
+    "keywords": [
+      "finance app",
+      "personal finance management",
+      "track expenses",
+      "manage income",
+      "financial goals",
+      "budgeting tool",
+      "recurring payments",
+      "spending tracker",
+      "financial insights",
+      "money management",
+      "savings goals",
+      "expense limits",
+      "financial statistics",
+      "budget planning",
+      "financial wellness",
+      "income tracking",
+      "goal setting",
+      "smart spending",
+      "financial notifications",
+      "AI financial assistant"
+    ]
+  },
   "landing": {
     "hero": {
       "title": "Manage all your finances with ease",
+      "description": "Effortlessly track income and expenses, set goals, and gain insights with our finance web app. Start your journey to financial freedom today!",
       "cta": {
         "primary": "Start now",
         "secondary": "Learn more"
@@ -9,7 +36,7 @@
     },
     "operations": {
       "category": "Operations",
-      "title": "All categories in one place",
+      "title": "All in one place",
       "incomes": {
         "title": "Incomes",
         "description": "Monitor and analyze your income sources to easily identify trends and make better decisions that will accelerate the growth of your budget."
@@ -22,7 +49,213 @@
         "title": "Recurring Payments",
         "description": "Manage your recurring payments to have full control over subscriptions, regular payments, and avoid unexpected charges."
       }
+    },
+    "services": {
+      "category": "Services",
+      "title": "Empower Your Finances",
+      "operations": {
+        "title": "Track Operations",
+        "description": "Easily monitor your income, expenses, and recurring payments. Categorize transactions and set spending limits."
+      },
+      "goals": {
+        "title": "Achieve Your Goals",
+        "description": "Set and track financial goals effortlessly. Whether saving or paying off debt, ensure your financial ambitions stay within reach."
+      },
+      "navigation": {
+        "title": "Navigate Seamlessly",
+        "description": "Quickly switch between pages with our streamlined navigation. Access all data easily and manage your finances without hassle."
+      },
+      "stats": {
+        "title": "Explore Period Stats",
+        "description": "View monthly financial insights at a glance. Track spending patterns, income trends, and progress toward your goals with clear visual reports."
+      }
+    },
+    "faq": {
+      "category": "FAQ",
+      "title": "Frequently asked questions",
+      "items": [
+        {
+          "question": "What is the purpose of this finance web app?",
+          "answer": "Our app helps you track expenses, manage financial goals, set spending limits, and receive personalized insights—all in one place. It simplifies your budgeting and makes it easy to stay on top of your finances."
+        },
+        {
+          "question": "How can I track my income and expenses?",
+          "answer": "You can easily track all your income and expenses by adding transactions manually or through the Telegram Bot. You can categorize expenses by labels and provides a clear overview of your spending patterns."
+        },
+        {
+          "question": "How do I set financial goals in the app?",
+          "answer": "Simply create a new goal, define the amount you want to save or spend, and set target dates. The app tracks your progress and helps you stay motivated by monitoring payments toward your goal."
+        },
+        {
+          "question": "Can I receive notifications for spending limits and recurring payments?",
+          "answer": "Yes! You’ll get real-time notifications if you exceed spending limits or if recurring payments are added. You can also opt to receive weekly summaries of your financial activity via email or Telegram."
+        },
+        {
+          "question": "What kind of financial statistics can I view?",
+          "answer": "The app provides detailed monthly stats, including spending patterns, income trends, and progress toward financial goals. Visual reports make it easy to understand your financial health."
+        },
+        {
+          "question": "How can I get financial insights through the AI assistant?",
+          "answer": "Our AI assistant can answer questions about your transactions, spending habits, goals, and more. Simply type your query, and the assistant will provide personalized financial insights based on your data."
+        }
+      ]
     }
+  },
+  "services": {
+    "title": "Services",
+    "items": {
+      "incomes": {
+        "_metadata": {
+          "title": "Income, Manage Earnings and Set Financial Goals | Monfuse",
+          "description": "Track and manage your income effortlessly with Monfuse. Monitor your earnings, set financial goals, and gain insights into your financial health. Start optimizing your income today to achieve your financial objectives!"
+        },
+        "title": "Incomes",
+        "description": "Easily track all sources of income and view detailed reports to understand your earning patterns.",
+        "faq": [
+          {
+            "question": "How can I add a new income source?",
+            "answer": "You can add a new income source by navigating to the 'Incomes' section, clicking the 'Add' button, and filling out the necessary details like amount, date and currency. You can also add incomes through our Telegram Bot after connecting your account."
+          },
+          {
+            "question": "Can I edit or delete an income entry?",
+            "answer": "Yes, you can edit or delete any income entry by selecting the entry from the 'Incomes' section and choosing the appropriate action."
+          },
+          {
+            "question": "Can I view reports on my income?",
+            "answer": "Yes, our app provides detailed reports and visual charts showing your income trends over time, categorized by source, amount, and date."
+          },
+          {
+            "question": "How do I track recurring income?",
+            "answer": "To track recurring income, you can set up the entry as a recurring payment, and the app will automatically track it on the specified schedule."
+          }
+        ]
+      },
+      "expenses": {
+        "_metadata": {
+          "title": "Expenses, Track Spending and Manage Budgets | Monfuse",
+          "description": "Effortlessly track and manage your expenses with Monfuse. Gain insights into your spending habits, set budget limits, and optimize your financial health. Start controlling your expenses today to achieve your financial goals!"
+        },
+        "title": "Expenses",
+        "description": "Monitor and categorize your spending to stay within budget and manage your finances effectively.",
+        "faq": [
+          {
+            "question": "How can I add a new expense?",
+            "answer": "To add a new expense, navigate to the 'Expenses' section, click the 'Add Expense' button, and enter the necessary details such as amount, date, and category."
+          },
+          {
+            "question": "Can I categorize my expenses?",
+            "answer": "Yes, you can categorize your expenses when adding or editing an entry. This helps you organize your spending and understand where your money goes."
+          },
+          {
+            "question": "How do I track my spending limits?",
+            "answer": "You can set spending limits for each category in the 'Expenses' section. The app will notify you if you exceed these limits."
+          },
+          {
+            "question": "Can I edit or delete an expense entry?",
+            "answer": "Absolutely! You can edit or delete any expense entry by selecting it from the 'Expenses' section and choosing the appropriate action."
+          },
+          {
+            "question": "How do I view my spending statistics?",
+            "answer": "You can view detailed spending statistics in the 'Stats' section, which shows you trends, patterns, and breakdowns of your expenses by category and time period."
+          }
+        ],
+        "info": [
+          {
+            "markdown": "## Track Your Spending with Ease\n\nEffectively managing expenses is the cornerstone of financial health. With our app, you can easily record, monitor, and analyze every expense, helping you gain a clear picture of where your money goes. By regularly tracking your spending, you’ll be more equipped to make informed financial decisions, keep within your budget, and reach your savings goals faster.\n\nSay goodbye to complicated spreadsheets and manual tracking. With a few clicks, you can log each expense, review past transactions, and visualize spending trends over time. For users looking to better balance their budget, the app’s [**Incomes**](/incomes) section offers tools to align your earnings with expenses, ensuring you stay on track financially."
+          },
+          {
+            "markdown": "## Stay on Track with Periodical Limits\n\nSetting spending limits is a powerful way to maintain control over your finances. Our app allows you to set specific limits for each expense category, helping you manage your budget more effectively and avoid overspending. Whether it’s groceries, entertainment, or personal expenses, defining clear limits helps you stay disciplined and mindful of your financial goals.\n\nNever worry about exceeding your budget unknowingly. With real-time notifications, you’ll receive alerts as you approach or exceed your spending limits, giving you the opportunity to adjust before overspending. These helpful reminders ensure that you’re always aware of your spending, so you can make adjustments as needed."
+          },
+          {
+            "markdown": "## Organize Your Spending with Custom Labels\n\nCategorizing expenses is key to understanding your spending patterns. Our app allows you to create custom labels for each expense, helping you organize and track your transactions with ease. By assigning labels like “Work,” “Travel,” or “Household,” you can gain a clearer breakdown of your spending areas, making budget management straightforward.\n\nLabel-based tracking provides a detailed view of your spending habits, allowing you to analyze expenses by category over time. This can reveal patterns, show where you may be overspending, and highlight areas where you can cut back.\n\nOur labeling feature is designed to be as flexible as your budget. You can create, edit, or delete labels anytime to reflect changes in your lifestyle or financial goals. Whether your priorities shift toward travel, health, or saving, custom labels make it easy to keep your budget aligned with your current needs."
+          }
+        ]
+      },
+      "recurring-payments": {
+        "_metadata": {
+          "title": "Recurring Payments, Manage Subscriptions and Automatic Bills | Monfuse",
+          "description": "Stay on top of your finances by managing recurring payments with Monfuse. Easily track subscriptions, automate bill payments, and gain insights into your regular expenses. Simplify your budgeting and avoid missed payments today!"
+        },
+        "title": "Recurring Payments",
+        "description": "Set up and track recurring payments like subscriptions or bills, with reminders to keep you informed.",
+        "faq": [
+          {
+            "question": "How do I set up a recurring payment?",
+            "answer": "To set up a recurring payment, navigate to the 'Recurring Payments' section, click the 'Add Recurring Payment' button, and fill in the necessary details, including amount, frequency, and start date."
+          },
+          {
+            "question": "Can I edit or cancel a recurring payment?",
+            "answer": "Yes, you can edit or cancel any recurring payment by selecting it from the 'Recurring Payments' list and choosing the appropriate action."
+          },
+          {
+            "question": "Will I receive notifications for recurring payments?",
+            "answer": "Yes, you will receive notifications after a recurring payment is due, so you can ensure you have sufficient funds."
+          },
+          {
+            "question": "How do I view my recurring payments?",
+            "answer": "You can view all your recurring payments in the 'Recurring Payments' section, where you can see details such as amount, frequency, and next payment date."
+          },
+          {
+            "question": "Can I categorize my recurring payments?",
+            "answer": "Yes, you can assign categories to your recurring payments to help you manage and track your expenses more effectively."
+          }
+        ]
+      },
+      "goals": {
+        "_metadata": {
+          "title": "Goals, Set and Achieve Your Financial Objectives | Monfuse",
+          "description": "Define and track your financial goals with Monfuse. Create personalized savings targets, monitor your progress, and stay motivated to reach your financial aspirations. Start achieving your dreams today by setting clear financial objectives!"
+        },
+        "title": "Goals",
+        "description": "Set financial goals, track your progress, and manage payments to achieve your savings or spending targets.",
+        "faq": [
+          {
+            "question": "How do I set a financial goal?",
+            "answer": "To set a financial goal, navigate to the 'Goals' section, click the 'Add' button, and enter the necessary details, including goal amount, target date, and description."
+          },
+          {
+            "question": "Can I track my progress towards my goals?",
+            "answer": "Yes, the app allows you to track your progress towards each goal, showing how much you have saved and how close you are to reaching your target."
+          },
+          {
+            "question": "How do I edit or delete a goal?",
+            "answer": "You can edit or delete a goal by selecting it from the 'Goals' section and choosing the appropriate action."
+          },
+          {
+            "question": "What types of goals can I set?",
+            "answer": "You can set various types of goals, such as savings goals, debt repayment goals, or budget targets, depending on your financial objectives."
+          }
+        ],
+        "info": {
+          "markdown": "## Conquer Your Financial Goals\n\nStaying committed to financial goals can be difficult without the right tools. Many people struggle to track their progress or lose sight of their savings targets amidst day-to-day expenses. Without a clear, visual way to see how far they've come, it’s easy to become discouraged and fall off track. For help staying on top of your overall finances, explore how our [**expense tracking**](/expenses) can keep your spending in check.\n\nOur [**AI Assistant**](/ai-assistant) provides personalized insights, helping you understand your progress toward your financial milestones. You can easily track payments and contributions over time, making it easier to see your efforts pay off. The _visual representation_ keeps you motivated and focused on achieving your financial ambitions.\n\nFrom short-term savings goals to long-term financial ambitions, the app allows you to tailor your goals according to your unique needs. You can add, edit, or delete goals at any time, keeping your financial planning flexible and responsive to life’s changes."
+        }
+      }
+    }
+  },
+  "ai-assistant": {
+    "title": "AI Assistant"
+  },
+  "pricing": {
+    "title": "Pricing",
+    "description": "Unlock the full potential of your financial management with Monfuse's single, affordable pricing plan.",
+    "faq": [
+      {
+        "question": "What is included in the pricing plan?",
+        "answer": "Our pricing plan includes access to all features of Monfuse, including income tracking, expense management, goal setting, and AI-driven insights."
+      },
+      {
+        "question": "Is there a free trial available?",
+        "answer": "Yes, you can try Monfuse for free for 7 days to explore all the features before committing to a subscription."
+      },
+      {
+        "question": "Can I cancel my subscription at any time?",
+        "answer": "Absolutely! You can cancel your subscription at any time, and you will continue to have access to all features until the end of your billing cycle."
+      },
+      {
+        "question": "Are there any hidden fees?",
+        "answer": "No, there are no hidden fees. The price you see is what you pay, and it covers all features of the app."
+      }
+    ]
   },
   "banner": {
     "title": "Take full control of your personal finances"
