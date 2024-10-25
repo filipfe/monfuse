@@ -1,30 +1,25 @@
-type RecurringPayment = {
-  created_at: string;
+type TimelinePayment = {
+  id: string;
   title: string;
   amount: number;
-  interval_amount: number;
-  interval_unit: string;
-  type: "income" | "expense";
-  start_date: string;
   currency: string;
 };
 
-interface UpcomingRecurringPayment extends Payment {
-  payment_date: string;
+type RecurringPayment = TimelinePayment & {
+  type: "income" | "expense";
   interval_amount: number;
-  interval_unit: string;
-}
-
-type Year = {
-  year: number;
-  months: Month[];
+  interval_unit: "day" | "week" | "month" | "year";
+  last_payment: string;
+  next_payment: string;
 };
 
-type TotalAmount = {
-  [currency: string]: number;
+type TimelineEntry = {
+  date: string;
+  incomes: TimelinePayment[];
+  expenses: TimelinePayment[];
 };
 
-type Month = {
-  month: number;
-  payments: Payment[];
+type UpcomingPayment = TimelinePayment & {
+  payment_datetime: string;
+  type: "income" | "expense";
 };

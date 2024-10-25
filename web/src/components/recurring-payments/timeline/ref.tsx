@@ -1,44 +1,128 @@
-import IssuedAt from "./issued-at";
-import NumberFormat from "@/utils/formatters/currency";
+"use client";
 
-export default function PaymentRef({
-  title,
-  issued_at,
-  currency,
-  amount,
-  type,
-}: Payment) {
+import { Divider } from "@nextui-org/react";
+import { useState } from "react";
+
+type Props = {
+  date: string;
+  isToday: boolean;
+  incomes: TimelinePayment[];
+  expenses: TimelinePayment[];
+};
+
+export default function Ref({ date, isToday, incomes, expenses }: Props) {
+  const day = new Date(date).getDate();
+  const [tooltip, setTooltip] = useState({
+    visible: false,
+    x: 0,
+    y: 0,
+    flipped: false,
+  });
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const tooltipWidth = 160;
+
+    const flipped = e.clientX + tooltipWidth > window.innerWidth;
+    setTooltip({
+      visible: true,
+      x: e.clientX,
+      y: e.clientY,
+      flipped,
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setTooltip({
+      visible: false,
+      x: 0,
+      y: 0,
+      flipped: false,
+    });
+  };
+
   return (
-    <div className="flex justify-end items-stretch md:gap-8 even:bg-light rounded-md relative h-max group">
-      <div className="flex-1 ml-4 my-3 flex items-center">
-        <div>
-          <IssuedAt issued_at={issued_at} />
-          <h3 className="font-medium">{title}</h3>
+    <div
+      className={`group cursor-pointer hover:bg-light flex flex-col items-center justify-end gap-2 p-2 rounded-lg h-full ${
+        isToday && "bg-light border"
+      }`}
+      //   onMouseEnter={handleMouseEnter}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+    >
+      <div className="flex flex-col items-center justify-end gap-1">
+        <div
+          className={`flex items-center justify-center rounded-full bg-opacity-20 border-2 ${
+            isToday ? "size-8" : "size-6 text-xs"
+          } ${
+            incomes.length > 0
+              ? "bg-primary border-primary text-primary"
+              : "bg-neutral-200 border-neutral-200 text-neutral-200"
+          }  font-bold`}
+        >
+          {incomes.length}
+        </div>
+        <div
+          className={`flex items-center justify-center rounded-full bg-opacity-20 border-2 ${
+            isToday ? "size-8" : "size-6 text-xs"
+          } ${
+            expenses.length > 0
+              ? "bg-secondary border-secondary text-secondary"
+              : "bg-neutral-200 border-neutral-200 text-neutral-200"
+          } font-bold`}
+        >
+          {expenses.length}
         </div>
       </div>
-      <div className="flex items-center mr-3">
-        <strong className="text-xl sm:text-2xl md:text-3xl font-bold text-primary lg:hidden">
-          {type === "income" ? "+" : type === "expense" ? "-" : ""}
-          <NumberFormat currency={currency} amount={amount} />
-        </strong>
-      </div>
-      <div className="h-[126px] py-2 w-0.5 bg-primary flex flex-col items-center justify-center relative mr-4 lg:mr-0">
-        <div className="bg-primary rounded-full w-2 min-w-2 h-2" />
-        <div className="hidden group-first:block group-last:block absolute group-first:bottom-full group-last:top-full left-0 right-0 h-6 bg-primary"></div>
-      </div>
-      <div className="items-center rounded mr-2 my-2 hidden lg:flex">
-        <div className="bg-primary rounded-lg">
-          <div className="border shadow-[inset_0px_2px_9px_rgba(255,255,255,0.4)] border-white/10 bg-gradient-to-b from-white/5 to-white/[0.01] p-4 rounded-lg backdrop-blur-lg flex flex-col gap-2 min-w-64">
-            <span className="text-white text-sm font-medium">{title}</span>
-            <div className="h-10">
-              <strong className="text-3xl font-bold text-white">
-                {type === "income" ? "+" : type === "expense" ? "-" : ""}
-                <NumberFormat currency={currency} amount={amount} />
-              </strong>
+      <Divider className={isToday ? "w-14" : "w-10"} />
+      <span
+        className={
+          isToday
+            ? "font-bold"
+            : "font-medium text-font/50 group-hover:text-font"
+        }
+      >
+        {isToday ? "Today" : day}
+      </span>
+      {tooltip.visible && (
+        <div
+          className="absolute flex flex-col gap-2 p-3 rounded-md bg-white border-font/10 border min-w-44 shadow-lg shadow-font/5"
+          style={{
+            top: tooltip.y + 20,
+            left: tooltip.flipped ? tooltip.x - 150 : tooltip.x + 10,
+          }}
+        >
+          <strong>{date}</strong>
+          <Divider />
+          <div className="flex flex-col">
+            <div>
+              <span>{`Incomes: ${incomes.length}`}</span>
+              {/* <div>
+                {incomes.map((payment) => (
+                  <div className="flex flex-col">
+                    <span>{payment.title}</span>
+                    <span>
+                      {payment.amount} {payment.currency}
+                    </span>
+                  </div>
+                ))}
+              </div> */}
+            </div>
+            <div>
+              <span>{`Expenses: ${expenses.length}`}</span>
+              {/* <div>
+                {expenses.map((payment) => (
+                  <div className="flex flex-col">
+                    <span>{payment.title}</span>
+                    <span>
+                      {payment.amount} {payment.currency}
+                    </span>
+                  </div>
+                ))}
+              </div> */}
             </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

@@ -14,9 +14,9 @@ export default async function Dashboard() {
   const {
     private: {
       dashboard: dict,
-      goals: { priority },
+      goals: { priority: dictPriority },
       operations: {
-        expenses: { limits },
+        expenses: { limits: dictLimits },
       },
     },
   } = await getDictionary(settings.language);
@@ -31,9 +31,9 @@ export default async function Dashboard() {
           languageCode={settings.language}
         />
       </Suspense>
-      <Limits dict={limits} settings={settings} />
+      <Limits dict={dictLimits} settings={settings} />
       <Suspense>
-        <GoalPriority dict={priority} />
+        <GoalPriority dict={dictPriority} />
       </Suspense>
       <WeeklyGraph settings={settings} dict={dict["weekly-graph"]} />
     </div>

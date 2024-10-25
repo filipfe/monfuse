@@ -17,16 +17,12 @@ const tomorrow = new Date();
 tomorrow.setDate(tomorrow.getDate() + 1);
 
 interface NewRecurringPayment
-  extends Partial<
-    Omit<
-      RecurringPayment,
-      "amount" | "created_at" | "type" | "start_date" | "interval_amount"
-    >
-  > {
+  extends Partial<Omit<TimelinePayment, "id" | "amount">> {
   amount: string;
   type?: "income" | "expense";
   start_date: CalendarDate;
   interval_amount: string;
+  interval_unit: string;
 }
 
 const defaultRecord: Omit<NewRecurringPayment, "currency"> = {

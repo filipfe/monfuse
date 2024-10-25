@@ -273,7 +273,7 @@ with cte1 as (
     end::interval_unit_type as interval_unit
   from cte1 c1
 )
-insert into recurring_payments (title, amount, currency, type, user_id, interval_amount, interval_unit, start_date)
+insert into recurring_payments (title, amount, currency, type, user_id, interval_amount, interval_unit, start_datetime)
 select
   case
     when c2.type = 'expense' then 
@@ -298,7 +298,7 @@ select
     when c2.interval_unit = 'year' then 1
   end,
   c2.interval_unit,
-  (now() - (random() * interval '3 day'))::date
+  now() - (random() * interval '3 day')
 from cte2 c2;
 
 -- GOALS
