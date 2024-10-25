@@ -7,6 +7,7 @@ import Banner from "@/components/ui/banner";
 import getDictionary, { langs } from "@/dict";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import metadata, { openGraph } from "../shared-metadata";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -65,6 +66,7 @@ export default async function RootLayout({
         <Banner dict={banner} />
         <Footer dict={dict} />
         <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );

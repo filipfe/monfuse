@@ -70,6 +70,10 @@
         "description": "View monthly financial insights at a glance. Track spending patterns, income trends, and progress toward your goals with clear visual reports."
       }
     },
+    "ai-assistant": {
+      "category": "AI Assistant",
+      "title": "Financial comfort in 3 steps"
+    },
     "faq": {
       "category": "FAQ",
       "title": "Frequently asked questions",
@@ -233,7 +237,12 @@
     }
   },
   "ai-assistant": {
-    "title": "AI Assistant"
+    "_metadata": {
+      "title": "AI Assistant, Smart Money Management & Budget Tracking | Monfuse",
+      "description": "Manage your money smarter with an AI assistant—track expenses, monitor budgets, set goals, and receive alerts to stay on top of your finances effortlessly."
+    },
+    "title": "AI Assistant",
+    "description": "Meet your AI-powered financial assistant—designed to simplify budgeting, track spending, and support your financial goals 24/7."
   },
   "pricing": {
     "title": "Pricing",

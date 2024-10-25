@@ -12,7 +12,7 @@ export default function Skeleton({ dict, children }: Props) {
     <section className="bg-primary-dark sm:px-6 flex flex-col items-center gap-8 overflow-hidden relative pb-4">
       <div className="relative max-w-7xl mx-auto z-10 overflow-hidden gap-4 sm:px-12 py-12 sm:py-16 lg:py-24 w-full sm:rounded-lg border border-white/10 bg-gradient-to-br from-[rgba(255,255,255,0.05)] to-[rgba(255,255,255,0)]">
         <div className="px-6 flex flex-col gap-4">
-          <h1 className="text-4xl max-w-lg sm:text-5xl sm:max-w-xl lg:text-6xl text-white font-black lg:max-w-3xl [text-shadow:_6px_6px_0_rgb(11_60_64)]">
+          <h1 className="text-4xl max-w-lg sm:text-5xl sm:max-w-xl lg:text-6xl text-white font-black lg:max-w-3xl [text-shadow:_4px_4px_0_rgb(11_60_64)] sm:[text-shadow:_6px_6px_0_rgb(11_60_64)]">
             {dict.title}
           </h1>
           <p className="text-white/80 text-sm sm:text-base my-2 sm:my-4 max-w-xl leading-relaxed sm:leading-relaxed">

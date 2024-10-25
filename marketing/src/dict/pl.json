@@ -70,6 +70,10 @@
         "description": "Przeglądaj miesięczne informacje finansowe. Śledź wzorce wydatków, trendy dochodów i postępy w realizacji swoich celów za pomocą przejrzystych raportów wizualnych."
       }
     },
+    "ai-assistant": {
+      "category": "Asystent AI",
+      "title": "Finansowa wygoda w 3 krokach"
+    },
     "faq": {
       "category": "FAQ",
       "title": "Często zadawane pytania",
@@ -139,29 +143,35 @@
         "description": "Monitoruj i kategoryzuj swoje wydatki, aby nie przekraczać budżetu i efektywnie zarządzać finansami.",
         "faq": [
           {
-            "question": "How can I add a new expense?",
-            "answer": "To add a new expense, navigate to the 'Expenses' section, click the 'Add Expense' button, and enter the necessary details such as amount, date, and category."
+            "question": "Jak mogę dodać nowy wydatek?",
+            "answer": "Aby dodać nowy wydatek, przejdź do sekcji 'Wydatki', kliknij przycisk 'Dodaj' i wprowadź niezbędne szczegóły, takie jak kwota, data i kategoria."
           },
           {
-            "question": "Can I categorize my expenses?",
-            "answer": "Yes, you can categorize your expenses when adding or editing an entry. This helps you organize your spending and understand where your money goes."
+            "question": "Czy mogę kategoryzować moje wydatki?",
+            "answer": "Tak, możesz kategoryzować swoje wydatki za pomocą etykiet, podczas dodawania lub edytowania wpisu."
           },
           {
-            "question": "How do I track my spending limits?",
-            "answer": "You can set spending limits for each category in the 'Expenses' section. The app will notify you if you exceed these limits."
+            "question": "Jak śledzić moje limity wydatków?",
+            "answer": "Możesz ustawić limity wydatków dla każdej kategorii w sekcji 'Wydatki'. Aplikacja powiadomi Cię, jeśli przekroczysz te limity."
           },
           {
-            "question": "Can I edit or delete an expense entry?",
-            "answer": "Absolutely! You can edit or delete any expense entry by selecting it from the 'Expenses' section and choosing the appropriate action."
+            "question": "Czy mogę edytować lub usuwać wpisy wydatków?",
+            "answer": "Oczywiście! Możesz edytować lub usuwać dowolny wpis wydatków, wybierając go z sekcji 'Wydatki' i wybierając odpowiednią opcję."
           },
           {
-            "question": "How do I view my spending statistics?",
-            "answer": "You can view detailed spending statistics in the 'Stats' section, which shows you trends, patterns, and breakdowns of your expenses by category and time period."
+            "question": "Jak mogę zobaczyć moje statystyki wydatków?",
+            "answer": "Możesz zobaczyć szczegółowe statystyki wydatków w sekcji 'Statystyki', która pokazuje trendy, wzorce i podział Twoich wydatków według kategorii i okresu czasu."
           }
         ],
         "info": [
           {
             "markdown": "## Śledź swoje wydatki z łatwością\n\nEfektywne zarządzanie wydatkami to podstawa zdrowia finansowego. Dzięki naszej aplikacji możesz w prosty sposób rejestrować, monitorować i analizować każde wydatki, co pozwoli Ci uzyskać jasny obraz, na co idą Twoje pieniądze. Regularne śledzenie wydatków pomoże Ci podejmować bardziej świadome decyzje finansowe, trzymać się budżetu i szybciej osiągać cele oszczędnościowe.\n\nPożegnaj się ze skomplikowanymi arkuszami kalkulacyjnymi i ręcznym śledzeniem. Kilka kliknięć pozwoli Ci zarejestrować każdy wydatek, przeglądać przeszłe transakcje i wizualizować trendy wydatków na przestrzeni czasu. Dla użytkowników chcących lepiej zbilansować budżet, sekcja [**Przychody**](/incomes) oferuje narzędzia do dostosowania zarobków do wydatków, co zapewni Ci kontrolę nad finansami."
+          },
+          {
+            "markdown": "## Pozostań w budżecie z limitami wydatków\n\nUstalenie limitów wydatków to świetny sposób na zachowanie kontroli nad swoimi finansami. Nasza aplikacja umożliwia ustalanie konkretnych limitów dla różnych okresów czasowych, co pomaga skuteczniej zarządzać budżetem i unikać przekroczeń. Niezależnie od tego, czy chodzi o zakupy spożywcze, rozrywkę, czy wydatki osobiste, określenie jasnych limitów pomaga utrzymać dyscyplinę i dbać o swoje [**cele finansowe**](/goals).\n\nNie musisz się martwić o nieświadome przekroczenie budżetu. Dzięki powiadomieniom w czasie rzeczywistym otrzymasz alerty, gdy zbliżysz się do swoich limitów wydatków lub je przekroczysz, dając Ci możliwość dostosowania się przed przekroczeniem. Te pomocne przypomnienia zapewniają, że zawsze jesteś świadomy swoich wydatków, dzięki czemu możesz wprowadzać zmiany w razie potrzeby."
+          },
+          {
+            "markdown": "## Organizuj swoje wydatki za pomocą niestandardowych etykiet\n\nKategoryzowanie wydatków jest kluczowe dla zrozumienia ich wzorców. Nasza aplikacja pozwala na tworzenie niestandardowych etykiet dla każdego wydatku, co ułatwia organizację i śledzenie transakcji. Przypisując etykiety takie jak \"Praca\", \"Podróże\" czy \"Gospodarstwo domowe\", możesz uzyskać jaśniejszy obraz obszarów wydatków, co sprawia, że zarządzanie budżetem staje się proste.\n\nŚledzenie oparte na etykietach dostarcza szczegółowego widoku Twoich nawyków wydatkowych, pozwalając analizować je według kategorii w czasie.\n\nMożesz tworzyć, edytować lub usuwać etykiety w dowolnym momencie, aby odzwierciedlić zmiany w swoim stylu życia lub [**celach finansowych**](/goals). Niezależnie od tego, czy Twoje priorytety skupiają się na hobby, podróżach czy zdrowiu, niestandardowe etykiety ułatwiają utrzymanie budżetu zgodnie z Twoimi bieżącymi potrzebami."
           }
         ]
       },
@@ -174,24 +184,24 @@
         "description": "Konfiguruj i śledź płatności cykliczne, takie jak subskrypcje lub rachunki, dzięki przypomnieniom, dzięki którym będziesz na bieżąco.",
         "faq": [
           {
-            "question": "How do I set up a recurring payment?",
-            "answer": "To set up a recurring payment, navigate to the 'Recurring Payments' section, click the 'Add Recurring Payment' button, and fill in the necessary details, including amount, frequency, and start date."
+            "question": "Jak ustawić płatność cykliczną?",
+            "answer": "Aby ustawić płatność cykliczną, przejdź do sekcji 'Płatności cykliczne', kliknij przycisk 'Dodaj płatność cykliczną' i wypełnij wymagane dane, w tym kwotę, częstotliwość i datę rozpoczęcia."
           },
           {
-            "question": "Can I edit or cancel a recurring payment?",
-            "answer": "Yes, you can edit or cancel any recurring payment by selecting it from the 'Recurring Payments' list and choosing the appropriate action."
+            "question": "Czy mogę edytować lub anulować płatność cykliczną?",
+            "answer": "Tak, możesz edytować lub anulować każdą płatność cykliczną, wybierając ją z listy 'Płatności cykliczne' i wybierając odpowiednią opcję."
           },
           {
-            "question": "Will I receive notifications for recurring payments?",
-            "answer": "Yes, you will receive notifications after a recurring payment is due, so you can ensure you have sufficient funds."
+            "question": "Czy otrzymam powiadomienia o płatnościach cyklicznych?",
+            "answer": "Tak, otrzymasz powiadomienia po tym, jak płatność cykliczna będzie wymagana, aby upewnić się, że masz wystarczające środki."
           },
           {
-            "question": "How do I view my recurring payments?",
-            "answer": "You can view all your recurring payments in the 'Recurring Payments' section, where you can see details such as amount, frequency, and next payment date."
+            "question": "Jak mogę zobaczyć moje płatności cykliczne?",
+            "answer": "Możesz zobaczyć wszystkie swoje płatności cykliczne w sekcji 'Płatności cykliczne', gdzie znajdziesz szczegóły takie jak kwota, częstotliwość i data następnej płatności."
           },
           {
-            "question": "Can I categorize my recurring payments?",
-            "answer": "Yes, you can assign categories to your recurring payments to help you manage and track your expenses more effectively."
+            "question": "Czy mogę kategoryzować moje płatności cykliczne?",
+            "answer": "Tak, możesz przypisać kategorie do swoich płatności cyklicznych, aby skuteczniej zarządzać i śledzić swoje wydatki."
           }
         ]
       },
@@ -227,7 +237,12 @@
     }
   },
   "ai-assistant": {
-    "title": "Asystent AI"
+    "_metadata": {
+      "title": "Asystent AI, Inteligentne Zarządzanie Finansami i Śledzenie Budżetu | Monfuse",
+      "description": "Zarządzaj swoimi finansami mądrzej dzięki asystentowi AI — śledź wydatki, monitoruj budżet, ustalaj cele i otrzymuj powiadomienia, aby łatwo kontrolować swoje finanse."
+    },
+    "title": "Asystent AI",
+    "description": "Poznaj swojego finansowego asystenta AI — zaprojektowanego, aby uprościć śledzenie operacji i wspierać Twoje cele finansowe 24/7."
   },
   "pricing": {
     "title": "Cennik",
