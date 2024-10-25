@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@/utils/cn";
+import { motion, AnimatePresence } from "framer-motion";
 import { Fragment, useEffect, useState } from "react";
 
 export default function Wrapper({ children }: { children: React.ReactNode[] }) {
@@ -19,26 +20,30 @@ export default function Wrapper({ children }: { children: React.ReactNode[] }) {
       <div className={cn("sm:px-6 py-4 bg-primary-dark")}>
         <div
           className={cn(
-            "max-w-7xl mx-auto flex items-center justify-between h-14 sm:rounded-lg px-1 border-y sm:border border-white/10 [&_nav>a]:text-white [&_a]:text-white bg-gradient-to-br from-[rgba(255,255,255,0.05)] to-[rgba(255,255,255,0)]"
+            "max-w-7xl text-white mx-auto flex items-center justify-between h-14 sm:rounded-lg px-1 border-y sm:border border-white/10 [&_nav>a]:text-white [&_a]:text-white bg-gradient-to-br from-[rgba(255,255,255,0.05)] to-[rgba(255,255,255,0)]"
           )}
         >
-          {children}
+          {!isDown && children}
         </div>
       </div>
-      <div
-        className={cn(
-          "sm:px-6 fixed z-50 top-0 right-0 left-0 transition-transform",
-          isDown ? "translate-y-0" : "-translate-y-full"
+      <AnimatePresence>
+        {isDown && (
+          <motion.div
+            initial={{ translateY: -56 }}
+            animate={{ translateY: 0 }}
+            exit={{ translateY: -56 }}
+            className="sm:px-6 fixed z-50 top-0 right-0 left-0 transition-transform"
+          >
+            <div
+              className={cn(
+                "max-w-7xl text-foreground bg-white shadow-lg shadow-primary-dark/10 [&_nav>a]:text-foreground [&_a]:text-foreground mx-auto flex items-center justify-between h-14 sm:rounded-b-lg border bg-gradient-to-br from-[rgba(255,255,255,0.05)] to-[rgba(255,255,255,0)] px-1"
+              )}
+            >
+              {children}
+            </div>
+          </motion.div>
         )}
-      >
-        <div
-          className={cn(
-            "max-w-7xl bg-white shadow-lg shadow-primary-dark/10 [&_nav>a]:text-foreground [&_a]:text-foreground mx-auto flex items-center justify-between h-14 sm:rounded-b-lg border bg-gradient-to-br from-[rgba(255,255,255,0.05)] to-[rgba(255,255,255,0)] px-1"
-          )}
-        >
-          {children}
-        </div>
-      </div>
+      </AnimatePresence>
     </Fragment>
   );
 }

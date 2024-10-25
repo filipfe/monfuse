@@ -6,8 +6,9 @@ import { Metadata } from "next";
 import metadata, { openGraph } from "@/app/shared-metadata";
 
 export async function generateMetadata({
-  params: { lang },
+  params,
 }: PageProps): Promise<Metadata> {
+  const { lang } = await params;
   const {
     services: { items },
   } = await getDictionary(lang);
@@ -33,7 +34,8 @@ export async function generateMetadata({
   };
 }
 
-export default async function Page({ params: { lang } }: PageProps) {
+export default async function Page({ params }: PageProps) {
+  const { lang } = await params;
   const {
     services: { items },
     landing: {

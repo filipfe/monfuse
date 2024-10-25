@@ -158,6 +158,17 @@
             "question": "How do I view my spending statistics?",
             "answer": "You can view detailed spending statistics in the 'Stats' section, which shows you trends, patterns, and breakdowns of your expenses by category and time period."
           }
+        ],
+        "info": [
+          {
+            "markdown": "## Track Your Spending with Ease\n\nEffectively managing expenses is the cornerstone of financial health. With our app, you can easily record, monitor, and analyze every expense, helping you gain a clear picture of where your money goes. By regularly tracking your spending, you’ll be more equipped to make informed financial decisions, keep within your budget, and reach your savings goals faster.\n\nSay goodbye to complicated spreadsheets and manual tracking. With a few clicks, you can log each expense, review past transactions, and visualize spending trends over time. For users looking to better balance their budget, the app’s [**Incomes**](/incomes) section offers tools to align your earnings with expenses, ensuring you stay on track financially."
+          },
+          {
+            "markdown": "## Stay on Track with Periodical Limits\n\nSetting spending limits is a powerful way to maintain control over your finances. Our app allows you to set specific limits for each expense category, helping you manage your budget more effectively and avoid overspending. Whether it’s groceries, entertainment, or personal expenses, defining clear limits helps you stay disciplined and mindful of your financial goals.\n\nNever worry about exceeding your budget unknowingly. With real-time notifications, you’ll receive alerts as you approach or exceed your spending limits, giving you the opportunity to adjust before overspending. These helpful reminders ensure that you’re always aware of your spending, so you can make adjustments as needed."
+          },
+          {
+            "markdown": "## Organize Your Spending with Custom Labels\n\nCategorizing expenses is key to understanding your spending patterns. Our app allows you to create custom labels for each expense, helping you organize and track your transactions with ease. By assigning labels like “Work,” “Travel,” or “Household,” you can gain a clearer breakdown of your spending areas, making budget management straightforward.\n\nLabel-based tracking provides a detailed view of your spending habits, allowing you to analyze expenses by category over time. This can reveal patterns, show where you may be overspending, and highlight areas where you can cut back.\n\nOur labeling feature is designed to be as flexible as your budget. You can create, edit, or delete labels anytime to reflect changes in your lifestyle or financial goals. Whether your priorities shift toward travel, health, or saving, custom labels make it easy to keep your budget aligned with your current needs."
+          }
         ]
       },
       "recurring-payments": {
@@ -214,7 +225,10 @@
             "question": "What types of goals can I set?",
             "answer": "You can set various types of goals, such as savings goals, debt repayment goals, or budget targets, depending on your financial objectives."
           }
-        ]
+        ],
+        "info": {
+          "markdown": "## Conquer Your Financial Goals\n\nStaying committed to financial goals can be difficult without the right tools. Many people struggle to track their progress or lose sight of their savings targets amidst day-to-day expenses. Without a clear, visual way to see how far they've come, it’s easy to become discouraged and fall off track. For help staying on top of your overall finances, explore how our [**expense tracking**](/expenses) can keep your spending in check.\n\nOur [**AI Assistant**](/ai-assistant) provides personalized insights, helping you understand your progress toward your financial milestones. You can easily track payments and contributions over time, making it easier to see your efforts pay off. The _visual representation_ keeps you motivated and focused on achieving your financial ambitions.\n\nFrom short-term savings goals to long-term financial ambitions, the app allows you to tailor your goals according to your unique needs. You can add, edit, or delete goals at any time, keeping your financial planning flexible and responsive to life’s changes."
+        }
       }
     }
   },

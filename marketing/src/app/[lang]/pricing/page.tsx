@@ -2,7 +2,8 @@ import FAQ from "@/components/landing/faq";
 import Skeleton from "@/components/services/skeleton";
 import getDictionary from "@/dict";
 
-export default async function Page({ params: { lang } }: PageProps) {
+export default async function Page({ params }: PageProps) {
+  const { lang } = await params;
   const { pricing, landing } = await getDictionary(lang);
   return (
     <div>
