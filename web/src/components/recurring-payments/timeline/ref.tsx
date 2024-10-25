@@ -94,8 +94,32 @@ export default function Ref({ date, isToday, incomes, expenses }: Props) {
           <strong>{date}</strong>
           <Divider />
           <div className="flex flex-col">
-            <span>{`Incomes: ${incomes.length}`}</span>
-            <span>{`Expenses: ${expenses.length}`}</span>
+            <div>
+              <span>{`Incomes: ${incomes.length}`}</span>
+              {/* <div>
+                {incomes.map((payment) => (
+                  <div className="flex flex-col">
+                    <span>{payment.title}</span>
+                    <span>
+                      {payment.amount} {payment.currency}
+                    </span>
+                  </div>
+                ))}
+              </div> */}
+            </div>
+            <div>
+              <span>{`Expenses: ${expenses.length}`}</span>
+              {/* <div>
+                {expenses.map((payment) => (
+                  <div className="flex flex-col">
+                    <span>{payment.title}</span>
+                    <span>
+                      {payment.amount} {payment.currency}
+                    </span>
+                  </div>
+                ))}
+              </div> */}
+            </div>
           </div>
         </div>
       )}
