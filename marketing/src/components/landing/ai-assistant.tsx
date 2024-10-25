@@ -20,7 +20,10 @@ export default function AIAssistant({
               {dict.title}
             </h3>
           </div>
-          <Tabs className="mx-auto my-6 sm:my-12 h-full grid lg:grid-cols-[2fr_3fr] gap-10 items-center">
+          <Tabs
+            defaultValue="context"
+            className="mx-auto my-6 sm:my-12 h-full grid lg:grid-cols-[2fr_3fr] gap-10 items-center"
+          >
             <TabsList className="flex flex-col gap-4 h-auto p-0 !bg-transparent">
               <TabsTrigger value="context" className="items-stretch gap-6">
                 <div className="w-0.5 bg-border shrink-0 rounded-full overflow-hidden grid">
