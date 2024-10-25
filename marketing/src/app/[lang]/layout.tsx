@@ -11,8 +11,9 @@ import metadata, { openGraph } from "../shared-metadata";
 const inter = Inter({ subsets: ["latin"] });
 
 export async function generateMetadata({
-  params: { lang },
+  params,
 }: PageProps): Promise<Metadata> {
+  const { lang } = await params;
   const { _metadata } = await getDictionary(lang);
   return {
     ..._metadata,
@@ -49,15 +50,15 @@ export async function generateStaticParams() {
 export default async function RootLayout({
   children,
   params,
-}: Readonly<
-  {
-    children: React.ReactNode;
-  } & PageProps
->) {
-  const dict = await getDictionary(params.lang);
+}: Readonly<{
+  children: React.ReactNode;
+  params: Promise<{ lang: Locale }>;
+}>) {
+  const { lang } = await params;
+  const dict = await getDictionary(lang);
   const { banner } = dict;
   return (
-    <html lang={params.lang} className="light">
+    <html lang={lang} className="light">
       <body className={inter.className}>
         <Header dict={dict} />
         <main>{children}</main>

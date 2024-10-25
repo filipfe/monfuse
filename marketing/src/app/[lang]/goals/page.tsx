@@ -7,8 +7,9 @@ import Description from "@/components/services/description";
 import metadata, { openGraph } from "@/app/shared-metadata";
 
 export async function generateMetadata({
-  params: { lang },
+  params,
 }: PageProps): Promise<Metadata> {
+  const { lang } = await params;
   const {
     services: {
       items: {
@@ -38,7 +39,8 @@ export async function generateMetadata({
   };
 }
 
-export default async function Page({ params: { lang } }: PageProps) {
+export default async function Page({ params }: PageProps) {
+  const { lang } = await params;
   const {
     services: {
       items: { goals },
@@ -53,7 +55,13 @@ export default async function Page({ params: { lang } }: PageProps) {
       <Skeleton dict={{ ...goals, cta }}>
         <GoalCard />
       </Skeleton>
-      <Description />
+      <Description
+        dict={goals.info}
+        image={{
+          src: "/app/goals.png",
+          alt: "Goals page showing goal progress and payment breakdown.",
+        }}
+      />
       <FAQ dict={{ title: faqTitle, items: goals.faq }} />
     </div>
   );
