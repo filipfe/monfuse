@@ -7,7 +7,8 @@ import Operations from "@/components/landing/operations";
 import Pricing from "@/components/pricing";
 import getDictionary from "@/dict";
 
-export default async function Home({ params: { lang } }: PageProps) {
+export default async function Home({ params }: PageProps) {
+  const { lang } = await params;
   const {
     landing: { hero, operations, faq, services },
   } = await getDictionary(lang);
