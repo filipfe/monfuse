@@ -50,12 +50,15 @@ export async function getRecurringPayments(
   };
 }
 
-export async function getUpcomingPayments(): Promise<
-  SupabaseResponse<UpcomingPayment>
-> {
+export async function getUpcomingPayments(
+  timezone: string
+): Promise<SupabaseResponse<UpcomingPayment>> {
   const supabase = createClient();
   const { data, error } = await supabase.rpc(
-    "get_recurring_payments_upcoming_payments"
+    "get_recurring_payments_upcoming_payments",
+    {
+      p_timezone: timezone,
+    }
   );
 
   if (error) {

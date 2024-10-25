@@ -12,7 +12,7 @@ export default function Upcoming({ timezone }: { timezone: string }) {
   const [refreshKey, setRefreshKey] = useState(Date.now());
 
   const fetchPayments = async () => {
-    const { results } = await getUpcomingPayments();
+    const { results } = await getUpcomingPayments(timezone);
     setPayments(results);
     setRefreshKey(Date.now());
   };

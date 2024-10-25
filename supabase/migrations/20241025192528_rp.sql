@@ -142,7 +142,7 @@ end;
 $function$
 ;
 
-CREATE OR REPLACE FUNCTION public.get_recurring_payments_upcoming_payments()
+CREATE OR REPLACE FUNCTION public.get_recurring_payments_upcoming_payments(p_timezone text)
  RETURNS TABLE(payment_datetime timestamp without time zone, id uuid, title text, type operation_type, amount double precision, currency currency_type)
  LANGUAGE plpgsql
  SET search_path TO 'public'
@@ -157,6 +157,7 @@ begin
     rp.amount,
     rp.currency
   from recurring_payments rp
+  where rp.start_datetime + ((rp.interval_amount * (rp.counter + 1)) || ' ' || rp.interval_unit)::interval > current_timestamp at time zone p_timezone
   order by payment_datetime, rp.amount desc, rp.id
   limit 3;
 end;

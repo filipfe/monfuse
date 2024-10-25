@@ -42,7 +42,7 @@ export default function Timer({ timezone, paymentDatetime, onExpire }: Props) {
       const updatedTime = getTimeRemaining(paymentDatetime, timezone);
       setTimeRemaining(updatedTime);
 
-      if (timeRemaining.days < 0) {
+      if (updatedTime.days < 0) {
         clearInterval(intervalId);
         onExpire();
       }
