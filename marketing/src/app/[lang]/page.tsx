@@ -8,18 +8,16 @@ import getDictionary from "@/dict";
 
 export default async function Home({ params }: PageProps) {
   const { lang } = await params;
-  const {
-    landing: { hero, operations, faq, services, ...dict },
-  } = await getDictionary(lang);
+  const { landing: dict } = await getDictionary(lang);
   return (
     <div>
-      <Hero dict={hero} />
-      <Operations dict={operations} />
-      <BentoGrid />
-      <Services dict={services} />
+      <Hero dict={dict.hero} />
+      <Operations dict={dict.operations} />
+      <BentoGrid dict={dict["bento-grid"]} />
+      <Services dict={dict.services} />
       <AIAssistant dict={dict["ai-assistant"]} />
       {/* <Pricing /> */}
-      <FAQ dict={faq} />
+      <FAQ dict={dict.faq} />
     </div>
   );
 }

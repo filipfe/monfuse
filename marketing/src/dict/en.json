@@ -51,6 +51,21 @@
         "description": "Manage your recurring payments to have full control over subscriptions, regular payments, and avoid unexpected charges."
       }
     },
+    "bento-grid": {
+      "title": ["Services with", "purpose"],
+      "plan": {
+        "title": ["Plan your", "next expense"],
+        "description": "Planning expenses is a key element of healthy personal finance management."
+      },
+      "possibilities": {
+        "title": ["Enjoy unlimited", "possibilities"],
+        "description": "Time is money. Save as much of it as possible by planning and implementing effectively."
+      },
+      "manage": {
+        "title": ["Manage income", "periodically"]
+      },
+      "button": "Start now"
+    },
     "services": {
       "category": "Services",
       "title": "Empower Your Finances",
@@ -73,7 +88,19 @@
     },
     "ai-assistant": {
       "category": "AI Assistant",
-      "title": "Financial comfort in 3 steps"
+      "title": "Financial comfort in 3 steps",
+      "build": {
+        "title": "Build context",
+        "description": "Upload your financial information in seconds to build a complete picture of your finances. Choose the currency you operate in, and integrate income, expenses, and recurring payments for an accurate financial overview. The AI assistant uses this data to help you manage goals, set expense limits, and identify spending trends tailored to your preferences."
+      },
+      "send": {
+        "title": "Send a message",
+        "description": "Need insights on a specific expense or want to know how close you are to achieving a goal? Send a message directly to our AI assistant! Get real-time, data-driven responses to all your finance-related questions, from tracking goal progress to receiving reminders about upcoming recurring payments."
+      },
+      "get": {
+        "title": "Get analysis or information",
+        "description": "Receive insightful analysis tailored to your financial situation. The AI assistant processes your data to deliver actionable insights, identify spending patterns, and track goal progress. Access weekly summaries, budget alerts, and much more—all aimed at helping you make smarter financial decisions."
+      }
     },
     "faq": {
       "category": "FAQ",
@@ -268,6 +295,7 @@
     ]
   },
   "banner": {
-    "title": "Take full control of your personal finances"
+    "title": "Take full control of your personal finances",
+    "button": "Start now"
   }
 }
