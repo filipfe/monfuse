@@ -4,15 +4,36 @@ import { createClient } from "@/utils/supabase/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-export async function getRecurringPayments(searchParams: SearchParams): Promise<
-  SupabaseResponse<WithId<RecurringPayment>>
-> {
+export async function getTimeline(
+  timezone: string
+): Promise<SupabaseResponse<TimelineEntry>> {
+  const supabase = createClient();
+  const { data, error } = await supabase.rpc(
+    "get_recurring_payments_timeline",
+    {
+      p_timezone: timezone,
+    }
+  );
+
+  if (error) {
+    return {
+      results: [],
+      error: error.message,
+    };
+  }
+
+  return { results: data };
+}
+
+export async function getRecurringPayments(
+  searchParams: SearchParams
+): Promise<SupabaseResponse<WithId<RecurringPayment>>> {
   const supabase = createClient();
   const { data, error } = await supabase.rpc(
     "get_recurring_payments_active_payments",
     {
       p_page: searchParams.page || 1,
-    },
+    }
   );
 
   if (error) {
@@ -29,12 +50,15 @@ export async function getRecurringPayments(searchParams: SearchParams): Promise<
   };
 }
 
-export async function getUpcomingRecurringPayments(): Promise<
-  SupabaseResponse<UpcomingRecurringPayment>
-> {
+export async function getUpcomingPayments(
+  timezone: string
+): Promise<SupabaseResponse<UpcomingPayment>> {
   const supabase = createClient();
   const { data, error } = await supabase.rpc(
     "get_recurring_payments_upcoming_payments",
+    {
+      p_timezone: timezone,
+    }
   );
 
   if (error) {
@@ -45,6 +69,28 @@ export async function getUpcomingRecurringPayments(): Promise<
   }
 
   return { results: data };
+}
+
+export async function getLatestPayments(): Promise<SupabaseResponse<Payment>> {
+  const supabase = createClient();
+  const { data: results, error } = await supabase
+    .from("operations")
+    .select("id, title, amount, currency, type, issued_at")
+    .eq("recurring", true)
+    .order("issued_at", { ascending: false })
+    .order("amount", { ascending: false })
+    .order("id")
+    .limit(3);
+
+  if (error) {
+    return {
+      results: [],
+      error: error.message,
+    };
+  }
+  return {
+    results,
+  };
 }
 
 export async function deleteRecurringPayment(formData: FormData) {

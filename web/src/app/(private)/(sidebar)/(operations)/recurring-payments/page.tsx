@@ -1,26 +1,22 @@
-import ActiveRecurringPaymentsList from "@/components/recurring-payments/active/list";
-import Upcoming from "@/components/recurring-payments/upcoming/list";
 import Timeline from "@/components/recurring-payments/timeline/timeline";
-import Loader from "@/components/stocks/loader";
-import { Suspense } from "react";
+import Latest from "@/components/recurring-payments/latest/list";
+import Upcoming from "@/components/recurring-payments/upcoming/list";
+import getDictionary from "@/const/dict";
 import { getSettings } from "@/lib/general/actions";
+import RecurringPaymentsTable from "@/components/recurring-payments/active/table";
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams: SearchParams;
-}) {
+export default async function Page() {
   const settings = await getSettings();
+  const { private: dict } = await getDictionary(settings.language);
 
   return (
-    <div className="sm:px-10 py-4 sm:py-8 flex flex-col h-full xl:grid grid-cols-2 grid-rows-[max-content_1fr] gap-6">
-      <Suspense fallback={<Loader />}>
-        <Upcoming languageCode={settings.language} />
-      </Suspense>
-      <Suspense fallback={<Loader />}>
-        <ActiveRecurringPaymentsList page={searchParams.page} />
-      </Suspense>
-      <Timeline />
+    <div className="h-full sm:px-10 py-4 sm:py-8 flex flex-col lg:grid grid-cols-5 gap-4 sm:gap-6">
+      <Timeline timezone={settings.timezone} />
+      <RecurringPaymentsTable />
+      <div className="grid gap-4 sm:gap-6 col-span-2">
+        <Upcoming timezone={settings.timezone} />
+        <Latest />
+      </div>
     </div>
   );
 }

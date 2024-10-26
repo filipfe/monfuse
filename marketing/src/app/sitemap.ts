@@ -9,7 +9,7 @@ const urls = [
   "/recurring-payments",
   "/goals",
   "/ai-assistant",
-  "/contact",
+  // "/contact",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
