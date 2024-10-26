@@ -8,8 +8,15 @@ import getDictionary, { langs } from "@/dict";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import metadata, { openGraph } from "../shared-metadata";
 import { Analytics } from "@vercel/analytics/react";
+import { cn } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"] });
+
+// const IBMPlexMono = IBM_Plex_Mono({
+//   weight: ["400"],
+//   subsets: ["latin"],
+//   variable: "--font-mono",
+// });
 
 export async function generateMetadata({
   params,
@@ -60,7 +67,7 @@ export default async function RootLayout({
   const { banner } = dict;
   return (
     <html lang={lang} className="light">
-      <body className={inter.className}>
+      <body className={cn(inter.className)}>
         <Header dict={dict} />
         <main>{children}</main>
         <Banner dict={banner} />

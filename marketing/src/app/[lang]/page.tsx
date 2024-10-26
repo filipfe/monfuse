@@ -4,7 +4,6 @@ import FAQ from "@/components/landing/faq";
 import Hero from "@/components/landing/hero";
 import Services from "@/components/landing/services";
 import Operations from "@/components/landing/operations";
-import Pricing from "@/components/pricing";
 import getDictionary from "@/dict";
 
 export default async function Home({ params }: PageProps) {
@@ -19,7 +18,7 @@ export default async function Home({ params }: PageProps) {
       <BentoGrid />
       <Services dict={services} />
       <AIAssistant dict={dict["ai-assistant"]} />
-      <Pricing />
+      {/* <Pricing /> */}
       <FAQ dict={faq} />
     </div>
   );
