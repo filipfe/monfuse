@@ -2,7 +2,7 @@ import { Dict } from "@/dict";
 import Image from "next/image";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { Mailbox, MessageSquareText, Sparkles } from "lucide-react";
-
+// [text-shadow:_4px_4px_0_rgba(23,121,129,0.2)]
 export default function AIAssistant({
   dict,
 }: {
@@ -13,7 +13,7 @@ export default function AIAssistant({
       <div>
         <div className="relative w-full mx-auto max-w-7xl">
           <div className="text-center space-y-4 pb-6 mx-auto">
-            <h2 className="text-sm text-primary font-mono font-medium tracking-wider uppercase">
+            <h2 className="text-sm text-primary font-mono font-bold tracking-wider uppercase">
               {dict.category}
             </h2>
             <h3 className="mx-auto mt-4 max-w-xs text-3xl font-semibold sm:max-w-none sm:text-4xl md:text-5xl">

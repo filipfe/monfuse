@@ -55,7 +55,7 @@ export default function DropdownLink({
         </h3>
       ) : (
         <Link
-          className="text-sm font-medium px-1 sm:px-3.5 lg:px-7 py-1 sm:py-3 peer flex items-center justify-between"
+          className="text-sm font-medium px-1 sm:px-2 md:px-3.5 lg:px-7 py-1 sm:py-3 peer flex items-center justify-between"
           href="#"
           aria-expanded={isExpanded}
           aria-haspopup="true"
