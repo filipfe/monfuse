@@ -1,19 +1,120 @@
-export default function AIAssistant() {
+import { Dict } from "@/dict";
+import Image from "next/image";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
+import { Mailbox, MessageSquareText, Sparkles } from "lucide-react";
+// [text-shadow:_4px_4px_0_rgba(23,121,129,0.2)]
+export default function AIAssistant({
+  dict,
+}: {
+  dict: Dict["landing"]["ai-assistant"];
+}) {
   return (
     <section id="how-it-works" className="sm:px-6 py-16 sm:py-24">
       <div>
         <div className="relative w-full mx-auto max-w-7xl">
           <div className="text-center space-y-4 pb-6 mx-auto">
-            <h2 className="text-sm text-primary font-mono font-medium tracking-wider uppercase">
-              Asystent AI
+            <h2 className="text-sm text-primary font-mono font-bold tracking-wider uppercase">
+              {dict.category}
             </h2>
             <h3 className="mx-auto mt-4 max-w-xs text-3xl font-semibold sm:max-w-none sm:text-4xl md:text-5xl">
-              Just 3 steps to get started
+              {dict.title}
             </h3>
           </div>
-          <div className="mx-auto my-6 sm:my-12 h-full grid lg:grid-cols-2 gap-10 items-center">
-            <div className=" hidden lg:flex order-1 lg:order-[0] justify-start">
-              <div className="" data-orientation="vertical">
+          <Tabs
+            defaultValue="context"
+            className="mx-auto my-6 sm:my-12 h-full grid lg:grid-cols-[2fr_3fr] gap-10 items-center"
+          >
+            <TabsList className="flex flex-col gap-4 h-auto p-0 !bg-transparent">
+              <TabsTrigger value="context" className="items-stretch gap-6">
+                <div className="w-0.5 bg-border shrink-0 rounded-full overflow-hidden grid">
+                  <div className="bg-primary scale-y-0" />
+                </div>
+                <div className="w-12 h-12 bg-primary/10 rounded-full shrink-0 flex items-center justify-center self-center">
+                  <Mailbox className="text-primary" />
+                </div>
+                <div className="flex flex-col gap-1 items-start text-left">
+                  <h3 className="font-bold sm:text-lg lg:text-xl text-font">
+                    1. Zbuduj kontekst
+                  </h3>
+                  <p className="text-font/80 text-sm leading-relaxed font-normal">
+                    Simply upload your data to our secure platform. We support
+                    various file formats and data types to ensure a seamless
+                    integration with your existing systems.
+                  </p>
+                </div>
+              </TabsTrigger>
+              <TabsTrigger value="message" className="items-stretch gap-6">
+                <div className="w-0.5 bg-border shrink-0 rounded-full overflow-hidden grid">
+                  <div className="bg-primary scale-y-0" />
+                </div>
+                <div className="w-12 h-12 bg-primary/10 rounded-full shrink-0 flex items-center justify-center self-center">
+                  <MessageSquareText className="text-primary" />
+                </div>
+                <div className="flex flex-col gap-1 items-start text-left">
+                  <h3 className="font-bold sm:text-lg lg:text-xl text-font">
+                    2. Wyślij wiadomość
+                  </h3>
+                  <p className="text-font/80 text-sm leading-relaxed font-normal">
+                    Simply upload your data to our secure platform. We support
+                    various file formats and data types to ensure a seamless
+                    integration with your existing systems.
+                  </p>
+                </div>
+              </TabsTrigger>
+              <TabsTrigger className="items-stretch gap-6" value="response">
+                <div className="w-0.5 bg-border shrink-0 rounded-full overflow-hidden grid">
+                  <div className="bg-primary scale-y-0" />
+                </div>
+                <div className="w-12 h-12 bg-primary/10 rounded-full shrink-0 flex items-center justify-center self-center">
+                  <Sparkles className="text-primary" />
+                </div>
+                <div className="flex flex-col gap-1 items-start text-left">
+                  <h3 className="font-bold sm:text-lg lg:text-xl text-font">
+                    3. Uzyskaj analizę lub informacje
+                  </h3>
+                  <p className="text-font/80 text-sm leading-relaxed font-normal">
+                    Simply upload your data to our secure platform. We support
+                    various file formats and data types to ensure a seamless
+                    integration with your existing systems.
+                  </p>
+                </div>
+              </TabsTrigger>
+            </TabsList>
+            <TabsContent value="context">
+              <div className="h-96">
+                <Image
+                  width={1152}
+                  height={384}
+                  src="/app/ai-assistant/context.png"
+                  className="aspect-auto h-full w-full rounded-md border border-neutral-300/50 object-cover object-right"
+                  alt="feature"
+                />
+              </div>
+            </TabsContent>
+            <TabsContent value="message">
+              <div className="h-96">
+                <Image
+                  width={1152}
+                  height={384}
+                  src="/app/ai-assistant/message.png"
+                  className="aspect-auto h-full w-full rounded-md border border-neutral-300/50 object-cover object-left"
+                  alt="feature"
+                />
+              </div>
+            </TabsContent>
+            <TabsContent value="response">
+              <div className="h-96">
+                <Image
+                  width={1152}
+                  height={384}
+                  src="/app/ai-assistant/response.png"
+                  className="aspect-auto h-full w-full rounded-md border border-neutral-300/50 object-cover object-left"
+                  alt="feature"
+                />
+              </div>
+            </TabsContent>
+          </Tabs>
+          {/* <div className="" data-orientation="vertical">
                 <div
                   data-state="open"
                   data-orientation="vertical"
@@ -73,7 +174,7 @@ export default function AIAssistant() {
                           data-state="open"
                           data-orientation="vertical"
                           id="radix-:r46:"
-                          className="group flex flex-1 cursor-pointer items-center px-5 outline-none justify-start text-left text-font/80 pl-0"
+                          className="group flex text-sm leading-relaxed flex-1 cursor-pointer items-center px-5 outline-none justify-start text-left text-font/80 pl-0"
                           data-radix-collection-item=""
                           aria-disabled="true"
                         >
@@ -141,7 +242,7 @@ export default function AIAssistant() {
                           data-state="closed"
                           data-orientation="vertical"
                           id="radix-:r48:"
-                          className="group flex flex-1 cursor-pointer items-center px-5 outline-none justify-start text-left text-font/80 pl-0"
+                          className="group flex text-sm leading-relaxed flex-1 cursor-pointer items-center px-5 outline-none justify-start text-left text-font/80 pl-0"
                           data-radix-collection-item=""
                         >
                           Our advanced AI algorithms automatically process and
@@ -212,7 +313,7 @@ export default function AIAssistant() {
                           data-state="closed"
                           data-orientation="vertical"
                           id="radix-:r4a:"
-                          className="group flex flex-1 cursor-pointer items-center px-5 outline-none justify-start text-left text-font/80 pl-0"
+                          className="group text-sm leading-relaxed flex flex-1 cursor-pointer items-center px-5 outline-none justify-start text-left text-font/80 pl-0"
                           data-radix-collection-item=""
                         >
                           Receive clear, actionable insights and recommendations
@@ -224,53 +325,43 @@ export default function AIAssistant() {
                     </div>
                   </div>
                 </div>
+              </div> */}
+
+          <ul className="px-6 flex h-full snap-x flex-nowrap overflow-x-auto py-10 [-ms-overflow-style:none] sm:[-webkit-mask-image:linear-gradient(90deg,transparent,black_20%,white_80%,transparent)] sm:[mask-image:linear-gradient(90deg,transparent,black_20%,white_80%,transparent)] [scrollbar-width:none] lg:hidden [&amp;::-webkit-scrollbar]:hidden snap-mandatory">
+            <div className="min-w-[calc(100vw-64px)] relative grid h-full max-w-60 shrink-0 items-start justify-center py-4 last:mr-0 snap-center">
+              <div className="absolute bottom-0 left-0 right-auto top-0 h-0.5 w-full overflow-hidden rounded-lg bg-neutral-300/50 dark:bg-neutral-300/30">
+                <div className="absolute left-0 top-0 h-full w-full origin-top bg-primary transition-all ease-linear"></div>
               </div>
+              <h2 className="text-xl font-bold">1. Upload Your Data</h2>
+              <p className="mx-0 max-w-sm text-balance text-sm text-font/60 mt-2">
+                Simply upload your data to our secure platform. We support
+                various file formats and data types to ensure a seamless
+                integration with your existing systems.
+              </p>
             </div>
-            <div className="h-[350px] min-h-[200px] w-auto  false">
-              <img
-                src="/app/ai-assistant/response.png"
-                alt="feature"
-                className="aspect-auto h-full w-full rounded-xl border border-neutral-300/50 object-cover object-left-top p-1 shadow-lg"
-              />
+            <div className="min-w-[calc(100vw-64px)] relative grid h-full max-w-60 shrink-0 items-start justify-center py-4 last:mr-0 snap-center">
+              <div className="absolute bottom-0 left-0 right-auto top-0 h-0.5 w-full overflow-hidden rounded-lg bg-neutral-300/50 dark:bg-neutral-300/30">
+                <div className="absolute left-0 top-0 h-full w-0 origin-top bg-primary transition-all ease-linear"></div>
+              </div>
+              <h2 className="text-xl font-bold">2. Click Start</h2>
+              <p className="mx-0 max-w-sm text-balance text-sm text-font/60 mt-2">
+                Our advanced AI algorithms automatically process and analyze
+                your data, extracting valuable insights and patterns that would
+                be difficult to identify manually.
+              </p>
             </div>
-            <ul className="px-6 flex h-full snap-x flex-nowrap overflow-x-auto py-10 [-ms-overflow-style:none] sm:[-webkit-mask-image:linear-gradient(90deg,transparent,black_20%,white_80%,transparent)] sm:[mask-image:linear-gradient(90deg,transparent,black_20%,white_80%,transparent)] [scrollbar-width:none] lg:hidden [&amp;::-webkit-scrollbar]:hidden snap-mandatory">
-              <div className="min-w-[calc(100vw-64px)] relative grid h-full max-w-60 shrink-0 items-start justify-center py-4 last:mr-0 snap-center">
-                <div className="absolute bottom-0 left-0 right-auto top-0 h-0.5 w-full overflow-hidden rounded-lg bg-neutral-300/50 dark:bg-neutral-300/30">
-                  <div className="absolute left-0 top-0 h-full w-full origin-top bg-primary transition-all ease-linear"></div>
-                </div>
-                <h2 className="text-xl font-bold">1. Upload Your Data</h2>
-                <p className="mx-0 max-w-sm text-balance text-sm text-font/60 mt-2">
-                  Simply upload your data to our secure platform. We support
-                  various file formats and data types to ensure a seamless
-                  integration with your existing systems.
-                </p>
+            <div className="min-w-[calc(100vw-64px)] relative grid h-full max-w-60 shrink-0 items-start justify-center py-4 last:mr-0 snap-center">
+              <div className="absolute bottom-0 left-0 right-auto top-0 h-0.5 w-full overflow-hidden rounded-lg bg-neutral-300/50 dark:bg-neutral-300/30">
+                <div className="absolute left-0 top-0 h-full w-0 origin-top bg-primary transition-all ease-linear"></div>
               </div>
-              <div className="min-w-[calc(100vw-64px)] relative grid h-full max-w-60 shrink-0 items-start justify-center py-4 last:mr-0 snap-center">
-                <div className="absolute bottom-0 left-0 right-auto top-0 h-0.5 w-full overflow-hidden rounded-lg bg-neutral-300/50 dark:bg-neutral-300/30">
-                  <div className="absolute left-0 top-0 h-full w-0 origin-top bg-primary transition-all ease-linear"></div>
-                </div>
-                <h2 className="text-xl font-bold">2. Click Start</h2>
-                <p className="mx-0 max-w-sm text-balance text-sm text-font/60 mt-2">
-                  Our advanced AI algorithms automatically process and analyze
-                  your data, extracting valuable insights and patterns that
-                  would be difficult to identify manually.
-                </p>
-              </div>
-              <div className="min-w-[calc(100vw-64px)] relative grid h-full max-w-60 shrink-0 items-start justify-center py-4 last:mr-0 snap-center">
-                <div className="absolute bottom-0 left-0 right-auto top-0 h-0.5 w-full overflow-hidden rounded-lg bg-neutral-300/50 dark:bg-neutral-300/30">
-                  <div className="absolute left-0 top-0 h-full w-0 origin-top bg-primary transition-all ease-linear"></div>
-                </div>
-                <h2 className="text-xl font-bold">
-                  3. Get Actionable Insights
-                </h2>
-                <p className="mx-0 max-w-sm text-balance text-sm text-font/60 mt-2">
-                  Receive clear, actionable insights and recommendations based
-                  on the AI analysis. Use these insights to make data-driven
-                  decisions and improve your business strategies.
-                </p>
-              </div>
-            </ul>
-          </div>
+              <h2 className="text-xl font-bold">3. Get Actionable Insights</h2>
+              <p className="mx-0 max-w-sm text-balance text-sm text-font/60 mt-2">
+                Receive clear, actionable insights and recommendations based on
+                the AI analysis. Use these insights to make data-driven
+                decisions and improve your business strategies.
+              </p>
+            </div>
+          </ul>
         </div>
       </div>
     </section>

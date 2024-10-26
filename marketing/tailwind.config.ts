@@ -8,6 +8,7 @@ const config: Config = {
       colors: {
         primary: "#177981",
         "primary-dark": "#115b61",
+        "primary-font": "#0b3c40",
         font: "#000",
         secondary: "#fdbb2d",
         foreground: "#041617",
@@ -16,6 +17,9 @@ const config: Config = {
       },
       fontSize: {
         xs: "12px",
+      },
+      fontFamily: {
+        // mono: ["var(--font-mono), ui-monospace"],
       },
       borderRadius: {
         lg: "var(--radius)",

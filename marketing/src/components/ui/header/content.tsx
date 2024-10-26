@@ -10,13 +10,15 @@ import {
 } from "lucide-react";
 import DropdownLink from "./dropdown";
 import MobileDrawer from "../drawer";
+import Logo from "@/assets/svg/logo";
 
 export default function Header({ dict }: { dict: Dict }) {
   return (
     <header className="relative z-30">
       <Wrapper>
-        <Link href="/" className="ml-3 text-sm">
-          Logo
+        <Link href="/" className="ml-5 sm:ml-3 w-16">
+          <span className="sr-only">{dict.landing.title}</span>
+          <Logo />
         </Link>
         <nav aria-labelledby="mainmenulabel">
           <h2 id="mainmenulabel" className="sr-only">
@@ -85,7 +87,7 @@ export default function Header({ dict }: { dict: Dict }) {
             </DropdownLink>
             <li className="inline-block">
               <Link
-                className="text-sm font-medium px-3.5 lg:px-7 py-3"
+                className="text-sm font-medium px-2 md:px-3.5 lg:px-7 py-3"
                 href="/ai-assistant"
               >
                 {dict["ai-assistant"].title}
@@ -93,7 +95,7 @@ export default function Header({ dict }: { dict: Dict }) {
             </li>
             <li className="inline-block">
               <Link
-                className="text-sm font-medium px-3.5 lg:px-7 py-3"
+                className="text-sm font-medium px-2 md:px-3.5 lg:px-7 py-3"
                 href="/pricing"
               >
                 {dict.pricing.title}
@@ -101,7 +103,7 @@ export default function Header({ dict }: { dict: Dict }) {
             </li>
             <li className="inline-block">
               <Link
-                className="text-sm font-medium px-3.5 lg:px-7 py-3"
+                className="text-sm font-medium px-2 md:px-3.5 lg:px-7 py-3"
                 href="/blog"
               >
                 Blog
@@ -200,22 +202,22 @@ export default function Header({ dict }: { dict: Dict }) {
                     {dict.pricing.title}
                   </Link>
                 </li>
-                <li className="my-2.5">
+                {/* <li className="my-2.5">
                   <Link
                     className="px-1 inline-block min-w-full text-sm font-medium w-full py-1"
                     href="/blog"
                   >
                     Blog
                   </Link>
-                </li>
-                <li className="my-2.5">
+                </li> */}
+                {/* <li className="my-2.5">
                   <Link
                     className="px-1 inline-block min-w-full text-sm font-medium w-full py-1"
                     href="/contact"
                   >
                     Kontakt
                   </Link>
-                </li>
+                </li> */}
               </ul>
               <div className="bg-primary/20 rounded-lg p-1 flex items-center">
                 <Link
