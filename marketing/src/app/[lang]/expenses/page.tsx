@@ -64,7 +64,7 @@ export default async function Page({ params }: PageProps) {
           dict={section}
           image={{
             src: "/app/expenses.png",
-            alt: "Expenses page with categorized transactions and limits.",
+            alt: "Expenses page interface with categorized transactions and limits.",
           }}
           key={`info-${k}`}
         />

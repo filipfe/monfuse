@@ -28,7 +28,7 @@ export default function Operations({
   dict: Dict["landing"]["operations"];
 }) {
   return (
-    <section className="py-16 lg:py-24 px-6" id="problem">
+    <section className="py-16 lg:py-24 px-6" id="operations">
       <div>
         <div className="relative container mx-auto max-w-7xl">
           <div className="text-center space-y-4 pb-6 mx-auto">
