@@ -7,7 +7,6 @@ const metadata: Omit<Metadata, "openGraph"> = {
 
 export const openGraph: Metadata["openGraph"] = {
   type: "website",
-  emails: ["team@monfuse.com"],
   siteName: "Monfuse",
   alternateLocale: langs,
 };

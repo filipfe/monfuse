@@ -332,7 +332,7 @@ export default function AIAssistant({
               <div className="absolute bottom-0 left-0 right-auto top-0 h-0.5 w-full overflow-hidden rounded-lg bg-neutral-300/50 dark:bg-neutral-300/30">
                 <div className="absolute left-0 top-0 h-full w-full origin-top bg-primary transition-all ease-linear"></div>
               </div>
-              <h2 className="text-xl font-bold">1. Upload Your Data</h2>
+              <h3 className="text-xl font-bold">1. Upload Your Data</h3>
               <p className="mx-0 max-w-sm text-balance text-sm text-font/60 mt-2">
                 Simply upload your data to our secure platform. We support
                 various file formats and data types to ensure a seamless
@@ -343,7 +343,7 @@ export default function AIAssistant({
               <div className="absolute bottom-0 left-0 right-auto top-0 h-0.5 w-full overflow-hidden rounded-lg bg-neutral-300/50 dark:bg-neutral-300/30">
                 <div className="absolute left-0 top-0 h-full w-0 origin-top bg-primary transition-all ease-linear"></div>
               </div>
-              <h2 className="text-xl font-bold">2. Click Start</h2>
+              <h3 className="text-xl font-bold">2. Click Start</h3>
               <p className="mx-0 max-w-sm text-balance text-sm text-font/60 mt-2">
                 Our advanced AI algorithms automatically process and analyze
                 your data, extracting valuable insights and patterns that would
@@ -354,7 +354,7 @@ export default function AIAssistant({
               <div className="absolute bottom-0 left-0 right-auto top-0 h-0.5 w-full overflow-hidden rounded-lg bg-neutral-300/50 dark:bg-neutral-300/30">
                 <div className="absolute left-0 top-0 h-full w-0 origin-top bg-primary transition-all ease-linear"></div>
               </div>
-              <h2 className="text-xl font-bold">3. Get Actionable Insights</h2>
+              <h3 className="text-xl font-bold">3. Get Actionable Insights</h3>
               <p className="mx-0 max-w-sm text-balance text-sm text-font/60 mt-2">
                 Receive clear, actionable insights and recommendations based on
                 the AI analysis. Use these insights to make data-driven
