@@ -47,13 +47,16 @@ export default async function Page({ params }: PageProps) {
     },
     landing: {
       hero: { cta },
-      faq: { title: faqTitle },
+      faq: dictFaq,
+    },
+    general: {
+      card: { expense: dictExpenseCard },
     },
   } = await getDictionary(lang);
   return (
     <div>
       <Skeleton dict={{ ...expenses, cta }}>
-        <ExpensesCard />
+        <ExpensesCard dict={dictExpenseCard} />
       </Skeleton>
       {expenses.info.map((section, k) => (
         <Description
@@ -66,7 +69,7 @@ export default async function Page({ params }: PageProps) {
           key={`info-${k}`}
         />
       ))}
-      <FAQ dict={{ title: faqTitle, items: expenses.faq }} />
+      <FAQ dict={{ ...dictFaq, items: expenses.faq }} />
     </div>
   );
 }

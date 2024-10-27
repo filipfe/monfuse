@@ -25,6 +25,22 @@
       "asystent finansowy AI"
     ]
   },
+  "general": {
+    "card": {
+      "goal": {
+        "title": "Gitara",
+        "description": "Postęp"
+      },
+      "income": {
+        "title": "Przychód",
+        "today": "Dzisiaj"
+      },
+      "expense": {
+        "title": "Wydatki",
+        "30-days": "30 dni"
+      }
+    }
+  },
   "landing": {
     "title": "Strona główna",
     "hero": {
@@ -51,6 +67,21 @@
         "description": "Zarządzaj płatnościami cyklicznymi, aby mieć pełną kontrolę nad abonamentami oraz subskrypcjami unikając niespodziewanych obciążeń."
       }
     },
+    "bento-grid": {
+      "title": ["Usługi z", "przeznaczeniem"],
+      "plan": {
+        "title": ["Zaplanuj swój", "następny wydatek"],
+        "description": "Planowanie wydatków to kluczowy element zdrowego zarządzania finansami osobistymi."
+      },
+      "possibilities": {
+        "title": ["Ciesz się nieograniczonymi", "możliwościami"],
+        "description": "Czas to pieniądz. Zachowaj go jak najwięcej, oszczędzając na planowaniu i wdrażaniu."
+      },
+      "manage": {
+        "title": ["Zarządzaj przychodami", "cyklicznie"]
+      },
+      "button": "Rozpocznij"
+    },
     "services": {
       "category": "Usługi",
       "title": "Wzmocnij swoje finanse",
@@ -73,7 +104,19 @@
     },
     "ai-assistant": {
       "category": "Asystent AI",
-      "title": "Finansowa wygoda w 3 krokach"
+      "title": "Finansowa wygoda w 3 krokach",
+      "build": {
+        "title": "Zbuduj kontekst",
+        "description": "Prześlij swoje informacje finansowe w kilka sekund, aby zbudować pełny obraz swoich finansów. Wybierz walutę, w której operujesz, i zintegruj przychody, wydatki oraz płatności cykliczne, aby uzyskać dokładny przegląd finansów. Asystent AI wykorzystuje te dane, aby pomóc Ci zarządzać celami, ustalać limity wydatków i identyfikować trendy wydatków dostosowane do Twoich preferencji."
+      },
+      "send": {
+        "title": "Wyślij wiadomość",
+        "description": "Potrzebujesz informacji na temat konkretnego wydatku lub chcesz wiedzieć, jak blisko jesteś osiągnięcia celu? Wyślij wiadomość bezpośrednio do naszego asystenta AI! Uzyskaj odpowiedzi w czasie rzeczywistym, oparte na danych, na wszystkie pytania dotyczące finansów, od śledzenia postępów w realizacji celów po przypomnienia o nadchodzących płatnościach cyklicznych."
+      },
+      "get": {
+        "title": "Uzyskaj analizę lub informacje",
+        "description": "Otrzymaj wnikliwą analizę dostosowaną do Twojej sytuacji finansowej. Asystent AI przetwarza Twoje dane, aby dostarczyć praktyczne spostrzeżenia, zidentyfikować wzorce wydatków i śledzić postęp w realizacji celów. Uzyskaj cotygodniowe podsumowania, powiadomienia o budżecie i wiele więcej - wszystko po to, aby pomóc Ci podejmować mądrzejsze decyzje finansowe."
+      }
     },
     "faq": {
       "category": "FAQ",
@@ -103,7 +146,8 @@
           "question": "Jak mogę uzyskać wgląd w finanse za pomocą asystenta AI?",
           "answer": "Nasz asystent AI może odpowiedzieć na pytania dotyczące twoich transakcji, nawyków wydatkowych, celów i wiele więcej. Wystarczy wpisać zapytanie, a asystent dostarczy spersonalizowanych wglądów finansowych na podstawie twoich danych."
         }
-      ]
+      ],
+      "email": "Masz jeszcze pytania? Napisz do nas na adres"
     }
   },
   "services": {
@@ -268,6 +312,7 @@
     ]
   },
   "banner": {
-    "title": "Przejmij pełną kontrolę nad finansami osobistymi"
+    "title": "Przejmij pełną kontrolę nad finansami osobistymi",
+    "button": "Rozpocznij"
   }
 }

@@ -34,12 +34,10 @@ export default function AIAssistant({
                 </div>
                 <div className="flex flex-col gap-1 items-start text-left">
                   <h3 className="font-bold sm:text-lg lg:text-xl text-font">
-                    1. Zbuduj kontekst
+                    1. {dict.build.title}
                   </h3>
                   <p className="text-font/80 text-sm leading-relaxed font-normal">
-                    Simply upload your data to our secure platform. We support
-                    various file formats and data types to ensure a seamless
-                    integration with your existing systems.
+                    {dict.build.description}
                   </p>
                 </div>
               </TabsTrigger>
@@ -52,12 +50,10 @@ export default function AIAssistant({
                 </div>
                 <div className="flex flex-col gap-1 items-start text-left">
                   <h3 className="font-bold sm:text-lg lg:text-xl text-font">
-                    2. Wyślij wiadomość
+                    2. {dict.send.title}
                   </h3>
                   <p className="text-font/80 text-sm leading-relaxed font-normal">
-                    Simply upload your data to our secure platform. We support
-                    various file formats and data types to ensure a seamless
-                    integration with your existing systems.
+                    {dict.send.description}
                   </p>
                 </div>
               </TabsTrigger>
@@ -70,12 +66,10 @@ export default function AIAssistant({
                 </div>
                 <div className="flex flex-col gap-1 items-start text-left">
                   <h3 className="font-bold sm:text-lg lg:text-xl text-font">
-                    3. Uzyskaj analizę lub informacje
+                    3. {dict.get.title}
                   </h3>
                   <p className="text-font/80 text-sm leading-relaxed font-normal">
-                    Simply upload your data to our secure platform. We support
-                    various file formats and data types to ensure a seamless
-                    integration with your existing systems.
+                    {dict.get.description}
                   </p>
                 </div>
               </TabsTrigger>
