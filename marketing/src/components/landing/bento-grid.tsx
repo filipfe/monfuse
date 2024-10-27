@@ -9,7 +9,7 @@ import StockCard from "./cards/stock";
 export default function BentoGrid({
   dict,
 }: {
-  dict: Dict["landing"]["bento-grid"];
+  dict: Dict["landing"]["bento-grid"] & { card: Dict["general"]["card"] };
 }) {
   return (
     <section className="py-12 sm:py-16 lg:py-24 bg-primary-dark sm:px-6 flex flex-col gap-8 overflow-hidden relative">
@@ -28,7 +28,7 @@ export default function BentoGrid({
             {dict.plan.description}
           </p>
           <div className="absolute -bottom-2 left-8 right-8">
-            <GoalCard />
+            <GoalCard dict={dict.card.goal} />
           </div>
         </div>
         <div className="relative flex flex-col justify-center gap-4 px-6 sm:px-8 py-12 overflow-hidden sm:rounded-lg border border-white/10 bg-gradient-to-br from-[rgba(255,255,255,0.05)] to-[rgba(255,255,255,0)] col-span-2">
@@ -41,9 +41,9 @@ export default function BentoGrid({
           </p>
           <div className="min-h-max flex flex-col gap-4 absolute -right-32 lg:right-8">
             <StockCard />
-            <GoalCard />
-            <IncomeCard />
-            <ExpensesCard />
+            <GoalCard dict={dict.card.goal} />
+            <IncomeCard dict={dict.card.income} />
+            <ExpensesCard dict={dict.card.expense} />
           </div>
         </div>
         <div className="relative overflow-hidden flex flex-col gap-4 px-6 sm:px-8 p-8 sm:rounded-lg border border-white/10 bg-gradient-to-br from-[rgba(255,255,255,0.05)] to-[rgba(255,255,255,0)] col-span-2">
@@ -52,7 +52,7 @@ export default function BentoGrid({
             <br /> <TextBeam>{dict.manage.title[1]}</TextBeam>
           </h3>
           <div className="absolute -bottom-2 -right-16 sm:right-8">
-            <IncomeCard />
+            <IncomeCard dict={dict.card.income} />
           </div>
         </div>
         <div className="relative min-h-24 z-10 flex flex-col justify-center gap-4 overflow-hidden items-center sm:rounded-lg border border-white/10 bg-gradient-to-br from-[rgba(255,255,255,0.05)] to-[rgba(255,255,255,0)]">

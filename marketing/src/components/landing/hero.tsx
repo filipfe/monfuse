@@ -7,7 +7,11 @@ import ExpensesCard from "./cards/expenses";
 import { Dict } from "@/dict";
 import Link from "next/link";
 
-export default function Hero({ dict }: { dict: Dict["landing"]["hero"] }) {
+export default function Hero({
+  dict,
+}: {
+  dict: Dict["landing"]["hero"] & { card: Dict["general"]["card"] };
+}) {
   return (
     <section className="bg-primary-dark sm:px-6 flex flex-col items-center gap-8 overflow-hidden relative pb-4">
       <div className="relative max-w-7xl mx-auto z-10 flex flex-col gap-4 items-center py-12 sm:py-16 lg:py-24 w-full sm:rounded-lg border border-white/10 bg-gradient-to-br from-[rgba(255,255,255,0.05)] to-[rgba(255,255,255,0)]">
@@ -36,14 +40,14 @@ export default function Hero({ dict }: { dict: Dict["landing"]["hero"] }) {
         </div>
         <div className="w-full overflow-hidden flex justify-center mt-12 lg:mt-16">
           <ScrollCarousel>
-            <GoalCard />
-            <IncomeCard />
+            <GoalCard dict={dict.card.goal} />
+            <IncomeCard dict={dict.card.income} />
             {/* <StockCard /> */}
-            <ExpensesCard />
-            <GoalCard />
-            <IncomeCard />
+            <ExpensesCard dict={dict.card.expense} />
+            <GoalCard dict={dict.card.goal} />
+            <IncomeCard dict={dict.card.income} />
             {/* <StockCard /> */}
-            <ExpensesCard />
+            <ExpensesCard dict={dict.card.expense} />
           </ScrollCarousel>
         </div>
       </div>

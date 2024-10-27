@@ -47,13 +47,16 @@ export default async function Page({ params }: PageProps) {
     },
     landing: {
       hero: { cta },
-      faq: { title: faqTitle },
+      faq: dictFaq,
+    },
+    general: {
+      card: { goal: dictGoalCard },
     },
   } = await getDictionary(lang);
   return (
     <div>
       <Skeleton dict={{ ...goals, cta }}>
-        <GoalCard />
+        <GoalCard dict={dictGoalCard} />
       </Skeleton>
       <Description
         dict={goals.info}
@@ -62,7 +65,7 @@ export default async function Page({ params }: PageProps) {
           alt: "Goals page showing goal progress and payment breakdown.",
         }}
       />
-      <FAQ dict={{ title: faqTitle, items: goals.faq }} />
+      <FAQ dict={{ ...dictFaq, items: goals.faq }} />
     </div>
   );
 }
