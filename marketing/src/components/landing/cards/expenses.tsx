@@ -1,9 +1,16 @@
-export default function ExpensesCard() {
+import { Dict } from "@/dict";
+
+export default function ExpensesCard({
+  dict,
+}: {
+  dict: Dict["general"]["card"]["expense"];
+}) {
+  if (!dict) return;
   return (
     <article className="border shadow-[inset_0px_2px_9px_rgba(255,255,255,0.15)] border-white/10 bg-gradient-to-b from-white/5 to-white/[0.01] p-4 rounded-lg backdrop-blur-lg flex flex-col gap-2 min-w-64">
       <div className="flex items-center justify-between mb-2">
-        <h3 className="text-white">Wydatki</h3>
-        <small className="text-white/60">30 dni</small>
+        <h3 className="text-white">{dict.title}</h3>
+        <small className="text-white/60">{dict["30-days"]}</small>
       </div>
       <div className="h-24 rounded-md px-2 relative">
         <div className="relative z-10 h-full flex items-end justify-between">

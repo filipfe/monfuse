@@ -25,6 +25,22 @@
       "AI financial assistant"
     ]
   },
+  "general": {
+    "card": {
+      "goal": {
+        "title": "Guitar",
+        "description": "Progress"
+      },
+      "income": {
+        "title": "Income",
+        "today": "Today"
+      },
+      "expense": {
+        "title": "Expenses",
+        "30-days": "30 days"
+      }
+    }
+  },
   "landing": {
     "title": "Home page",
     "hero": {
@@ -130,7 +146,8 @@
           "question": "How can I get financial insights through the AI assistant?",
           "answer": "Our AI assistant can answer questions about your transactions, spending habits, goals, and more. Simply type your query, and the assistant will provide personalized financial insights based on your data."
         }
-      ]
+      ],
+      "email": "Still have questions? Email us at"
     }
   },
   "services": {

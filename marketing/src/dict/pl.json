@@ -25,6 +25,22 @@
       "asystent finansowy AI"
     ]
   },
+  "general": {
+    "card": {
+      "goal": {
+        "title": "Gitara",
+        "description": "Postęp"
+      },
+      "income": {
+        "title": "Przychód",
+        "today": "Dzisiaj"
+      },
+      "expense": {
+        "title": "Wydatki",
+        "30-days": "30 dni"
+      }
+    }
+  },
   "landing": {
     "title": "Strona główna",
     "hero": {
@@ -130,7 +146,8 @@
           "question": "Jak mogę uzyskać wgląd w finanse za pomocą asystenta AI?",
           "answer": "Nasz asystent AI może odpowiedzieć na pytania dotyczące twoich transakcji, nawyków wydatkowych, celów i wiele więcej. Wystarczy wpisać zapytanie, a asystent dostarczy spersonalizowanych wglądów finansowych na podstawie twoich danych."
         }
-      ]
+      ],
+      "email": "Masz jeszcze pytania? Napisz do nas na adres"
     }
   },
   "services": {
