@@ -7,20 +7,24 @@ import {
   DropdownMenu,
   DropdownTrigger,
   Calendar as Clndr,
+  Tooltip,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
 } from "@nextui-org/react";
 import { DayPicker, getDefaultClassNames } from "react-day-picker";
 // import "react-day-picker/style.css";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Plus } from "lucide-react";
 import { useState } from "react";
 import { toZonedTime } from "date-fns-tz";
+import { format, startOfWeek } from "date-fns";
 
 const classNames = getDefaultClassNames();
 
 export default function Calendar({ settings }: { settings: Settings }) {
-  const [monthDate, setMonthDate] = useState<Date>(
-    toZonedTime(new Date(), settings.timezone)
-  );
-  console.log(monthDate);
+  const defaultMonth = toZonedTime(new Date(), settings.timezone);
+  const [month, setMonth] = useState(defaultMonth.getMonth());
+
   return (
     // <Clndr
     //   isReadOnly
@@ -44,48 +48,107 @@ export default function Calendar({ settings }: { settings: Settings }) {
     <DayPicker
       mode="single"
       showOutsideDays
+      defaultMonth={defaultMonth}
       timeZone={settings.timezone}
-      onMonthChange={(date) => setMonthDate(date)}
+      onMonthChange={(date) => setMonth(date.getMonth())}
       classNames={{
         months: "flex flex-col relative",
-        month: "space-y-4",
         month_caption:
           "flex justify-center pt-1 relative items-center text-center font-medium",
         caption_label: "text-sm sm:text-base font-medium",
         nav: "absolute z-10 left-0 top-0 right-0 grid grid-cols-7",
-        nav_button: cn(
-          "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100"
-        ),
         root: "bg-white rounded-md border p-6 w-full min-w-0 self-start",
         month_grid: "w-full table-fixed border-separate border-spacing-2",
         day: "group/day font-medium text-sm",
-        weekday: "text-font/60 font-normal pb-2",
         button_next: "col-start-7 col-end-8 flex items-center justify-center",
       }}
       components={{
-        CaptionLabel: (props) => (
-          <span {...props}>
-            {new Intl.DateTimeFormat(settings.language, {
-              month: "long",
-              year: "numeric",
-            }).format(monthDate)}
-          </span>
-        ),
+        CaptionLabel: (props) => {
+          const date = toZonedTime(new Date(), settings.timezone);
+          date.setMonth(month);
+          return (
+            <span {...props}>
+              {new Intl.DateTimeFormat(settings.language, {
+                month: "long",
+                year: "numeric",
+              }).format(date)}
+            </span>
+          );
+        },
         DayButton: ({ day, modifiers, ...props }) => (
-          <Dropdown>
-            <DropdownTrigger
+          // <Dropdown>
+          //   <Tooltip
+          //     offset={-4}
+          //     closeDelay={0}
+          //     content={
+          //       <div className="px-1 py-2">
+          //         <div className="text-small font-bold">
+          //           {new Intl.DateTimeFormat(settings.language, {
+          //             day: "numeric",
+          //             weekday: "long",
+          //             year: "numeric",
+          //           }).format(day.date)}
+          //         </div>
+          //       </div>
+          //     }
+          //   >
+          //     <div>
+          //       <DropdownTrigger
+          //         {...props}
+          //         className={cn(
+          //           props.className,
+          //           classNames.day_button,
+          //           "text-center py-3 bg-light border rounded cursor-pointer group-data-[outside=true]/day:opacity-40"
+          //         )}
+          //         role="button"
+          //       />
+          //     </div>
+          //   </Tooltip>
+          //   <DropdownMenu variant="faded">
+          //     <DropdownItem
+          //       className="data-[hover=true]:transition-none"
+          //       startContent={<Plus size={16} />}
+          //       description="Nowa płatność cykliczna"
+          //       href={`/recurring-payments/add?date=${format(
+          //         day.date,
+          //         "yyyy-MM-dd"
+          //       )}`}
+          //     >
+          //       Dodaj płatność
+          //     </DropdownItem>
+          //   </DropdownMenu>
+          // </Dropdown>
+          <Popover offset={-2}>
+            <PopoverTrigger
               {...props}
               className={cn(
                 props.className,
                 classNames.day_button,
-                "text-center py-2 bg-light border rounded cursor-pointer group-data-[outside=true]/day:opacity-40"
+                "text-center py-3 rounded cursor-pointer group-data-[outside=true]/day:opacity-40"
               )}
               role="button"
             />
-            <DropdownMenu>
-              <DropdownItem></DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
+            <PopoverContent>
+              <div className="px-1 py-2">
+                <h4 className="text-sm font-medium text-center">
+                  {new Intl.DateTimeFormat(settings.language, {
+                    day: "numeric",
+                    weekday: "long",
+                    year: "numeric",
+                  }).format(day.date)}
+                </h4>
+                <form action="">
+                  <button className="flex items-center gap-2 px-2 py-1 hover:bg-light rounded">
+                    <Plus className="shrink-0" size={16} />
+                    <div className="flex flex-col items-start">
+                      <h4 className="text-sm">Dodaj płatność</h4>
+                      <p className="text-sm">Nowa płatność</p>
+                    </div>
+                  </button>
+                </form>
+              </div>
+            </PopoverContent>
+          </Popover>
         ),
         NextMonthButton: (props) => (
           <div className="grid place-content-center col-start-7 col-end-8">
@@ -93,7 +156,7 @@ export default function Calendar({ settings }: { settings: Settings }) {
               {...props}
               className={cn(
                 props.className,
-                "h-7 w-7 border bg-light rounded flex items-center justify-center"
+                "h-8 w-8 border bg-light rounded flex items-center justify-center"
               )}
             >
               <ChevronRight size={18} />
@@ -106,12 +169,33 @@ export default function Calendar({ settings }: { settings: Settings }) {
               {...props}
               className={cn(
                 props.className,
-                "h-7 w-7 border bg-light rounded flex items-center justify-center"
+                "h-8 w-8 border bg-light rounded flex items-center justify-center"
               )}
             >
               <ChevronLeft size={18} />
             </button>
           </div>
+        ),
+        Weekdays: (props) => (
+          <thead>
+            <tr {...props}>
+              {Array.from(Array(7)).map((_, i) => {
+                const date = startOfWeek(new Date(), { weekStartsOn: 1 });
+                date.setDate(date.getDate() + i);
+                const weekday = new Intl.DateTimeFormat(settings.language, {
+                  weekday: "short",
+                }).format(date);
+                return (
+                  <th
+                    className="text-sm pt-4 pb-2 font-normal text-font/80"
+                    key={weekday}
+                  >
+                    {weekday}
+                  </th>
+                );
+              })}
+            </tr>
+          </thead>
         ),
       }}
     />

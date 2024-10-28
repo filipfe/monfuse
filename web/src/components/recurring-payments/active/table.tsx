@@ -10,13 +10,15 @@ import {
   Pagination,
   ScrollShadow,
   getKeyValue,
+  Button,
 } from "@nextui-org/react";
 import Block from "../../ui/block";
 import { useActivePayments } from "@/lib/recurring-payments/queries";
 import { useCallback, useState } from "react";
-import { Coins, Wallet2 } from "lucide-react";
+import { Coins, PlusIcon, Wallet2 } from "lucide-react";
 import TopContent from "../../ui/table/top-content";
 import Add from "../../ui/cta/add";
+import Link from "next/link";
 
 const columns = [
   {
@@ -57,14 +59,10 @@ export default function RecurringPaymentsTable({
 
     switch (columnKey) {
       case "type":
-        return (
-          <>
-            {item.type === "income" ? (
-              <Wallet2 size={14} color="#177981" />
-            ) : (
-              <Coins size={14} color="#fdbb2d" />
-            )}
-          </>
+        return item.type === "income" ? (
+          <Wallet2 size={15} color="#177981" />
+        ) : (
+          <Coins size={16} color="#fdbb2d" />
         );
       case "title":
         return (
@@ -92,15 +90,22 @@ export default function RecurringPaymentsTable({
   return (
     <Block
       title={"Aktywne"}
-      className="w-screen sm:w-full min-w-0"
+      className="w-screen sm:w-full min-w-0 row-span-2"
       hideTitleMobile
       cta={
-        <Add
-          title={"Add"}
-          size="sm"
-          href={"/recurring-payments/add"}
-          className="!h-10 self-end"
-        />
+        <Link href="/recurring-payments/add">
+          <Button
+            as="div"
+            variant="light"
+            disableRipple
+            startContent={<PlusIcon size={14} />}
+            className="h-8 bg-light border"
+            size="sm"
+            radius="md"
+          >
+            Add
+          </Button>
+        </Link>
       }
     >
       <ScrollShadow orientation="horizontal" hideScrollBar>
@@ -112,7 +117,7 @@ export default function RecurringPaymentsTable({
           aria-label="recurring-paymants-table"
           className="max-w-full w-full flex-1"
           classNames={{
-            td: "[&_span:last-child]:before:!border-neutral-200",
+            td: "[&_span:last-child]:before:!border-neutral-200 first:w-4",
           }}
         >
           <TableHeader columns={columns}>

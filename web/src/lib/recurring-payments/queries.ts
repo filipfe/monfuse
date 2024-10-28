@@ -2,7 +2,7 @@ import { createClient } from "@/utils/supabase/client";
 import useSWR from "swr";
 
 export async function getPastRecurringPayments(
-  params: SearchParams
+  params: SearchParams,
 ): Promise<Payment[]> {
   const supabase = createClient();
   let query = supabase
@@ -29,13 +29,13 @@ export async function getPastRecurringPayments(
 }
 
 async function getActivePayments(
-  page: number
+  page: number,
 ): Promise<{ count: number; results: RecurringPayment[] }> {
   const supabase = createClient();
 
   const { data: results, error } = await supabase.rpc(
     "get_recurring_payments_active_payments",
-    { p_page: page }
+    { p_page: page },
   );
 
   if (error) throw new Error(error.message);
