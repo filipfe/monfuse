@@ -18,35 +18,39 @@ import { Coins, Wallet2 } from "lucide-react";
 import TopContent from "../../ui/table/top-content";
 import Add from "../../ui/cta/add";
 
-export default function RecurringPaymentsTable() {
-  const [page, setPage] = useState<number>(1);
+const columns = [
+  {
+    key: "type",
+    label: "",
+  },
+  {
+    key: "title",
+    label: "TITLE",
+  },
+  {
+    key: "amount",
+    label: "AMOUNT",
+  },
+  {
+    key: "currency",
+    label: "CURRENCY",
+  },
+  {
+    key: "last_payment",
+    label: "LAST PAYMENT",
+  },
+  {
+    key: "next_payment",
+    label: "NEXT PAYMENT",
+  },
+];
 
-  const columns = [
-    {
-      key: "type",
-      label: "",
-    },
-    {
-      key: "title",
-      label: "TITLE",
-    },
-    {
-      key: "amount",
-      label: "AMOUNT",
-    },
-    {
-      key: "currency",
-      label: "CURRENCY",
-    },
-    {
-      key: "last_payment",
-      label: "LAST PAYMENT",
-    },
-    {
-      key: "next_payment",
-      label: "NEXT PAYMENT",
-    },
-  ];
+export default function RecurringPaymentsTable({
+  settings,
+}: {
+  settings: Settings;
+}) {
+  const [page, setPage] = useState<number>(1);
 
   const renderCell = useCallback((item: any, columnKey: any) => {
     const cellValue = item[columnKey];
@@ -68,6 +72,13 @@ export default function RecurringPaymentsTable() {
             {cellValue}
           </span>
         );
+      case "amount":
+        return new Intl.NumberFormat(settings.language).format(cellValue);
+      case "last_payment":
+      case "next_payment":
+        return new Intl.DateTimeFormat(settings.language).format(
+          new Date(cellValue)
+        );
       default:
         return cellValue;
     }
@@ -81,7 +92,7 @@ export default function RecurringPaymentsTable() {
   return (
     <Block
       title={"Aktywne"}
-      className="w-screen sm:w-full col-span-3"
+      className="w-screen sm:w-full min-w-0"
       hideTitleMobile
       cta={
         <Add
