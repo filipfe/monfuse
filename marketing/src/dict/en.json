@@ -1,7 +1,7 @@
 {
   "_metadata": {
     "title": "Monfuse - Your Ultimate Financial Management App",
-    "description": "Take control of your finances with Monfuse. Effortlessly track income, expenses, and recurring payments while setting personalized financial goals. Powered by AI, Monfuse provides insights and recommendations to optimize your financial health. Make informed decisions and start your journey towards financial freedom today!",
+    "description": "Take control of your finances with Monfuse. Effortlessly track incomes, expenses, goals, and recurring payments. Powered by AI, Monfuse provides insights and recommendations to optimize your financial health.",
     "keywords": [
       "finance app",
       "personal finance management",
@@ -87,35 +87,52 @@
       "title": "Empower Your Finances",
       "operations": {
         "title": "Track Operations",
-        "description": "Easily monitor your income, expenses, and recurring payments. Categorize transactions and set spending limits."
+        "description": "Easily monitor your income, expenses, and recurring payments. Categorize transactions and set spending limits.",
+        "link": "Learn more"
       },
       "goals": {
         "title": "Achieve Your Goals",
-        "description": "Set and track financial goals effortlessly. Whether saving or paying off debt, ensure your financial ambitions stay within reach."
+        "description": "Set and track financial goals effortlessly. Whether saving or paying off debt, ensure your financial ambitions stay within reach.",
+        "link": "Learn more"
       },
       "navigation": {
         "title": "Navigate Seamlessly",
-        "description": "Quickly switch between pages with our streamlined navigation. Access all data easily and manage your finances without hassle."
+        "description": "Quickly switch between pages with our streamlined navigation. Access all data easily and manage your finances without hassle.",
+        "_image": {
+          "alt": "Navigation menu with options for Dashboard, Stats, Operations (Incomes, Expenses, Recurring Payments), Goals, AI Assistant, Automation, and Settings."
+        }
       },
       "stats": {
         "title": "Explore Period Stats",
-        "description": "View monthly financial insights at a glance. Track spending patterns, income trends, and progress toward your goals with clear visual reports."
+        "description": "View monthly financial insights at a glance. Track spending patterns, income trends, and progress toward your goals with clear visual reports.",
+        "_image": {
+          "alt": "Monthly financial statistics dashboard showing income, expenses, balance trends, weekly operations breakdown, and total expenses by category"
+        }
       }
     },
     "ai-assistant": {
       "category": "AI Assistant",
       "title": "Financial comfort in 3 steps",
-      "build": {
-        "title": "Build context",
-        "description": "Upload your financial information in seconds to build a complete picture of your finances. Choose the currency you operate in, and integrate income, expenses, and recurring payments for an accurate financial overview. The AI assistant uses this data to help you manage goals, set expense limits, and identify spending trends tailored to your preferences."
+      "context": {
+        "title": "Build Context",
+        "description": "Select financial information from operations, spending limits, and goals. This data will be processed by the AI Assistant.",
+        "_image": {
+          "alt": "AI Assistant interface showing context selection with daily, weekly, and monthly expense limits, operations and financial goals"
+        }
       },
-      "send": {
-        "title": "Send a message",
-        "description": "Need insights on a specific expense or want to know how close you are to achieving a goal? Send a message directly to our AI assistant! Get real-time, data-driven responses to all your finance-related questions, from tracking goal progress to receiving reminders about upcoming recurring payments."
+      "message": {
+        "title": "Send Message",
+        "description": "Send a message directly to the AI Assistant, who will use the selected information to compose a response to your message.",
+        "_image": {
+          "alt": "AI Assistant interface showing message construction"
+        }
       },
-      "get": {
-        "title": "Get analysis or information",
-        "description": "Receive insightful analysis tailored to your financial situation. The AI assistant processes your data to deliver actionable insights, identify spending patterns, and track goal progress. Access weekly summaries, budget alerts, and much more—all aimed at helping you make smarter financial decisions."
+      "response": {
+        "title": "Get Analysis or Information",
+        "description": "Receive an insightful analysis tailored to your message. The AI Assistant processes the selected data to answer your questions.",
+        "_image": {
+          "alt": "AI Assistant interface showing its analysis in response for the constructed financial query"
+        }
       }
     },
     "faq": {

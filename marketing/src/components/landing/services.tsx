@@ -1,5 +1,7 @@
 import { Dict } from "@/dict";
+import { ChevronRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Services({
   dict,
@@ -22,9 +24,20 @@ export default function Services({
         <div className="group relative items-start flex flex-col gap-3 justify-between overflow-hidden bg-white border rounded-md">
           <div className="p-6">
             <h3 className="font-medium mb-2">{dict.operations.title}</h3>
-            <p className="text-foreground/80 text-sm leading-relaxed">
+            <p className="text-foreground/80 text-sm leading-relaxed mb-4">
               {dict.operations.description}
             </p>
+            <Link
+              href="/incomes"
+              className="font-bold text-primary-dark text-sm underline decoration-2 decoration-primary flex items-center gap-1 max-w-max group/link"
+            >
+              {dict.operations.link}
+              <ChevronRight
+                className="transition-transform group-hover/link:translate-x-1 translate-x-0"
+                size={12}
+                strokeWidth={4}
+              />
+            </Link>
           </div>
           <Image
             width={1024}
@@ -38,9 +51,20 @@ export default function Services({
         <div className="group relative items-start overflow-hidden flex flex-col gap-3 justify-between bg-white border rounded-md order-3 xl:order-none">
           <div className="p-6">
             <h3 className="font-medium mb-2">{dict.goals.title}</h3>
-            <p className="text-foreground/80 text-sm leading-relaxed">
+            <p className="text-foreground/80 text-sm leading-relaxed mb-4">
               {dict.goals.description}
             </p>
+            <Link
+              href="/goals"
+              className="font-bold text-primary-dark text-sm underline decoration-2 decoration-primary flex items-center gap-1 max-w-max group/link"
+            >
+              {dict.goals.link}
+              <ChevronRight
+                className="transition-transform group-hover/link:translate-x-1 translate-x-0"
+                size={12}
+                strokeWidth={4}
+              />
+            </Link>
           </div>
           <Image
             width={1024}

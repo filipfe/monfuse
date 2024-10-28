@@ -28,7 +28,7 @@ export default function Skeleton({ dict, children }: Props) {
                   {dict.cta.primary}
                 </Link>
               </div>
-              <div className="border border-white/5 rounded-md p-1 flex-1">
+              <div className="border border-white/5 rounded-lg p-1 flex-1 flex items-center justify-center">
                 <Link
                   href="#description"
                   className="whitespace-nowrap rounded-md py-2.5 text-sm px-5 backdrop-blur-md border border-white/10 text-white"

@@ -23,7 +23,7 @@ export default function Hero({
             {dict.description}
           </p>
           <div className="w-full flex items-center sm:gap-4 gap-2 max-w-max">
-            <div className="bg-primary/20 rounded-md px-1 h-12 flex items-center justify-center flex-1">
+            <div className="bg-primary/20 rounded-lg px-1 h-12 flex items-center justify-center flex-1">
               <Link
                 href="https://app.monfuse.com"
                 className="whitespace-nowrap bg-primary py-2.5 text-sm px-5 rounded-md text-white"
@@ -31,10 +31,13 @@ export default function Hero({
                 {dict.cta.primary}
               </Link>
             </div>
-            <div className="border border-white/5 rounded-md p-1 flex-1">
-              <button className="whitespace-nowrap rounded-md py-2.5 text-sm px-5 backdrop-blur-md border border-white/10 text-white">
+            <div className="border border-white/5 rounded-lg p-1 flex-1 flex items-center justify-center">
+              <Link
+                href="#operations"
+                className="whitespace-nowrap rounded-md py-2.5 text-sm px-5 backdrop-blur-md border border-white/10 text-white"
+              >
                 {dict.cta.secondary}
-              </button>
+              </Link>
             </div>
           </div>
         </div>

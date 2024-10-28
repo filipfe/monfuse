@@ -1,7 +1,7 @@
 {
   "_metadata": {
     "title": "Monfuse - Twój Krok w Kierunku Wolności Finansowej",
-    "description": "Przejmij kontrolę nad swoimi finansami z Monfuse. Bez wysiłku śledź przychody, wydatki i płatności cykliczne, a także ustalaj spersonalizowane cele finansowe. Dzięki sztucznej inteligencji Monfuse dostarcza wglądów i rekomendacji, które pomogą zoptymalizować Twoje zdrowie finansowe. Podejmuj świadome decyzje i rozpocznij swoją drogę do finansowej wolności już dziś!",
+    "description": "Przejmij kontrolę nad swoimi finansami z Monfuse. Bez wysiłku śledź przychody, wydatki, cele i płatności cykliczne. Dzięki AI Monfuse dostarcza wglądów i rekomendacji, które pomogą zoptymalizować Twoje zdrowie finansowe.",
     "keywords": [
       "aplikacja finansowa",
       "zarządzanie finansami osobistymi",
@@ -87,35 +87,52 @@
       "title": "Wzmocnij swoje finanse",
       "operations": {
         "title": "Śledź operacje",
-        "description": "Łatwo monitoruj swoje dochody, wydatki i płatności cykliczne. Kategoryzuj transakcje i ustalaj limity wydatków."
+        "description": "Łatwo monitoruj swoje dochody, wydatki i płatności cykliczne. Kategoryzuj transakcje i ustalaj limity wydatków.",
+        "link": "Dowiedz się więcej"
       },
       "goals": {
         "title": "Osiągaj swoje cele",
-        "description": "Ustawiaj i śledź cele finansowe bez wysiłku. Dbaj o to, by twoje finansowe ambicje były w zasięgu ręki."
+        "description": "Ustawiaj i śledź cele finansowe bez wysiłku. Dbaj o to, by twoje finansowe ambicje były w zasięgu ręki.",
+        "link": "Dowiedz się więcej"
       },
       "navigation": {
         "title": "Nawiguj bezproblemowo",
-        "description": "Szybko przełączaj się między stronami dzięki naszej usprawnionej nawigacji. Uzyskaj łatwy dostęp do wszystkich danych i zarządzaj swoimi finansami bez problemów."
+        "description": "Szybko przełączaj się między stronami dzięki naszej usprawnionej nawigacji. Uzyskaj łatwy dostęp do wszystkich danych i zarządzaj swoimi finansami bez problemów.",
+        "_image": {
+          "alt": "Menu nawigacyjne z opcjami panelu, statystyk, Operacji (przychodów, wydatków, płatności cyklicznych), celów, Asystenta AI, automatyzacji i ustawień."
+        }
       },
       "stats": {
         "title": "Odkrywaj statystyki okresowe",
-        "description": "Przeglądaj miesięczne informacje finansowe. Śledź wzorce wydatków, trendy dochodów i postępy w realizacji swoich celów za pomocą przejrzystych raportów wizualnych."
+        "description": "Przeglądaj miesięczne informacje finansowe. Śledź wzorce wydatków, trendy dochodów i postępy w realizacji swoich celów za pomocą przejrzystych raportów wizualnych.",
+        "_image": {
+          "alt": "Pulpit miesięcznych statystyk finansowych pokazujący przychody, wydatki, trendy salda, tygodniowy podział operacji i całkowite wydatki według kategorii"
+        }
       }
     },
     "ai-assistant": {
       "category": "Asystent AI",
       "title": "Finansowa wygoda w 3 krokach",
-      "build": {
+      "context": {
         "title": "Zbuduj kontekst",
-        "description": "Prześlij swoje informacje finansowe w kilka sekund, aby zbudować pełny obraz swoich finansów. Wybierz walutę, w której operujesz, i zintegruj przychody, wydatki oraz płatności cykliczne, aby uzyskać dokładny przegląd finansów. Asystent AI wykorzystuje te dane, aby pomóc Ci zarządzać celami, ustalać limity wydatków i identyfikować trendy wydatków dostosowane do Twoich preferencji."
+        "description": "Wybierz informacje finansowe spośród operacji, limitów wydatków i celów. Zostaną one przetworzone przez Asystenta AI.",
+        "_image": {
+          "alt": "Interfejs Asystenta AI pokazujący wybór kontekstu z dziennymi, tygodniowymi i miesięcznymi limitami wydatków, operacjami i celami finansowymi"
+        }
       },
-      "send": {
+      "message": {
         "title": "Wyślij wiadomość",
-        "description": "Potrzebujesz informacji na temat konkretnego wydatku lub chcesz wiedzieć, jak blisko jesteś osiągnięcia celu? Wyślij wiadomość bezpośrednio do naszego asystenta AI! Uzyskaj odpowiedzi w czasie rzeczywistym, oparte na danych, na wszystkie pytania dotyczące finansów, od śledzenia postępów w realizacji celów po przypomnienia o nadchodzących płatnościach cyklicznych."
+        "description": "Wyślij wiadomość bezpośrednio do Asystenta AI, który operując wybranymi informacjami, skomponuje odpowiedź na Twoją wiadomość.",
+        "_image": {
+          "alt": "Interfejs Asystenta AI pokazujący konstrukcję przesyłanej wiadomości"
+        }
       },
-      "get": {
+      "response": {
         "title": "Uzyskaj analizę lub informacje",
-        "description": "Otrzymaj wnikliwą analizę dostosowaną do Twojej sytuacji finansowej. Asystent AI przetwarza Twoje dane, aby dostarczyć praktyczne spostrzeżenia, zidentyfikować wzorce wydatków i śledzić postęp w realizacji celów. Uzyskaj cotygodniowe podsumowania, powiadomienia o budżecie i wiele więcej - wszystko po to, aby pomóc Ci podejmować mądrzejsze decyzje finansowe."
+        "description": "Otrzymaj wnikliwą analizę dostosowaną do Twojej wiadomości. Asystent AI przetwarza wybrane dane, aby odpowiedzieć na Twoje pytania.",
+        "_image": {
+          "alt": "Interfejs asystenta AI pokazujący jego analizę w odpowiedzi na skonstruowane zapytanie finansowe"
+        }
       }
     },
     "faq": {
