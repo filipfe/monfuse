@@ -1,7 +1,7 @@
 {
   "_metadata": {
     "title": "Monfuse - Your Ultimate Financial Management App",
-    "description": "Take control of your finances with Monfuse. Effortlessly track income, expenses, and recurring payments while setting personalized financial goals. Powered by AI, Monfuse provides insights and recommendations to optimize your financial health. Make informed decisions and start your journey towards financial freedom today!",
+    "description": "Take control of your finances with Monfuse. Effortlessly track incomes, expenses, goals, and recurring payments. Powered by AI, Monfuse provides insights and recommendations to optimize your financial health.",
     "keywords": [
       "finance app",
       "personal finance management",
@@ -24,6 +24,22 @@
       "financial notifications",
       "AI financial assistant"
     ]
+  },
+  "general": {
+    "card": {
+      "goal": {
+        "title": "Guitar",
+        "description": "Progress"
+      },
+      "income": {
+        "title": "Income",
+        "today": "Today"
+      },
+      "expense": {
+        "title": "Expenses",
+        "30-days": "30 days"
+      }
+    }
   },
   "landing": {
     "title": "Home page",
@@ -51,29 +67,73 @@
         "description": "Manage your recurring payments to have full control over subscriptions, regular payments, and avoid unexpected charges."
       }
     },
+    "bento-grid": {
+      "title": ["Services with", "purpose"],
+      "plan": {
+        "title": ["Plan your", "next expense"],
+        "description": "Planning expenses is a key element of healthy personal finance management."
+      },
+      "possibilities": {
+        "title": ["Enjoy unlimited", "possibilities"],
+        "description": "Time is money. Save as much of it as possible by planning and implementing effectively."
+      },
+      "manage": {
+        "title": ["Manage income", "periodically"]
+      },
+      "button": "Start now"
+    },
     "services": {
       "category": "Services",
       "title": "Empower Your Finances",
       "operations": {
         "title": "Track Operations",
-        "description": "Easily monitor your income, expenses, and recurring payments. Categorize transactions and set spending limits."
+        "description": "Easily monitor your income, expenses, and recurring payments. Categorize transactions and set spending limits.",
+        "link": "Learn more"
       },
       "goals": {
         "title": "Achieve Your Goals",
-        "description": "Set and track financial goals effortlessly. Whether saving or paying off debt, ensure your financial ambitions stay within reach."
+        "description": "Set and track financial goals effortlessly. Whether saving or paying off debt, ensure your financial ambitions stay within reach.",
+        "link": "Learn more"
       },
       "navigation": {
         "title": "Navigate Seamlessly",
-        "description": "Quickly switch between pages with our streamlined navigation. Access all data easily and manage your finances without hassle."
+        "description": "Quickly switch between pages with our streamlined navigation. Access all data easily and manage your finances without hassle.",
+        "_image": {
+          "alt": "Navigation menu with options for Dashboard, Stats, Operations (Incomes, Expenses, Recurring Payments), Goals, AI Assistant, Automation, and Settings."
+        }
       },
       "stats": {
         "title": "Explore Period Stats",
-        "description": "View monthly financial insights at a glance. Track spending patterns, income trends, and progress toward your goals with clear visual reports."
+        "description": "View monthly financial insights at a glance. Track spending patterns, income trends, and progress toward your goals with clear visual reports.",
+        "_image": {
+          "alt": "Monthly financial statistics dashboard showing income, expenses, balance trends, weekly operations breakdown, and total expenses by category"
+        }
       }
     },
     "ai-assistant": {
       "category": "AI Assistant",
-      "title": "Financial comfort in 3 steps"
+      "title": "Financial comfort in 3 steps",
+      "context": {
+        "title": "Build Context",
+        "description": "Select financial information from operations, spending limits, and goals. This data will be processed by the AI Assistant.",
+        "_image": {
+          "alt": "AI Assistant interface showing context selection with daily, weekly, and monthly expense limits, operations and financial goals"
+        }
+      },
+      "message": {
+        "title": "Send Message",
+        "description": "Send a message directly to the AI Assistant, who will use the selected information to compose a response to your message.",
+        "_image": {
+          "alt": "AI Assistant interface showing message construction"
+        }
+      },
+      "response": {
+        "title": "Get Analysis or Information",
+        "description": "Receive an insightful analysis tailored to your message. The AI Assistant processes the selected data to answer your questions.",
+        "_image": {
+          "alt": "AI Assistant interface showing its analysis in response for the constructed financial query"
+        }
+      }
     },
     "faq": {
       "category": "FAQ",
@@ -103,7 +163,8 @@
           "question": "How can I get financial insights through the AI assistant?",
           "answer": "Our AI assistant can answer questions about your transactions, spending habits, goals, and more. Simply type your query, and the assistant will provide personalized financial insights based on your data."
         }
-      ]
+      ],
+      "email": "Still have questions? Email us at"
     }
   },
   "services": {
@@ -268,6 +329,7 @@
     ]
   },
   "banner": {
-    "title": "Take full control of your personal finances"
+    "title": "Take full control of your personal finances",
+    "button": "Start now"
   }
 }

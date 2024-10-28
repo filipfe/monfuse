@@ -1,7 +1,7 @@
 {
   "_metadata": {
     "title": "Monfuse - Twój Krok w Kierunku Wolności Finansowej",
-    "description": "Przejmij kontrolę nad swoimi finansami z Monfuse. Bez wysiłku śledź przychody, wydatki i płatności cykliczne, a także ustalaj spersonalizowane cele finansowe. Dzięki sztucznej inteligencji Monfuse dostarcza wglądów i rekomendacji, które pomogą zoptymalizować Twoje zdrowie finansowe. Podejmuj świadome decyzje i rozpocznij swoją drogę do finansowej wolności już dziś!",
+    "description": "Przejmij kontrolę nad swoimi finansami z Monfuse. Bez wysiłku śledź przychody, wydatki, cele i płatności cykliczne. Dzięki AI Monfuse dostarcza wglądów i rekomendacji, które pomogą zoptymalizować Twoje zdrowie finansowe.",
     "keywords": [
       "aplikacja finansowa",
       "zarządzanie finansami osobistymi",
@@ -24,6 +24,22 @@
       "powiadomienia finansowe",
       "asystent finansowy AI"
     ]
+  },
+  "general": {
+    "card": {
+      "goal": {
+        "title": "Gitara",
+        "description": "Postęp"
+      },
+      "income": {
+        "title": "Przychód",
+        "today": "Dzisiaj"
+      },
+      "expense": {
+        "title": "Wydatki",
+        "30-days": "30 dni"
+      }
+    }
   },
   "landing": {
     "title": "Strona główna",
@@ -51,29 +67,73 @@
         "description": "Zarządzaj płatnościami cyklicznymi, aby mieć pełną kontrolę nad abonamentami oraz subskrypcjami unikając niespodziewanych obciążeń."
       }
     },
+    "bento-grid": {
+      "title": ["Usługi z", "przeznaczeniem"],
+      "plan": {
+        "title": ["Zaplanuj swój", "następny wydatek"],
+        "description": "Planowanie wydatków to kluczowy element zdrowego zarządzania finansami osobistymi."
+      },
+      "possibilities": {
+        "title": ["Ciesz się nieograniczonymi", "możliwościami"],
+        "description": "Czas to pieniądz. Zachowaj go jak najwięcej, oszczędzając na planowaniu i wdrażaniu."
+      },
+      "manage": {
+        "title": ["Zarządzaj przychodami", "cyklicznie"]
+      },
+      "button": "Rozpocznij"
+    },
     "services": {
       "category": "Usługi",
       "title": "Wzmocnij swoje finanse",
       "operations": {
         "title": "Śledź operacje",
-        "description": "Łatwo monitoruj swoje dochody, wydatki i płatności cykliczne. Kategoryzuj transakcje i ustalaj limity wydatków."
+        "description": "Łatwo monitoruj swoje dochody, wydatki i płatności cykliczne. Kategoryzuj transakcje i ustalaj limity wydatków.",
+        "link": "Dowiedz się więcej"
       },
       "goals": {
         "title": "Osiągaj swoje cele",
-        "description": "Ustawiaj i śledź cele finansowe bez wysiłku. Dbaj o to, by twoje finansowe ambicje były w zasięgu ręki."
+        "description": "Ustawiaj i śledź cele finansowe bez wysiłku. Dbaj o to, by twoje finansowe ambicje były w zasięgu ręki.",
+        "link": "Dowiedz się więcej"
       },
       "navigation": {
         "title": "Nawiguj bezproblemowo",
-        "description": "Szybko przełączaj się między stronami dzięki naszej usprawnionej nawigacji. Uzyskaj łatwy dostęp do wszystkich danych i zarządzaj swoimi finansami bez problemów."
+        "description": "Szybko przełączaj się między stronami dzięki naszej usprawnionej nawigacji. Uzyskaj łatwy dostęp do wszystkich danych i zarządzaj swoimi finansami bez problemów.",
+        "_image": {
+          "alt": "Menu nawigacyjne z opcjami panelu, statystyk, Operacji (przychodów, wydatków, płatności cyklicznych), celów, Asystenta AI, automatyzacji i ustawień."
+        }
       },
       "stats": {
         "title": "Odkrywaj statystyki okresowe",
-        "description": "Przeglądaj miesięczne informacje finansowe. Śledź wzorce wydatków, trendy dochodów i postępy w realizacji swoich celów za pomocą przejrzystych raportów wizualnych."
+        "description": "Przeglądaj miesięczne informacje finansowe. Śledź wzorce wydatków, trendy dochodów i postępy w realizacji swoich celów za pomocą przejrzystych raportów wizualnych.",
+        "_image": {
+          "alt": "Pulpit miesięcznych statystyk finansowych pokazujący przychody, wydatki, trendy salda, tygodniowy podział operacji i całkowite wydatki według kategorii"
+        }
       }
     },
     "ai-assistant": {
       "category": "Asystent AI",
-      "title": "Finansowa wygoda w 3 krokach"
+      "title": "Finansowa wygoda w 3 krokach",
+      "context": {
+        "title": "Zbuduj kontekst",
+        "description": "Wybierz informacje finansowe spośród operacji, limitów wydatków i celów. Zostaną one przetworzone przez Asystenta AI.",
+        "_image": {
+          "alt": "Interfejs Asystenta AI pokazujący wybór kontekstu z dziennymi, tygodniowymi i miesięcznymi limitami wydatków, operacjami i celami finansowymi"
+        }
+      },
+      "message": {
+        "title": "Wyślij wiadomość",
+        "description": "Wyślij wiadomość bezpośrednio do Asystenta AI, który operując wybranymi informacjami, skomponuje odpowiedź na Twoją wiadomość.",
+        "_image": {
+          "alt": "Interfejs Asystenta AI pokazujący konstrukcję przesyłanej wiadomości"
+        }
+      },
+      "response": {
+        "title": "Uzyskaj analizę lub informacje",
+        "description": "Otrzymaj wnikliwą analizę dostosowaną do Twojej wiadomości. Asystent AI przetwarza wybrane dane, aby odpowiedzieć na Twoje pytania.",
+        "_image": {
+          "alt": "Interfejs asystenta AI pokazujący jego analizę w odpowiedzi na skonstruowane zapytanie finansowe"
+        }
+      }
     },
     "faq": {
       "category": "FAQ",
@@ -103,7 +163,8 @@
           "question": "Jak mogę uzyskać wgląd w finanse za pomocą asystenta AI?",
           "answer": "Nasz asystent AI może odpowiedzieć na pytania dotyczące twoich transakcji, nawyków wydatkowych, celów i wiele więcej. Wystarczy wpisać zapytanie, a asystent dostarczy spersonalizowanych wglądów finansowych na podstawie twoich danych."
         }
-      ]
+      ],
+      "email": "Masz jeszcze pytania? Napisz do nas na adres"
     }
   },
   "services": {
@@ -268,6 +329,7 @@
     ]
   },
   "banner": {
-    "title": "Przejmij pełną kontrolę nad finansami osobistymi"
+    "title": "Przejmij pełną kontrolę nad finansami osobistymi",
+    "button": "Rozpocznij"
   }
 }

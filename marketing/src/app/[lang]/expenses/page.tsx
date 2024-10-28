@@ -47,13 +47,16 @@ export default async function Page({ params }: PageProps) {
     },
     landing: {
       hero: { cta },
-      faq: { title: faqTitle },
+      faq: dictFaq,
+    },
+    general: {
+      card: { expense: dictExpenseCard },
     },
   } = await getDictionary(lang);
   return (
     <div>
       <Skeleton dict={{ ...expenses, cta }}>
-        <ExpensesCard />
+        <ExpensesCard dict={dictExpenseCard} />
       </Skeleton>
       {expenses.info.map((section, k) => (
         <Description
@@ -61,12 +64,12 @@ export default async function Page({ params }: PageProps) {
           dict={section}
           image={{
             src: "/app/expenses.png",
-            alt: "Expenses page with categorized transactions and limits.",
+            alt: "Expenses page interface with categorized transactions and limits.",
           }}
           key={`info-${k}`}
         />
       ))}
-      <FAQ dict={{ title: faqTitle, items: expenses.faq }} />
+      <FAQ dict={{ ...dictFaq, items: expenses.faq }} />
     </div>
   );
 }

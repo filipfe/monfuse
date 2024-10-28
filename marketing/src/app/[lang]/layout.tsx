@@ -70,7 +70,7 @@ export default async function RootLayout({
       <body className={cn(inter.className)}>
         <Header dict={dict} />
         <main>{children}</main>
-        <Banner dict={banner} />
+        <Banner dict={{ ...banner, card: dict.general.card }} />
         <Footer dict={dict} />
         <SpeedInsights />
         <Analytics />

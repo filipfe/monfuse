@@ -46,15 +46,18 @@ export default async function Page({ params }: PageProps) {
     },
     landing: {
       hero: { cta },
-      faq: { title: faqTitle },
+      faq: dictFaq,
+    },
+    general: {
+      card: { income: dictIncomeCard },
     },
   } = await getDictionary(lang);
   return (
     <div>
       <Skeleton dict={{ ...incomes, cta }}>
-        <IncomeCard />
+        <IncomeCard dict={dictIncomeCard} />
       </Skeleton>
-      <FAQ dict={{ title: faqTitle, items: incomes.faq }} />
+      <FAQ dict={{ ...dictFaq, items: incomes.faq }} />
     </div>
   );
 }
