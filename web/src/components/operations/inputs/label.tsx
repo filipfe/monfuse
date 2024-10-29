@@ -50,7 +50,7 @@ export default function LabelInput({ dict, defaultValue, className }: Props) {
             ))
           : []}
       </Autocomplete>
-      <div className="absolute left-[3.7rem] top-[11px]">
+      <div className="absolute left-12 top-2.5">
         <Tooltip size="sm" content={dict.tooltip}>
           <HelpCircleIcon size={12} className="text-primary" />
         </Tooltip>

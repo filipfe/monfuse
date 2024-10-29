@@ -2,6 +2,7 @@ import { Dict } from "@/dict";
 import Image from "next/image";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { Mailbox, MessageSquareText, Sparkles } from "lucide-react";
+import AIAssistantTabs from "./ai-assistant/tabs";
 // [text-shadow:_4px_4px_0_rgba(23,121,129,0.2)]
 export default function AIAssistant({
   dict,
@@ -20,14 +21,11 @@ export default function AIAssistant({
               {dict.title}
             </h3>
           </div>
-          <Tabs
-            defaultValue="context"
-            className="mx-auto my-6 sm:my-12 h-full grid lg:grid-cols-[2fr_3fr] gap-10 items-center"
-          >
+          <AIAssistantTabs>
             <TabsList className="flex flex-col gap-4 p-0 !bg-transparent h-auto lg:h-96">
               <TabsTrigger value="context" className="items-stretch gap-6">
                 <div className="w-0.5 bg-border shrink-0 rounded-full overflow-hidden grid">
-                  <div className="bg-primary scale-y-0 group-data-[state=active]/trigger:scale-y-100 transition-transform" />
+                  <div className="bg-primary scale-y-0 group-data-[state=active]/trigger:scale-y-100 group-data-[state=active]/trigger:animate-shrink-y transition-transform" />
                 </div>
                 <div className="w-12 h-12 bg-primary/10 rounded-full shrink-0 flex items-center justify-center self-center">
                   <Mailbox className="text-primary" />
@@ -43,7 +41,7 @@ export default function AIAssistant({
               </TabsTrigger>
               <TabsTrigger value="message" className="items-stretch gap-6">
                 <div className="w-0.5 bg-border shrink-0 rounded-full overflow-hidden grid">
-                  <div className="bg-primary scale-y-0 group-data-[state=active]/trigger:scale-y-100 transition-transform" />
+                  <div className="bg-primary scale-y-0 group-data-[state=active]/trigger:scale-y-100 group-data-[state=active]/trigger:animate-shrink-y transition-transform" />
                 </div>
                 <div className="w-12 h-12 bg-primary/10 rounded-full shrink-0 flex items-center justify-center self-center">
                   <MessageSquareText className="text-primary" />
@@ -59,7 +57,7 @@ export default function AIAssistant({
               </TabsTrigger>
               <TabsTrigger className="items-stretch gap-6" value="response">
                 <div className="w-0.5 bg-border shrink-0 rounded-full overflow-hidden grid">
-                  <div className="bg-primary scale-y-0 group-data-[state=active]/trigger:scale-y-100 transition-transform" />
+                  <div className="bg-primary scale-y-0 group-data-[state=active]/trigger:scale-y-100 group-data-[state=active]/trigger:animate-shrink-y transition-transform" />
                 </div>
                 <div className="w-12 h-12 bg-primary/10 rounded-full shrink-0 flex items-center justify-center self-center">
                   <Sparkles className="text-primary" />
@@ -101,7 +99,7 @@ export default function AIAssistant({
                 alt={dict.response._image.alt}
               />
             </TabsContent>
-          </Tabs>
+          </AIAssistantTabs>
         </div>
       </div>
     </section>

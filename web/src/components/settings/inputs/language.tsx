@@ -27,7 +27,7 @@ export default function LanguageSelect({ dict, defaultValue }: Props) {
   } = useSWR("languages", () => getLanguages());
 
   useEffect(() => {
-    if (!formRef.current || selected === defaultValue) return;
+    if (!formRef.current || isPending || selected === defaultValue) return;
     formRef.current.requestSubmit();
   }, [selected]);
 

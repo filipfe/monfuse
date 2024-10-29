@@ -2,7 +2,7 @@ import { createClient } from "@/utils/supabase/client";
 import useSWR from "swr";
 
 export async function getPastRecurringPayments(
-  params: SearchParams
+  params: SearchParams,
 ): Promise<Payment[]> {
   const supabase = createClient();
   let query = supabase
@@ -29,13 +29,13 @@ export async function getPastRecurringPayments(
 }
 
 async function getActivePayments(
-  page: number
+  page: number,
 ): Promise<{ count: number; results: RecurringPayment[] }> {
   const supabase = createClient();
 
   const { data: results, error } = await supabase.rpc(
     "get_recurring_payments_active_payments",
-    { p_page: page }
+    { p_page: page },
   );
 
   if (error) throw new Error(error.message);
@@ -45,3 +45,35 @@ async function getActivePayments(
 
 export const useActivePayments = (page: number) =>
   useSWR(["active-payments", page], ([_, page]) => getActivePayments(page));
+
+async function getCalendarRecords(
+  timezone: string,
+  month: number,
+  year: number,
+): Promise<TimelineEntry[]> {
+  const supabase = createClient();
+
+  const { data, error } = await supabase.rpc(
+    "get_recurring_payments_timeline",
+    {
+      p_timezone: timezone,
+      p_month: month + 1,
+      p_year: year,
+    },
+  );
+
+  if (error) throw new Error(error.message);
+
+  return data;
+}
+
+export const useCalendarRecords = (
+  timezone: string,
+  month: number,
+  year: number,
+) =>
+  useSWR(
+    ["recurring-payments", "calendar", { timezone, month, year }],
+    ([, , { timezone, month, year }]) =>
+      getCalendarRecords(timezone, month, year),
+  );
