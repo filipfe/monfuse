@@ -53,11 +53,20 @@ const config: Config = {
             opacity: "1",
           },
         },
+        "shrink-y": {
+          from: {
+            transform: "scaleY(100%)",
+          },
+          to: {
+            transform: "scaleY(0%)",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "slide-left": "slide-left 0.2s ease-out",
+        "shrink-y": "shrink-y 4.2s linear",
       },
     },
   },

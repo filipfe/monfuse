@@ -32,7 +32,7 @@ export default async function Preferences() {
         </div>
         <LocationInput
           dict={{ ...dict.location, _success: dict._success }}
-          languageCode={settings.language}
+          settings={settings}
         />
       </div>
     </div>
