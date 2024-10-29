@@ -12,6 +12,7 @@ import toast from "@/utils/toast";
 import { addRecurringPayment } from "@/lib/recurring-payments/actions";
 import { CalendarDate, parseDate } from "@internationalized/date";
 import { useSettings } from "@/lib/general/queries";
+import { useSearchParams } from "next/navigation";
 
 const tomorrow = new Date();
 tomorrow.setDate(tomorrow.getDate() + 1);
@@ -33,12 +34,24 @@ const defaultRecord: Omit<NewRecurringPayment, "currency"> = {
   interval_unit: "month",
 };
 
+const getInitialDate = (str: string | null) => {
+  if (!str) return defaultRecord.start_date;
+  try {
+    return parseDate(str);
+  } catch (err) {
+    return defaultRecord.start_date;
+  }
+};
+
 export default function RecurringPaymentForm() {
+  const searchParams = useSearchParams();
+  const initialDate = searchParams.get("date");
   const { data: settings, isLoading } = useSettings();
   const [isPending, startTransition] = useTransition();
   const [singleRecord, setSingleRecord] = useState<NewRecurringPayment>({
     ...defaultRecord,
     currency: settings?.currency,
+    start_date: getInitialDate(initialDate),
   });
   const [isStartTimeInvalid, setIsStartTimeInvalid] = useState(false);
 

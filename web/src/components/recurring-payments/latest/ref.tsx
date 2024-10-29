@@ -1,6 +1,7 @@
 import { toZonedTime } from "date-fns-tz";
 import { Coins, MoreVertical, Wallet2 } from "lucide-react";
 import Dropdown from "./dropdown";
+import NumberFormat from "@/utils/formatters/currency";
 
 export default async function Ref({
   payment,
@@ -19,16 +20,19 @@ export default async function Ref({
           ) : (
             <Coins size={14} color="#fdbb2d" />
           )}{" "}
-          {payment.type === "income" ? "+" : "-"}
-          {payment.amount} {payment.currency}
+          <NumberFormat
+            amount={payment.amount}
+            currency={payment.currency}
+            signDisplay="always"
+          />
         </strong>
       </div>
-      <div className="flex flex-col items-end gap-2">
+      <div className="flex items-center gap-2">
         <span className="text-sm text-font/60">
           {new Intl.DateTimeFormat(settings.language, {
             weekday: "short",
             day: "2-digit",
-            month: "long",
+            month: "short",
             year: "numeric",
           }).format(toZonedTime(payment.issued_at, settings.timezone))}
         </span>
