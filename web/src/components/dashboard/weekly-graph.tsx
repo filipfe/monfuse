@@ -43,7 +43,7 @@ export default function WeeklyGraph({
             </div>
           </div>
           <div className="flex-1 min-h-64 flex gap-4 w-full">
-            <div className="border-r mb-9 mr-3 flex flex-col justify-between items-end self-stretch">
+            {/* <div className="border-r mb-9 mr-3 flex flex-col justify-between items-end self-stretch">
               <div className="relative flex h-px min-w-max items-center border-b pr-2">
                 <div className="bg-white px-0.5">
                   <p className="mr-2 min-w-max text-sm font-semibold leading-none"></p>
@@ -59,14 +59,14 @@ export default function WeeklyGraph({
                   <p className="mr-2 min-w-max text-sm font-semibold leading-none"></p>
                 </div>
               </div>
-            </div>
+            </div> */}
             {Array.from({ length: 7 }).map((_, index) => (
               <div
                 key={index}
                 className="flex flex-col gap-2 items-center flex-1"
               >
                 <Skeleton className="w-full flex-1 rounded-md" />
-                <Skeleton className="h-6 w-8 rounded-md" />
+                <Skeleton className="h-3 w-4 lg:w-8 rounded-md" />
               </div>
             ))}
           </div>
@@ -90,8 +90,8 @@ export default function WeeklyGraph({
               )}
             </div>
           </div>
-          <div className="flex-1 min-h-64 flex gap-4 w-full text-base leading-normal text-black">
-            <div className="border-r mb-9 mr-3 flex flex-col justify-between items-end self-stretch">
+          <div className="flex-1 min-h-64 grid grid-cols-7 gap-4 w-full text-base leading-normal text-black">
+            {/* <div className="border-r mb-9 mr-3 flex flex-col justify-between items-end self-stretch">
               <div className="relative flex h-px min-w-max items-center border-b pr-2">
                 <div className="bg-white px-0.5">
                   <p className="mr-2 min-w-max text-sm font-semibold leading-none"></p>
@@ -107,7 +107,7 @@ export default function WeeklyGraph({
                   <p className="mr-2 min-w-max text-sm font-semibold leading-none"></p>
                 </div>
               </div>
-            </div>
+            </div> */}
             {days.map((day: DailyAmount) => (
               <DayRef
                 key={day.date}
@@ -135,7 +135,7 @@ type DayProps = {
 
 const DayRef = ({ language, date, daySum, weekSum }: DayProps) => {
   return (
-    <div className="flex flex-col gap-2 items-center flex-1">
+    <div className="flex flex-col gap-2 items-center min-w-0">
       <div className="bg-light rounded-md border flex flex-col overflow-hidden justify-end w-full flex-1">
         <div
           style={{
@@ -146,11 +146,11 @@ const DayRef = ({ language, date, daySum, weekSum }: DayProps) => {
           <h3 className="self-center absolute -top-8"></h3>
         </div>
       </div>
-      <h2 className="font-bold">
+      <h4 className="font-bold text-sm sm:text-base">
         {new Intl.DateTimeFormat(language, {
           weekday: "short",
         }).format(new Date(date))}
-      </h2>
+      </h4>
     </div>
   );
 };

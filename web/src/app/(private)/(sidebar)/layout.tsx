@@ -18,7 +18,7 @@ export default async function Layout({
   } = await getDictionary(settings.language);
 
   return (
-    <Providers>
+    <Providers settings={settings}>
       <Header dict={_navigation} />
       <Sidebar dict={_navigation} />
       <WebVitals />

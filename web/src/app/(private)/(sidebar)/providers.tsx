@@ -29,7 +29,13 @@ export const MenuContext = createContext<MenuContextType>({
   setIsMenuHidden: null!,
 });
 
-export default function Providers({ children }: { children: React.ReactNode }) {
+export default function Providers({
+  children,
+  settings,
+}: {
+  children: React.ReactNode;
+  settings: Settings;
+}) {
   const router = useRouter();
   const pathname = usePathname();
   const [isMenuHidden, setIsMenuHidden] = useState<IsMenuHidden>({
@@ -37,14 +43,12 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     desktop: false,
   });
 
-  const { data: settings } = useSettings();
-
   useEffect(() => {
     setIsMenuHidden((prev) => ({ ...prev, mobile: true }));
   }, [pathname]);
 
   return (
-    <NextUIProvider navigate={router.push} locale={settings?.language}>
+    <NextUIProvider navigate={router.push} locale={settings.language}>
       <MenuContext.Provider value={{ isMenuHidden, setIsMenuHidden }}>
         <div
           className={`min-h-screen max-w-screen grid grid-rows-[64px_1fr] sm:grid-rows-[80px_1fr] ${

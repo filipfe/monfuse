@@ -21,7 +21,7 @@ export default async function Priority({ dict, goal }: Props) {
               <div className="bg-primary rounded-full h-2.5 w-2.5" />
               <span className="text-sm">{dict.collected}</span>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex-col flex md:flex-row md:items-center md:gap-2">
               <span className="font-bold">
                 <NumberFormat
                   currency={goal.currency}
@@ -33,16 +33,18 @@ export default async function Priority({ dict, goal }: Props) {
               )}%)`}</span>
             </div>
           </div>
-          <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 text-center flex flex-col items-center">
+          <div className="absolute -top-6 md:-top-1.5 left-1/2 -translate-x-1/2 text-center w-full flex flex-col items-center">
             <h2 className="text-font/80">{dict.title}</h2>
-            <h3 className="font-bold text-lg">{goal.title}</h3>
+            <h3 className="font-bold text-lg leading-tight whitespace-nowrap max-w-full text-ellipsis overflow-hidden">
+              {goal.title}
+            </h3>
           </div>
           <div className="flex items-end flex-col gap-1">
             <div className="flex items-center gap-2">
               <div className="bg-light border rounded-full h-2.5 w-2.5" />
               <span className="text-sm">{dict.remaining}</span>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex-col items-end flex md:flex-row md:items-center md:gap-2">
               <span className="font-bold">
                 <NumberFormat
                   currency={goal.currency}

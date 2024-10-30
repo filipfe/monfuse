@@ -13,7 +13,7 @@ export default async function Latest({ settings }: { settings: Settings }) {
   return (
     <Block title="Ostatnie" className="gap-0">
       {payments.length > 0 ? (
-        <ScrollShadow className="2xl:max-h-[calc(100vh-692px)]" hideScrollBar>
+        <ScrollShadow className="2xl:max-h-[calc(100vh-702px)]" hideScrollBar>
           {payments.map((payment) => (
             <Ref payment={payment} settings={settings} key={payment.id} />
           ))}
