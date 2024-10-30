@@ -1,3 +1,4 @@
+import Logo from "@/assets/svg/logo";
 import { Dict } from "@/dict";
 import Link from "next/link";
 
@@ -7,7 +8,7 @@ export default function Footer({ dict }: { dict: Dict }) {
       <div className="relative w-full mx-auto max-w-7xl px-6">
         <div className="flex gap-4 justify-between py-12">
           <Link href="/" className="text-sm text-white">
-            Logo
+            <Logo />
           </Link>
           <ul className="text-white">
             <li>
