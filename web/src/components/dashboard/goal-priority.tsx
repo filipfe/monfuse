@@ -15,7 +15,7 @@ export default async function GoalPriority({
 
   return (
     <div className="col-span-3 [&>div]:w-full flex items-stretch">
-      <Block>
+      <Block className="max-md:!pt-12">
         <Priority dict={dict} goal={goal} />
       </Block>
     </div>

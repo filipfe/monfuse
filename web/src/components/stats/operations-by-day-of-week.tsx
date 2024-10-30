@@ -47,9 +47,9 @@ export default function OperationsByDayOfWeek({
     : 0;
 
   return (
-    <Block className="col-span-2" title={dict.title}>
-      <div className="flex max-h-[361px] h-[361px] w-full justify-between">
-        <ResponsiveContainer width="100%" height="100%">
+    <Block className="col-span-2 " title={dict.title}>
+      <div className="flex flex-col sm:grid grid-cols-2 flex-1 w-full">
+        <ResponsiveContainer width="100%" className="aspect-square">
           <RadarChart outerRadius="80%" data={results}>
             <PolarGrid />
             <PolarAngleAxis
@@ -77,7 +77,7 @@ export default function OperationsByDayOfWeek({
             <Legend />
           </RadarChart>
         </ResponsiveContainer>
-        <ResponsiveContainer width="100%" height="100%">
+        <ResponsiveContainer width="100%" className="aspect-square">
           <RadarChart outerRadius="80%" data={results}>
             <PolarGrid />
             <PolarAngleAxis

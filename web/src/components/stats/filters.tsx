@@ -56,17 +56,11 @@ export default function Filters() {
 
   const isPreviousMonthDisabled = year === 2023 && month === 0;
 
-  const isNextMonthDisabled = () => {
-    if (year > today.year) {
-      return true;
-    } else if (year === today.year && month >= today.month - 1) {
-      return true;
-    }
-    return false;
-  };
+  const isNextMonthDisabled =
+    year > today.year || (year === today.year && month >= today.month - 1);
 
   return (
-    <div className="sticky top-24 xl:static col-start-1 col-end-3 border bg-white py-2 px-4 flex items-center gap-3 rounded-md justify-between z-10">
+    <div className="col-start-1 col-end-3 border bg-white py-2 px-4 flex items-center gap-3 rounded-md justify-between z-10">
       <UniversalSelect
         className="w-20 sm:w-28"
         name="currency"
@@ -79,16 +73,11 @@ export default function Filters() {
       />
       <div className="flex gap-1">
         <button
-          className="border h-8 min-w-8 rounded-md bg-[#fafafa]"
+          className="border h-8 min-w-8 rounded-md bg-light hidden sm:block disabled:opacity-60"
           onClick={handlePreviousMonth}
           disabled={isPreviousMonthDisabled}
         >
-          <ChevronLeft
-            size={12}
-            className={`self-center w-full ${
-              isPreviousMonthDisabled && "text-[#e5e5e7]"
-            }`}
-          />
+          <ChevronLeft size={12} className="self-center w-full" />
         </button>
         <MonthInput
           value={month}
@@ -99,16 +88,11 @@ export default function Filters() {
         />
         <YearInput value={year} onChange={handleYearChange} />
         <button
-          className="border h-8 min-w-8 rounded-md bg-[#fafafa]"
+          className="border h-8 min-w-8 rounded-md bg-light hidden sm:block disabled:opacity-60"
           onClick={handleNextMonth}
-          disabled={isNextMonthDisabled()}
+          disabled={isNextMonthDisabled}
         >
-          <ChevronRight
-            size={12}
-            className={`self-center w-full ${
-              isNextMonthDisabled() && "text-[#e5e5e7]"
-            }`}
-          />
+          <ChevronRight size={12} className="self-center w-full" />
         </button>
       </div>
     </div>

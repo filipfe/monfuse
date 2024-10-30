@@ -13,7 +13,6 @@ import { toZonedTime } from "date-fns-tz";
 import { format, startOfWeek } from "date-fns";
 import { useCalendarRecords } from "@/lib/recurring-payments/queries";
 import Link from "next/link";
-import Empty from "../ui/empty";
 import NumberFormat from "@/utils/formatters/currency";
 
 const classNames = getDefaultClassNames();
@@ -197,8 +196,8 @@ export default function Calendar({ settings }: { settings: Settings }) {
           "flex justify-center pt-1 relative items-center text-center font-medium",
         caption_label: "text-sm sm:text-base font-medium",
         nav: "absolute z-10 left-0 top-0 right-0 grid grid-cols-7",
-        root: "bg-white rounded-md border p-6 w-full min-w-0 self-start",
-        month_grid: "w-full table-fixed border-separate border-spacing-2",
+        root: "bg-white sm:rounded-md border px-4 py-6 w-full min-w-0 self-start row-start-1 row-end-3 col-start-2 col-end-3",
+        month_grid: "w-full table-fixed border-separate border-spacing-y-2",
         day: "group/day font-medium text-sm",
         button_next: "col-start-7 col-end-8 flex items-center justify-center",
       }}
