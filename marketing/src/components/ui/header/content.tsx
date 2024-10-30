@@ -1,25 +1,14 @@
 import Link from "next/link";
 import Wrapper from "./wrapper";
 import { Dict } from "@/dict";
-import {
-  CheckCircle,
-  ChevronRight,
-  Coins,
-  Repeat,
-  Wallet2,
-} from "lucide-react";
+import { CheckCircle, Coins, Repeat, Wallet2 } from "lucide-react";
 import DropdownLink from "./dropdown";
 import MobileDrawer from "../drawer";
-import Logo from "@/assets/svg/logo";
 
 export default function Header({ dict }: { dict: Dict }) {
   return (
     <header className="relative z-30">
       <Wrapper>
-        <Link href="/" className="ml-5 sm:ml-3 w-16">
-          <span className="sr-only">{dict.landing.title}</span>
-          <Logo />
-        </Link>
         <nav aria-labelledby="mainmenulabel">
           <h2 id="mainmenulabel" className="sr-only">
             Main Menu
