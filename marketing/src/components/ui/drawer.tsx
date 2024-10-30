@@ -11,6 +11,7 @@ export default function MobileDrawer({
   return (
     <Drawer.Root>
       <Drawer.Trigger className="flex flex-col gap-1 mr-5">
+        <span className="sr-only">Open main menu</span>
         <div className="bg-current h-0.5 w-5 rounded-full" />
         <div className="bg-current h-0.5 w-5 rounded-full" />
         <div className="bg-current h-0.5 w-5 rounded-full" />

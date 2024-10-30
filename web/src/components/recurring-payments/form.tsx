@@ -1,6 +1,12 @@
 "use client";
 
-import { Button, DateInput, Input, Spinner } from "@nextui-org/react";
+import {
+  Button,
+  DateInput,
+  Input,
+  Spinner,
+  TimeInput,
+} from "@nextui-org/react";
 import formatAmount from "@/utils/operations/format-amount";
 import { useEffect, useState, useTransition } from "react";
 import { CheckIcon } from "lucide-react";
@@ -10,9 +16,9 @@ import Block, { Section } from "../ui/block";
 import { format } from "date-fns";
 import toast from "@/utils/toast";
 import { addRecurringPayment } from "@/lib/recurring-payments/actions";
-import { CalendarDate, parseDate } from "@internationalized/date";
-import { useSettings } from "@/lib/general/queries";
+import { CalendarDate, parseDate, parseTime } from "@internationalized/date";
 import { useSearchParams } from "next/navigation";
+import { I18nProvider } from "@react-aria/i18n";
 
 const tomorrow = new Date();
 tomorrow.setDate(tomorrow.getDate() + 1);
@@ -43,22 +49,21 @@ const getInitialDate = (str: string | null) => {
   }
 };
 
-export default function RecurringPaymentForm() {
+export default function RecurringPaymentForm({
+  settings,
+}: {
+  settings: Settings;
+}) {
   const searchParams = useSearchParams();
+  const [hour, setHour] = useState(0);
   const initialDate = searchParams.get("date");
-  const { data: settings, isLoading } = useSettings();
   const [isPending, startTransition] = useTransition();
   const [singleRecord, setSingleRecord] = useState<NewRecurringPayment>({
     ...defaultRecord,
-    currency: settings?.currency,
+    currency: settings.currency,
     start_date: getInitialDate(initialDate),
   });
   const [isStartTimeInvalid, setIsStartTimeInvalid] = useState(false);
-
-  useEffect(() => {
-    if (!settings?.currency) return;
-    setSingleRecord((prev) => ({ ...prev, currency: settings.currency }));
-  }, [settings?.currency]);
 
   return (
     <Block title="Nowa płatność cykliczna" className="w-full max-w-4xl">
@@ -79,7 +84,7 @@ export default function RecurringPaymentForm() {
         <Section
           title="Dane"
           className="flex flex-col md:grid grid-cols-2 gap-4"
-          wrapperClassName="pb-8"
+          wrapperClassName="pb-6"
         >
           <Input
             classNames={{ inputWrapper: "!bg-light shadow-none border" }}
@@ -118,8 +123,6 @@ export default function RecurringPaymentForm() {
           />
           <UniversalSelect
             name="currency"
-            isLoading={isLoading}
-            isDisabled={isLoading}
             label="Waluta"
             required
             isRequired
@@ -152,8 +155,8 @@ export default function RecurringPaymentForm() {
           />
         </Section>
         <Section
-          title="Interwał"
-          className="grid grid-cols-[88px_1fr] md:grid-cols-[88px_1fr_1fr] gap-4"
+          title="Interwał czasowy"
+          className="grid grid-cols-[88px_1fr_112px] gap-4"
         >
           <Input
             classNames={{ inputWrapper: "!bg-light shadow-none border" }}
@@ -170,32 +173,38 @@ export default function RecurringPaymentForm() {
               }))
             }
           />
-          <UniversalSelect
-            name="interval_unit"
-            label="Interwał"
-            isRequired
-            required
-            selectedKeys={
-              singleRecord.interval_unit ? [singleRecord.interval_unit] : []
-            }
-            elements={[
-              { name: "Dzień", value: "day" },
-              { name: "Tydzień", value: "week" },
-              { name: "Miesiąc", value: "month" },
-            ]}
-            placeholder="Wybierz interwał"
-            disallowEmptySelection
-            onChange={(e) =>
-              setSingleRecord((prev) => ({
-                ...prev,
-                interval_unit: e.target.value,
-              }))
-            }
-          />
+          <div className="col-span-2">
+            <UniversalSelect
+              name="interval_unit"
+              label="Interwał"
+              isRequired
+              required
+              selectedKeys={
+                singleRecord.interval_unit ? [singleRecord.interval_unit] : []
+              }
+              elements={[
+                { name: "Dzień", value: "day" },
+                { name: "Tydzień", value: "week" },
+                { name: "Miesiąc", value: "month" },
+              ]}
+              placeholder="Wybierz interwał"
+              disallowEmptySelection
+              onChange={(e) =>
+                setSingleRecord((prev) => ({
+                  ...prev,
+                  interval_unit: e.target.value,
+                }))
+              }
+            />
+          </div>
           <DateInput
-            className="col-span-2 md:col-span-1"
-            classNames={{ inputWrapper: "!bg-light shadow-none border" }}
-            name="start_date"
+            granularity="day"
+            className="col-span-2"
+            classNames={{
+              inputWrapper: "!bg-light shadow-none border",
+              segment:
+                "focus:border-font focus:shadow-none focus:bg-transparent rounded-none border-b border-transparent",
+            }}
             isRequired
             isInvalid={isStartTimeInvalid || undefined}
             errorMessage={
@@ -213,11 +222,27 @@ export default function RecurringPaymentForm() {
               setSingleRecord((prev) => ({ ...prev, start_date: date }));
             }}
           />
+          <TimeInput
+            label="Godzina"
+            value={parseTime(`${hour < 10 ? "0" + hour : hour}:00`)}
+            hourCycle={24}
+            onChange={(value) => setHour(value.hour)}
+            classNames={{
+              inputWrapper: "border shadow-none !bg-light",
+              segment:
+                "focus:border-font focus:shadow-none focus:bg-transparent rounded-none border-b border-transparent",
+            }}
+          />
           {/* TODO: replace with the actual input */}
           <input
             type="hidden"
             name="interval_amount"
             value={singleRecord.interval_amount}
+          />
+          <input
+            type="hidden"
+            name="start_datetime"
+            value={`${singleRecord.start_date.year}-${singleRecord.start_date.month}-${singleRecord.start_date.day}T${hour}:00:00Z`}
           />
         </Section>
         <div className="col-span-2 flex justify-end mt-4">

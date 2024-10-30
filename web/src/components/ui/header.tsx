@@ -35,7 +35,7 @@ export default function Header({
   const links = flatten([...PAGES, settingsPage, automationPage]).filter(
     ({ href }) => (href === "/" ? pathname === "/" : pathname.startsWith(href))
   );
-  console.log(links);
+  console.log(links, dict);
   return (
     <Fragment>
       <header className="h-20 sticky top-0 bg-white items-center justify-between z-50 px-4 sm:flex hidden">

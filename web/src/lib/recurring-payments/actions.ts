@@ -5,14 +5,14 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export async function getTimeline(
-  timezone: string
+  timezone: string,
 ): Promise<SupabaseResponse<TimelineEntry>> {
   const supabase = createClient();
   const { data, error } = await supabase.rpc(
     "get_recurring_payments_timeline",
     {
       p_timezone: timezone,
-    }
+    },
   );
 
   if (error) {
@@ -26,14 +26,14 @@ export async function getTimeline(
 }
 
 export async function getRecurringPayments(
-  searchParams: SearchParams
+  searchParams: SearchParams,
 ): Promise<SupabaseResponse<WithId<RecurringPayment>>> {
   const supabase = createClient();
   const { data, error } = await supabase.rpc(
     "get_recurring_payments_active_payments",
     {
       p_page: searchParams.page || 1,
-    }
+    },
   );
 
   if (error) {
@@ -51,14 +51,14 @@ export async function getRecurringPayments(
 }
 
 export async function getUpcomingPayments(
-  timezone: string
+  timezone: string,
 ): Promise<SupabaseResponse<UpcomingPayment>> {
   const supabase = createClient();
   const { data, error } = await supabase.rpc(
     "get_recurring_payments_upcoming_payments",
     {
       p_timezone: timezone,
-    }
+    },
   );
 
   if (error) {
@@ -119,20 +119,20 @@ export async function deleteRecurringPayment(formData: FormData) {
 }
 
 export async function addRecurringPayment(formData: FormData) {
-  const title = formData.get("title")?.toString();
-  const amount = formData.get("amount")?.toString();
-  const currency = formData.get("currency")?.toString();
-  const start_date = formData.get("start_date")?.toString();
-  const type = formData.get("type")?.toString();
-  const interval_unit = formData.get("interval_unit")?.toString();
-  const interval_amount = formData.get("interval_amount")?.toString();
+  const title = formData.get("title") as string;
+  const amount = formData.get("amount") as string;
+  const currency = formData.get("currency") as string;
+  const start_datetime = formData.get("start_datetime") as string;
+  const type = formData.get("type") as string;
+  const interval_unit = formData.get("interval_unit") as string;
+  const interval_amount = formData.get("interval_amount") as string;
 
   const supabase = createClient();
 
   const { error } = await supabase.from("recurring_payments").insert({
     title,
     amount,
-    start_date,
+    start_datetime,
     interval_amount,
     interval_unit,
     currency,

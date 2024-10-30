@@ -19,6 +19,7 @@ import { Coins, PlusIcon, Wallet2 } from "lucide-react";
 import TopContent from "../../ui/table/top-content";
 import Add from "../../ui/cta/add";
 import Link from "next/link";
+import Loader from "@/components/stocks/loader";
 
 const columns = [
   {
@@ -53,6 +54,7 @@ export default function RecurringPaymentsTable({
   settings: Settings;
 }) {
   const [page, setPage] = useState<number>(1);
+  const { isLoading, data } = useActivePayments(page);
 
   const renderCell = useCallback((item: any, columnKey: any) => {
     const cellValue = item[columnKey];
@@ -82,33 +84,30 @@ export default function RecurringPaymentsTable({
     }
   }, []);
 
-  const { isLoading, data } = useActivePayments(page);
-  if (isLoading) return;
+  if (isLoading)
+    return (
+      <Loader
+        title="Aktywne"
+        cta={cta}
+        className="row-span-2 col-start-1 col-end-2"
+        records={8}
+      />
+    );
+
   const results = data?.results || [];
   const count = data?.count || 0;
 
   return (
     <Block
-      title={"Aktywne"}
-      className="w-screen sm:w-full min-w-0 row-span-2"
-      hideTitleMobile
-      cta={
-        <Link href="/recurring-payments/add">
-          <Button
-            as="div"
-            variant="light"
-            disableRipple
-            startContent={<PlusIcon size={14} />}
-            className="h-8 bg-light border"
-            size="sm"
-            radius="md"
-          >
-            Add
-          </Button>
-        </Link>
-      }
+      title="Aktywne"
+      className="row-span-2 col-start-1 col-end-2"
+      cta={cta}
     >
-      <ScrollShadow orientation="horizontal" hideScrollBar>
+      <ScrollShadow
+        className="max-w-[calc(100vw-48px)]"
+        orientation="horizontal"
+        hideScrollBar
+      >
         <Table
           removeWrapper
           shadow="none"
@@ -158,3 +157,19 @@ export default function RecurringPaymentsTable({
     </Block>
   );
 }
+
+const cta = (
+  <Link href="/recurring-payments/add">
+    <Button
+      as="div"
+      variant="light"
+      disableRipple
+      startContent={<PlusIcon size={14} />}
+      className="h-8 bg-light border"
+      size="sm"
+      radius="md"
+    >
+      Add
+    </Button>
+  </Link>
+);
