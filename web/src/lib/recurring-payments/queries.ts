@@ -1,5 +1,5 @@
 import { createClient } from "@/utils/supabase/client";
-import useSWR from "swr";
+import useSWR, { SWRConfiguration } from "swr";
 
 export async function getPastRecurringPayments(
   params: SearchParams,
@@ -76,4 +76,32 @@ export const useCalendarRecords = (
     ["recurring-payments", "calendar", { timezone, month, year }],
     ([, , { timezone, month, year }]) =>
       getCalendarRecords(timezone, month, year),
+  );
+
+async function getUpcomingPayments(
+  timezone: string,
+): Promise<UpcomingPayment[]> {
+  const supabase = createClient();
+  const { data, error } = await supabase.rpc(
+    "get_recurring_payments_upcoming_payments",
+    {
+      p_timezone: timezone,
+    },
+  );
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+}
+
+export const useUpcomingPayments = (
+  timezone: string,
+  config?: SWRConfiguration<UpcomingPayment[]>,
+) =>
+  useSWR(
+    ["recurring-payments", "upcoming", timezone],
+    ([, , timezone]) => getUpcomingPayments(timezone),
+    config,
   );
