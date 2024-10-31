@@ -11,9 +11,9 @@ export default async function Ref({
   settings: Settings;
 }) {
   return (
-    <div className="flex justify-between items-center py-4 border-b last:border-b-0">
+    <div className="flex justify-between items-center py-3.5 border-b last:border-b-0">
       <div className="flex flex-col gap-2">
-        <span className="text-sm text-font/60 truncate">{payment.title}</span>
+        <span className="text-sm text-font/75 truncate">{payment.title}</span>
         <strong className="flex items-center gap-2">
           {payment.type === "income" ? (
             <Wallet2 size={14} color="#177981" />

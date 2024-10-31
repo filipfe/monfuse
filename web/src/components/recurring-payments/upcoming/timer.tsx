@@ -1,7 +1,9 @@
 "use client";
 
+import { useUpcomingPayments } from "@/lib/recurring-payments/queries";
 import dateFormat from "@/utils/formatters/dateFormat";
-import { useEffect, useState } from "react";
+import { intervalToDuration } from "date-fns";
+import { useEffect, useRef, useState } from "react";
 
 function getTimeRemaining(datetime: string, timezone: string) {
   const nowInTimezone = dateFormat(new Date(), timezone);
@@ -21,45 +23,56 @@ function getTimeRemaining(datetime: string, timezone: string) {
     2,
     "0"
   );
-  const seconds = String(Math.floor((timeDiff / 1000) % 60)).padStart(2, "0");
 
-  return { days, hours, minutes, seconds };
+  return { days, hours, minutes };
 }
 
 type Props = {
   timezone: string;
   paymentDatetime: string;
-  onExpire: () => void;
 };
 
-export default function Timer({ timezone, paymentDatetime, onExpire }: Props) {
+export default function Timer({ timezone, paymentDatetime }: Props) {
+  const timeoutRef = useRef<number>();
+  console.log(paymentDatetime);
+  const { mutate } = useUpcomingPayments(timezone);
   const [timeRemaining, setTimeRemaining] = useState(
     getTimeRemaining(paymentDatetime, timezone)
+    // intervalToDuration()
   );
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
+    if (timeRemaining.days < 0) {
+      mutate();
+      return;
+    }
+
+    timeoutRef.current = window.setTimeout(() => {
       const updatedTime = getTimeRemaining(paymentDatetime, timezone);
       setTimeRemaining(updatedTime);
+    }, 60000);
 
-      if (updatedTime.days < 0) {
-        clearInterval(intervalId);
-        onExpire();
-      }
-    }, 1000);
+    return () => {
+      timeoutRef.current && window.clearTimeout(timeoutRef.current);
+    };
+  }, [paymentDatetime, timeRemaining.minutes]);
 
-    return () => clearInterval(intervalId);
-  }, [paymentDatetime]);
-
-  const renderTimeUnit = (unit: string | number) => {
-    return <span className="border-1 bg-light rounded-md p-0.5">{unit}</span>;
-  };
+  const renderTimeUnit = (value: string | number, unit: string) => (
+    <div className="flex flex-col items-center gap-1 flex-1">
+      <div className="border-1 bg-light rounded-md w-full h-12 grid place-content-center">
+        <span>{value}</span>
+      </div>
+      <span className="text-sm text-font/75">{unit}</span>
+    </div>
+  );
 
   return (
-    <strong>
-      {renderTimeUnit(timeRemaining.days)}:{renderTimeUnit(timeRemaining.hours)}
-      :{renderTimeUnit(timeRemaining.minutes)}:
-      {renderTimeUnit(timeRemaining.seconds)}
-    </strong>
+    <div className="flex items-start gap-2 w-full">
+      {renderTimeUnit(timeRemaining.days, "days")}
+      <span className="relative top-3">:</span>
+      {renderTimeUnit(timeRemaining.hours, "hours")}
+      <span className="relative top-3">:</span>
+      {renderTimeUnit(timeRemaining.minutes, "minutes")}
+    </div>
   );
 }

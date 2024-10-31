@@ -18,10 +18,19 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  height: 100%;
+}
+
 body {
   overflow-x: hidden;
   overflow-y: auto;
   background-color: #fafafa;
+  height: 100%;
+}
+
+body > [data-overlay-container] {
+  height: 100%;
 }
 
 /* .recharts-yAxis .recharts-cartesian-axis-tick:first-child {

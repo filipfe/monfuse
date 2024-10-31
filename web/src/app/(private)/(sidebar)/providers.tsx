@@ -51,7 +51,7 @@ export default function Providers({
     <NextUIProvider navigate={router.push} locale={settings.language}>
       <MenuContext.Provider value={{ isMenuHidden, setIsMenuHidden }}>
         <div
-          className={`min-h-screen max-w-screen grid grid-rows-[64px_1fr] sm:grid-rows-[80px_1fr] ${
+          className={`max-w-screen h-full grid grid-rows-[64px_1fr] sm:grid-rows-[80px_1fr] ${
             isMenuHidden.desktop
               ? "sm:grid-cols-[6rem_1fr]"
               : "sm:grid-cols-[15rem_1fr]"
