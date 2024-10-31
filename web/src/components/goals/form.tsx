@@ -37,7 +37,7 @@ export default function GoalForm({
   });
 
   return (
-    <Block title="Nowy cel" className="w-full max-w-4xl">
+    <Block title="Nowy cel" className="w-full max-w-2xl">
       <form
         action={(formData) =>
           startTransition(async () => {
@@ -53,7 +53,7 @@ export default function GoalForm({
             }
           })
         }
-        className="grid grid-cols-2 gap-4"
+        className="flex flex-col md:grid grid-cols-2 gap-4"
       >
         <Input
           classNames={{ inputWrapper: "!bg-light shadow-none border" }}

@@ -62,7 +62,7 @@ export default function Chat({
     <div className="flex flex-col px-6 sm:px-0 xl:mb-8 pb-6 xl:pb-0 h-[calc(100vh-64px)] sm:h-[calc(100vh-80px)] xl:h-auto">
       <div className="flex-1 flex flex-col justify-center">
         {messages.length === 0 ? (
-          <div className="grid-cols-2 grid lg:grid-cols-3 gap-4 mx-6">
+          <div className="grid-cols-2 grid lg:grid-cols-3 gap-4 md:mx-6">
             {dict.recomendation.map((r) => (
               <RecommendationRef {...r} onSubmit={onSubmit} />
             ))}
@@ -103,15 +103,15 @@ export default function Chat({
           value={input}
           endContent={
             <Button
-              className="relative left-2"
+              className="relative left-2 px-4"
               size="sm"
               radius="full"
               color="primary"
               disableRipple
               type="submit"
               isDisabled={!input || isLoading}
+              startContent={<Send className="shrink-0" size={14} />}
             >
-              <Send size={20} />
               {dict._submit.label}
             </Button>
           }
