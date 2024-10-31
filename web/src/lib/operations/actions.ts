@@ -6,7 +6,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export async function getLatestOperations(
-  from?: string
+  from?: string,
 ): Promise<SupabaseResponse<Payment>> {
   const supabase = createClient();
   let query = supabase
@@ -36,7 +36,7 @@ export async function getLatestOperations(
 
 export async function addOperations(
   formData: FormData,
-  timezone: string
+  timezone: string,
 ): Promise<SupabaseResponse<Operation>> {
   const type = formData.get("type")!.toString() as OperationType;
   const label = formData.get("label")?.toString() || undefined;
@@ -74,7 +74,7 @@ export async function addOperations(
           p_user_id: user.id,
           p_type: type,
           p_label: label,
-        }
+        },
       );
 
       error = insertError;
@@ -105,7 +105,7 @@ export async function addOperations(
       const formattedCurrentDate = dateFormat(
         currentDate,
         timezone,
-        "yyyy-MM-dd"
+        "yyyy-MM-dd",
       );
       const formattedIssuedAt = dateFormat(issued_at, timezone, "yyyy-MM-dd");
 
@@ -141,7 +141,7 @@ export async function addOperations(
 export async function getOperationsStats(
   timezone: string,
   currency: string,
-  type: string
+  type: string,
 ): Promise<SupabaseSingleRowResponse<OperationsStats>> {
   const supabase = createClient();
 
@@ -166,7 +166,7 @@ export async function getOperationsStats(
 export async function getPortfolioBudgets(): Promise<SupabaseResponse<Budget>> {
   const supabase = createClient();
   const { data: results, error } = await supabase.rpc(
-    "get_dashboard_portfolio_budgets"
+    "get_dashboard_portfolio_budgets",
   );
 
   if (error) {
@@ -184,7 +184,7 @@ export async function getPortfolioBudgets(): Promise<SupabaseResponse<Budget>> {
 export async function updateOperation(
   formData: FormData,
   timezone: string,
-  prevIssuedAt: string
+  prevIssuedAt: string,
 ) {
   try {
     const id = formData.get("id")?.toString();
@@ -204,7 +204,7 @@ export async function updateOperation(
       const formattedCurrentDate = dateFormat(
         currentDate,
         timezone,
-        "yyyy-MM-dd"
+        "yyyy-MM-dd",
       );
       const formattedIssuedAt = dateFormat(issued_at, timezone);
 
@@ -237,4 +237,23 @@ export async function updateOperation(
       results: [],
     };
   }
+}
+
+export async function deleteLimit(formData: FormData) {
+  const period = formData.get("period") as string;
+
+  const supabase = createClient();
+
+  const { error } = await supabase.from("limits").delete().eq("period", period);
+
+  if (error) {
+    return {
+      error: error.message,
+    };
+  }
+
+  revalidatePath("/");
+  revalidatePath("/expenses");
+
+  return {};
 }
