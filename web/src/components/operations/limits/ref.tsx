@@ -1,13 +1,21 @@
 "use client";
 
 import Block from "@/components/ui/block";
+import ConfirmationModal from "@/components/ui/confirmation-modal";
 import UniversalSelect from "@/components/ui/universal-select";
 import { CURRENCIES } from "@/const";
 import { Dict } from "@/const/dict";
 import { useLimits } from "@/lib/general/queries";
+import { deleteLimit } from "@/lib/operations/actions";
 import NumberFormat from "@/utils/formatters/currency";
-import { Button, CircularProgress, cn, Skeleton } from "@nextui-org/react";
-import { Plus, SquarePen } from "lucide-react";
+import {
+  Button,
+  CircularProgress,
+  cn,
+  Skeleton,
+  useDisclosure,
+} from "@nextui-org/react";
+import { Plus, SquarePen, Trash2 } from "lucide-react";
 import { useState } from "react";
 
 interface Props extends Pick<Limit, "period"> {
@@ -17,8 +25,13 @@ interface Props extends Pick<Limit, "period"> {
 }
 
 export default function LimitRef({ dict, period, settings, onAdd }: Props) {
+  const deleteDisclosure = useDisclosure();
   const [currency, setCurrency] = useState(settings.currency);
-  const { data: limits, isLoading } = useLimits(settings.timezone, currency);
+  const {
+    data: limits,
+    mutate,
+    isLoading,
+  } = useLimits(settings.timezone, currency);
 
   const limit = limits?.find((limit: Limit) => limit.period === period);
 
@@ -27,8 +40,8 @@ export default function LimitRef({ dict, period, settings, onAdd }: Props) {
   return (
     <Block
       className={cn(
-        "sm:px-6 relative",
-        !isLoading && !limit && "min-h-32 2xl:min-h-[114px] sm:py-6"
+        "sm:px-6 !py-6 relative h-[130px]",
+        !isLoading && limit && "justify-center"
       )}
     >
       <div
@@ -82,6 +95,28 @@ export default function LimitRef({ dict, period, settings, onAdd }: Props) {
             >
               <SquarePen size={14} />
             </Button>
+          )}
+          {limit && (
+            <>
+              <Button
+                variant="flat"
+                size="sm"
+                radius="md"
+                disableRipple
+                isIconOnly
+                className="border"
+                onPress={deleteDisclosure.onOpen}
+              >
+                <Trash2 size={14} />
+              </Button>
+              <ConfirmationModal
+                onSuccess={mutate}
+                disclosure={deleteDisclosure}
+                mutation={deleteLimit}
+              >
+                <input type="hidden" name="period" value={limit.period} />
+              </ConfirmationModal>
+            </>
           )}
           <UniversalSelect
             className="w-20"

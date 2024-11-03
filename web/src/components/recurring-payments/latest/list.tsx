@@ -1,8 +1,5 @@
 import Block from "@/components/ui/block";
-import {
-  getLatestPayments,
-  getUpcomingPayments,
-} from "@/lib/recurring-payments/actions";
+import { getLatestPayments } from "@/lib/recurring-payments/actions";
 import Ref from "./ref";
 import Empty from "@/components/ui/empty";
 import { ScrollShadow } from "@nextui-org/react";

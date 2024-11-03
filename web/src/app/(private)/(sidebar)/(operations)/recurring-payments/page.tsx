@@ -12,13 +12,10 @@ export default async function Page() {
   const { private: dict } = await getDictionary(settings.language);
 
   return (
-    <div className="h-full sm:px-10 py-4 sm:py-8 flex flex-col 2xl:grid grid-cols-[1fr_600px] 2xl:grid-rows-[repeat(3,max-content)] gap-4 sm:gap-6">
+    <div className="h-full sm:px-10 py-4 sm:py-8 flex flex-col 2xl:grid grid-cols-[1fr_600px] 2xl:grid-rows-[repeat(2,max-content)_1fr] gap-4 sm:gap-6">
       {/* <Timeline timezone={settings.timezone} /> */}
-      <Block title="Nadchodzące" className="2xl:min-h-48">
-        <></>
-      </Block>
+      <Upcoming timezone={settings.timezone} />
       <RecurringPaymentsTable settings={settings} />
-      {/* <Upcoming timezone={settings.timezone} /> */}
       <Calendar settings={settings} />
       <Latest settings={settings} />
     </div>
