@@ -72,30 +72,39 @@ export default function AIAssistant({
                 </div>
               </TabsTrigger>
             </TabsList>
-            <TabsContent value="context" className="animate-slide-left">
+            <TabsContent
+              value="context"
+              className="max-lg:h-96 md:max-w-max mx-auto w-full max-md:overflow-hidden"
+            >
               <Image
-                fill
-                sizes="(min-width: 1024px) 768px, 100vw"
+                width={828}
+                height={412}
                 src="/app/ai-assistant/context.png"
-                className="!relative aspect-auto h-full w-full rounded-md border object-contain object-right"
+                className="!relative aspect-auto animate-slide-left h-full w-full sm:rounded-md border object-cover md:object-contain object-right"
                 alt={dict.context._image.alt}
               />
             </TabsContent>
-            <TabsContent value="message" className="animate-slide-left">
+            <TabsContent
+              value="message"
+              className="max-lg:h-96 md:max-w-max mx-auto w-full max-md:overflow-hidden"
+            >
               <Image
-                fill
-                sizes="(min-width: 1024px) 768px, 100vw"
+                width={828}
+                height={412}
                 src="/app/ai-assistant/message.png"
-                className="!relative aspect-auto h-full w-full rounded-md border object-contain object-left"
+                className="!relative aspect-auto animate-slide-left h-full w-full sm:rounded-md border object-cover md:object-contain object-left"
                 alt={dict.message._image.alt}
               />
             </TabsContent>
-            <TabsContent value="response" className="animate-slide-left">
+            <TabsContent
+              value="response"
+              className="max-lg:h-96 md:max-w-max mx-auto w-full max-md:overflow-hidden"
+            >
               <Image
-                fill
-                sizes="(min-width: 1024px) 768px, 100vw"
+                width={828}
+                height={412}
                 src="/app/ai-assistant/response.png"
-                className="!relative aspect-auto h-full w-full rounded-md border object-contain object-left"
+                className="!relative aspect-auto animate-slide-left h-full w-full sm:rounded-md border object-cover md:object-contain object-left"
                 alt={dict.response._image.alt}
               />
             </TabsContent>

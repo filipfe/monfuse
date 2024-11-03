@@ -1,8 +1,8 @@
 export default function Logo({ isDown }: { isDown?: boolean }) {
   return isDown ? (
     <svg
-      width="70%"
-      height="70%"
+      width="100%"
+      height="100%"
       viewBox="0 0 435 435"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -30,8 +30,8 @@ export default function Logo({ isDown }: { isDown?: boolean }) {
     </svg>
   ) : (
     <svg
-      width="70%"
-      height="70%"
+      width="100%"
+      height="100%"
       viewBox="0 0 435 435"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

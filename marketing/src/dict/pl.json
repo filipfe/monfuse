@@ -1,6 +1,6 @@
 {
   "_metadata": {
-    "title": "Monfuse - Twój Krok w Kierunku Wolności Finansowej",
+    "title": "Monfuse - Twoja Aplikacja Finansowa do Zarządzania Budżetem",
     "description": "Przejmij kontrolę nad swoimi finansami z Monfuse. Bez wysiłku śledź przychody, wydatki, cele i płatności cykliczne. Dzięki AI Monfuse dostarcza wglądów i rekomendacji, które pomogą zoptymalizować Twoje zdrowie finansowe.",
     "keywords": [
       "aplikacja finansowa",
@@ -327,6 +327,9 @@
         "answer": "Nie, nie ma żadnych ukrytych opłat. Cena, którą widzisz, to kwota, którą płacisz, i obejmuje wszystkie funkcje aplikacji."
       }
     ]
+  },
+  "blog": {
+    "title": "Blog"
   },
   "banner": {
     "title": "Przejmij pełną kontrolę nad finansami osobistymi",
