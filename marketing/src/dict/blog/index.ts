@@ -1,3 +1,5 @@
+import "server-only";
+
 import telegramBotIntegration from "./telegram-bot-integration";
 
 export const articles = {

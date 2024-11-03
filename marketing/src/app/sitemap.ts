@@ -1,4 +1,5 @@
 import { langs } from "@/dict";
+import { articles } from "@/dict/blog";
 import type { MetadataRoute } from "next";
 
 const urls = [
@@ -9,11 +10,14 @@ const urls = [
   "/recurring-payments",
   "/goals",
   "/ai-assistant",
+  "/blog",
   // "/contact",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return urls.map((url) => ({
+  return [...urls, Object.keys(articles).map((url) => "/blog/" + url)].map((
+    url,
+  ) => ({
     url: `https://www.monfuse.com${url}`,
     changeFrequency: "yearly",
     priority: 1,

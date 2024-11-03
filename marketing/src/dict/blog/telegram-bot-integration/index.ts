@@ -1,4 +1,3 @@
-import { Element, MDXProps } from "mdx/types";
 import "server-only";
 
 const telegramBotIntegration = {

@@ -2,17 +2,12 @@ import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-type Props = {
-  href: string;
-  title: string;
-  description: string;
-  image: {
-    src: string;
-    alt: string;
-  };
-};
-
-export default function Article({ image, href, title, description }: Props) {
+export default function Article({
+  image,
+  href,
+  title,
+  description,
+}: ArticleAttributes) {
   return (
     <article className="border rounded-md p-6 flex flex-col gap-3 max-w-md w-full max-lg:mx-auto">
       <div className="bg-light rounded-md h-48 border mb-3">

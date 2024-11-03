@@ -1,8 +1,15 @@
 import Article from "@/components/blog/article";
 import { articles } from "@/dict/blog";
 import { Metadata } from "next";
+import _metadata, { openGraph } from "@/app/shared-metadata";
 
-export const metadata: Metadata = {};
+export const metadata: Metadata = {
+  ..._metadata,
+  openGraph: {
+    ...openGraph,
+    type: "article",
+  },
+};
 
 export default async function Page({
   params,
@@ -12,7 +19,11 @@ export default async function Page({
   const { lang } = await params;
   const data = await Promise.all(
     Object.entries(articles).map(([href, article]) =>
-      article(lang).then((m) => ({ ...m.attributes, href }))
+      article(lang).then((m) => ({
+        ...(m as unknown as { attributes: Omit<ArticleAttributes, "href"> })
+          .attributes,
+        href,
+      }))
     )
   );
   return (
