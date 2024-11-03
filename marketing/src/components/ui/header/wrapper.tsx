@@ -4,9 +4,11 @@ import Logo from "@/assets/svg/logo";
 import { cn } from "@/utils/cn";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Fragment, useEffect, useState } from "react";
 
 export default function Wrapper({ children }: { children: React.ReactNode[] }) {
+  const pathname = usePathname();
   const [isDown, setIsDown] = useState(false);
 
   useEffect(() => {
@@ -19,17 +21,24 @@ export default function Wrapper({ children }: { children: React.ReactNode[] }) {
 
   return (
     <Fragment>
-      <div className={cn("sm:px-6 py-4 bg-primary-dark")}>
+      <div
+        className={cn(
+          "sm:px-6 py-4",
+          !pathname.includes("/blog") && "bg-primary-dark"
+        )}
+      >
         <div
           className={cn(
-            "max-w-7xl text-white mx-auto flex items-center justify-between h-14 sm:rounded-lg px-1 border-y sm:border border-white/10 [&_nav>a]:text-white [&_a]:text-white bg-gradient-to-br from-[rgba(255,255,255,0.05)] to-[rgba(255,255,255,0)]"
+            "max-w-7xl mx-auto flex items-center justify-between h-14 sm:rounded-lg px-1 border-y sm:border border-white/10 bg-gradient-to-br from-[rgba(255,255,255,0.05)] to-[rgba(255,255,255,0)]",
+            !pathname.includes("/blog") &&
+              "text-white [&_nav>a]:text-white [&_a]:text-white"
           )}
         >
           {!isDown && (
             <>
-              <Link href="/" className="ml-5 sm:ml-3 w-16">
+              <Link href="/" className="w-11 ml-3">
                 <span className="sr-only">title</span>
-                <Logo />
+                <Logo isDown={pathname.includes("/blog")} />
               </Link>
               {children}
             </>
@@ -49,7 +58,7 @@ export default function Wrapper({ children }: { children: React.ReactNode[] }) {
                 "max-w-7xl text-foreground bg-white shadow-lg shadow-primary-dark/10 [&_nav>a]:text-foreground [&_a]:text-foreground mx-auto flex items-center justify-between h-14 sm:rounded-b-lg border bg-gradient-to-br from-[rgba(255,255,255,0.05)] to-[rgba(255,255,255,0)] px-1"
               )}
             >
-              <Link href="/" className="ml-5 sm:ml-3 w-16">
+              <Link href="/" className="w-11 ml-3">
                 <span className="sr-only">title</span>
                 <Logo isDown />
               </Link>

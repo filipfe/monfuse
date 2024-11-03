@@ -328,6 +328,9 @@
       }
     ]
   },
+  "blog": {
+    "title": "Blog"
+  },
   "banner": {
     "title": "Take full control of your personal finances",
     "button": "Start now"

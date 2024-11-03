@@ -4,6 +4,7 @@ import { Dict } from "@/dict";
 import { CheckCircle, Coins, Repeat, Wallet2 } from "lucide-react";
 import DropdownLink from "./dropdown";
 import MobileDrawer from "../drawer";
+import Logo from "@/assets/svg/logo";
 
 export default function Header({ dict }: { dict: Dict }) {
   return (
@@ -76,7 +77,7 @@ export default function Header({ dict }: { dict: Dict }) {
             </DropdownLink>
             <li className="inline-block">
               <Link
-                className="text-sm font-medium px-2 md:px-3.5 lg:px-7 py-3"
+                className="text-sm font-medium px-3.5 lg:px-7 py-3"
                 href="/ai-assistant"
               >
                 {dict["ai-assistant"].title}
@@ -84,7 +85,7 @@ export default function Header({ dict }: { dict: Dict }) {
             </li>
             <li className="inline-block">
               <Link
-                className="text-sm font-medium px-2 md:px-3.5 lg:px-7 py-3"
+                className="text-sm font-medium px-3.5 lg:px-7 py-3"
                 href="/pricing"
               >
                 {dict.pricing.title}
@@ -92,20 +93,20 @@ export default function Header({ dict }: { dict: Dict }) {
             </li>
             <li className="inline-block">
               <Link
-                className="text-sm font-medium px-2 md:px-3.5 lg:px-7 py-3"
+                className="text-sm font-medium px-3.5 lg:px-7 py-3"
                 href="/blog"
               >
                 Blog
               </Link>
             </li>
-            <li className="inline-block">
+            {/* <li className="inline-block">
               <Link
                 className="text-sm font-medium px-3.5 lg:px-7 py-3"
                 href="/contact"
               >
                 Kontakt
               </Link>
-            </li>
+            </li> */}
           </ul>
           <div className="sm:hidden">
             <MobileDrawer>

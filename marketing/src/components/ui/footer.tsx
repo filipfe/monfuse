@@ -6,8 +6,8 @@ export default function Footer({ dict }: { dict: Dict }) {
   return (
     <footer className="bg-primary-dark">
       <div className="relative w-full mx-auto max-w-7xl px-6">
-        <div className="flex gap-4 justify-between py-12">
-          <Link href="/" className="text-sm text-white">
+        <div className="flex flex-col max-sm:items-start sm:flex-row gap-8 sm:gap-4 justify-between py-12">
+          <Link href="/" className="text-sm text-white h-11">
             <Logo />
           </Link>
           <ul className="text-white">
@@ -40,7 +40,17 @@ export default function Footer({ dict }: { dict: Dict }) {
               </ul>
             </li>
           </ul>
-          <div></div>
+          <ul className="text-white">
+            <li className="pb-2">
+              <Link href="/ai-assistant">{dict["ai-assistant"].title}</Link>
+            </li>
+            <li className="py-2">
+              <Link href="/pricing">{dict.pricing.title}</Link>
+            </li>
+            <li className="py-2">
+              <Link href="/blog">{dict.blog.title}</Link>
+            </li>
+          </ul>
           <div>
             <div className="bg-primary/20 rounded-md px-1 h-12 flex items-center justify-center flex-1">
               <Link
