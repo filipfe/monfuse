@@ -83,9 +83,9 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       <Image
         priority
         loading="eager"
-        width={1280}
-        height={800}
-        className="rounded-md object-cover my-8 max-w-3xl w-full"
+        width={768}
+        height={768}
+        className="rounded-md object-cover my-4 sm:my-6 max-w-3xl w-full"
         {...(props as ImageProps)}
       />
     ),

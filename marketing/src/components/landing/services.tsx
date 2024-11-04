@@ -10,12 +10,12 @@ export default function Services({
 }) {
   return (
     <section className="bg-light py-16 sm:py-24 sm:px-6">
-      <div className="relative container mx-auto max-w-7xl">
-        <div className="text-center space-y-4 pb-6 mx-auto">
+      <div className="relative w-full mx-auto max-w-7xl">
+        <div className="text-center space-y-4 mx-auto">
           <h2 className="text-sm text-primary font-mono font-medium tracking-wider uppercase">
             {dict.category}
           </h2>
-          <h3 className="mx-auto mt-4 max-w-xs text-3xl font-semibold sm:max-w-none sm:text-4xl md:text-5xl">
+          <h3 className="mx-auto mt-4 max-w-xs text-2xl font-black sm:max-w-none sm:text-3xl lg:text-4xl">
             {dict.title}
           </h3>
         </div>
