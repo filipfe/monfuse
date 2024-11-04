@@ -9,12 +9,12 @@ export default function Article({
   description,
 }: ArticleAttributes) {
   return (
-    <article className="border rounded-md p-6 flex flex-col gap-3 max-w-md w-full max-lg:mx-auto">
-      <div className="bg-light rounded-md h-48 border mb-3">
+    <article className="border rounded-md p-6 flex flex-col gap-3 max-w-md w-full max-lg:mx-auto bg-white">
+      <div className="bg-light overflow-hidden rounded-md h-52 border mb-3">
         <Image
-          className="object-contain h-full w-full"
-          width={800}
-          height={800}
+          className="object-cover object-center h-full w-full"
+          width={396}
+          height={206}
           src={image.src}
           alt={image.alt}
         />

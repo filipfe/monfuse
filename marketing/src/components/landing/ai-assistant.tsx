@@ -13,11 +13,11 @@ export default function AIAssistant({
     <section id="how-it-works" className="sm:px-6 py-16 sm:py-24">
       <div>
         <div className="relative w-full mx-auto max-w-7xl">
-          <div className="text-center space-y-4 pb-6 mx-auto">
+          <div className="text-center space-y-4 mx-auto">
             <h2 className="text-sm text-primary font-mono font-bold tracking-wider uppercase">
               {dict.category}
             </h2>
-            <h3 className="mx-auto mt-4 max-w-xs text-3xl font-semibold sm:max-w-none sm:text-4xl md:text-5xl">
+            <h3 className="mx-auto mt-4 max-w-xs text-2xl font-black sm:max-w-none sm:text-3xl lg:text-4xl">
               {dict.title}
             </h3>
           </div>
@@ -31,9 +31,9 @@ export default function AIAssistant({
                   <Mailbox className="text-primary" />
                 </div>
                 <div className="flex flex-col gap-1 items-start text-left">
-                  <h3 className="font-bold text-lg lg:text-xl text-font">
+                  <h4 className="font-bold text-lg lg:text-xl text-font">
                     1. {dict.context.title}
-                  </h3>
+                  </h4>
                   <p className="text-font/80 text-sm leading-relaxed font-normal">
                     {dict.context.description}
                   </p>
@@ -47,9 +47,9 @@ export default function AIAssistant({
                   <MessageSquareText className="text-primary" />
                 </div>
                 <div className="flex flex-col gap-1 items-start text-left">
-                  <h3 className="font-bold text-lg lg:text-xl text-font">
+                  <h4 className="font-bold text-lg lg:text-xl text-font">
                     2. {dict.message.title}
-                  </h3>
+                  </h4>
                   <p className="text-font/80 text-sm leading-relaxed font-normal">
                     {dict.message.description}
                   </p>
@@ -63,9 +63,9 @@ export default function AIAssistant({
                   <Sparkles className="text-primary" />
                 </div>
                 <div className="flex flex-col gap-1 items-start text-left">
-                  <h3 className="font-bold text-lg lg:text-xl text-font">
+                  <h4 className="font-bold text-lg lg:text-xl text-font">
                     3. {dict.response.title}
-                  </h3>
+                  </h4>
                   <p className="text-font/80 text-sm leading-relaxed font-normal">
                     {dict.response.description}
                   </p>

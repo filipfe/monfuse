@@ -11,4 +11,8 @@ export const openGraph: Metadata["openGraph"] = {
   alternateLocale: langs,
 };
 
+export const twitter: Metadata["twitter"] = {
+  card: "summary_large_image",
+};
+
 export default metadata;

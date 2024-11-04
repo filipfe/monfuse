@@ -22,7 +22,7 @@ export async function generateMetadata({
       ...openGraph,
     },
     alternates: {
-      canonical: new URL("https://www.monfuse.com/recurring-payments"),
+      canonical: new URL(`https://www.monfuse.com/${lang}/recurring-payments`),
       languages: langs.reduce(
         (prev, lang) => ({
           ...prev,

@@ -192,14 +192,14 @@ export default function Header({ dict }: { dict: Dict }) {
                     {dict.pricing.title}
                   </Link>
                 </li>
-                {/* <li className="my-2.5">
+                <li className="my-2.5">
                   <Link
                     className="px-1 inline-block min-w-full text-sm font-medium w-full py-1"
                     href="/blog"
                   >
                     Blog
                   </Link>
-                </li> */}
+                </li>
                 {/* <li className="my-2.5">
                   <Link
                     className="px-1 inline-block min-w-full text-sm font-medium w-full py-1"
