@@ -1,8 +1,8 @@
-import Article from "@/components/blog/article";
 import { articles } from "@/dict/blog";
 import { Metadata } from "next";
 import _metadata, { openGraph, twitter } from "@/app/shared-metadata";
-import { langs } from "@/dict";
+import getDictionary, { langs } from "@/dict";
+import ArticleRef from "@/components/blog/article";
 
 export async function generateMetadata({
   params,
@@ -47,6 +47,7 @@ export default async function Page({
   params: Promise<{ lang: Locale }>;
 }) {
   const { lang } = await params;
+  const { blog } = await getDictionary(lang);
   const data = await Promise.all(
     Object.entries(articles).map(([href, article]) =>
       article(lang).then((m) => ({
@@ -61,15 +62,19 @@ export default async function Page({
       <div className="mx-auto max-w-7xl w-full">
         <div>
           <h1 className="text-center text-3xl font-black sm:text-4xl lg:text-5xl mb-4 sm:mb-6">
-            Blog
+            {blog.title}
           </h1>
           <p className="text-sm sm:text-base text-font/75 text-center leading-relaxed sm:leading-relaxed max-w-64 sm:max-w-xs lg:max-w-none mx-auto w-full">
-            Learn how to manage your finances effectively with Monfuse
+            {blog.description}
           </p>
         </div>
         <div className="lg:grid grid-cols-3 gap-4 sm:gap-6 flex flex-col mt-12">
           {data.map((article) => (
-            <Article {...article} key={article.href} />
+            <ArticleRef
+              article={article}
+              dict={blog.article}
+              key={article.href}
+            />
           ))}
         </div>
       </div>
