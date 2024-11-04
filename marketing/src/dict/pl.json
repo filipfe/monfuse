@@ -329,7 +329,11 @@
     ]
   },
   "blog": {
-    "title": "Blog"
+    "title": "Blog",
+    "description": "Poznaj sposoby efektywniejszego zarządzania finansami z Monfuse",
+    "article": {
+      "learn-more": "Czytaj dalej"
+    }
   },
   "banner": {
     "title": "Przejmij pełną kontrolę nad finansami osobistymi",

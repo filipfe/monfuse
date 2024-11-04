@@ -24,7 +24,7 @@ export default function BentoGrid({
             {dict.plan.title[0]}
             <br /> {dict.plan.title[1]}
           </h3>
-          <p className="text-white/60 text-sm max-w-sm">
+          <p className="text-white/60 text-sm leading-relaxed max-w-sm">
             {dict.plan.description}
           </p>
           <div className="absolute -bottom-2 left-8 right-8">

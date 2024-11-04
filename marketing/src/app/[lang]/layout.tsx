@@ -40,7 +40,7 @@ export async function generateMetadata({
       card: "summary_large_image",
     },
     alternates: {
-      canonical: new URL("https://www.monfuse.com"),
+      canonical: new URL(`https://www.monfuse.com/${lang}`),
       languages: langs.reduce(
         (prev, lang) => ({
           ...prev,
