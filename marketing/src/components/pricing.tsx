@@ -1,46 +1,66 @@
-const benefits = [
-  "Nielimitowane przychody i wydatki",
-  "Statystyki okresowe",
-  "Integracja bota Telegram",
-  "Zarządzanie celami",
-  "Płatności cykliczne",
-];
+import { Dict } from "@/dict";
+import Link from "next/link";
+import Price from "./pricing/price";
+import { Check } from "lucide-react";
 
-export default function Pricing() {
+export default function Pricing({
+  dict,
+}: {
+  dict: Dict["landing"]["pricing"];
+}) {
   return (
-    <section className="py-8 sm:py-12 pt-16 sm:pt-24 bg-white">
-      <div className="w-full max-w-7xl px-6 mx-auto">
-        <div className="text-center space-y-4 pb-6 mx-auto">
+    <section className="py-16 sm:py-24 bg-white sm:px-6">
+      <div className="w-full max-w-7xl mx-auto">
+        <div className="text-center mx-auto pb-4 max-sm:px-6">
           <h2 className=" text-primary font-mono font-medium tracking-wider uppercase">
-            Cennik
+            {dict.category}
           </h2>
-          <h3 className="mx-auto mt-4 max-w-xs text-3xl font-semibold sm:max-w-none sm:text-4xl md:text-5xl">
-            Odblokuj wolność finansową
+          <h3 className="mx-auto mt-2 sm:mt-4 max-w-xs text-2xl font-black sm:max-w-none sm:text-3xl lg:text-4xl">
+            {dict.title}
           </h3>
         </div>
-        <div className="mx-auto my-12 max-w-4xl">
-          <div className="rounded-md border bg-light p-6 grid gap-4">
-            <h3 className="font-black">Subskrypcja Monfuse</h3>
-            <div className="grid grid-cols-2 gap-3">
-              <label
-                htmlFor=""
-                className="border rounded-md bg-white py-4"
-              ></label>
-              <label
-                htmlFor=""
-                className="border rounded-md bg-white py-4"
-              ></label>
+        <div className="mx-auto mt-6 sm:mt-12 max-w-7xl flex flex-col lg:grid grid-cols-[1fr_max-content] gap-6 sm:border-x border-y sm:px-6 py-6 sm:rounded-md">
+          <div className="flex flex-col gap-3 px-6 sm:py-6">
+            <h3 className="text-lg sm:text-xl lg:text-2xl font-semibold">
+              {dict.block.title}
+            </h3>
+            <p className="text-font/75 text-sm/relaxed max-w-lg">
+              {dict.block.description}
+            </p>
+            <div className="mt-10 mb-4 h-px relative w-full bg-border flex items-center">
+              <h4 className="text-primary font-bold text-sm absolute left-0 bg-white pr-3">
+                {dict.block.benefits.title}
+              </h4>
             </div>
-            <ul className="grid gap-3 my-3">
-              {benefits.map((benefit) => (
-                <li className="text-sm text-font/80" key={benefit}>
+            <ul className="flex flex-wrap sm:grid grid-cols-2 xl:grid-cols-3 gap-y-3 max-sm:gap-x-6">
+              {dict.block.benefits.items.map((benefit) => (
+                <li className="text-sm flex items-center gap-2" key={benefit}>
+                  <Check size={14} className="text-primary" />
                   {benefit}
                 </li>
               ))}
             </ul>
-            <button className="text-white py-2.5 px-5 text-sm font-medium rounded-md bg-primary">
-              Rozpocznij 7-dniowy okres próbny
-            </button>
+          </div>
+          <div className="bg-light sm:border-x border-y sm:rounded-md px-6 sm:px-10 py-6 flex flex-col">
+            <h4 className="font-medium text-center text-font/60">
+              {dict.block.price.title}
+            </h4>
+            <div className="flex-1 flex flex-col justify-center gap-6 min-h-32">
+              <div className="flex justify-center items-end gap-2">
+                <strong className="text-3xl/none sm:text-4xl/none">
+                  <Price />
+                </strong>
+                <sub className="text-font/75 mb-3">
+                  / {dict.block.price.month}
+                </sub>
+              </div>
+            </div>
+            <Link
+              href="https://www.monfuse.com"
+              className="text-white py-2.5 px-5 text-sm text-center font-medium rounded-md bg-primary whitespace-nowrap"
+            >
+              {dict.block.price.cta}
+            </Link>
           </div>
         </div>
       </div>

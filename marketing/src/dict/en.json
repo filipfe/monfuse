@@ -135,6 +135,30 @@
         }
       }
     },
+    "pricing": {
+      "category": "Pricing",
+      "title": "One plan for all Features",
+      "block": {
+        "title": "Monfuse Subscription",
+        "description": "Enjoy unlimited access to all of Monfuse’s powerful tools with a single, straightforward subscription.",
+        "benefits": {
+          "title": "What's included?",
+          "items": [
+            "Incomes and expenses",
+            "Recurring payments",
+            "Periodic stats",
+            "Goals management",
+            "AI Assistant",
+            "Telegram Bot integration"
+          ]
+        },
+        "price": {
+          "title": "Monthly subscription",
+          "month": "month",
+          "cta": "Start your 7-day trial"
+        }
+      }
+    },
     "faq": {
       "category": "FAQ",
       "title": "Frequently asked questions",

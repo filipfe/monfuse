@@ -135,6 +135,30 @@
         }
       }
     },
+    "pricing": {
+      "category": "Cennik",
+      "title": "Jeden plan dla wszystkich funkcji",
+      "block": {
+        "title": "Subskrypcja Monfuse",
+        "description": "Ciesz się nieograniczonym dostępem do wszystkich funkcji Monfuse w ramach jednej, prostej subskrypcji.",
+        "benefits": {
+          "title": "Co zyskujesz",
+          "items": [
+            "Przychody i wydatki",
+            "Płatności cykliczne",
+            "Statystyki okresowe",
+            "Zarządzanie celami",
+            "Asystent AI",
+            "Integracja bota Telegram"
+          ]
+        },
+        "price": {
+          "title": "Miesięczna subskrypcja",
+          "month": "miesiąc",
+          "cta": "Rozpocznij 7-dniowy okres próbny"
+        }
+      }
+    },
     "faq": {
       "category": "FAQ",
       "title": "Często zadawane pytania",
