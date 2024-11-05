@@ -11,16 +11,16 @@ export default function Services({
   return (
     <section className="bg-light py-16 sm:py-24 sm:px-6">
       <div className="relative w-full mx-auto max-w-7xl">
-        <div className="text-center space-y-4 mx-auto">
+        <div className="text-center mx-auto pb-4">
           <h2 className="text-sm text-primary font-mono font-medium tracking-wider uppercase">
             {dict.category}
           </h2>
-          <h3 className="mx-auto mt-4 max-w-xs text-2xl font-black sm:max-w-none sm:text-3xl lg:text-4xl">
+          <h3 className="mx-auto mt-2 sm:mt-4 max-w-xs text-2xl font-black sm:max-w-none sm:text-3xl lg:text-4xl leading-tight sm:leading-tight lg:leading-tight">
             {dict.title}
           </h3>
         </div>
       </div>
-      <div className="mx-auto mt-6 sm:mt-12 grid max-w-sm grid-cols-1 gap-6 md:max-w-3xl md:grid-cols-2 xl:grid-rows-[max-content_1fr] md:grid-rows-[max-content_max-content_1fr] xl:max-w-6xl xl:auto-rows-fr xl:grid-cols-3">
+      <div className="mx-auto mt-6 sm:mt-12 grid max-w-md grid-cols-1 gap-6 md:max-w-3xl md:grid-cols-2 xl:grid-rows-[max-content_1fr] md:grid-rows-[max-content_max-content_1fr] xl:max-w-6xl xl:auto-rows-fr xl:grid-cols-3">
         <div className="group relative items-start flex flex-col gap-3 justify-between overflow-hidden bg-white border rounded-md">
           <div className="p-6">
             <h3 className="font-medium mb-2">{dict.operations.title}</h3>

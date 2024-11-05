@@ -13,11 +13,11 @@ export default function AIAssistant({
     <section id="how-it-works" className="sm:px-6 py-16 sm:py-24">
       <div>
         <div className="relative w-full mx-auto max-w-7xl">
-          <div className="text-center space-y-4 mx-auto">
+          <div className="text-center mx-auto pb-4">
             <h2 className="text-sm text-primary font-mono font-bold tracking-wider uppercase">
               {dict.category}
             </h2>
-            <h3 className="mx-auto mt-4 max-w-xs text-2xl font-black sm:max-w-none sm:text-3xl lg:text-4xl">
+            <h3 className="mx-auto mt-2 sm:mt-4 max-w-xs text-2xl font-black sm:max-w-none sm:text-3xl lg:text-4xl">
               {dict.title}
             </h3>
           </div>

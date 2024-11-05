@@ -5,6 +5,7 @@ import Hero from "@/components/landing/hero";
 import Services from "@/components/landing/services";
 import Operations from "@/components/landing/operations";
 import getDictionary from "@/dict";
+import Pricing from "@/components/pricing";
 
 export default async function Home({ params }: PageProps) {
   const { lang } = await params;
@@ -19,7 +20,7 @@ export default async function Home({ params }: PageProps) {
       <BentoGrid dict={{ ...dict["bento-grid"], card: dictCard }} />
       <Services dict={dict.services} />
       <AIAssistant dict={dict["ai-assistant"]} />
-      {/* <Pricing /> */}
+      <Pricing dict={dict.pricing} />
       <FAQ dict={dict.faq} />
     </div>
   );
