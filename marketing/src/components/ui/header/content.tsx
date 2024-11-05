@@ -197,7 +197,7 @@ export default function Header({ dict }: { dict: Dict }) {
                     className="px-1 inline-block min-w-full text-sm font-medium w-full py-1"
                     href="/blog"
                   >
-                    Blog
+                    {dict.blog.title}
                   </Link>
                 </li>
                 {/* <li className="my-2.5">
