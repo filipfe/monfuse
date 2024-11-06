@@ -224,7 +224,36 @@
           }
         }
       },
-      "recurring-payments": {}
+      "recurring-payments": {
+        "upcoming": {
+          "title": "Próximos",
+          "timer": {
+            "days": "días",
+            "hours": "horas",
+            "minutes": "minutos"
+          },
+          "_empty": {
+            "title": "No hay pagos próximos"
+          }
+        },
+        "active": {
+          "title": "Activos",
+          "add": {
+            "label": "Agregar"
+          }
+        },
+        "latest": {
+          "title": "Reciente"
+        },
+        "calendar": {
+          "popup": {
+            "add": {
+              "title": "Agregar pago",
+              "description": "Nuevo pago recurrente"
+            }
+          }
+        }
+      }
     },
     "goals": {
       "list": {

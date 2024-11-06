@@ -6,7 +6,7 @@
       "aplikacja finansowa",
       "zarządzanie finansami osobistymi",
       "śledzenie wydatków",
-      "zarządzanie dochodami",
+      "zarządzanie przychodami",
       "cele finansowe",
       "narzędzie do budżetowania",
       "płatności cykliczne",
@@ -18,7 +18,7 @@
       "statystyki finansowe",
       "planowanie budżetu",
       "dobrobyt finansowy",
-      "śledzenie dochodów",
+      "śledzenie przychodów",
       "ustalanie celów",
       "inteligentne wydawanie",
       "powiadomienia finansowe",
@@ -45,7 +45,7 @@
     "title": "Strona główna",
     "hero": {
       "title": "Zarządzaj wszelkimi finansami z łatwością",
-      "description": "Bez wysiłku śledź dochody i wydatki, ustalaj cele dzięki naszej aplikacji finansowej. Rozpocznij swoją drogę do wolności finansowej już dziś!",
+      "description": "Bez wysiłku śledź przychody i wydatki, ustalaj cele dzięki naszej aplikacji finansowej. Rozpocznij swoją drogę do wolności finansowej już dziś!",
       "cta": {
         "primary": "Rozpocznij",
         "secondary": "Więcej"
@@ -87,7 +87,7 @@
       "title": "Wzmocnij swoje finanse",
       "operations": {
         "title": "Śledź operacje",
-        "description": "Łatwo monitoruj swoje dochody, wydatki i płatności cykliczne. Kategoryzuj transakcje i ustalaj limity wydatków.",
+        "description": "Łatwo monitoruj swoje przychody, wydatki i płatności cykliczne. Kategoryzuj transakcje i ustalaj limity wydatków.",
         "link": "Dowiedz się więcej"
       },
       "goals": {
@@ -104,7 +104,7 @@
       },
       "stats": {
         "title": "Odkrywaj statystyki okresowe",
-        "description": "Przeglądaj miesięczne informacje finansowe. Śledź wzorce wydatków, trendy dochodów i postępy w realizacji swoich celów za pomocą przejrzystych raportów wizualnych.",
+        "description": "Przeglądaj miesięczne informacje finansowe. Śledź wzorce wydatków, trendy przychodów i postępy w realizacji swoich celów za pomocą przejrzystych raportów wizualnych.",
         "_image": {
           "alt": "Pulpit miesięcznych statystyk finansowych pokazujący przychody, wydatki, trendy salda, tygodniowy podział operacji i całkowite wydatki według kategorii"
         }
@@ -168,8 +168,8 @@
           "answer": "Nasza aplikacja pomaga śledzić wydatki, zarządzać celami finansowymi, ustalać limity wydatków oraz otrzymywać spersonalizowane informacje – wszystko w jednym miejscu. Ułatwia budżetowanie i pomaga trzymać się swoich finansów."
         },
         {
-          "question": "Jak mogę śledzić swoje dochody i wydatki?",
-          "answer": "Możesz łatwo śledzić wszystkie swoje dochody i wydatki, dodając transakcje ręcznie lub za pośrednictwem bota Telegram. Możesz kategoryzować wydatki za pomocą etykiet, co daje jasny obraz twoich wzorców wydatków."
+          "question": "Jak mogę śledzić swoje przychody i wydatki?",
+          "answer": "Możesz łatwo śledzić wszystkie swoje przychody i wydatki, dodając transakcje ręcznie lub za pośrednictwem bota Telegram. Możesz kategoryzować wydatki za pomocą etykiet, co daje jasny obraz twoich wzorców wydatków."
         },
         {
           "question": "Jak mogę ustawić cele finansowe w aplikacji?",
@@ -181,7 +181,7 @@
         },
         {
           "question": "Jakie statystyki finansowe mogę zobaczyć?",
-          "answer": "Aplikacja dostarcza szczegółowych miesięcznych statystyk, w tym wzorców wydatków, trendów dochodów i postępów w realizacji celów finansowych. Raporty wizualne ułatwiają zrozumienie twojej sytuacji finansowej."
+          "answer": "Aplikacja dostarcza szczegółowych miesięcznych statystyk, w tym wzorców wydatków, trendów przychodów i postępów w realizacji celów finansowych. Raporty wizualne ułatwiają zrozumienie twojej sytuacji finansowej."
         },
         {
           "question": "Jak mogę uzyskać wgląd w finanse za pomocą asystenta AI?",
@@ -200,7 +200,7 @@
           "description": "Śledź i zarządzaj swoimi przychodami bez wysiłku dzięki Monfuse. Monitoruj swoje zarobki, ustalaj cele finansowe i zyskaj wgląd w swoją kondycję finansową. Zacznij optymalizować swoje przychody już dziś, aby osiągnąć swoje cele finansowe!"
         },
         "title": "Przychody",
-        "description": "Z łatwością śledź wszystkie źródła dochodów i przeglądaj szczegółowe raporty, aby zrozumieć swoje wzorce zarobków.",
+        "description": "Z łatwością śledź wszystkie źródła przychodów i przeglądaj szczegółowe raporty, aby zrozumieć swoje wzorce zarobków.",
         "faq": [
           {
             "question": "How can I add a new income source?",
@@ -268,6 +268,11 @@
         },
         "title": "Płatności Cykliczne",
         "description": "Konfiguruj i śledź płatności cykliczne, takie jak subskrypcje lub rachunki, dzięki przypomnieniom, dzięki którym będziesz na bieżąco.",
+        "info": [
+          {
+            "markdown": "## Bądź na bieżąco z terminami płatności\n\nZarządzanie płatnościami cyklicznymi, takimi jak subskrypcje, czynsz i rachunki za media, jest kluczowe, aby mieć kontrolę nad swoimi finansami. Dzięki Monfuse możesz łatwo śledzić wszystkie płatności cykliczne w jednym miejscu, co pomaga unikać niespodziewanych opłat i utrzymywać zrównoważony budżet. Nasza aplikacja automatycznie rejestruje każdą powtarzającą się płatność, dzięki czemu nie musisz martwić się o brakujące płatności ani zapomnieć o nadchodzących automatycznych obciążeniach.\n\nFunkcja monitorowania płatności cyklicznych w Monfuse nie tylko śledzi Twoje regularne [**przychody**](/incomes) i [**wydatki**](/expenses), ale także informuje Cię o nadchodzących płatnościach. Otrzymuj przypomnienia po realizacji płatności cyklicznej, aby mieć pewność, że zostanie ona faktycznie przetworzona. Pożegnaj się z opóźnieniami i niespodziewanymi debetami – pozwól Monfuse pomóc Ci zachować pełną kontrolę nad finansami."
+          }
+        ],
         "faq": [
           {
             "question": "Jak ustawić płatność cykliczną?",

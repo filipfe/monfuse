@@ -1,5 +1,6 @@
 "use client";
 
+import { Dict } from "@/const/dict";
 import { useUpcomingPayments } from "@/lib/recurring-payments/queries";
 import dateFormat from "@/utils/formatters/dateFormat";
 import { intervalToDuration } from "date-fns";
@@ -30,9 +31,10 @@ function getTimeRemaining(datetime: string, timezone: string) {
 type Props = {
   timezone: string;
   paymentDatetime: string;
+  dict: Dict["private"]["operations"]["recurring-payments"]["upcoming"]["timer"];
 };
 
-export default function Timer({ timezone, paymentDatetime }: Props) {
+export default function Timer({ timezone, paymentDatetime, dict }: Props) {
   const timeoutRef = useRef<number>();
   console.log(paymentDatetime);
   const { mutate } = useUpcomingPayments(timezone);
@@ -62,7 +64,9 @@ export default function Timer({ timezone, paymentDatetime }: Props) {
       <div className="border-1 bg-light rounded-md w-full h-12 grid place-content-center">
         <span>{value}</span>
       </div>
-      <span className="text-sm text-font/75">{unit}</span>
+      <span className="text-sm text-font/75">
+        {dict[unit as keyof typeof dict]}
+      </span>
     </div>
   );
 
