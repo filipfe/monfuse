@@ -23,9 +23,7 @@ export default function DropdownLink({
   return (
     <li
       {...(isMobile ? {} : focusWithinProps)}
-      className={cn(
-        "max-sm:my-2.5 sm:inline-block lg:relative sm:py-3 lg:group"
-      )}
+      className={cn("sm:inline-block lg:relative sm:py-3 lg:group")}
       {...(!isMobile
         ? {
             onMouseEnter: () => setIsExpanded(true),
@@ -39,7 +37,7 @@ export default function DropdownLink({
             type="button"
             aria-expanded={isExpanded}
             aria-controls="nav-menu"
-            className="text-sm font-medium p-1 w-full peer flex items-center justify-between"
+            className="text-sm font-medium max-sm:h-11 p-1 w-full peer flex items-center justify-between"
             onClick={() => setIsExpanded((prev) => !prev)}
           >
             {title}

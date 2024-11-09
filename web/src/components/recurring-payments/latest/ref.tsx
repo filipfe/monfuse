@@ -21,7 +21,9 @@ export default async function Ref({
             <Coins size={14} color="#fdbb2d" />
           )}{" "}
           <NumberFormat
-            amount={payment.amount}
+            amount={
+              payment.type === "income" ? payment.amount : -1 * payment.amount
+            }
             currency={payment.currency}
             signDisplay="always"
           />

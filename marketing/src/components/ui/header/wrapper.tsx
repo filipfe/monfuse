@@ -7,7 +7,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Fragment, useEffect, useState } from "react";
 
-export default function Wrapper({ children }: { children: React.ReactNode[] }) {
+export default function Wrapper({
+  children,
+  dict,
+}: {
+  children: React.ReactNode[];
+  dict: string;
+}) {
   const pathname = usePathname();
   const [isDown, setIsDown] = useState(false);
 
@@ -37,7 +43,7 @@ export default function Wrapper({ children }: { children: React.ReactNode[] }) {
           {!isDown && (
             <>
               <Link href="/" className="w-9 sm:w-11 ml-5 sm:ml-3">
-                <span className="sr-only">title</span>
+                <span className="sr-only">{dict}</span>
                 <Logo isDown={pathname.includes("/blog")} />
               </Link>
               {children}
@@ -59,7 +65,7 @@ export default function Wrapper({ children }: { children: React.ReactNode[] }) {
               )}
             >
               <Link href="/" className="w-9 sm:w-11 ml-5 sm:ml-3">
-                <span className="sr-only">title</span>
+                <span className="sr-only">{dict}</span>
                 <Logo isDown />
               </Link>
               {children}

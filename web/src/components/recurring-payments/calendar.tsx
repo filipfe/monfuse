@@ -14,10 +14,17 @@ import { format, startOfWeek } from "date-fns";
 import { useCalendarRecords } from "@/lib/recurring-payments/queries";
 import Link from "next/link";
 import NumberFormat from "@/utils/formatters/currency";
+import { Dict } from "@/const/dict";
 
 const classNames = getDefaultClassNames();
 
-export default function Calendar({ settings }: { settings: Settings }) {
+export default function Calendar({
+  settings,
+  dict,
+}: {
+  settings: Settings;
+  dict: Dict["private"]["operations"]["recurring-payments"]["calendar"];
+}) {
   const currentDate = toZonedTime(new Date(), settings.timezone);
   const [monthDate, setMonthDate] = useState(currentDate);
   const { data: results, isLoading } = useCalendarRecords(
@@ -122,8 +129,8 @@ export default function Calendar({ settings }: { settings: Settings }) {
                   >
                     <Plus className="shrink-0" size={16} />
                     <div className="flex flex-col items-start">
-                      <h4 className="text-small">Dodaj płatność</h4>
-                      <p className="text-tiny">Nowa płatność</p>
+                      <h4 className="text-small">{dict.popup.add.title}</h4>
+                      <p className="text-tiny">{dict.popup.add.description}</p>
                     </div>
                   </Link>
                 )}

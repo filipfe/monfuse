@@ -20,6 +20,8 @@ import TopContent from "../../ui/table/top-content";
 import Add from "../../ui/cta/add";
 import Link from "next/link";
 import Loader from "@/components/stocks/loader";
+import { Dict } from "@/const/dict";
+import Menu from "./menu";
 
 const columns = [
   {
@@ -46,12 +48,15 @@ const columns = [
     key: "next_payment",
     label: "NEXT PAYMENT",
   },
+  { key: "actions", label: "" },
 ];
 
 export default function RecurringPaymentsTable({
   settings,
+  dict,
 }: {
   settings: Settings;
+  dict: Dict["private"]["operations"]["recurring-payments"]["active"];
 }) {
   const [page, setPage] = useState<number>(1);
   const { isLoading, data } = useActivePayments(page);
@@ -79,15 +84,33 @@ export default function RecurringPaymentsTable({
         return new Intl.DateTimeFormat(settings.language).format(
           new Date(cellValue)
         );
+      case "actions":
+        return <Menu {...item} />;
       default:
         return cellValue;
     }
   }, []);
 
+  const cta = (
+    <Link href="/recurring-payments/add">
+      <Button
+        as="div"
+        variant="light"
+        disableRipple
+        startContent={<PlusIcon size={14} />}
+        className="h-8 bg-light border"
+        size="sm"
+        radius="md"
+      >
+        {dict.add.label}
+      </Button>
+    </Link>
+  );
+
   if (isLoading)
     return (
       <Loader
-        title="Aktywne"
+        title={dict.title}
         cta={cta}
         className="row-span-2 col-start-1 col-end-2"
         records={8}
@@ -99,7 +122,7 @@ export default function RecurringPaymentsTable({
 
   return (
     <Block
-      title="Aktywne"
+      title={dict.title}
       className="row-span-2 col-start-1 col-end-2"
       cta={cta}
     >
@@ -157,19 +180,3 @@ export default function RecurringPaymentsTable({
     </Block>
   );
 }
-
-const cta = (
-  <Link href="/recurring-payments/add">
-    <Button
-      as="div"
-      variant="light"
-      disableRipple
-      startContent={<PlusIcon size={14} />}
-      className="h-8 bg-light border"
-      size="sm"
-      radius="md"
-    >
-      Add
-    </Button>
-  </Link>
-);

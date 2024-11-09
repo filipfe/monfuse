@@ -226,7 +226,36 @@
           }
         }
       },
-      "recurring-payments": {}
+      "recurring-payments": {
+        "upcoming": {
+          "title": "Nadchodzące",
+          "timer": {
+            "days": "dni",
+            "hours": "godziny",
+            "minutes": "minuty"
+          },
+          "_empty": {
+            "title": "Brak nadchodzących płatności"
+          }
+        },
+        "active": {
+          "title": "Aktywne",
+          "add": {
+            "label": "Dodaj"
+          }
+        },
+        "latest": {
+          "title": "Ostatnie"
+        },
+        "calendar": {
+          "popup": {
+            "add": {
+              "title": "Dodaj płatność",
+              "description": "Nowa płatność cykliczna"
+            }
+          }
+        }
+      }
     },
     "goals": {
       "list": {

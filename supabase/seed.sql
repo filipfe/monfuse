@@ -277,16 +277,16 @@ insert into recurring_payments (title, amount, currency, type, user_id, interval
 select
   case
     when c2.type = 'expense' then 
-      (array['Czynsz za mieszkanie', 'Rachunek za prąd', 'Rachunek za internet', 'Abonament za telefon', 'Subskrypcja streamingowa', 'Polisa ubezpieczeniowa'])[floor(random() * 6 + 1)]
+      (array['Apartment rent', 'Electricity bill', 'Internet bill', 'Phone subscription', 'Streaming subscription', 'Insurance policy'])[floor(random() * 6 + 1)]
     else 
-      (array['Wypłata', 'Premia', 'Dochód z wynajmu', 'Zwrot z inwestycji'])[floor(random() * 4 + 1)]
+      (array['Salary', 'Bonus', 'Rental income', 'Investment return'])[floor(random() * 4 + 1)]
   end,
   case
     when c2.type = 'expense' then round((random() * 500 + 50)::numeric, 2)
     else round((random() * 10000 + 2000)::numeric, 2)
   end,
   case
-    when random() < 0.8 then 'PLN'
+    when random() < 1 then 'USD'
     else (array['USD', 'EUR', 'GBP', 'CHF'])[floor(random() * 4 + 1)]
   end::currency_type,
   c2.type,

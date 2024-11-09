@@ -268,6 +268,11 @@
         },
         "title": "Recurring Payments",
         "description": "Set up and track recurring payments like subscriptions or bills, with reminders to keep you informed.",
+        "info": [
+          {
+            "markdown": "## Stay Notified About Due Payments\n\nManaging recurring payments like subscriptions, rent, and utility bills is crucial to staying on top of your finances. With Monfuse, you can easily track all recurring payments in one place, helping you avoid unexpected charges and keep your budget balanced. Our app automatically logs each recurring expense, so you’ll never have to worry about missing a payment or forgetting when an automatic deduction is coming up.\n\nMonfuse’s recurring payments feature not only tracks your regular [**incomes**](/incomes) and [**expenses**](/expenses) but also keeps you informed. Receive reminders after a recurring payment is issued, so you can ensure it will actually be proceeded in real life. Say goodbye to late fees and unexpected overdrafts by letting Monfuse keep you in control."
+          }
+        ],
         "faq": [
           {
             "question": "How do I set up a recurring payment?",
