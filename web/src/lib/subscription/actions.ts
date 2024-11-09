@@ -100,7 +100,9 @@ export async function getOrCreateSubscription(): Promise<
 export async function cancelSubscription(formData: FormData) {
   const subscriptionId = formData.get("subscription_id") as string;
   try {
-    await stripe.subscriptions.cancel(subscriptionId);
+    await stripe.subscriptions.update(subscriptionId, {
+      cancel_at_period_end: true,
+    });
     return {};
   } catch (err) {
     return {
