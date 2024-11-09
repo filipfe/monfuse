@@ -63,7 +63,7 @@ export default function SubscriptionModal() {
     <Modal isOpen>
       <ModalContent>
         {isLoading ? (
-          <div className="flex-1 grid place-content-center">
+          <div className="flex-1 grid place-content-center min-h-48">
             <l-hatch size={32} />
           </div>
         ) : (

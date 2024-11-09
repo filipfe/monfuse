@@ -63,8 +63,7 @@ Deno.serve(async (req) => {
 
   if (receivedEvent.type === "invoice.payment_succeeded") {
     const invoice = receivedEvent.data.object;
-    const userId = "8d65ee5d-3897-4f61-b467-9bdc8df6f07f" ||
-      receivedEvent.data.object.customer as string;
+    const userId = receivedEvent.data.object.customer as string;
     const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
       auth: {
         persistSession: false,
