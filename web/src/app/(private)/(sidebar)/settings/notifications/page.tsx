@@ -16,7 +16,7 @@ export default async function Page() {
         <div className="lg:pr-8">
           <NotificationSwitch dict={dict} field="telegram" />
         </div>
-        <div className="lg:pl-8 border-l">
+        <div className="lg:pl-8 lg:border-l">
           <NotificationSwitch dict={dict} field="email" />
         </div>
       </div>

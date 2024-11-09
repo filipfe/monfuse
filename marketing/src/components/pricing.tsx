@@ -56,7 +56,7 @@ export default function Pricing({
               </div>
             </div>
             <Link
-              href="https://www.monfuse.com"
+              href="https://app.monfuse.com"
               className="text-white py-2.5 px-5 text-sm text-center font-medium rounded-md bg-primary whitespace-nowrap"
             >
               {dict.block.price.cta}

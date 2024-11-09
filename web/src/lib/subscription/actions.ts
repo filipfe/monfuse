@@ -31,7 +31,7 @@ export async function getOrCreateSubscription(): Promise<
         autoRefreshToken: false,
         detectSessionInUrl: false,
       },
-    }
+    },
   );
 
   const { data: pastSubscription, error } = await supabaseServiceRole
@@ -73,11 +73,11 @@ export async function getOrCreateSubscription(): Promise<
       ).client_secret;
     } else {
       const { payment_intent } = await stripe.invoices.retrieve(
-        pastSubscription.attrs.latest_invoice as string
+        pastSubscription.attrs.latest_invoice as string,
       );
 
       const paymentIntent = await stripe.paymentIntents.retrieve(
-        payment_intent as string
+        payment_intent as string,
       );
 
       client_secret = paymentIntent.client_secret;
@@ -93,6 +93,18 @@ export async function getOrCreateSubscription(): Promise<
     return {
       error: "Could not retrieve or create a subscription. Please, try again.",
       result: null,
+    };
+  }
+}
+
+export async function cancelSubscription(formData: FormData) {
+  const subscriptionId = formData.get("subscription_id") as string;
+  try {
+    await stripe.subscriptions.cancel(subscriptionId);
+    return {};
+  } catch (err) {
+    return {
+      error: (err as Error).message,
     };
   }
 }
