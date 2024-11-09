@@ -31,7 +31,7 @@ export async function updateSettings(key: string, value: any) {
   const { data, error: selectError } = await supabase
     .from("profiles")
     .select(
-      "telegram_token, telegram_id, ...settings(timezone, currency, language), notifications:settings(telegram:telegram_notifications, email:email_notifications)",
+      "telegram_token, telegram_id, ...settings(timezone, currency, language, insert_subscription_expense, subscription_expense_label), notifications:settings(telegram:telegram_notifications, email:email_notifications)",
     )
     .returns<Settings>()
     .single();

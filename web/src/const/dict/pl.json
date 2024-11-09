@@ -22,7 +22,8 @@
     },
     "general": {
       "incomes": "Przychody",
-      "expenses": "Wydatki"
+      "expenses": "Wydatki",
+      "_error": "Wystąpił błąd, spróbuj ponownie później"
     },
     "dashboard": {
       "latest-operations": {
@@ -222,6 +223,14 @@
                 "label": "Zapisz",
                 "_error": "Wystąpił błąd przy dodawaniu limitu"
               }
+            }
+          },
+          "delete": {
+            "modal": {
+              "title": "Czy na pewno chcesz usunąć limit?",
+              "description": "Limit zostanie usunięty od razu, ale możliwe będzie dodanie następnego limitu",
+              "proceed": "Usuń",
+              "cancel": "Anuluj"
             }
           }
         }
@@ -439,6 +448,18 @@
             "label": "Strefa czasowa",
             "placeholder": "Wybierz strefę czasową"
           }
+        },
+        "insert-subscription-expense": {
+          "_error": "Wystąpił błąd, spróbuj ponownie później",
+          "title": "Dodawaj Wydatek Subskrypcji",
+          "description": "Automatycznie zapisuj wydatek subskrypcji Monfuse",
+          "label": {
+            "label": "Etykieta",
+            "default": "Wszystkie",
+            "description": "wydatków",
+            "placeholder": "Aplikacje",
+            "save": "Zapisz"
+          }
         }
       },
       "subscription": {
@@ -452,7 +473,15 @@
           "title": ["Subskrypcja aktywna", "Okres próbny aktywny"],
           "description": "Dziękujemy za korzystanie z Monfuse",
           "month": "miesiąc",
-          "button": "Dezaktywuj"
+          "deactivate": {
+            "label": "Dezaktywuj",
+            "modal": {
+              "title": "Czy na pewno chcesz dezaktywować subskrypcję?",
+              "description": "Twoja subskrypcja zostanie anulowana w pierwszym dniu następnego cyklu rozliczeniowego. Do tego czasu aplikacja będzie dostępna do używania.",
+              "proceed": "Potwierdź",
+              "cancel": "Cofnij"
+            }
+          }
         },
         "benefits": {
           "title": "Co zyskujesz?",

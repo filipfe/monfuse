@@ -1,12 +1,13 @@
 import { Dict } from "@/const/dict";
 import { getSettings } from "@/lib/general/actions";
-import { Button } from "@nextui-org/react";
 import { Check } from "lucide-react";
+import Deactivate from "./deactivate";
 
 export default async function Active({
   dict,
   status,
   plan,
+  id,
 }: Subscription & {
   dict: Dict["private"]["settings"]["subscription"]["active"];
 }) {
@@ -32,9 +33,7 @@ export default async function Active({
         </strong>
         <sub className="text-sm mb-1 ml-2 opacity-80">/ {dict.month}</sub>
       </p>
-      <Button className="border bg-white" disableRipple>
-        {dict.button}
-      </Button>
+      <Deactivate dict={dict.deactivate} subscriptionId={id} />
     </div>
   );
 }

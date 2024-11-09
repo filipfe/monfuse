@@ -11,6 +11,7 @@ import {
 import { useTransition } from "react";
 
 type Props = {
+  dict: { title: string; description: string; proceed: string; cancel: string };
   disclosure: ReturnType<typeof useDisclosure>;
   mutation: (formData: FormData) => Promise<{ error?: string } | undefined>;
   successMessage?: string;
@@ -20,6 +21,7 @@ type Props = {
 
 export default function ConfirmationModal({
   disclosure,
+  dict,
   children,
   onSuccess,
   mutation,
@@ -49,9 +51,9 @@ export default function ConfirmationModal({
   return (
     <Modal isOpen={disclosure.isOpen} onOpenChange={disclosure.onOpenChange}>
       <ModalContent>
-        <ModalHeader>Are you sure?</ModalHeader>
+        <ModalHeader>{dict.title}</ModalHeader>
         <ModalBody>
-          <p className="text-sm text-center">This actions is irreversible</p>
+          <p className="text-sm text-center">{dict.description}</p>
         </ModalBody>
         <ModalFooter>
           <Button
@@ -59,7 +61,7 @@ export default function ConfirmationModal({
             onPress={disclosure.onClose}
             className="bg-light border"
           >
-            Cancel
+            {dict.cancel}
           </Button>
           <form action={action}>
             {children}
@@ -69,7 +71,7 @@ export default function ConfirmationModal({
               isDisabled={isPending}
               color="primary"
             >
-              Delete
+              {dict.proceed}
             </Button>
           </form>
         </ModalFooter>
