@@ -476,6 +476,9 @@
           "month": "month",
           "deactivate": {
             "label": "Deactivate",
+            "reactivate": {
+              "label": "Reactivate"
+            },
             "modal": {
               "title": "Are you sure you want to deactivate your subscription?",
               "description": "Your subscription will be canceled on the first day of the next billing cycle. Until then, the app will remain available for use.",

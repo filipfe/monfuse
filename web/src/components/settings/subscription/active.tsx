@@ -8,6 +8,7 @@ export default async function Active({
   status,
   plan,
   id,
+  cancel_at_period_end,
 }: Subscription & {
   dict: Dict["private"]["settings"]["subscription"]["active"];
 }) {
@@ -33,7 +34,10 @@ export default async function Active({
         </strong>
         <sub className="text-sm mb-1 ml-2 opacity-80">/ {dict.month}</sub>
       </p>
-      <Deactivate dict={dict.deactivate} subscriptionId={id} />
+      <Deactivate
+        dict={dict.deactivate}
+        subscription={{ id, cancel_at_period_end }}
+      />
     </div>
   );
 }
