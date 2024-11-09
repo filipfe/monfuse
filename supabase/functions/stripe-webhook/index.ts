@@ -76,8 +76,7 @@ Deno.serve(async (req) => {
       "settings",
     )
       .select(
-        "language",
-        // "language, insert_subscription_expense, subscription_expense_label"
+        "language, insert_subscription_expense, subscription_expense_label",
       )
       .eq("user_id", userId)
       .single();
@@ -87,7 +86,7 @@ Deno.serve(async (req) => {
         `Couldn't retrieve settings for ${userId} customer: `,
         settingsError,
       );
-    } else {
+    } else if (settings.insert_subscription_expense) {
       const { error } = await supabase.from("expenses").insert({
         title: subscriptionTitle[settings.language as Locale],
         user_id: userId,
@@ -95,6 +94,7 @@ Deno.serve(async (req) => {
           ? invoice.total
           : invoice.total / 100,
         currency: invoice.currency.toUpperCase(),
+        label: settings.subscription_expense_label || null,
       });
       error && console.error("Couldn't insert expense: ", error);
     }
