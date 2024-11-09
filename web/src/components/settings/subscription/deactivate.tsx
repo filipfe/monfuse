@@ -15,7 +15,11 @@ export default function Deactivate({
   const disclosure = useDisclosure();
   return (
     <>
-      <Button className="border bg-white" disableRipple>
+      <Button
+        className="border bg-white"
+        disableRipple
+        onClick={disclosure.onOpen}
+      >
         {dict.label}
       </Button>
       <ConfirmationModal
