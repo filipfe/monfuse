@@ -471,6 +471,9 @@
           "month": "mes",
           "deactivate": {
             "label": "Desactivar",
+            "reactivate": {
+              "label": "Reactivate"
+            },
             "modal": {
               "title": "¿Estás seguro de que deseas desactivar tu suscripción?",
               "description": "Tu suscripción se cancelará el primer día del próximo ciclo de facturación. Hasta entonces, la aplicación seguirá disponible para su uso.",

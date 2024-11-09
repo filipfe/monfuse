@@ -475,6 +475,9 @@
           "month": "miesiąc",
           "deactivate": {
             "label": "Dezaktywuj",
+            "reactivate": {
+              "label": "Reactivar"
+            },
             "modal": {
               "title": "Czy na pewno chcesz dezaktywować subskrypcję?",
               "description": "Twoja subskrypcja zostanie anulowana w pierwszym dniu następnego cyklu rozliczeniowego. Do tego czasu aplikacja będzie dostępna do używania.",

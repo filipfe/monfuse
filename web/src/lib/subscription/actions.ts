@@ -4,6 +4,7 @@ import stripe from "@/utils/stripe/server";
 import { createClient } from "@/utils/supabase/server";
 import Stripe from "stripe";
 import { createClient as createDefaultClient } from "@supabase/supabase-js";
+import { revalidatePath } from "next/cache";
 
 export async function getOrCreateSubscription(): Promise<
   SupabaseSingleRowResponse<Subscription>
@@ -97,12 +98,14 @@ export async function getOrCreateSubscription(): Promise<
   }
 }
 
-export async function cancelSubscription(formData: FormData) {
+export async function cancelOrReactivateSubscription(formData: FormData) {
   const subscriptionId = formData.get("subscription_id") as string;
+  const shouldCancel = formData.get("should_cancel") as string;
   try {
     await stripe.subscriptions.update(subscriptionId, {
-      cancel_at_period_end: true,
+      cancel_at_period_end: shouldCancel === "true",
     });
+    revalidatePath("/settings/subscription");
     return {};
   } catch (err) {
     return {
