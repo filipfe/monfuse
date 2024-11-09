@@ -22,7 +22,8 @@
     },
     "general": {
       "incomes": "Incomes",
-      "expenses": "Expenses"
+      "expenses": "Expenses",
+      "_error": "An error occurred, please try again later"
     },
     "dashboard": {
       "latest-operations": {
@@ -224,10 +225,47 @@
                 "_error": "An error occurred while adding the limit"
               }
             }
+          },
+          "delete": {
+            "modal": {
+              "title": "Are you sure you want to delete the limit?",
+              "description": "The limit will be deleted immediately, but it will be possible to add a new limit.",
+              "proceed": "Delete",
+              "cancel": "Cancel"
+            }
           }
         }
       },
-      "recurring-payments": {}
+      "recurring-payments": {
+        "upcoming": {
+          "title": "Upcoming",
+          "timer": {
+            "days": "days",
+            "hours": "hours",
+            "minutes": "minutes"
+          },
+          "_empty": {
+            "title": "No upcoming payments"
+          }
+        },
+        "active": {
+          "title": "Active",
+          "add": {
+            "label": "Add"
+          }
+        },
+        "latest": {
+          "title": "Latest"
+        },
+        "calendar": {
+          "popup": {
+            "add": {
+              "title": "Add payment",
+              "description": "New recurring payment"
+            }
+          }
+        }
+      }
     },
     "goals": {
       "list": {
@@ -411,6 +449,18 @@
             "label": "Time zone",
             "placeholder": "Select time zone"
           }
+        },
+        "insert-subscription-expense": {
+          "_error": "An error occurred, please try again later",
+          "title": "Add Subscription Expense",
+          "description": "Automatically record the Monfuse subscription expense",
+          "label": {
+            "label": "Label",
+            "default": "All",
+            "description": "expenses",
+            "placeholder": "Apps",
+            "save": "Save"
+          }
         }
       },
       "subscription": {
@@ -424,7 +474,15 @@
           "title": ["Subscription active", "Trial period active"],
           "description": "Thank you for using Monfuse",
           "month": "month",
-          "button": "Deactivate"
+          "deactivate": {
+            "label": "Deactivate",
+            "modal": {
+              "title": "Are you sure you want to deactivate your subscription?",
+              "description": "Your subscription will be canceled on the first day of the next billing cycle. Until then, the app will remain available for use.",
+              "proceed": "Confirm",
+              "cancel": "Back"
+            }
+          }
         },
         "benefits": {
           "title": "What do you get?",

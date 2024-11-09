@@ -9,7 +9,7 @@ export async function getSettings(): Promise<Settings> {
   const { data, error } = await supabase
     .from("profiles")
     .select(
-      "telegram_token, telegram_id, ...settings(timezone, currency, language), notifications:settings(telegram:telegram_notifications, email:email_notifications)"
+      "telegram_token, telegram_id, ...settings(timezone, currency, language, insert_subscription_expense, subscription_expense_label), notifications:settings(telegram:telegram_notifications, email:email_notifications)",
     )
     .returns<Settings>()
     .single();
@@ -26,7 +26,7 @@ export const useSettings = () => useSWR("settings", () => getSettings());
 export async function getServices(): Promise<Service[]> {
   const supabase = createClient();
   const { data: services, error } = await supabase.rpc(
-    "get_settings_subscription_services"
+    "get_settings_subscription_services",
   );
 
   if (error) {
@@ -52,6 +52,7 @@ async function getLimits(timezone: string, currency: string): Promise<Limit[]> {
 }
 
 export const useLimits = (timezone: string, currency: string) =>
-  useSWR(["limits", timezone, currency], ([_k, tz, curr]) =>
-    getLimits(tz, curr)
+  useSWR(
+    ["limits", timezone, currency],
+    ([_k, tz, curr]) => getLimits(tz, curr),
   );

@@ -104,6 +104,8 @@ type Settings = {
     telegram: boolean;
     email: boolean;
   };
+  insert_subscription_expense: boolean;
+  subscription_expense_label: string;
 };
 
 type PageParams = {

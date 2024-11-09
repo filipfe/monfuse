@@ -9,7 +9,7 @@ import Logo from "@/assets/svg/logo";
 export default function Header({ dict }: { dict: Dict }) {
   return (
     <header className="relative z-30">
-      <Wrapper>
+      <Wrapper dict={dict.landing.title}>
         <nav aria-labelledby="mainmenulabel">
           <h2 id="mainmenulabel" className="sr-only">
             Main Menu
@@ -96,7 +96,7 @@ export default function Header({ dict }: { dict: Dict }) {
                 className="text-sm font-medium px-3.5 lg:px-7 py-3"
                 href="/blog"
               >
-                Blog
+                {dict.blog.title}
               </Link>
             </li>
             {/* <li className="inline-block">
@@ -110,9 +110,9 @@ export default function Header({ dict }: { dict: Dict }) {
           </ul>
           <div className="sm:hidden">
             <MobileDrawer>
-              <ul className="my-5">
+              <ul className="my-5 flex flex-col">
                 <DropdownLink title={dict.services.title} isMobile>
-                  <ul className="grid grid-cols-2 gap-2 gap-y-4 px-1 pt-4 pb-2.5">
+                  <ul className="grid grid-cols-2 gap-2 gap-y-4 px-1 pt-1.5 pb-3">
                     <li>
                       <Link
                         className="text-sm !text-foreground rounded-md"
@@ -176,25 +176,25 @@ export default function Header({ dict }: { dict: Dict }) {
                     </li>
                   </ul>
                 </DropdownLink>
-                <li className="my-2.5">
+                <li>
                   <Link
-                    className="px-1 inline-block min-w-full text-sm font-medium w-full py-1"
+                    className="px-1 min-w-full text-sm font-medium w-full h-11 flex items-center border-t"
                     href="/ai-assistant"
                   >
                     {dict["ai-assistant"].title}
                   </Link>
                 </li>
-                <li className="my-2.5">
+                <li>
                   <Link
-                    className="px-1 inline-block min-w-full text-sm font-medium w-full py-1"
+                    className="px-1 min-w-full text-sm font-medium w-full h-11 flex items-center border-t"
                     href="/pricing"
                   >
                     {dict.pricing.title}
                   </Link>
                 </li>
-                <li className="my-2.5">
+                <li>
                   <Link
-                    className="px-1 inline-block min-w-full text-sm font-medium w-full py-1"
+                    className="px-1 min-w-full text-sm font-medium w-full h-11 flex items-center border-t"
                     href="/blog"
                   >
                     {dict.blog.title}
@@ -209,12 +209,12 @@ export default function Header({ dict }: { dict: Dict }) {
                   </Link>
                 </li> */}
               </ul>
-              <div className="bg-primary/20 rounded-lg p-1 flex items-center">
+              <div className="bg-primary/20 rounded-lg h-12 px-1 flex items-center">
                 <Link
                   href="https://app.monfuse.com"
-                  className="bg-primary w-full text-center py-2.5 text-sm px-5 rounded-md !text-white"
+                  className="bg-primary w-full text-center h-10 text-sm px-5 rounded-md !text-white flex items-center justify-center"
                 >
-                  Rozpocznij
+                  {dict.landing.hero.cta.primary}
                 </Link>
               </div>
             </MobileDrawer>
@@ -225,7 +225,7 @@ export default function Header({ dict }: { dict: Dict }) {
             href="https://app.monfuse.com"
             className="bg-primary py-2.5 text-sm px-5 rounded-md !text-white"
           >
-            Rozpocznij
+            {dict.landing.hero.cta.primary}
           </Link>
         </div>
       </Wrapper>

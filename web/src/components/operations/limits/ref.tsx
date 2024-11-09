@@ -46,7 +46,7 @@ export default function LimitRef({ dict, period, settings, onAdd }: Props) {
     >
       <div
         className={cn(
-          "flex justify-between gap-3",
+          "flex justify-between gap-3 flex-1",
           !isLoading && !limit ? "items-start" : "items-center"
         )}
       >
@@ -113,6 +113,7 @@ export default function LimitRef({ dict, period, settings, onAdd }: Props) {
                 onSuccess={mutate}
                 disclosure={deleteDisclosure}
                 mutation={deleteLimit}
+                dict={dict.delete.modal}
               >
                 <input type="hidden" name="period" value={limit.period} />
               </ConfirmationModal>

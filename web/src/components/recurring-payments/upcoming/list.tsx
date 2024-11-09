@@ -5,16 +5,28 @@ import Ref from "./ref";
 import { useUpcomingPayments } from "@/lib/recurring-payments/queries";
 import Empty from "@/components/ui/empty";
 import { Coins } from "lucide-react";
+import { Dict } from "@/const/dict";
 
-export default function Upcoming({ timezone }: { timezone: string }) {
+export default function Upcoming({
+  timezone,
+  dict,
+}: {
+  timezone: string;
+  dict: Dict["private"]["operations"]["recurring-payments"]["upcoming"];
+}) {
   const { data: payments } = useUpcomingPayments(timezone);
 
   return (
-    <Block title="Nadchodzące" className="2xl:min-h-48">
+    <Block title={dict.title} className="2xl:min-h-48">
       <div className="flex flex-col lg:grid grid-cols-3">
         {payments && payments.length > 0 ? (
           payments.map((payment) => (
-            <Ref timezone={timezone} payment={payment} key={payment.id} />
+            <Ref
+              dict={dict.timer}
+              timezone={timezone}
+              payment={payment}
+              key={payment.id}
+            />
           ))
         ) : (
           <Empty icon={Coins} title="Brak nadchodzących płatności!" />

@@ -19,7 +19,8 @@
     },
     "general": {
       "incomes": "Ingresos",
-      "expenses": "Gastos"
+      "expenses": "Gastos",
+      "_error": "Ocurrió un error, por favor intenta de nuevo más tarde"
     },
     "dashboard": {
       "latest-operations": {
@@ -221,10 +222,47 @@
                 "_error": "Ocurrió un error al agregar el límite"
               }
             }
+          },
+          "delete": {
+            "modal": {
+              "title": "¿Estás seguro de que deseas eliminar el límite?",
+              "description": "El límite se eliminará de inmediato, pero será posible añadir un nuevo límite.",
+              "proceed": "Eliminar",
+              "cancel": "Cancelar"
+            }
           }
         }
       },
-      "recurring-payments": {}
+      "recurring-payments": {
+        "upcoming": {
+          "title": "Próximos",
+          "timer": {
+            "days": "días",
+            "hours": "horas",
+            "minutes": "minutos"
+          },
+          "_empty": {
+            "title": "No hay pagos próximos"
+          }
+        },
+        "active": {
+          "title": "Activos",
+          "add": {
+            "label": "Agregar"
+          }
+        },
+        "latest": {
+          "title": "Reciente"
+        },
+        "calendar": {
+          "popup": {
+            "add": {
+              "title": "Agregar pago",
+              "description": "Nuevo pago recurrente"
+            }
+          }
+        }
+      }
     },
     "goals": {
       "list": {
@@ -406,6 +444,18 @@
             "label": "Zona horaria",
             "placeholder": "Selecciona la zona horaria"
           }
+        },
+        "insert-subscription-expense": {
+          "_error": "Ocurrió un error, por favor intenta de nuevo más tarde",
+          "title": "Agregar Gasto de Suscripción",
+          "description": "Registrar automáticamente el gasto de suscripción de Monfuse",
+          "label": {
+            "label": "Etiqueta",
+            "default": "Todas",
+            "description": "gastos",
+            "placeholder": "Aplicaciones",
+            "save": "Guardar"
+          }
         }
       },
       "subscription": {
@@ -419,7 +469,15 @@
           "title": ["Suscripción activa", "Período de prueba activo"],
           "description": "Gracias por usar Monfuse",
           "month": "mes",
-          "button": "Desactivar"
+          "deactivate": {
+            "label": "Desactivar",
+            "modal": {
+              "title": "¿Estás seguro de que deseas desactivar tu suscripción?",
+              "description": "Tu suscripción se cancelará el primer día del próximo ciclo de facturación. Hasta entonces, la aplicación seguirá disponible para su uso.",
+              "proceed": "Confirmar",
+              "cancel": "Volver"
+            }
+          }
         },
         "benefits": {
           "title": "¿Qué obtienes?",

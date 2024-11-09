@@ -1,5 +1,7 @@
 "use client";
 
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import { VisuallyHidden } from "react-aria";
 import { Drawer } from "vaul";
 
@@ -8,8 +10,15 @@ export default function MobileDrawer({
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
+
   return (
-    <Drawer.Root>
+    <Drawer.Root open={isOpen} onOpenChange={setIsOpen}>
       <Drawer.Trigger className="flex flex-col gap-1 mr-5">
         <span className="sr-only">Open main menu</span>
         <div className="bg-current h-0.5 w-5 rounded-full" />
