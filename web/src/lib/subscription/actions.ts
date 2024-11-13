@@ -13,7 +13,9 @@ export async function getOrCreateSubscription(): Promise<
 
   const { data: user, error: authError } = await supabase
     .from("profiles")
-    .select("id")
+    .select("id, settings(currency)").returns<
+    { id: string; settings: { currency: string } }[]
+  >()
     .single();
 
   if (authError) {
@@ -55,26 +57,39 @@ export async function getOrCreateSubscription(): Promise<
     let subscription: Omit<Subscription, "plan" | "client_secret"> | null =
       pastSubscription?.attrs;
 
-    if (!pastSubscription) {
+    if (!subscription) {
+      const prices = await stripe.prices.search({
+        query:
+          `currency:"${user.settings.currency.toLowerCase()}" product:"prod_QtxAT8BXU4iCe1"`,
+      });
+      if (prices.data.length === 0) {
+        throw new Error(`Couldn't find price for ${user.settings.currency}`);
+      }
       const newSubscription = await stripe.subscriptions.create({
         customer: user.id,
         items: [
           {
-            price: "price_1Q29GeHYqwp6mI9OmhDOBQ1G",
+            price: prices.data[0].id,
           },
         ],
         payment_behavior: "default_incomplete",
         payment_settings: { save_default_payment_method: "on_subscription" },
         expand: ["latest_invoice.payment_intent"],
+        trial_period_days: 7,
+        trial_settings: {
+          end_behavior: {
+            missing_payment_method: "cancel",
+          },
+        },
       });
-      subscription = newSubscription;
+      subscription = { ...newSubscription, is_trial: true };
       client_secret = (
         (newSubscription.latest_invoice as Stripe.Invoice)
           .payment_intent as Stripe.PaymentIntent
       ).client_secret;
     } else {
       const { payment_intent } = await stripe.invoices.retrieve(
-        pastSubscription.attrs.latest_invoice as string,
+        subscription.latest_invoice as string,
       );
 
       const paymentIntent = await stripe.paymentIntents.retrieve(
@@ -83,6 +98,7 @@ export async function getOrCreateSubscription(): Promise<
 
       client_secret = paymentIntent.client_secret;
     }
+
     return {
       result: {
         ...(subscription as Subscription),
@@ -90,9 +106,9 @@ export async function getOrCreateSubscription(): Promise<
       },
     };
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return {
-      error: "Could not retrieve or create a subscription. Please, try again.",
+      error: (err as Error).message,
       result: null,
     };
   }

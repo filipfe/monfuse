@@ -20,7 +20,7 @@ export default async function Home({ params }: PageProps) {
       <BentoGrid dict={{ ...dict["bento-grid"], card: dictCard }} />
       <Services dict={dict.services} />
       <AIAssistant dict={dict["ai-assistant"]} />
-      <Pricing dict={dict.pricing} />
+      <Pricing dict={dict.pricing} lang={lang} />
       <FAQ dict={dict.faq} />
     </div>
   );

@@ -12,7 +12,7 @@ export default async function Page({ params }: PageProps) {
   return (
     <div>
       <Skeleton dict={pricing} />
-      <Pricing dict={landingPricing} />
+      <Pricing dict={landingPricing} lang={lang} />
       <FAQ dict={{ ...dictFaq, items: pricing.faq }} />
     </div>
   );
