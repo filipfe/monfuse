@@ -1,13 +1,24 @@
 import { Dict } from "@/dict";
 import Link from "next/link";
-import Price from "./pricing/price";
 import { Check } from "lucide-react";
+import stripe from "@/lib/stripe";
+import { LOCALE_CURRENCIES } from "@/lib/currencies";
 
-export default function Pricing({
+export default async function Pricing({
   dict,
+  lang,
 }: {
   dict: Dict["landing"]["pricing"];
+  lang: Locale;
 }) {
+  const prices = await stripe.prices
+    .search({
+      query: `currency:"${LOCALE_CURRENCIES[
+        lang
+      ].toLowerCase()}" product:"prod_QtxAT8BXU4iCe1"`,
+    })
+    .then((res) => res.data);
+  const price = prices[0];
   return (
     <section className="py-16 sm:py-24 sm:px-6">
       <div className="w-full max-w-7xl mx-auto">
@@ -48,7 +59,14 @@ export default function Pricing({
             <div className="flex-1 flex flex-col justify-center gap-6 min-h-24">
               <div className="flex justify-center items-end gap-2">
                 <strong className="text-3xl/none sm:text-4xl/none">
-                  <Price />
+                  {new Intl.NumberFormat(lang, {
+                    currency: price ? LOCALE_CURRENCIES[lang] : "USD",
+                    style: "currency",
+                  }).format(
+                    ["JPY", "KRW", "IDR"].includes(price.currency.toUpperCase())
+                      ? (price?.unit_amount as number) || 12
+                      : ((price?.unit_amount as number) || 12) / 100
+                  )}
                 </strong>
                 <sub className="text-font/75 mb-3">
                   / {dict.block.price.month}

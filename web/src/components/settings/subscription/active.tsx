@@ -34,10 +34,12 @@ export default async function Active({
         </strong>
         <sub className="text-sm mb-1 ml-2 opacity-80">/ {dict.month}</sub>
       </p>
-      <Deactivate
-        dict={dict.deactivate}
-        subscription={{ id, cancel_at_period_end }}
-      />
+      {status !== "trialing" && (
+        <Deactivate
+          dict={dict.deactivate}
+          subscription={{ id, cancel_at_period_end }}
+        />
+      )}
     </div>
   );
 }
