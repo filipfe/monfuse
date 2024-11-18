@@ -1,4 +1,4 @@
-import { langs } from "@/dict";
+import { LOCALES } from "@/lib/locales";
 import { Metadata } from "next";
 
 const metadata: Omit<Metadata, "openGraph"> = {
@@ -8,7 +8,7 @@ const metadata: Omit<Metadata, "openGraph"> = {
 export const openGraph: Metadata["openGraph"] = {
   type: "website",
   siteName: "Monfuse",
-  alternateLocale: langs,
+  alternateLocale: LOCALES,
 };
 
 export const twitter: Metadata["twitter"] = {

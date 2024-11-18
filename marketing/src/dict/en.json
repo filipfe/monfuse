@@ -358,6 +358,10 @@
     ]
   },
   "blog": {
+    "_metadata": {
+      "title": "Blog, Learn How To Manage Your Finances Effectively | Monfuse",
+      "description": "Discover tips and practical advice on managing your finances effectively. The Monfuse Blog covers budgeting, expense tracking, financial goal setting, and more to help you achieve financial wellness."
+    },
     "title": "Blog",
     "description": "Learn how to manage your finances effectively with Monfuse",
     "article": {

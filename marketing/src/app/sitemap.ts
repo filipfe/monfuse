@@ -1,5 +1,5 @@
-import { langs } from "@/dict";
 import { articles } from "@/dict/blog";
+import { LOCALES } from "@/lib/locales";
 import type { MetadataRoute } from "next";
 
 const urls = [
@@ -23,10 +23,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 1,
     lastModified: new Date(),
     alternates: {
-      languages: langs.reduce(
-        (prev, lang) => ({
+      languages: LOCALES.reduce(
+        (prev, locale) => ({
           ...prev,
-          [lang]: `https://www.monfuse.com/${lang}${url}`,
+          [locale]: `https://www.monfuse.com/${locale}${url}`,
         }),
         {},
       ),

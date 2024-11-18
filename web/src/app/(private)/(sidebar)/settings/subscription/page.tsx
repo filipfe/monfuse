@@ -7,8 +7,8 @@ import { Check, ChevronRight } from "lucide-react";
 import Link from "next/link";
 
 export default async function Subscription() {
-  const { result: subscription, error } = await getOrCreateSubscription();
   const settings = await getSettings();
+  const { result: subscription, error } = await getOrCreateSubscription();
 
   const {
     private: {

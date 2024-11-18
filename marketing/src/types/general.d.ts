@@ -1,7 +1,9 @@
-type Locale = "pl" | "en";
+type Lang = "pl" | "en";
+
+type Locale = `${Lang}-${string}`;
 
 type PageProps = {
   params: Promise<{
-    lang: Locale;
+    locale: Locale;
   }>;
 };

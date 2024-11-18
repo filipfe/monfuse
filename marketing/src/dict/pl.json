@@ -358,6 +358,10 @@
     ]
   },
   "blog": {
+    "_metadata": {
+      "title": "Blog, Poznaj Sposoby na Efektywne Zarządzanie Finansami | Monfuse",
+      "description": "Odkryj porady i praktyczne wskazówki dotyczące skutecznego zarządzania finansami. Blog Monfuse obejmuje tematy takie jak budżetowanie, śledzenie wydatków, ustalanie celów finansowych i wiele więcej, aby pomóc Ci osiągnąć finansową równowagę."
+    },
     "title": "Blog",
     "description": "Poznaj sposoby efektywniejszego zarządzania finansami z Monfuse",
     "article": {
