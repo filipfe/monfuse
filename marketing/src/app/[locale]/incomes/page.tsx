@@ -1,14 +1,17 @@
-import getDictionary, { langs } from "@/dict";
+import getDictionary from "@/dict";
 import Skeleton from "@/components/services/skeleton";
 import FAQ from "@/components/landing/faq";
 import IncomeCard from "@/components/landing/cards/income";
 import { Metadata } from "next";
 import metadata, { openGraph } from "@/app/shared-metadata";
+import { getLang } from "@/lib/utils";
+import { LOCALES } from "@/lib/locales";
 
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  const { lang } = await params;
+  const { locale } = await params;
+  const lang = getLang(locale);
   const {
     services: {
       items: {
@@ -21,16 +24,16 @@ export async function generateMetadata({
     ...metadata,
     openGraph: {
       ..._metadata,
-      url: new URL(`https://www.monfuse.com/${lang}/incomes`),
-      locale: lang,
+      url: new URL(`https://www.monfuse.com/${locale}/incomes`),
+      locale,
       ...openGraph,
     },
     alternates: {
-      canonical: new URL(`https://www.monfuse.com/${lang}/incomes`),
-      languages: langs.reduce(
-        (prev, lang) => ({
+      canonical: new URL(`https://www.monfuse.com/${locale}/incomes`),
+      languages: LOCALES.reduce(
+        (prev, locale) => ({
           ...prev,
-          [lang]: `https://www.monfuse.com/${lang}/incomes`,
+          [lang]: `https://www.monfuse.com/${locale}/incomes`,
         }),
         {}
       ),
@@ -39,7 +42,8 @@ export async function generateMetadata({
 }
 
 export default async function Page({ params }: PageProps) {
-  const { lang } = await params;
+  const { locale } = await params;
+  const lang = getLang(locale);
   const {
     services: {
       items: { incomes },

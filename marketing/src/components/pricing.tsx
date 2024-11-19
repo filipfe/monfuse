@@ -6,19 +6,38 @@ import { LOCALE_CURRENCIES } from "@/lib/currencies";
 
 export default async function Pricing({
   dict,
-  lang,
+  locale,
 }: {
   dict: Dict["landing"]["pricing"];
-  lang: Locale;
+  locale: Locale;
 }) {
+  // let locale: Locale;
+
+  // const res = await fetch(
+  //   `${
+  //     process.env.NODE_ENV === "development"
+  //       ? "http://localhost:3000"
+  //       : "https://www.monfuse.com"
+  //   }/api/locale`
+  // );
+
+  // if (res.ok) {
+  //   const data = await res.json();
+  //   console.log({ data });
+  //   locale = data.locale;
+  // } else {
+  //   return <></>;
+  // }
+
   const prices = await stripe.prices
     .search({
       query: `currency:"${LOCALE_CURRENCIES[
-        lang
+        locale
       ].toLowerCase()}" product:"prod_QtxAT8BXU4iCe1"`,
     })
     .then((res) => res.data);
   const price = prices[0];
+
   return (
     <section className="py-16 sm:py-24 sm:px-6">
       <div className="w-full max-w-7xl mx-auto">
@@ -59,8 +78,8 @@ export default async function Pricing({
             <div className="flex-1 flex flex-col justify-center gap-6 min-h-24">
               <div className="flex justify-center items-end gap-2">
                 <strong className="text-3xl/none sm:text-4xl/none">
-                  {new Intl.NumberFormat(lang, {
-                    currency: price ? LOCALE_CURRENCIES[lang] : "USD",
+                  {new Intl.NumberFormat(locale, {
+                    currency: price ? LOCALE_CURRENCIES[locale] : "USD",
                     style: "currency",
                   }).format(
                     ["JPY", "KRW", "IDR"].includes(price.currency.toUpperCase())

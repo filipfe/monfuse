@@ -1,39 +1,44 @@
 import { articles } from "@/dict/blog";
 import { Metadata } from "next";
 import _metadata, { openGraph, twitter } from "@/app/shared-metadata";
-import getDictionary, { langs } from "@/dict";
+import getDictionary from "@/dict";
 import ArticleRef from "@/components/blog/article";
+import { LOCALES } from "@/lib/locales";
+import { getLang } from "@/lib/utils";
 
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  const { lang } = await params;
+  const { locale } = await params;
+  const lang = getLang(locale);
+  const {
+    blog: {
+      _metadata: { title, description },
+    },
+  } = await getDictionary(lang);
   return {
     ..._metadata,
-    title: "Blog, Learn How To Manage Your Finances Effectively | Monfuse",
-    description:
-      "Discover tips and practical advice on managing your finances effectively. The Monfuse Blog covers budgeting, expense tracking, financial goal setting, and more to help you achieve financial wellness.",
+    title,
+    description,
     openGraph: {
       ...openGraph,
-      url: new URL(`https://www.monfuse.com/${lang}`),
-      locale: lang,
-      title: "Blog, Learn How To Manage Your Finances Effectively | Monfuse",
-      description:
-        "Discover tips and practical advice on managing your finances effectively. The Monfuse Blog covers budgeting, expense tracking, financial goal setting, and more to help you achieve financial wellness.",
-      type: "article",
+      url: new URL(`https://www.monfuse.com/${locale}`),
+      locale,
+      title,
+      description,
+      type: "website",
     },
     twitter: {
       ...twitter,
-      title: "Blog, Learn How To Manage Your Finances Effectively | Monfuse",
-      description:
-        "Discover tips and practical advice on managing your finances effectively. The Monfuse Blog covers budgeting, expense tracking, financial goal setting, and more to help you achieve financial wellness.",
+      title,
+      description,
     },
     alternates: {
-      canonical: new URL(`https://www.monfuse.com/${lang}/blog`),
-      languages: langs.reduce(
-        (prev, lang) => ({
+      canonical: new URL(`https://www.monfuse.com/${locale}/blog`),
+      languages: LOCALES.reduce(
+        (prev, locale) => ({
           ...prev,
-          [lang]: `https://www.monfuse.com/${lang}/blog`,
+          [lang]: `https://www.monfuse.com/${locale}/blog`,
         }),
         {}
       ),
@@ -41,12 +46,9 @@ export async function generateMetadata({
   };
 }
 
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ lang: Locale }>;
-}) {
-  const { lang } = await params;
+export default async function Page({ params }: PageProps) {
+  const { locale } = await params;
+  const lang = getLang(locale);
   const { blog } = await getDictionary(lang);
   const data = await Promise.all(
     Object.entries(articles).map(([href, article]) =>

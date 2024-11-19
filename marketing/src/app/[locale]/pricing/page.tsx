@@ -2,9 +2,11 @@ import FAQ from "@/components/landing/faq";
 import Pricing from "@/components/pricing";
 import Skeleton from "@/components/services/skeleton";
 import getDictionary from "@/dict";
+import { getLang } from "@/lib/utils";
 
 export default async function Page({ params }: PageProps) {
-  const { lang } = await params;
+  const { locale } = await params;
+  const lang = getLang(locale);
   const {
     pricing,
     landing: { faq: dictFaq, pricing: landingPricing },
@@ -12,7 +14,7 @@ export default async function Page({ params }: PageProps) {
   return (
     <div>
       <Skeleton dict={pricing} />
-      <Pricing dict={landingPricing} lang={lang} />
+      <Pricing dict={landingPricing} locale={locale} />
       <FAQ dict={{ ...dictFaq, items: pricing.faq }} />
     </div>
   );

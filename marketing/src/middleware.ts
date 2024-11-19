@@ -1,23 +1,23 @@
 import { NextRequest, NextResponse } from "next/server";
 import { match } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
+import { LANGS, LOCALES } from "./lib/locales";
 
-const locales = ["en", "pl"];
-const defaultLocale = "en";
+const defaultLocale = "en-US";
 
 // Get the preferred locale, similar to the above or using a library
 function getLocale(req: NextRequest) {
   const headers: Record<string, string> = {};
   req.headers.forEach((value, key) => (headers[key] = value));
   const languages = new Negotiator({ headers }).languages();
-  const locale = match(languages, locales, defaultLocale);
+  const locale = match(languages, LOCALES, defaultLocale);
   return locale;
 }
 
 export function middleware(req: NextRequest) {
   // Check if there is any supported locale in the pathname
   const { pathname } = req.nextUrl;
-  const pathnameHasLocale = locales.some(
+  const pathnameHasLocale = LOCALES.some(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
   );
 

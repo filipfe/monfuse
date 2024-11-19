@@ -4,12 +4,13 @@ import "../globals.css";
 import Header from "@/components/ui/header/content";
 import Footer from "@/components/ui/footer";
 import Banner from "@/components/ui/banner";
-import getDictionary, { langs } from "@/dict";
+import getDictionary from "@/dict";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import metadata, { openGraph } from "../shared-metadata";
 import { Analytics } from "@vercel/analytics/react";
-import { cn } from "@/lib/utils";
+import { cn, getLang } from "@/lib/utils";
 import Script from "next/script";
+import { LOCALES } from "@/lib/locales";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,7 +23,8 @@ const inter = Inter({ subsets: ["latin"] });
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  const { lang } = await params;
+  const { locale } = await params;
+  const lang = getLang(locale);
   const { _metadata } = await getDictionary(lang);
   return {
     ..._metadata,
@@ -30,8 +32,8 @@ export async function generateMetadata({
     openGraph: {
       title: _metadata.title,
       description: _metadata.description,
-      url: new URL(`https://www.monfuse.com/${lang}`),
-      locale: lang,
+      url: new URL(`https://www.monfuse.com/${locale}`),
+      locale,
       ...openGraph,
     },
     twitter: {
@@ -40,11 +42,11 @@ export async function generateMetadata({
       card: "summary_large_image",
     },
     alternates: {
-      canonical: new URL(`https://www.monfuse.com/${lang}`),
-      languages: langs.reduce(
+      canonical: new URL(`https://www.monfuse.com/${locale}`),
+      languages: LOCALES.reduce(
         (prev, lang) => ({
           ...prev,
-          [lang]: `https://www.monfuse.com/${lang}`,
+          [lang]: `https://www.monfuse.com/${locale}`,
         }),
         {}
       ),
@@ -53,7 +55,7 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams() {
-  return langs.map((lang) => ({ lang }));
+  return LOCALES.map((locale) => ({ locale }));
 }
 
 export default async function RootLayout({
@@ -61,10 +63,11 @@ export default async function RootLayout({
   params,
 }: Readonly<{
   children: React.ReactNode;
-  params: Promise<{ lang: Locale }>;
+  params: Promise<{ locale: Locale }>;
 }>) {
-  const { lang } = await params;
-  const dict = await getDictionary(lang);
+  const { locale } = await params;
+  const [lang] = locale.split("-");
+  const dict = await getDictionary(lang as Lang);
   const { banner } = dict;
   return (
     <html lang={lang} className="light">
