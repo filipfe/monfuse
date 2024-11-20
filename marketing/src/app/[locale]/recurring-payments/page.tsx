@@ -1,15 +1,18 @@
-import getDictionary, { langs } from "@/dict";
+import getDictionary from "@/dict";
 import Skeleton from "@/components/services/skeleton";
 import FAQ from "@/components/landing/faq";
 import IncomeCard from "@/components/landing/cards/income";
 import { Metadata } from "next";
 import metadata, { openGraph } from "@/app/shared-metadata";
 import Description from "@/components/services/description";
+import { getLang } from "@/lib/utils";
+import { LOCALES } from "@/lib/locales";
 
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  const { lang } = await params;
+  const { locale } = await params;
+  const lang = getLang(locale);
   const {
     services: { items },
   } = await getDictionary(lang);
@@ -18,16 +21,18 @@ export async function generateMetadata({
     ...metadata,
     openGraph: {
       ...items["recurring-payments"]._metadata,
-      url: new URL(`https://www.monfuse.com/${lang}/recurring-payments`),
+      url: new URL(`https://www.monfuse.com/${locale}/recurring-payments`),
       locale: lang,
       ...openGraph,
     },
     alternates: {
-      canonical: new URL(`https://www.monfuse.com/${lang}/recurring-payments`),
-      languages: langs.reduce(
-        (prev, lang) => ({
+      canonical: new URL(
+        `https://www.monfuse.com/${locale}/recurring-payments`
+      ),
+      languages: LOCALES.reduce(
+        (prev, locale) => ({
           ...prev,
-          [lang]: `https://www.monfuse.com/${lang}/recurring-payments`,
+          [lang]: `https://www.monfuse.com/${locale}/recurring-payments`,
         }),
         {}
       ),
@@ -36,7 +41,8 @@ export async function generateMetadata({
 }
 
 export default async function Page({ params }: PageProps) {
-  const { lang } = await params;
+  const { locale } = await params;
+  const lang = getLang(locale);
   const {
     services: { items },
     landing: {

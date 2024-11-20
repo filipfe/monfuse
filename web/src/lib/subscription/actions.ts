@@ -19,6 +19,7 @@ export async function getOrCreateSubscription(): Promise<
     .single();
 
   if (authError) {
+    console.error(authError);
     return {
       error: authError.message,
       result: null,
@@ -45,6 +46,7 @@ export async function getOrCreateSubscription(): Promise<
     .maybeSingle();
 
   if (error) {
+    console.error(error);
     return {
       result: null,
       error: "Could not retrieve subscription",
@@ -65,11 +67,14 @@ export async function getOrCreateSubscription(): Promise<
       if (prices.data.length === 0) {
         throw new Error(`Couldn't find price for ${user.settings.currency}`);
       }
+      const sortedPrices = [...prices.data].sort((b, a) =>
+        b.created - a.created
+      );
       const newSubscription = await stripe.subscriptions.create({
         customer: user.id,
         items: [
           {
-            price: prices.data[0].id,
+            price: sortedPrices[0].id,
           },
         ],
         payment_behavior: "default_incomplete",

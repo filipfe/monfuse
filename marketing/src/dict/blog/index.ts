@@ -4,14 +4,13 @@ import telegramBotIntegration from "./telegram-bot-integration";
 import expenses from "./expenses";
 
 export const articles = {
-  "telegram-bot-integration": (locale: Locale) =>
-    telegramBotIntegration[locale](),
-  "expenses": (locale: Locale) => expenses[locale](),
+  "telegram-bot-integration": (lang: Lang) => telegramBotIntegration[lang](),
+  "expenses": (lang: Lang) => expenses[lang](),
 };
 
 export default async function getArticle(
   name: string,
-  locale: Locale,
+  lang: Lang,
 ) {
-  return await articles[name as keyof typeof articles](locale);
+  return await articles[name as keyof typeof articles](lang);
 }

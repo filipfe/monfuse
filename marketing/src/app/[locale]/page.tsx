@@ -6,9 +6,11 @@ import Services from "@/components/landing/services";
 import Operations from "@/components/landing/operations";
 import getDictionary from "@/dict";
 import Pricing from "@/components/pricing";
+import { getLang } from "@/lib/utils";
 
 export default async function Home({ params }: PageProps) {
-  const { lang } = await params;
+  const { locale } = await params;
+  const lang = getLang(locale);
   const {
     landing: dict,
     general: { card: dictCard },
@@ -20,7 +22,7 @@ export default async function Home({ params }: PageProps) {
       <BentoGrid dict={{ ...dict["bento-grid"], card: dictCard }} />
       <Services dict={dict.services} />
       <AIAssistant dict={dict["ai-assistant"]} />
-      <Pricing dict={dict.pricing} lang={lang} />
+      <Pricing dict={dict.pricing} locale={locale} />
       <FAQ dict={dict.faq} />
     </div>
   );
