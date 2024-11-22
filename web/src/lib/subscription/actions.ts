@@ -93,7 +93,7 @@ export async function getOrCreateSubscription(): Promise<
           .payment_intent as Stripe.PaymentIntent
       ).client_secret;
     } else if (
-      subscription.status === "active" || subscription.status === "trialing"
+      subscription.status !== "active" && subscription.status !== "trialing"
     ) {
       const { payment_intent } = await stripe.invoices.retrieve(
         subscription.latest_invoice as string,
