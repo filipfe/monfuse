@@ -97,7 +97,7 @@ type Settings = {
   last_name: string;
   currency: string;
   timezone: string;
-  language: Locale;
+  language: Lang;
   telegram_token: string;
   telegram_id: string;
   notifications: {
@@ -109,7 +109,9 @@ type Settings = {
 };
 
 type PageParams = {
-  lang: Locale;
+  locale: Locale;
 };
 
-type Locale = "pl" | "en" | "es";
+type Locale = `${Lang}-${string}`;
+
+type Lang = "pl" | "en" | "es";

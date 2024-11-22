@@ -7,7 +7,7 @@ import { Coins, Wallet2 } from "lucide-react";
 
 type Props = {
   payment: Payment;
-  languageCode: Locale;
+  languageCode: Lang;
 };
 
 export default function OperationRef({

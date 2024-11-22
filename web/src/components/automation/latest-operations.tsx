@@ -13,7 +13,7 @@ export default function LatestOperations({
   languageCode,
   dict,
 }: {
-  languageCode: Locale;
+  languageCode: Lang;
   dict: Dict["private"]["automation"]["latest-operations"];
 }) {
   const scrollAreaRef = useRef<HTMLElement | null>(null);

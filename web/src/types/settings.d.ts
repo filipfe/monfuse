@@ -1,5 +1,5 @@
 type Language = {
-  code: Locale;
+  code: Lang;
   name: string;
 };
 
@@ -14,5 +14,5 @@ type Account = {
   first_name: string;
   last_name: string;
   email: string;
-  language: Locale;
+  language: Lang;
 };
