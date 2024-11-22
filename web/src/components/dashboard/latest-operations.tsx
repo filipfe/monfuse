@@ -10,7 +10,7 @@ export default async function LatestOperations({
   languageCode,
   dict,
 }: {
-  languageCode: Locale;
+  languageCode: Lang;
   dict: Dict["private"]["dashboard"]["latest-operations"];
 }) {
   const { results: operations } = await getLatestOperations();
