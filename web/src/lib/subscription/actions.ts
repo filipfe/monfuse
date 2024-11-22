@@ -59,8 +59,6 @@ export async function getOrCreateSubscription(): Promise<
     let subscription: Omit<Subscription, "plan" | "client_secret"> | null =
       pastSubscription?.attrs;
 
-    console.warn({ subscription });
-
     if (!subscription) {
       const prices = await stripe.prices.search({
         query:
@@ -85,7 +83,7 @@ export async function getOrCreateSubscription(): Promise<
         trial_period_days: 7,
         trial_settings: {
           end_behavior: {
-            missing_payment_method: "cancel",
+            missing_payment_method: "pause",
           },
         },
       });
@@ -95,9 +93,7 @@ export async function getOrCreateSubscription(): Promise<
           .payment_intent as Stripe.PaymentIntent
       ).client_secret;
     } else if (
-      !(["active", "trialing"] as Stripe.Subscription.Status[]).includes(
-        subscription.status,
-      )
+      subscription.status === "active" || subscription.status === "trialing"
     ) {
       const { payment_intent } = await stripe.invoices.retrieve(
         subscription.latest_invoice as string,
@@ -138,5 +134,24 @@ export async function cancelOrReactivateSubscription(formData: FormData) {
     return {
       error: (err as Error).message,
     };
+  }
+}
+
+export async function resumeSubscription(id: string): Promise<string | null> {
+  try {
+    const newSubscription = await stripe.subscriptions.resume(
+      id,
+      {
+        expand: ["latest_invoice.payment_intent"],
+      },
+    );
+    const client_secret = (
+      (newSubscription.latest_invoice as Stripe.Invoice)
+        .payment_intent as Stripe.PaymentIntent
+    ).client_secret as string;
+    return client_secret;
+  } catch (err) {
+    console.error("Couldn't resume subscription: ", err);
+    return null;
   }
 }

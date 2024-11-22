@@ -2,13 +2,23 @@ import Active from "@/components/settings/subscription/active";
 import Form from "@/components/settings/subscription/form";
 import getDictionary from "@/const/dict";
 import { getSettings } from "@/lib/general/actions";
-import { getOrCreateSubscription } from "@/lib/subscription/actions";
+import {
+  getOrCreateSubscription,
+  resumeSubscription,
+} from "@/lib/subscription/actions";
 import { Check, ChevronRight } from "lucide-react";
 import Link from "next/link";
 
 export default async function Subscription() {
   const settings = await getSettings();
   const { result: subscription, error } = await getOrCreateSubscription();
+
+  if (subscription?.status === "paused") {
+    const client_secret = await resumeSubscription(subscription.id);
+    if (client_secret) {
+      subscription.client_secret = client_secret;
+    }
+  }
 
   const {
     private: {
