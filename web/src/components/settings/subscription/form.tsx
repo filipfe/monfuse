@@ -17,33 +17,35 @@ export default function Form({
 }) {
   return (
     <div className="px-10 py-8 border bg-light rounded-md">
-      <Elements
-        options={{
-          clientSecret,
-          locale: settings.language,
-          // currency: settings.currency.toLowerCase(),
-          appearance: {
-            variables: {
-              colorPrimary: "#177981",
+      {clientSecret && (
+        <Elements
+          options={{
+            clientSecret,
+            locale: settings.language,
+            // currency: settings.currency.toLowerCase(),
+            appearance: {
+              variables: {
+                colorPrimary: "#177981",
+              },
             },
-          },
-        }}
-        stripe={getStripe()}
-      >
-        <div className="flex flex-col gap-6">
-          <h4>{dict.title}</h4>
-          <p className="inline-flex items-end">
-            <strong className="text-2xl sm:text-3xl lg:text-4xl">
-              {new Intl.NumberFormat(settings.language, {
-                style: "currency",
-                currency: subscription.plan.currency,
-              }).format(subscription.plan.amount / 100)}
-            </strong>
-            <sub className="text-sm mb-1 ml-2 opacity-80">/ {dict.month}</sub>
-          </p>
-          <Checkout dict={dict._submit} />
-        </div>
-      </Elements>
+          }}
+          stripe={getStripe()}
+        >
+          <div className="flex flex-col gap-6">
+            <h4>{dict.title}</h4>
+            <p className="inline-flex items-end">
+              <strong className="text-2xl sm:text-3xl lg:text-4xl">
+                {new Intl.NumberFormat(settings.language, {
+                  style: "currency",
+                  currency: subscription.plan.currency,
+                }).format(subscription.plan.amount / 100)}
+              </strong>
+              <sub className="text-sm mb-1 ml-2 opacity-80">/ {dict.month}</sub>
+            </p>
+            <Checkout dict={dict._submit} />
+          </div>
+        </Elements>
+      )}
     </div>
   );
 }

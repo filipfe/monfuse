@@ -469,6 +469,7 @@
           "title": ["Suscripción activa", "Período de prueba activo"],
           "description": "Gracias por usar Monfuse",
           "month": "mes",
+          "trial_end": "Fin del período de prueba:",
           "deactivate": {
             "label": "Desactivar",
             "reactivate": {

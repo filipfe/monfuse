@@ -473,6 +473,7 @@
           "title": ["Subskrypcja aktywna", "Okres próbny aktywny"],
           "description": "Dziękujemy za korzystanie z Monfuse",
           "month": "miesiąc",
+          "trial_end": "Koniec okresu próbnego:",
           "deactivate": {
             "label": "Dezaktywuj",
             "reactivate": {

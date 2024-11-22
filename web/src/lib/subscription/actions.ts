@@ -89,11 +89,13 @@ export async function getOrCreateSubscription(): Promise<
             expand: ["latest_invoice.payment_intent"],
           }),
       });
-      subscription = { ...newSubscription };
-      client_secret = (
-        (newSubscription.latest_invoice as Stripe.Invoice)
-          .payment_intent as Stripe.PaymentIntent
-      ).client_secret;
+      subscription = { ...newSubscription, is_trial: !user.has_used_trial };
+      if (user.has_used_trial) {
+        client_secret = (
+          (newSubscription.latest_invoice as Stripe.Invoice)
+            .payment_intent as Stripe.PaymentIntent
+        ).client_secret;
+      }
     } else if (
       subscription.status !== "active" && subscription.status !== "trialing" &&
       subscription.status !== "paused"
