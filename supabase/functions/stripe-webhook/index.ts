@@ -61,42 +61,57 @@ Deno.serve(async (req) => {
     return new Response(err.message, { status: 400 });
   }
 
-  if (receivedEvent.type === "invoice.payment_succeeded") {
-    const invoice = receivedEvent.data.object;
-    const userId = receivedEvent.data.object.customer as string;
-    const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
-      auth: {
-        persistSession: false,
-        detectSessionInUrl: false,
-        autoRefreshToken: false,
-      },
-    });
-    const { data: settings, error: settingsError } = await supabase.from(
-      "settings",
-    )
-      .select(
-        "language, insert_subscription_expense, subscription_expense_label",
-      )
-      .eq("user_id", userId)
-      .single();
+  const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
+    auth: {
+      persistSession: false,
+      detectSessionInUrl: false,
+      autoRefreshToken: false,
+    },
+  });
 
-    if (settingsError) {
-      console.error(
-        `Couldn't retrieve settings for ${userId} customer: `,
-        settingsError,
-      );
-    } else if (settings.insert_subscription_expense) {
-      const { error } = await supabase.from("expenses").insert({
-        title: subscriptionTitle[settings.language as Locale],
-        user_id: userId,
-        amount: ["JPY", "KRW", "IDR"].includes(invoice.currency.toUpperCase())
-          ? invoice.total
-          : invoice.total / 100,
-        currency: invoice.currency.toUpperCase(),
-        label: settings.subscription_expense_label || null,
-      });
-      error && console.error("Couldn't insert expense: ", error);
+  switch (receivedEvent.type) {
+    case "invoice.payment_succeeded": {
+      const invoice = receivedEvent.data.object;
+      const userId = receivedEvent.data.object.customer as string;
+      const { data: settings, error: settingsError } = await supabase.from(
+        "settings",
+      )
+        .select(
+          "language, insert_subscription_expense, subscription_expense_label",
+        )
+        .eq("user_id", userId)
+        .single();
+
+      if (settingsError) {
+        console.error(
+          `Couldn't retrieve settings for ${userId} customer: `,
+          settingsError,
+        );
+      } else if (settings.insert_subscription_expense && invoice.total > 0) {
+        const { error } = await supabase.from("expenses").insert({
+          title: subscriptionTitle[settings.language as Locale],
+          user_id: userId,
+          amount: ["JPY", "KRW", "IDR"].includes(invoice.currency.toUpperCase())
+            ? invoice.total
+            : invoice.total / 100,
+          currency: invoice.currency.toUpperCase(),
+          label: settings.subscription_expense_label || null,
+        });
+        error && console.error("Couldn't insert expense: ", error);
+      }
+      break;
     }
+    case "customer.subscription.created": {
+      const userId = receivedEvent.data.object.customer as string;
+      const { error: updateError } = await supabase.from("profiles")
+        .update({ has_used_trial: true })
+        .eq("id", userId);
+      updateError &&
+        console.error("Couldn't update has_used_trial: ", updateError);
+      break;
+    }
+    default:
+      break;
   }
 
   return new Response("ok", { status: 200 });

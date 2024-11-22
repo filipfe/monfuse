@@ -1,0 +1,1 @@
+alter table "public"."profiles" add column "has_used_trial" boolean not null default false;
