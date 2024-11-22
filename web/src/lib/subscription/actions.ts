@@ -62,7 +62,6 @@ export async function getOrCreateSubscription(): Promise<
     console.warn({ subscription });
 
     if (!subscription) {
-      console.warn("SUBSCRIPTION NOT FOUND");
       const prices = await stripe.prices.search({
         query:
           `currency:"${user.settings.currency.toLowerCase()}" product:"prod_QtxAT8BXU4iCe1" active:"true"`,
@@ -90,25 +89,23 @@ export async function getOrCreateSubscription(): Promise<
           },
         },
       });
-      subscription = { ...newSubscription, is_trial: true };
-      console.log({ subscription });
+      subscription = { ...newSubscription };
       client_secret = (
         (newSubscription.latest_invoice as Stripe.Invoice)
           .payment_intent as Stripe.PaymentIntent
       ).client_secret;
-    } else {
-      console.warn("SUBSCRIPTION FOUND");
+    } else if (
+      !(["active", "trialing"] as Stripe.Subscription.Status[]).includes(
+        subscription.status,
+      )
+    ) {
       const { payment_intent } = await stripe.invoices.retrieve(
         subscription.latest_invoice as string,
       );
 
-      console.warn({ payment_intent });
-
       const paymentIntent = await stripe.paymentIntents.retrieve(
         payment_intent as string,
       );
-
-      console.warn({ paymentIntent });
 
       client_secret = paymentIntent.client_secret;
     }
