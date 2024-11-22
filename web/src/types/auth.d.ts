@@ -15,7 +15,6 @@ type Service = {
 
 interface Subscription extends Stripe.Subscription {
   client_secret: string;
-  is_trial: boolean;
   plan: {
     amount: number;
     currency: string;
