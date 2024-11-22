@@ -13,8 +13,8 @@ export async function getOrCreateSubscription(): Promise<
 
   const { data: user, error: authError } = await supabase
     .from("profiles")
-    .select("id, settings(currency)").returns<
-    { id: string; settings: { currency: string } }[]
+    .select("id, has_used_trial, settings(currency)").returns<
+    { id: string; has_used_trial: boolean; settings: { currency: string } }[]
   >()
     .single();
 
@@ -74,15 +74,20 @@ export async function getOrCreateSubscription(): Promise<
             price: prices.data[0].id,
           },
         ],
-        payment_behavior: "default_incomplete",
         payment_settings: { save_default_payment_method: "on_subscription" },
-        expand: ["latest_invoice.payment_intent"],
-        trial_period_days: 7,
-        trial_settings: {
-          end_behavior: {
-            missing_payment_method: "pause",
-          },
-        },
+        ...(!user.has_used_trial
+          ? ({
+            trial_period_days: 7,
+            trial_settings: {
+              end_behavior: {
+                missing_payment_method: "pause",
+              },
+            },
+          })
+          : {
+            payment_behavior: "default_incomplete",
+            expand: ["latest_invoice.payment_intent"],
+          }),
       });
       subscription = { ...newSubscription };
       client_secret = (

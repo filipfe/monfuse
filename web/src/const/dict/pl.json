@@ -476,7 +476,7 @@
           "deactivate": {
             "label": "Dezaktywuj",
             "reactivate": {
-              "label": "Reactivar"
+              "label": "Aktywuj ponownie"
             },
             "modal": {
               "title": "Czy na pewno chcesz dezaktywować subskrypcję?",

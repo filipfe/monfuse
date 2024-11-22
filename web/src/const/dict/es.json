@@ -472,7 +472,7 @@
           "deactivate": {
             "label": "Desactivar",
             "reactivate": {
-              "label": "Reactivate"
+              "label": "Reactivar"
             },
             "modal": {
               "title": "¿Estás seguro de que deseas desactivar tu suscripción?",
