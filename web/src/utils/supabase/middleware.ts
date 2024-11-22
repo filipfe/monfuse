@@ -84,11 +84,7 @@ export async function updateSession(request: NextRequest) {
       !!user.currency &&
       !!user.language &&
       !!user.timezone;
-    console.log(
-      { isAccountSetup },
-      request.nextUrl.pathname.endsWith("/account-setup"),
-      request.nextUrl.pathname,
-    );
+
     if (
       request.nextUrl.pathname.endsWith("/account-setup") && !isAccountSetup
     ) {
