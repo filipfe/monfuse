@@ -67,14 +67,11 @@ export async function getOrCreateSubscription(): Promise<
       if (prices.data.length === 0) {
         throw new Error(`Couldn't find price for ${user.settings.currency}`);
       }
-      const sortedPrices = [...prices.data].sort((b, a) =>
-        b.created - a.created
-      );
       const newSubscription = await stripe.subscriptions.create({
         customer: user.id,
         items: [
           {
-            price: sortedPrices[0].id,
+            price: prices.data[0].id,
           },
         ],
         payment_behavior: "default_incomplete",
@@ -93,7 +90,8 @@ export async function getOrCreateSubscription(): Promise<
           .payment_intent as Stripe.PaymentIntent
       ).client_secret;
     } else if (
-      subscription.status !== "active" && subscription.status !== "trialing"
+      subscription.status !== "active" && subscription.status !== "trialing" &&
+      subscription.status !== "paused"
     ) {
       const { payment_intent } = await stripe.invoices.retrieve(
         subscription.latest_invoice as string,
