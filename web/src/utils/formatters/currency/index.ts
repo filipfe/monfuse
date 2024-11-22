@@ -5,7 +5,7 @@ import { useSettings } from "@/lib/general/queries";
 interface Props extends Intl.NumberFormatOptions {
   currency: string;
   amount: number;
-  language_code?: Locale;
+  language_code?: Lang;
 }
 
 export default function NumberFormat({

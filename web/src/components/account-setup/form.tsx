@@ -2,26 +2,27 @@
 
 import { useEffect, useState, useTransition } from "react";
 import Dropdown from "./dropdown";
-import CurrencySelect from "../settings/inputs/currency";
 import { Dict } from "@/const/dict";
-import { CURRENCIES, LOCALE_CURRENCIES } from "@/const";
 import { Button, Input, Progress } from "@nextui-org/react";
 import UniversalSelect from "../ui/universal-select";
-import LanguageSelect from "../settings/inputs/language";
-import TimezoneSelect from "../settings/inputs/timezone";
 import TelegramBot from "../automation/telegram-bot";
 import { useTimezoneSelect } from "react-timezone-select";
 import useSWR from "swr";
 import { getLanguages } from "@/lib/settings/queries";
 import { setupAccount } from "@/lib/auth/actions";
 import toast from "@/utils/toast";
+import { LOCALE_CURRENCIES } from "@/const/locales";
+import { CURRENCIES } from "@/const";
+import getLang from "@/utils/get-lang";
 
 export default function AccountSetupForm({
   dict,
   settings,
+  locale,
 }: {
   dict: Dict["private"];
   settings: Settings;
+  locale: Locale;
 }) {
   const deviceTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   const [isPending, startTransition] = useTransition();
@@ -29,11 +30,11 @@ export default function AccountSetupForm({
   const [lastName, setLastName] = useState(settings.last_name || "");
   const [submitAvailable, setSubmitAvailable] = useState(false);
   const [timezone, setTimezone] = useState(deviceTimezone);
-  const [language, setLanguage] = useState(settings.language);
-  const { options, parseTimezone } = useTimezoneSelect({});
-  const [currency, setCurrency] = useState(
-    LOCALE_CURRENCIES[settings.language]
+  const [language, setLanguage] = useState(
+    settings.language || getLang(locale)
   );
+  const { options, parseTimezone } = useTimezoneSelect({});
+  const [currency, setCurrency] = useState(LOCALE_CURRENCIES[locale]);
   const [step, setStep] = useState(
     settings.first_name && settings.last_name ? 1 : 0
   );
@@ -167,7 +168,7 @@ export default function AccountSetupForm({
                 placeholder={
                   dict.settings.preferences.location.language.placeholder
                 }
-                onChange={(e) => setLanguage(e.target.value as Locale)}
+                onChange={(e) => setLanguage(e.target.value as Lang)}
               />
               <UniversalSelect
                 label={dict.settings.preferences.location.timezone.label}

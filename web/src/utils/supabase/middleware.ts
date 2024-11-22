@@ -3,9 +3,19 @@ import { type NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import getLocale from "../get-locale";
 
-const LOCALE_ROUTES = ["/sign-in", "/sign-up", "/forgot-password"];
+const LOCALE_ROUTES = [
+  "/account-setup",
+  "/sign-in",
+  "/sign-up",
+  "/forgot-password",
+];
 
-const PUBLIC_ROUTES = [...LOCALE_ROUTES, "/auth/confirm"];
+const PUBLIC_ROUTES = [
+  "/sign-in",
+  "/sign-up",
+  "/forgot-password",
+  "/auth/confirm",
+];
 
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -74,14 +84,21 @@ export async function updateSession(request: NextRequest) {
       !!user.currency &&
       !!user.language &&
       !!user.timezone;
-
-    if (request.nextUrl.pathname === "/account-setup" && !isAccountSetup) {
+    console.log(
+      { isAccountSetup },
+      request.nextUrl.pathname.endsWith("/account-setup"),
+      request.nextUrl.pathname,
+    );
+    if (
+      request.nextUrl.pathname.endsWith("/account-setup") && !isAccountSetup
+    ) {
       return supabaseResponse;
     }
 
     if (!isAccountSetup) {
+      const locale = getLocale(request);
       const url = request.nextUrl.clone();
-      url.pathname = "/account-setup";
+      url.pathname = `/${locale}/account-setup`;
       return NextResponse.redirect(url);
     }
 
@@ -138,20 +155,3 @@ export async function updateSession(request: NextRequest) {
 
   return supabaseResponse;
 }
-
-// const { data: services } = await supabase
-// .from("services")
-// .select("id, href, name");
-// const service = (services as Service[])?.find(({ href }) =>
-// pathname.startsWith(href)
-// );
-// if (service) {
-// const { data } = await supabase
-//   .from("user_services")
-//   .select("is_trial")
-//   .match({ service_id: service.id, user_id: user.id })
-//   .single();
-// return data
-//   ? response
-//   : NextResponse.redirect(`${origin}/unlock?name=${service.name}`);
-// }

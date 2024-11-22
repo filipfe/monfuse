@@ -1,13 +1,15 @@
 import Form from "@/components/auth/form";
 import getDictionary from "@/const/dict";
+import getLang from "@/utils/get-lang";
 import { Input } from "@nextui-org/react";
 
-export default async function Page({ params }: { params: { lang: Locale } }) {
+export default async function Page({ params }: { params: { locale: Locale } }) {
+  const lang = getLang(params.locale);
   const {
     public: {
       auth: { _layout, ...auth },
     },
-  } = await getDictionary(params.lang);
+  } = await getDictionary(lang);
   const signUp = auth["sign-up"];
   return (
     <div className="h-screen sm:h-auto min-h-screen flex items-center justify-center bg-light">

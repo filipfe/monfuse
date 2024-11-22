@@ -25,7 +25,7 @@ export default function GoalsTable({
 }: {
   goals: Goal[];
   tableData: GoalPayment[];
-  language: Locale;
+  language: Lang;
 }) {
   const [scrollButtonVisible, setScrollButtonVisible] = useState(false);
   const tbodyRef = useRef<HTMLDivElement | null>(null);
