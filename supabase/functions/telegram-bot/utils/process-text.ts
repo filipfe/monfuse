@@ -51,7 +51,7 @@ Rules:
       ],
     }],
   });
-
+  console.log(completion.usage);
   const response = completion.choices[0].message.content;
 
   if (typeof response !== "string") {
