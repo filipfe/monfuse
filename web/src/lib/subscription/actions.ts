@@ -62,7 +62,7 @@ export async function getOrCreateSubscription(): Promise<
     if (!subscription) {
       const prices = await stripe.prices.search({
         query:
-          `currency:"${user.settings.currency.toLowerCase()}" product:"prod_QtxAT8BXU4iCe1" active:"true"`,
+          `currency:"${user.settings.currency.toLowerCase()}" product:"${process.env.STRIPE_PRODUCT_ID}" active:"true"`,
       });
       if (prices.data.length === 0) {
         throw new Error(`Couldn't find price for ${user.settings.currency}`);

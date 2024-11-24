@@ -31,9 +31,9 @@ export default async function Pricing({
 
   const prices = await stripe.prices
     .search({
-      query: `currency:"${LOCALE_CURRENCIES[
-        locale
-      ].toLowerCase()}" product:"prod_QtxAT8BXU4iCe1"`,
+      query: `currency:"${LOCALE_CURRENCIES[locale].toLowerCase()}" product:"${
+        process.env.STRIPE_PRODUCT_ID
+      }"`,
     })
     .then((res) => res.data);
   const price = prices[0];
