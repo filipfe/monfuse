@@ -320,40 +320,38 @@ Deno.serve(async (req) => {
     settings: user.settings,
     limit: limit?.amount,
   });
-  console.log(html);
 
-  // const response = await fetch("https://hcti.io/v1/image", {
-  //   method: "POST",
-  //   body: JSON.stringify({
-  //     html,
-  //     selector: "div[id='wrapper']",
-  //   }),
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //     Authorization: `Basic ${btoa(HCTI_USER_ID + ":" + HCTI_API_KEY)}`,
-  //   },
-  // });
+  const response = await fetch("https://hcti.io/v1/image", {
+    method: "POST",
+    body: JSON.stringify({
+      html,
+      selector: "div[id='wrapper']",
+    }),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Basic ${btoa(HCTI_USER_ID + ":" + HCTI_API_KEY)}`,
+    },
+  });
 
-  // if (!response.ok) {
-  //   return new Response(
-  //     JSON.stringify({
-  //       message: response.statusText ||
-  //         "There was an error generating a graph",
-  //     }),
-  //     {
-  //       ...response,
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     },
-  //   );
-  // }
+  if (!response.ok) {
+    return new Response(
+      JSON.stringify({
+        message: response.statusText ||
+          "There was an error generating a graph",
+      }),
+      {
+        ...response,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+  }
 
-  // const data = await response.json();
+  const data = await response.json();
 
   return new Response(
-    // data.url,
-    "",
+    data.url,
     { headers: corsHeaders },
   );
 });

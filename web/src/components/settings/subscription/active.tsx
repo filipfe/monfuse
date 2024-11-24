@@ -16,7 +16,7 @@ export default async function Active({
 }) {
   const settings = await getSettings();
 
-  const isTrial = status !== "trialing" || is_trial;
+  const isTrial = status === "trialing" || is_trial;
 
   return (
     <div className="px-10 py-8 border bg-light rounded-md flex flex-col items-center justify-center gap-8">
@@ -29,7 +29,7 @@ export default async function Active({
         </h3>
         <p className="text-sm">{dict.description}</p>
       </div>
-      {isTrial ? (
+      {!isTrial ? (
         <p className="inline-flex items-end">
           <strong className="text-2xl sm:text-3xl lg:text-4xl">
             {new Intl.NumberFormat(settings.language, {
@@ -50,7 +50,7 @@ export default async function Active({
           </p>
         )
       )}
-      {isTrial && (
+      {!isTrial && (
         <Deactivate
           dict={dict.deactivate}
           subscription={{ id, cancel_at_period_end }}
