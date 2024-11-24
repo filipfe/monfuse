@@ -3,18 +3,13 @@ import Form from "@/components/ui/form";
 import getDictionary from "@/const/dict";
 import { resetPassword } from "@/lib/auth/actions";
 import { getSettings } from "@/lib/general/actions";
-import getLang from "@/utils/get-lang";
 import { Input } from "@nextui-org/react";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { locale: Locale };
-}) {
-  const lang = getLang(params.locale);
+export async function generateMetadata() {
+  const settings = await getSettings();
   const {
     public: { auth },
-  } = await getDictionary(lang);
+  } = await getDictionary(settings.language);
   const dict = auth["reset-password"];
   return dict._metadata;
 }

@@ -51,7 +51,7 @@ export default function AccountSetupForm({
       if (res?.error) {
         toast({
           type: "error",
-          message: "Wystąpił błąd, spróbuj ponownie!",
+          message: dict.general._error,
         });
       }
     });
