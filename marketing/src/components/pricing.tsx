@@ -11,31 +11,14 @@ export default async function Pricing({
   dict: Dict["landing"]["pricing"];
   locale: Locale;
 }) {
-  // let locale: Locale;
-
-  // const res = await fetch(
-  //   `${
-  //     process.env.NODE_ENV === "development"
-  //       ? "http://localhost:3000"
-  //       : "https://www.monfuse.com"
-  //   }/api/locale`
-  // );
-
-  // if (res.ok) {
-  //   const data = await res.json();
-  //   console.log({ data });
-  //   locale = data.locale;
-  // } else {
-  //   return <></>;
-  // }
-
   const prices = await stripe.prices
     .search({
-      query: `currency:"${LOCALE_CURRENCIES[
-        locale
-      ].toLowerCase()}" product:"prod_QtxAT8BXU4iCe1"`,
+      query: `currency:"${LOCALE_CURRENCIES[locale].toLowerCase()}" product:"${
+        process.env.STRIPE_PRODUCT_ID
+      }"`,
     })
     .then((res) => res.data);
+
   const price = prices[0];
 
   return (
@@ -81,10 +64,15 @@ export default async function Pricing({
                   {new Intl.NumberFormat(locale, {
                     currency: price ? LOCALE_CURRENCIES[locale] : "USD",
                     style: "currency",
+                    currencyDisplay: "symbol",
                   }).format(
-                    ["JPY", "KRW", "IDR"].includes(price.currency.toUpperCase())
-                      ? (price?.unit_amount as number) || 12
-                      : ((price?.unit_amount as number) || 12) / 100
+                    price
+                      ? ["JPY", "KRW", "IDR"].includes(
+                          price.currency.toUpperCase()
+                        )
+                        ? (price?.unit_amount as number)
+                        : (price?.unit_amount as number) / 100
+                      : 10
                   )}
                 </strong>
                 <sub className="text-font/75 mb-3">
