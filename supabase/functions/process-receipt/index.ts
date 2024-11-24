@@ -33,7 +33,7 @@ Deno.serve(async (req) => {
       `Environment variables missing: ${
         SUPABASE_URL ? "ANON_KEY" : "SUPABASE_URL"
       }`,
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -66,7 +66,7 @@ Deno.serve(async (req) => {
       if (error || !supabaseUser) {
         return new Response(
           `Auth error: ${error?.message || "User not found"}`,
-          { status: 422 }
+          { status: 422 },
         );
       }
       user = supabaseUser;
@@ -109,8 +109,6 @@ Deno.serve(async (req) => {
       }
     }
 
-    console.log({ uploadedFiles });
-
     const withSignedUrl = uploadedFiles.filter((file) => file.signedUrl);
 
     if (withSignedUrl.length === 0) {
@@ -128,7 +126,8 @@ Deno.serve(async (req) => {
 
     console.log("Generating completion...", { uploadedFiles });
 
-    const textPrompt = `Extract finance information from the receipts and invoices. Analyze context and classify operation either as 'income' or 'expense'. Generate a list of operations:
+    const textPrompt =
+      `Extract finance information from the receipts and invoices. Analyze context and classify operation either as 'income' or 'expense'. Generate a list of operations:
 
 type Operation = {
   id: string;
@@ -143,9 +142,11 @@ type Operation = {
 Rules:
 - return { operations: Operation[] } in json
 - 'id' and 'doc_path' for each image are available on the image's index in this array:
-  [${uploadedFiles
-    .map(({ id, path }) => `{ id: ${id}, doc_path: ${path} }`)
-    .join(", ")}],
+  [${
+        uploadedFiles
+          .map(({ id, path }) => `{ id: ${id}, doc_path: ${path} }`)
+          .join(", ")
+      }],
 - 'title' should be in the same language as the document
 - 'currency' is always 3-digit code`;
 
@@ -163,7 +164,7 @@ Rules:
     });
     const response = completion.choices[0].message.content;
 
-    console.log({ completion });
+    console.log(completion.usage);
 
     console.log("Generated the following response: ", response);
 
@@ -171,7 +172,7 @@ Rules:
       headers: { "Content-Type": "application/json", ...corsHeaders },
     });
   } catch (err) {
-    console.log({ err });
+    console.error("Couldn't process receipt: ", err);
     return new Response(`Internal server error: ${err}`, { status: 500 });
   }
 });

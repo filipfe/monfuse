@@ -51,6 +51,8 @@ export default async function processVoice(
       };
     }
 
+    console.log(transcription);
+
     const textMessage = await transcription.text();
 
     return await processText(textMessage, user);
