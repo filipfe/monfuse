@@ -41,10 +41,6 @@ const columns = [
     label: "CURRENCY",
   },
   {
-    key: "last_payment",
-    label: "LAST PAYMENT",
-  },
-  {
     key: "next_payment",
     label: "NEXT PAYMENT",
   },
@@ -79,7 +75,6 @@ export default function RecurringPaymentsTable({
         );
       case "amount":
         return new Intl.NumberFormat(settings.language).format(cellValue);
-      case "last_payment":
       case "next_payment":
         return new Intl.DateTimeFormat(settings.language).format(
           new Date(cellValue)
