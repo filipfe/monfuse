@@ -9,6 +9,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   cta?: {
     title: string;
     href: string;
+    className?: string;
     onClick?: () => void;
   };
 }
@@ -17,7 +18,7 @@ export default function Empty({ cta, icon: Icon, title, className }: Props) {
   return (
     <div
       className={cn(
-        "text-center flex-1 justify-center flex flex-col items-center gap-3",
+        "text-center flex-1 col-span-full justify-center flex flex-col items-center gap-3",
         className
       )}
     >
@@ -31,7 +32,7 @@ export default function Empty({ cta, icon: Icon, title, className }: Props) {
             size="sm"
             disableRipple
             startContent={<PlusIcon size={14} />}
-            className="bg-light border text-font"
+            className={cn("bg-light border text-font", cta.className)}
             onPress={cta.onClick}
           >
             {cta.title}
@@ -45,7 +46,7 @@ export default function Empty({ cta, icon: Icon, title, className }: Props) {
               size="sm"
               disableRipple
               startContent={<PlusIcon size={14} />}
-              className="bg-light border text-font"
+              className={cn("bg-light border text-font", cta.className)}
             >
               {cta.title}
             </Button>

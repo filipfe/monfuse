@@ -23,11 +23,11 @@ export default function StatBox({ title, data, type, amount }: Props) {
   const today = new Date();
 
   return (
-    <Block className="col-span-1 row-start-2 row-end-3 !p-0 self-start overflow-hidden w-full">
+    <Block className="col-span-1 row-start-2 row-end-3 max-sm:!pt-2 !p-0 self-start overflow-hidden w-full">
       <div className="flex items-start justify-between px-6 sm:px-10 pt-4 sm:pt-8">
         <div className="grid gap-1">
           <h2 className="text-font/75 text-sm">{title}</h2>
-          <strong className="text-3xl">
+          <strong className="text-2xl sm:text-3xl">
             <NumberFormat currency={currency} amount={amount} />
           </strong>
         </div>
@@ -81,7 +81,7 @@ export default function StatBox({ title, data, type, amount }: Props) {
               baseValue={maxValue > 0 ? -(maxValue / 2) : -100}
               stroke={type === "incomes" ? "#177981" : "#fdbb2d"}
               fill={`url(#${type})`}
-              strokeWidth={2}
+              strokeWidth={1}
               // fill={type === "incomes" ? "#177981" : "#fdbb2d"}
             />
           </AreaChart>

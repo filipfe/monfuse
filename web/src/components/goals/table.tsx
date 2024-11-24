@@ -17,15 +17,19 @@ import { CheckCircle, ChevronDown } from "lucide-react";
 import PaymentPopover from "./popover";
 import NumberFormat from "@/utils/formatters/currency";
 import Empty from "../ui/empty";
+import { Dict } from "@/const/dict";
 
 export default function GoalsTable({
   goals,
   tableData,
   language,
+  dict,
 }: {
   goals: Goal[];
   tableData: GoalPayment[];
   language: Lang;
+  dict: Dict["private"]["goals"]["payments"] &
+    Pick<Dict["private"]["goals"]["list"], "button" | "_empty">;
 }) {
   const [scrollButtonVisible, setScrollButtonVisible] = useState(false);
   const tbodyRef = useRef<HTMLDivElement | null>(null);
@@ -61,7 +65,7 @@ export default function GoalsTable({
   }, [tbodyRef.current]);
 
   return (
-    <Block title="Wpłaty" className="row-span-2">
+    <Block title={dict.title} className="row-span-2">
       {goals.length > 0 ? (
         <ScrollShadow
           orientation="horizontal"
@@ -194,8 +198,8 @@ export default function GoalsTable({
         </ScrollShadow>
       ) : (
         <Empty
-          title="Brak aktywnych celów"
-          cta={{ title: "Dodaj cel", href: "/goals/add" }}
+          title={dict._empty}
+          cta={{ title: dict.button, href: "/goals/add" }}
           icon={CheckCircle}
         />
       )}

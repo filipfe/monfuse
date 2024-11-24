@@ -124,6 +124,8 @@ export async function updateSession(request: NextRequest) {
       .eq("customer", user.id)
       .maybeSingle();
 
+    console.warn({ subscription, error });
+
     if (error) {
       const url = request.nextUrl.clone();
       url.pathname = "/settings/subscription";

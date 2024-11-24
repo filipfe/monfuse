@@ -6,6 +6,17 @@ import StatsList from "@/components/stats/operations-stats/stats-list";
 import OperationsByDayOfWeek from "@/components/stats/operations-by-day-of-week";
 import { getSettings } from "@/lib/general/actions";
 import getDictionary from "@/const/dict";
+import { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSettings();
+  const {
+    private: {
+      stats: { _metadata },
+    },
+  } = await getDictionary(settings.language);
+  return _metadata;
+}
 
 export default async function Page() {
   const settings = await getSettings();

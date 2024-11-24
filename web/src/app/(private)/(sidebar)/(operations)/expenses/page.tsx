@@ -9,6 +9,19 @@ import OperationsByMonth from "@/components/operations/operations-by-month";
 import Limits from "@/components/operations/limits";
 import { getSettings } from "@/lib/general/actions";
 import getDictionary, { Dict } from "@/const/dict";
+import { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSettings();
+  const {
+    private: {
+      operations: {
+        expenses: { _metadata },
+      },
+    },
+  } = await getDictionary(settings.language);
+  return _metadata;
+}
 
 export default async function Page({
   searchParams,

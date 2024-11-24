@@ -26,58 +26,6 @@ export async function getAccount(): Promise<
   };
 }
 
-export async function activateService(
-  formData: FormData
-): Promise<SupabaseResponse<any>> {
-  const service = formData.get("service")!.toString();
-  const isActive = formData.get("is-active")!.toString();
-  const { id, href } = JSON.parse(service);
-
-  const supabase = createClient();
-
-  const {
-    data: { user },
-    error: authError,
-  } = await supabase.auth.getUser();
-
-  if (!user || authError) {
-    return {
-      results: [],
-      error: "Błąd autoryzacji, spróbuj zalogować się ponownie!",
-    };
-  }
-
-  let error: PostgrestError | null = null;
-
-  if (isActive === "true") {
-    const { error: deleteError } = await supabase
-      .from("user_services")
-      .delete()
-      .eq("user_id", user.id)
-      .eq("service_id", id);
-    error = deleteError;
-  } else {
-    const { error: insertError } = await supabase
-      .from("user_services")
-      .insert({ service_id: id, user_id: user?.id });
-    error = insertError;
-  }
-
-  if (error) {
-    return {
-      error: error.message,
-      results: [],
-    };
-  }
-
-  revalidatePath("/settings/subscription");
-  revalidatePath(href || "");
-
-  return {
-    results: [],
-  };
-}
-
 export async function updatePreferences(formData: FormData) {
   const name = formData.get("name")?.toString() ?? "";
   const value = formData.get("value")?.toString() ?? "";
@@ -102,4 +50,38 @@ export async function updatePreferences(formData: FormData) {
   }
 
   revalidatePath("/", "layout");
+}
+
+export async function updateName(
+  formData: FormData,
+): Promise<SupabaseResponse<any>> {
+  const first_name = formData.get("first_name") as string;
+  const last_name = formData.get("last_name") as string;
+
+  const supabase = createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const { error } = await supabase
+    .from("profiles")
+    .update({
+      first_name,
+      last_name,
+    })
+    .eq("id", user?.id);
+
+  if (error) {
+    return {
+      results: [],
+      error: error.message,
+    };
+  }
+
+  revalidatePath("/settings/account");
+
+  return {
+    results: [],
+  };
 }

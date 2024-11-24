@@ -27,7 +27,11 @@ export default function Calendar({
 }) {
   const currentDate = toZonedTime(new Date(), settings.timezone);
   const [monthDate, setMonthDate] = useState(currentDate);
-  const { data: results, isLoading } = useCalendarRecords(
+  const {
+    data: results,
+    isLoading,
+    isValidating,
+  } = useCalendarRecords(
     settings.timezone,
     monthDate.getMonth(),
     monthDate.getFullYear()
@@ -39,9 +43,12 @@ export default function Calendar({
         <div className="relative">
           <table
             {...props}
-            className={cn(props.className, isLoading && "opacity-0")}
+            className={cn(
+              props.className,
+              isLoading && !isValidating && "opacity-0"
+            )}
           ></table>
-          {isLoading && (
+          {isLoading && !isValidating && (
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 translate-y-1/2">
               <l-hatch />
             </div>
@@ -187,7 +194,7 @@ export default function Calendar({
         </thead>
       ),
     }),
-    [isLoading, results]
+    [isLoading, isValidating, results]
   );
 
   return (

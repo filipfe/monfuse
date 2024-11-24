@@ -1,6 +1,19 @@
 import NotificationSwitch from "@/components/settings/inputs/notification";
 import getDictionary from "@/const/dict";
 import { getSettings } from "@/lib/general/actions";
+import { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSettings();
+  const {
+    private: {
+      settings: {
+        notifications: { _metadata },
+      },
+    },
+  } = await getDictionary(settings.language);
+  return _metadata;
+}
 
 export default async function Page() {
   const settings = await getSettings();

@@ -7,7 +7,20 @@ import {
   resumeSubscription,
 } from "@/lib/subscription/actions";
 import { Check, ChevronRight } from "lucide-react";
+import { Metadata } from "next";
 import Link from "next/link";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSettings();
+  const {
+    private: {
+      settings: {
+        subscription: { _metadata },
+      },
+    },
+  } = await getDictionary(settings.language);
+  return _metadata;
+}
 
 export default async function Subscription() {
   const settings = await getSettings();

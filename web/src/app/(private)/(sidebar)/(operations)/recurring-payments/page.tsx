@@ -1,10 +1,18 @@
-import Timeline from "@/components/recurring-payments/timeline/timeline";
 import Latest from "@/components/recurring-payments/latest/list";
 import Upcoming from "@/components/recurring-payments/upcoming/list";
 import getDictionary from "@/const/dict";
 import { getSettings } from "@/lib/general/actions";
 import RecurringPaymentsTable from "@/components/recurring-payments/active/table";
 import Calendar from "@/components/recurring-payments/calendar";
+import { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSettings();
+  const {
+    private: { operations: dict },
+  } = await getDictionary(settings.language);
+  return dict["recurring-payments"]._metadata;
+}
 
 export default async function Page() {
   const settings = await getSettings();

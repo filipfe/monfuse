@@ -26,6 +26,9 @@
       "_error": "Wystąpił błąd, spróbuj ponownie później"
     },
     "dashboard": {
+      "_metadata": {
+        "title": "Panel | Monfuse"
+      },
       "latest-operations": {
         "title": "Ostatnie operacje",
         "_empty": "Nie znaleziono ostatnich operacji"
@@ -36,6 +39,9 @@
       }
     },
     "stats": {
+      "_metadata": {
+        "title": "Statystyki | Monfuse"
+      },
       "balance-by-month": {
         "title": "Bilans operacji",
         "_empty": "Brak danych do wyświetlenia!"
@@ -182,6 +188,9 @@
         }
       },
       "expenses": {
+        "_metadata": {
+          "title": "Wydatki | Monfuse"
+        },
         "limits": {
           "period": {
             "daily": "Dzień",
@@ -235,7 +244,15 @@
           }
         }
       },
+      "incomes": {
+        "_metadata": {
+          "title": "Przychody | Monfuse"
+        }
+      },
       "recurring-payments": {
+        "_metadata": {
+          "title": "Płatności cykliczne | Monfuse"
+        },
         "upcoming": {
           "title": "Nadchodzące",
           "timer": {
@@ -251,10 +268,16 @@
           "title": "Aktywne",
           "add": {
             "label": "Dodaj"
+          },
+          "_empty": {
+            "title": "Brak aktywnych płatności"
           }
         },
         "latest": {
-          "title": "Ostatnie"
+          "title": "Ostatnie",
+          "_empty": {
+            "title": "Brak przeszłych płatności"
+          }
         },
         "calendar": {
           "popup": {
@@ -263,10 +286,66 @@
               "description": "Nowa płatność cykliczna"
             }
           }
+        },
+        "add": {
+          "title": "Nowa płatność cykliczna",
+          "data": {
+            "title": "Dane",
+            "form": {
+              "title": {
+                "label": "Tytuł",
+                "placeholder": "Rachunki"
+              },
+              "amount": {
+                "label": "Kwota",
+                "placeholder": "0.00"
+              },
+              "currency": {
+                "label": "Waluta",
+                "placeholder": "USD"
+              },
+              "type": {
+                "label": "Typ transakcji",
+                "placeholder": "Wybierz typ transakcji",
+                "options": {
+                  "incomes": "Przychód",
+                  "expenses": "Wydatki"
+                }
+              }
+            }
+          },
+          "interval": {
+            "title": "Interwał czasowy",
+            "form": {
+              "amount": {
+                "label": "Wartość"
+              },
+              "unit": {
+                "label": "Interwał",
+                "placeholder": "Wybierz interwał",
+                "options": {
+                  "day": "Dzień",
+                  "week": "Tydzień",
+                  "month": "Miesiąc"
+                }
+              },
+              "date": {
+                "label": "Data rozpoczęcia"
+              },
+              "hour": {
+                "label": "Godzina"
+              }
+            }
+          },
+          "_submit": "Zapisz",
+          "_error": "Wystąpił błąd, spróbuj ponownie później"
         }
       }
     },
     "goals": {
+      "_metadata": {
+        "title": "Cele | Monfuse"
+      },
       "list": {
         "title": "Bieżące",
         "button": "Dodaj",
@@ -287,7 +366,16 @@
             }
           },
           "collected": "Zebrano"
-        }
+        },
+        "_empty": "Brak aktywnych celów"
+      },
+      "payments": {
+        "title": "Wpłaty",
+        "columns": {
+          "date": "Data"
+        },
+        "today": "Dzisiaj",
+        "sum": "Suma"
       },
       "priority": {
         "title": "Priorytet",
@@ -302,6 +390,9 @@
       }
     },
     "ai-assistant": {
+      "_metadata": {
+        "title": "Asystent AI | Monfuse"
+      },
       "chat": {
         "recomendation": [
           {
@@ -360,6 +451,9 @@
       }
     },
     "automation": {
+      "_metadata": {
+        "title": "Automatyzacja | Monfuse"
+      },
       "title": "Telegram Bot",
       "description": [
         "Dodawaj operacje szybciej za pomocą dostosowanego Telegram Bota!",
@@ -381,6 +475,9 @@
       "title": "Ustawienia",
       "description": "Zarządzaj swoimi danymi osobowymi, preferencjami i subskrypcją",
       "account": {
+        "_metadata": {
+          "title": "Ustawienia konta | Monfuse"
+        },
         "personal-data": {
           "title": "Dane osobowe",
           "description": "Dostosuj dane osobowe do swojego konta",
@@ -429,6 +526,9 @@
         }
       },
       "preferences": {
+        "_metadata": {
+          "title": "Ustawienia preferencji | Monfuse"
+        },
         "_success": "Pomyślnie zmieniono dane!",
         "default-currency": {
           "title": "Domyślna waluta",
@@ -463,6 +563,9 @@
         }
       },
       "subscription": {
+        "_metadata": {
+          "title": "Ustawienia subskrypcji | Monfuse"
+        },
         "_error": "Nie udało się pobrać informacji o subskrypcji",
         "form": {
           "title": "Subskrypcja Monfuse",
@@ -500,6 +603,9 @@
         }
       },
       "notifications": {
+        "_metadata": {
+          "title": "Ustawienia powiadomień | Monfuse"
+        },
         "_error": "Wystąpił błąd przy zmienianiu ustawienia",
         "telegram": {
           "title": "Powiadomienia Telegram",
@@ -575,6 +681,25 @@
           },
           "_toast": {
             "success": "Link weryfikacyjny został wysłany na podany adres email"
+          }
+        }
+      },
+      "reset-password": {
+        "title": "Zresetuj hasło",
+        "description": "Wprowadź adres nowe hasło, aby kontynuować",
+        "form": {
+          "password": {
+            "label": "Hasło"
+          },
+          "confirm-password": {
+            "label": "Potwierdź hasło"
+          },
+          "_submit": {
+            "label": "Zatwierdź"
+          },
+          "_toast": {
+            "success": "Hasło zostało pomyślnie zmienione!",
+            "error": "Hasła nie są takie same"
           }
         }
       }

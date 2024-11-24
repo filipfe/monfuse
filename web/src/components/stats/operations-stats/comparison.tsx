@@ -35,7 +35,12 @@ export default function Comparison({
           style={{ backgroundColor: color }}
           className="h-2 w-2 rounded-full"
         ></div>
-        <h4 className={`${label === dict.expenses && "order-first"}`}>
+        <h4
+          className={cn(
+            "text-sm sm:text-base",
+            label === dict.expenses && "order-first"
+          )}
+        >
           {label}
         </h4>
       </div>
