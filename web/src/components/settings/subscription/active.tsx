@@ -29,7 +29,7 @@ export default async function Active({
         </h3>
         <p className="text-sm">{dict.description}</p>
       </div>
-      {isTrial ? (
+      {!isTrial ? (
         <p className="inline-flex items-end">
           <strong className="text-2xl sm:text-3xl lg:text-4xl">
             {new Intl.NumberFormat(settings.language, {
