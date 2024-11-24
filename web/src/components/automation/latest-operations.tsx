@@ -79,6 +79,7 @@ export default function LatestOperations({
               cta={{
                 title: dict._empty.button,
                 href: "https://t.me/CreDevBot",
+                className: "bg-white",
               }}
             />
           )}

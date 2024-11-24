@@ -29,7 +29,7 @@ export default function Upcoming({
             />
           ))
         ) : (
-          <Empty icon={Coins} title="Brak nadchodzących płatności!" />
+          <Empty icon={Coins} title={dict._empty.title} />
         )}
       </div>
     </Block>

@@ -11,11 +11,16 @@ interface Props extends FormHTMLAttributes<HTMLFormElement> {
     icon?: LucideIcon;
   };
   callback?: () => void;
-  onClose?: () => void;
   successMessage?: string;
   buttonWrapperClassName?: string;
   isLoading?: boolean;
-  isPasswordReset?: boolean;
+  passwordReset?: {
+    _error: string;
+  };
+  close?: {
+    text: string;
+    onClose: () => void;
+  };
 }
 
 export default function Form({
@@ -23,9 +28,9 @@ export default function Form({
   mutation,
   callback,
   id,
-  onClose,
+  close,
   className,
-  isPasswordReset,
+  passwordReset,
   buttonWrapperClassName,
   isLoading,
   successMessage,
@@ -41,13 +46,13 @@ export default function Form({
 
   const action = (formData: FormData) => {
     if (
-      isPasswordReset &&
+      !!passwordReset &&
       formData.get("password")?.toString() !==
         formData.get("confirm-password")?.toString()
     ) {
       toast({
         type: "error",
-        message: "Hasła nie są takie same",
+        message: passwordReset._error,
       });
       return;
     }
@@ -83,15 +88,15 @@ export default function Form({
           buttonWrapperClassName
         )}
       >
-        {onClose && (
+        {close && (
           <Button
             disableRipple
             isDisabled={isPending}
             disabled={isPending}
-            onPress={onClose}
+            onPress={close.onClose}
             className="border"
           >
-            Anuluj
+            {close.text}
           </Button>
         )}
         <Button

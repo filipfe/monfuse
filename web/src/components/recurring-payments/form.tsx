@@ -8,7 +8,7 @@ import {
   TimeInput,
 } from "@nextui-org/react";
 import formatAmount from "@/utils/operations/format-amount";
-import { useEffect, useState, useTransition } from "react";
+import { useState, useTransition } from "react";
 import { CheckIcon } from "lucide-react";
 import UniversalSelect from "../ui/universal-select";
 import { CURRENCIES } from "@/const";
@@ -18,7 +18,7 @@ import toast from "@/utils/toast";
 import { addRecurringPayment } from "@/lib/recurring-payments/actions";
 import { CalendarDate, parseDate, parseTime } from "@internationalized/date";
 import { useSearchParams } from "next/navigation";
-import { I18nProvider } from "@react-aria/i18n";
+import { Dict } from "@/const/dict";
 
 const tomorrow = new Date();
 tomorrow.setDate(tomorrow.getDate() + 1);
@@ -51,8 +51,10 @@ const getInitialDate = (str: string | null) => {
 
 export default function RecurringPaymentForm({
   settings,
+  dict,
 }: {
   settings: Settings;
+  dict: Dict["private"]["operations"]["recurring-payments"]["add"];
 }) {
   const searchParams = useSearchParams();
   const [hour, setHour] = useState(0);
@@ -66,7 +68,7 @@ export default function RecurringPaymentForm({
   const [isStartTimeInvalid, setIsStartTimeInvalid] = useState(false);
 
   return (
-    <Block title="Nowa płatność cykliczna" className="w-full max-w-4xl">
+    <Block title={dict.title} className="w-full max-w-4xl">
       <form
         action={(formData) =>
           startTransition(async () => {
@@ -75,22 +77,22 @@ export default function RecurringPaymentForm({
             if (res?.error) {
               toast({
                 type: "error",
-                message: "Wystąpił błąd przy dodawaniu płatności cyklicznej",
+                message: dict._error,
               });
             }
           })
         }
       >
         <Section
-          title="Dane"
+          title={dict.data.title}
           className="flex flex-col md:grid grid-cols-2 gap-4"
           wrapperClassName="pb-6"
         >
           <Input
             classNames={{ inputWrapper: "!bg-light shadow-none border" }}
             name="title"
-            label="Tytuł"
-            placeholder="Rachunki"
+            label={dict.data.form.title.label}
+            placeholder={dict.data.form.title.placeholder}
             isRequired
             required
             value={singleRecord.title}
@@ -101,8 +103,8 @@ export default function RecurringPaymentForm({
           <Input
             classNames={{ inputWrapper: "!bg-light shadow-none border" }}
             name="amount"
-            label="Kwota"
-            placeholder="0.00"
+            label={dict.data.form.amount.label}
+            placeholder={dict.data.form.amount.placeholder}
             isRequired
             required
             value={singleRecord.amount}
@@ -123,12 +125,12 @@ export default function RecurringPaymentForm({
           />
           <UniversalSelect
             name="currency"
-            label="Waluta"
+            label={dict.data.form.currency.label}
+            placeholder={dict.data.form.currency.placeholder}
             required
             isRequired
             selectedKeys={singleRecord.currency ? [singleRecord.currency] : []}
             elements={CURRENCIES}
-            placeholder="Wybierz walutę"
             disallowEmptySelection
             onChange={(e) =>
               setSingleRecord((prev) => ({ ...prev, currency: e.target.value }))
@@ -136,7 +138,8 @@ export default function RecurringPaymentForm({
           />
           <UniversalSelect
             name="type"
-            label="Typ transakcji"
+            label={dict.data.form.type.label}
+            placeholder={dict.data.form.type.placeholder}
             isRequired
             required
             selectedKeys={singleRecord.type ? [singleRecord.type] : []}
@@ -144,7 +147,6 @@ export default function RecurringPaymentForm({
               { name: "Przychód", value: "income" },
               { name: "Wydatek", value: "expense" },
             ]}
-            placeholder="Wybierz typ transakcji"
             disallowEmptySelection
             onChange={(e) =>
               setSingleRecord((prev) => ({
@@ -155,13 +157,13 @@ export default function RecurringPaymentForm({
           />
         </Section>
         <Section
-          title="Interwał czasowy"
+          title={dict.interval.title}
           className="grid grid-cols-[88px_1fr_112px] gap-4"
         >
           <Input
             classNames={{ inputWrapper: "!bg-light shadow-none border" }}
             name="interval_amount"
-            label="Wartość"
+            label={dict.interval.form.amount.label}
             placeholder="1"
             isRequired
             required
@@ -176,18 +178,18 @@ export default function RecurringPaymentForm({
           <div className="col-span-2">
             <UniversalSelect
               name="interval_unit"
-              label="Interwał"
+              label={dict.interval.form.unit.label}
               isRequired
               required
               selectedKeys={
                 singleRecord.interval_unit ? [singleRecord.interval_unit] : []
               }
               elements={[
-                { name: "Dzień", value: "day" },
-                { name: "Tydzień", value: "week" },
-                { name: "Miesiąc", value: "month" },
+                { name: dict.interval.form.unit.options.day, value: "day" },
+                { name: dict.interval.form.unit.options.week, value: "week" },
+                { name: dict.interval.form.unit.options.month, value: "month" },
               ]}
-              placeholder="Wybierz interwał"
+              placeholder={dict.interval.form.unit.placeholder}
               disallowEmptySelection
               onChange={(e) =>
                 setSingleRecord((prev) => ({
@@ -207,23 +209,17 @@ export default function RecurringPaymentForm({
             }}
             isRequired
             isInvalid={isStartTimeInvalid || undefined}
-            errorMessage={
-              isStartTimeInvalid
-                ? singleRecord.start_date
-                  ? "Nieprawidłowa data"
-                  : "Pole wymagane"
-                : undefined
-            }
-            label="Data rozpoczęcia"
+            label={dict.interval.form.date.label}
             value={singleRecord.start_date}
             minValue={parseDate(format(tomorrow, "yyyy-MM-dd"))}
             onChange={(date) => {
               setIsStartTimeInvalid(false);
-              setSingleRecord((prev) => ({ ...prev, start_date: date }));
+              date &&
+                setSingleRecord((prev) => ({ ...prev, start_date: date }));
             }}
           />
           <TimeInput
-            label="Godzina"
+            label={dict.interval.form.hour.label}
             value={parseTime(`${hour < 10 ? "0" + hour : hour}:00`)}
             hourCycle={24}
             onChange={(value) => setHour(value.hour)}
@@ -257,7 +253,7 @@ export default function RecurringPaymentForm({
             ) : (
               <CheckIcon size={16} />
             )}
-            Zapisz
+            {dict._submit}
           </Button>
         </div>
       </form>

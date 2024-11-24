@@ -22,6 +22,7 @@ import Link from "next/link";
 import Loader from "@/components/stocks/loader";
 import { Dict } from "@/const/dict";
 import Menu from "./menu";
+import Empty from "@/components/ui/empty";
 
 const columns = [
   {
@@ -126,56 +127,65 @@ export default function RecurringPaymentsTable({
       className="row-span-2 col-start-1 col-end-2"
       cta={cta}
     >
-      <ScrollShadow
-        className="max-w-[calc(100vw-48px)]"
-        orientation="horizontal"
-        hideScrollBar
-      >
-        <Table
-          removeWrapper
-          shadow="none"
-          color="primary"
-          bottomContentPlacement="outside"
-          aria-label="recurring-paymants-table"
-          className="max-w-full w-full flex-1"
-          classNames={{
-            td: "[&_span:last-child]:before:!border-neutral-200 first:w-4",
-          }}
-        >
-          <TableHeader columns={columns}>
-            {(column) => (
-              <TableColumn key={column.key}>{column.label}</TableColumn>
-            )}
-          </TableHeader>
-          <TableBody items={results}>
-            {(item) => (
-              <TableRow key={item.id} className="hover:bg-light">
-                {(columnKey) => (
-                  <TableCell>{renderCell(item, columnKey)}</TableCell>
+      {results.length > 0 ? (
+        <>
+          <ScrollShadow
+            className="max-w-[calc(100vw-48px)]"
+            orientation="horizontal"
+            hideScrollBar
+          >
+            <Table
+              removeWrapper
+              shadow="none"
+              color="primary"
+              bottomContentPlacement="outside"
+              aria-label="recurring-paymants-table"
+              className="max-w-full w-full flex-1"
+              classNames={{
+                td: "[&_span:last-child]:before:!border-neutral-200 first:w-4",
+              }}
+            >
+              <TableHeader columns={columns}>
+                {(column) => (
+                  <TableColumn key={column.key}>{column.label}</TableColumn>
                 )}
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </ScrollShadow>
-      {count > 0 && (
-        <div className="mt-2 flex-1 flex items-end justify-end">
-          <Pagination
-            size="sm"
-            isCompact
-            showControls
-            showShadow={false}
-            color="primary"
-            className="text-background"
-            classNames={{
-              wrapper: "!shadow-none border",
-            }}
-            page={page}
-            isDisabled={isLoading}
-            total={Math.ceil(count / 8)}
-            onChange={setPage}
-          />
-        </div>
+              </TableHeader>
+              <TableBody items={results}>
+                {(item) => (
+                  <TableRow key={item.id} className="hover:bg-light">
+                    {(columnKey) => (
+                      <TableCell>{renderCell(item, columnKey)}</TableCell>
+                    )}
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </ScrollShadow>
+          {count > 0 && (
+            <div className="mt-2 flex-1 flex items-end justify-end">
+              <Pagination
+                size="sm"
+                isCompact
+                showControls
+                showShadow={false}
+                color="primary"
+                className="text-background"
+                classNames={{
+                  wrapper: "!shadow-none border",
+                }}
+                page={page}
+                isDisabled={isLoading}
+                total={Math.ceil(count / 8)}
+                onChange={setPage}
+              />
+            </div>
+          )}
+        </>
+      ) : (
+        <Empty
+          title={dict._empty.title}
+          cta={{ title: dict.add.label, href: "/recurring-payments/add" }}
+        />
       )}
     </Block>
   );

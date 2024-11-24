@@ -2,7 +2,21 @@ import EmailInput from "@/components/settings/inputs/email";
 import PasswordInput from "@/components/settings/inputs/password";
 import PersonalDataInput from "@/components/settings/inputs/personal-data";
 import getDictionary from "@/const/dict";
+import { getSettings } from "@/lib/general/actions";
 import { getAccount } from "@/lib/settings/actions";
+import { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSettings();
+  const {
+    private: {
+      settings: {
+        account: { _metadata },
+      },
+    },
+  } = await getDictionary(settings.language);
+  return _metadata;
+}
 
 export default async function Page() {
   const { result: account, error } = await getAccount();

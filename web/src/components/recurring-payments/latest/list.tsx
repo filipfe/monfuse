@@ -4,6 +4,7 @@ import Ref from "./ref";
 import Empty from "@/components/ui/empty";
 import { ScrollShadow } from "@nextui-org/react";
 import { Dict } from "@/const/dict";
+import { Coins } from "lucide-react";
 
 export default async function Latest({
   settings,
@@ -23,7 +24,7 @@ export default async function Latest({
           ))}
         </ScrollShadow>
       ) : (
-        <Empty title="Brak ostatnich płatności!" />
+        <Empty icon={Coins} title={dict._empty.title} />
       )}
     </Block>
   );

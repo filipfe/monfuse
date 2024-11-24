@@ -67,23 +67,8 @@ export default function TelegramBot({
           {dict.description.map((text) => (
             <p className="text-sm">{text}</p>
           ))}
-          <div className="flex items-center gap-3 max-w-lg">
+          <div className="max-w-lg">
             <TokenInput token={settings.telegram_token} dict={dict.input} />
-            <Link
-              href="https://t.me/CredivioBot"
-              rel="noreferrer"
-              target="_blank"
-            >
-              <Button
-                disableRipple
-                className="font-medium"
-                color="primary"
-                as="div"
-              >
-                <Send size={16} />
-                Wyślij
-              </Button>
-            </Link>
           </div>
         </div>
         {children}
