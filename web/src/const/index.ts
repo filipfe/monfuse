@@ -184,7 +184,7 @@ export const ADD_METHODS: AddMethod[] = [
   },
 ];
 
-export const CURRENCIES = ["PLN", "USD", "EUR", "GBP", "CHF"];
+export const CURRENCIES = ["USD", "EUR", "GBP", "CHF", "PLN"];
 
 export const TRANSACTION_TYPES: Option<string>[] = [
   {

@@ -146,7 +146,9 @@ Deno.serve(async (req) => {
   async function getRecurringPayments() {
     const { data, error } = await supabase
       .from("recurring_payments")
-      .select("title, type, amount, interval_amount, interval_unit, start_date")
+      .select(
+        "title, type, amount, interval_amount, interval_unit, start_datetime",
+      )
       .eq("currency", currency);
 
     if (error) {
