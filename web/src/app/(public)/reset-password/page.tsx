@@ -1,8 +1,23 @@
+import Logo from "@/assets/icons/logo";
 import Form from "@/components/ui/form";
 import getDictionary from "@/const/dict";
 import { resetPassword } from "@/lib/auth/actions";
 import { getSettings } from "@/lib/general/actions";
+import getLang from "@/utils/get-lang";
 import { Input } from "@nextui-org/react";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { locale: Locale };
+}) {
+  const lang = getLang(params.locale);
+  const {
+    public: { auth },
+  } = await getDictionary(lang);
+  const dict = auth["reset-password"];
+  return dict._metadata;
+}
 
 export default async function Page() {
   const settings = await getSettings();
@@ -24,8 +39,8 @@ export default async function Page() {
         >
           <div className="flex flex-col gap-6">
             <div className="flex flex-col items-center text-center gap-2 mb-4">
-              <div className="bg-light rounded-md h-16 w-16 mb-4 border grid place-content-center">
-                <p className="font-bold text-primary text-3xl">C</p>
+              <div className="bg-light rounded-md h-16 w-16 mb-4 border flex items-center justify-center">
+                <Logo className="w-9 h-9" />
               </div>
               <h1 className="text-2xl font-medium">
                 {dict.auth["reset-password"].title}

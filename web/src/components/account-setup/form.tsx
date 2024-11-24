@@ -30,9 +30,7 @@ export default function AccountSetupForm({
   const [lastName, setLastName] = useState(settings.last_name || "");
   const [submitAvailable, setSubmitAvailable] = useState(false);
   const [timezone, setTimezone] = useState(deviceTimezone);
-  const [language, setLanguage] = useState(
-    settings.language || getLang(locale)
-  );
+  const [language, setLanguage] = useState(getLang(locale));
   const { options, parseTimezone } = useTimezoneSelect({});
   const [currency, setCurrency] = useState(LOCALE_CURRENCIES[locale]);
   const [step, setStep] = useState(

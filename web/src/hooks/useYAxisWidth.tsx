@@ -1,5 +1,4 @@
 import { satoshi } from "@/assets/font/satoshi";
-import { useSettings } from "@/lib/general/queries";
 import { useCallback, useState } from "react";
 
 const checkWidth = (label: string): number => {
@@ -22,16 +21,16 @@ const checkWidth = (label: string): number => {
 
 export default function useYAxisWidth(
   currency?: string,
+  language?: Lang,
   formatter?: (value: number) => string
 ) {
-  const { data: settings } = useSettings();
   const [longestTick, setLongestTick] = useState(0);
   const tickFormatter = useCallback(
     (val: number): string => {
       const formattedTick = formatter
         ? formatter(val)
         : currency
-        ? new Intl.NumberFormat(settings?.language, {
+        ? new Intl.NumberFormat(language, {
             style: "currency",
             currency,
             notation: "compact",

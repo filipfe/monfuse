@@ -33,12 +33,12 @@ export default function FAQ({ dict }: Props) {
               ))}
             </Accordion>
           </div>
-          <h4 className="mb-12 text-center text-sm font-medium tracking-tight text-foreground/80">
+          {/* <h4 className="mb-12 text-center text-sm font-medium tracking-tight text-foreground/80">
             {dict.email}{" "}
             <a href="mailto:team@monfuse.com" className="underline">
               team@monfuse.com
             </a>
-          </h4>
+          </h4> */}
         </div>
       </div>
       <script

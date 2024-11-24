@@ -2,6 +2,7 @@
 
 import { Dict } from "@/const/dict";
 import { signIn, signInWithGoogle, signUp } from "@/lib/auth/actions";
+import toast from "@/utils/toast";
 import { Button } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -16,6 +17,7 @@ export default function Form({
   children: React.ReactNode;
   isSignUp?: boolean;
   dict: Dict["public"]["auth"]["_layout"] &
+    Dict["private"]["general"] &
     (Dict["public"]["auth"]["sign-in"] | Dict["public"]["auth"]["sign-up"]);
 }) {
   const { lang } = useParams();
@@ -28,7 +30,37 @@ export default function Form({
             const { error } = isSignUp
               ? await signUp(formData)
               : await signIn(formData);
-            console.error("Couldn't sign up", error);
+            if (error) {
+              if (isSignUp) {
+                switch (error) {
+                  case "user_already_exists":
+                    toast({
+                      type: "error",
+                      message: (dict as Dict["public"]["auth"]["sign-up"]).form
+                        ._error["already-exists"],
+                    });
+                    break;
+                  case "weak_password":
+                    toast({
+                      type: "error",
+                      message: (dict as Dict["public"]["auth"]["sign-up"]).form
+                        ._error.password,
+                    });
+                    break;
+                }
+              } else if (error === "Invalid login credentials") {
+                toast({
+                  type: "error",
+                  message: (dict as Dict["public"]["auth"]["sign-in"]).form
+                    ._error.invalid,
+                });
+              } else {
+                toast({
+                  type: "error",
+                  message: dict._error,
+                });
+              }
+            }
           })
         }
       >
