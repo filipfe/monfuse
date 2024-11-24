@@ -78,7 +78,7 @@ export default function EditModal({
                   )
           }
           onSubmit={onEdit ? onSubmit : undefined}
-          onClose={onClose}
+          close={{ onClose, text: dict.form._close.label }}
           successMessage={dict.form._success}
           callback={onClose}
           buttonProps={{

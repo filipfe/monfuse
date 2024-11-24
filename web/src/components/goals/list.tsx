@@ -43,8 +43,8 @@ export default async function GoalsList({
         </HorizontalScroll>
       ) : (
         <Empty
-          title="Brak aktywnych celów"
-          cta={{ title: "Dodaj cel", href: "/goals/add" }}
+          title={dict._empty}
+          cta={{ title: dict.button, href: "/goals/add" }}
           icon={CheckCircle}
         />
       )}

@@ -73,7 +73,7 @@ export default function LimitForm({
             <Form
               onSubmit={onSubmit}
               buttonWrapperClassName="pb-4 px-6 mt-4"
-              onClose={onClose}
+              close={{ text: dict.form._close.label, onClose }}
               isLoading={isLoading}
               buttonProps={{
                 children: dict.form._submit.label,

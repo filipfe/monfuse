@@ -5,8 +5,11 @@
       "stats": "Estadísticas",
       "operations": "Operaciones",
       "incomes": "Ingresos",
+      "incomes/add": "Agregar",
       "expenses": "Gastos",
+      "expenses/add": "Agregar",
       "recurring-payments": "Pagos Recurrentes",
+      "recurring-payments/add": "Agregar",
       "goals": "Objetivos",
       "ai-assistant": "Asistente IA",
       "automation": "Automatización",
@@ -23,6 +26,9 @@
       "_error": "Ocurrió un error, por favor intenta de nuevo más tarde"
     },
     "dashboard": {
+      "_metadata": {
+        "title": "Tablero | Monfuse"
+      },
       "latest-operations": {
         "title": "Últimas operaciones",
         "_empty": "No se encontraron operaciones recientes"
@@ -33,6 +39,9 @@
       }
     },
     "stats": {
+      "_metadata": {
+        "title": "Estadísticas | Monfuse"
+      },
       "balance-by-month": {
         "title": "Balance",
         "_empty": "¡No hay datos para mostrar!"
@@ -180,6 +189,9 @@
         }
       },
       "expenses": {
+        "_metadata": {
+          "title": "Gastos | Monfuse"
+        },
         "limits": {
           "period": {
             "daily": "Día",
@@ -233,7 +245,15 @@
           }
         }
       },
+      "incomes": {
+        "_metadata": {
+          "title": "Ingresos | Monfuse"
+        }
+      },
       "recurring-payments": {
+        "_metadata": {
+          "title": "Pagos recurrentes | Monfuse"
+        },
         "upcoming": {
           "title": "Próximos",
           "timer": {
@@ -249,10 +269,16 @@
           "title": "Activos",
           "add": {
             "label": "Agregar"
+          },
+          "_empty": {
+            "title": "No hay pagos activos"
           }
         },
         "latest": {
-          "title": "Reciente"
+          "title": "Reciente",
+          "_empty": {
+            "title": "No hay pagos pasados"
+          }
         },
         "calendar": {
           "popup": {
@@ -261,10 +287,66 @@
               "description": "Nuevo pago recurrente"
             }
           }
+        },
+        "add": {
+          "title": "Nuevo pago recurrente",
+          "data": {
+            "title": "Datos",
+            "form": {
+              "title": {
+                "label": "Título",
+                "placeholder": "Facturas"
+              },
+              "amount": {
+                "label": "Cantidad",
+                "placeholder": "0.00"
+              },
+              "currency": {
+                "label": "Moneda",
+                "placeholder": "USD"
+              },
+              "type": {
+                "label": "Tipo de transacción",
+                "placeholder": "Selecciona el tipo de transacción",
+                "options": {
+                  "incomes": "Ingreso",
+                  "expenses": "Gasto"
+                }
+              }
+            }
+          },
+          "interval": {
+            "title": "Intervalo de tiempo",
+            "form": {
+              "amount": {
+                "label": "Valor"
+              },
+              "unit": {
+                "label": "Intervalo",
+                "placeholder": "Seleccionar intervalo",
+                "options": {
+                  "day": "Día",
+                  "week": "Semana",
+                  "month": "Mes"
+                }
+              },
+              "date": {
+                "label": "Fecha de inicio"
+              },
+              "hour": {
+                "label": "Hora"
+              }
+            }
+          },
+          "_submit": "Guardar",
+          "_error": "Ocurrió un error, intenta de nuevo más tarde"
         }
       }
     },
     "goals": {
+      "_metadata": {
+        "title": "Metas | Monfuse"
+      },
       "list": {
         "title": "Actual",
         "button": "Añadir",
@@ -285,7 +367,11 @@
             }
           },
           "collected": "Recaudado"
-        }
+        },
+        "_empty": "No hay metas activas"
+      },
+      "payments": {
+        "title": "Pagos"
       },
       "priority": {
         "title": "Prioridad",
@@ -300,6 +386,9 @@
       }
     },
     "ai-assistant": {
+      "_metadata": {
+        "title": "Asistente AI | Monfuse"
+      },
       "chat": {
         "recomendation": [
           {
@@ -358,6 +447,9 @@
       }
     },
     "automation": {
+      "_metadata": {
+        "title": "Automatización | Monfuse"
+      },
       "title": "Bot de Telegram",
       "description": [
         "¡Agrega operaciones más rápido con un Bot de Telegram personalizado!",
@@ -379,6 +471,9 @@
       "title": "Configuración",
       "description": "Administra tus datos personales, preferencias y suscripción",
       "account": {
+        "_metadata": {
+          "title": "Configuración de cuenta | Monfuse"
+        },
         "personal-data": {
           "title": "Datos personales",
           "description": "Ajusta tus datos personales para tu cuenta",
@@ -427,6 +522,9 @@
         }
       },
       "preferences": {
+        "_metadata": {
+          "title": "Configuración de preferencias | Monfuse"
+        },
         "_success": "¡Datos actualizados con éxito!",
         "default-currency": {
           "title": "Moneda predeterminada",
@@ -459,6 +557,9 @@
         }
       },
       "subscription": {
+        "_metadata": {
+          "title": "Configuración de suscripción | Monfuse"
+        },
         "_error": "No se pudo obtener información sobre la suscripción",
         "form": {
           "title": "Suscripción Monfuse",
@@ -496,6 +597,9 @@
         }
       },
       "notifications": {
+        "_metadata": {
+          "title": "Configuración de notificaciones | Monfuse"
+        },
         "_error": "Ocurrió un error al cambiar la configuración",
         "telegram": {
           "title": "Notificaciones de Telegram",
@@ -571,6 +675,26 @@
           },
           "_toast": {
             "success": "Se ha enviado un enlace de verificación a la dirección de correo electrónico"
+          },
+          "_error": "Las contraseñas no coinciden"
+        }
+      },
+      "reset-password": {
+        "title": "Restablecer la contraseña",
+        "description": "Introduce tu nueva contraseña para continuar",
+        "form": {
+          "password": {
+            "label": "Contraseña"
+          },
+          "confirm-password": {
+            "label": "Confirmar contraseña"
+          },
+          "_submit": {
+            "label": "Enviar"
+          },
+          "_toast": {
+            "success": "¡La contraseña se ha cambiado con éxito!",
+            "error": "Las contraseñas no coinciden"
           }
         }
       }

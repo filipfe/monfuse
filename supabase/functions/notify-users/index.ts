@@ -46,14 +46,14 @@ const sendNotification = async (user: Profile, { message, options }: Body) => {
 
   if (options?.graph) {
     const { data: graph } = await supabase.functions.invoke("weekly-graph", {
-      body: { user, date: new Date().toISOString() },
+      body: { user },
     });
     if (!user.telegram_id || !telegram_notifications) return;
-    // await bot.api.sendPhoto(user.telegram_id, graph, {
-    //   caption: message ||
-    //     `Cześć ${user.first_name}!
-    // 📊 Oto twój wykres wydatków z poprzedniego tygodnia na podstawie etykiet. Tak trzymaj!`,
-    // });
+    await bot.api.sendPhoto(user.telegram_id, graph, {
+      caption: message ||
+        `Cześć ${user.first_name}!
+    📊 Oto twój wykres wydatków z poprzedniego tygodnia na podstawie etykiet. Tak trzymaj!`,
+    });
   } else {
     if (!user.telegram_id || !telegram_notifications || !message) return;
     await bot.api.sendMessage(user.telegram_id, message);

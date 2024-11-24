@@ -7,6 +7,17 @@ import GoalPriority from "@/components/dashboard/goal-priority";
 import WeeklyGraph from "@/components/dashboard/weekly-graph";
 import { getSettings } from "@/lib/general/actions";
 import getDictionary from "@/const/dict";
+import { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSettings();
+  const {
+    private: {
+      dashboard: { _metadata },
+    },
+  } = await getDictionary(settings.language);
+  return _metadata;
+}
 
 export default async function Dashboard() {
   const settings = await getSettings();

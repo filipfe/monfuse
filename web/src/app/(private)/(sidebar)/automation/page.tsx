@@ -2,6 +2,17 @@ import LatestOperations from "@/components/automation/latest-operations";
 import TelegramBot from "@/components/automation/telegram-bot";
 import getDictionary from "@/const/dict";
 import { getSettings } from "@/lib/general/actions";
+import { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSettings();
+  const {
+    private: {
+      automation: { _metadata },
+    },
+  } = await getDictionary(settings.language);
+  return _metadata;
+}
 
 export default async function Page() {
   const settings = await getSettings();

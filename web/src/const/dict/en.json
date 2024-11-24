@@ -5,11 +5,11 @@
       "stats": "Stats",
       "operations": "Operations",
       "incomes": "Incomes",
-      "incomes/add": "Dodaj",
+      "incomes/add": "Add",
       "expenses": "Expenses",
-      "expenses/add": "Dodaj",
+      "expenses/add": "Add",
       "recurring-payments": "Recurring Payments",
-      "recurring-payments/add": "Dodaj",
+      "recurring-payments/add": "Add",
       "goals": "Goals",
       "ai-assistant": "AI Assistant",
       "automation": "Automation",
@@ -26,6 +26,9 @@
       "_error": "An error occurred, please try again later"
     },
     "dashboard": {
+      "_metadata": {
+        "title": "Dashboard | Monfuse"
+      },
       "latest-operations": {
         "title": "Latest operations",
         "_empty": "No recent operations found"
@@ -37,6 +40,9 @@
       }
     },
     "stats": {
+      "_metadata": {
+        "title": "Stats | Monfuse"
+      },
       "balance-by-month": {
         "title": "Balance",
         "_empty": "No data to display!"
@@ -183,6 +189,9 @@
         }
       },
       "expenses": {
+        "_metadata": {
+          "title": "Expenses | Monfuse"
+        },
         "limits": {
           "period": {
             "daily": "Day",
@@ -236,7 +245,15 @@
           }
         }
       },
+      "incomes": {
+        "_metadata": {
+          "title": "Incomes | Monfuse"
+        }
+      },
       "recurring-payments": {
+        "_metadata": {
+          "title": "Recurring payments | Monfuse"
+        },
         "upcoming": {
           "title": "Upcoming",
           "timer": {
@@ -252,10 +269,16 @@
           "title": "Active",
           "add": {
             "label": "Add"
+          },
+          "_empty": {
+            "title": "No active payments"
           }
         },
         "latest": {
-          "title": "Latest"
+          "title": "Latest",
+          "_empty": {
+            "title": "No past payments"
+          }
         },
         "calendar": {
           "popup": {
@@ -264,10 +287,66 @@
               "description": "New recurring payment"
             }
           }
+        },
+        "add": {
+          "title": "New recurring payment",
+          "data": {
+            "title": "Data",
+            "form": {
+              "title": {
+                "label": "Title",
+                "placeholder": "Bills"
+              },
+              "amount": {
+                "label": "Amount",
+                "placeholder": "0.00"
+              },
+              "currency": {
+                "label": "Currency",
+                "placeholder": "USD"
+              },
+              "type": {
+                "label": "Transaction type",
+                "placeholder": "Select transaction type",
+                "options": {
+                  "incomes": "Income",
+                  "expenses": "Expense"
+                }
+              }
+            }
+          },
+          "interval": {
+            "title": "Time interval",
+            "form": {
+              "amount": {
+                "label": "Value"
+              },
+              "unit": {
+                "label": "Interval",
+                "placeholder": "Choose interval",
+                "options": {
+                  "day": "Day",
+                  "week": "Week",
+                  "month": "Month"
+                }
+              },
+              "date": {
+                "label": "Start date"
+              },
+              "hour": {
+                "label": "Hour"
+              }
+            }
+          },
+          "_submit": "Save",
+          "_error": "An error occurred, please try again later"
         }
       }
     },
     "goals": {
+      "_metadata": {
+        "title": "Goals | Monfuse"
+      },
       "list": {
         "title": "Current",
         "button": "Add",
@@ -288,7 +367,11 @@
             }
           },
           "collected": "Collected"
-        }
+        },
+        "_empty": "No active goals"
+      },
+      "payments": {
+        "title": "Payments"
       },
       "priority": {
         "title": "Priority",
@@ -303,6 +386,9 @@
       }
     },
     "ai-assistant": {
+      "_metadata": {
+        "title": "AI Assistant | Monfuse"
+      },
       "chat": {
         "recomendation": [
           {
@@ -361,6 +447,9 @@
       }
     },
     "automation": {
+      "_metadata": {
+        "title": "Automation | Monfuse"
+      },
       "title": "Telegram Bot",
       "description": [
         "Add operations faster with our custom Telegram Bot!",
@@ -382,6 +471,9 @@
       "title": "Settings",
       "description": "Manage your personal data, preferences, and subscription",
       "account": {
+        "_metadata": {
+          "title": "Account settings | Monfuse"
+        },
         "personal-data": {
           "title": "Personal data",
           "description": "Adjust your personal data for your account",
@@ -430,6 +522,9 @@
         }
       },
       "preferences": {
+        "_metadata": {
+          "title": "Preferences settings | Monfuse"
+        },
         "_success": "Data successfully updated!",
         "default-currency": {
           "title": "Default currency",
@@ -464,6 +559,9 @@
         }
       },
       "subscription": {
+        "_metadata": {
+          "title": "Subscription settings | Monfuse"
+        },
         "_error": "Could not retrieve information about the subscription",
         "form": {
           "title": "Monfuse Subscription",
@@ -501,6 +599,9 @@
         }
       },
       "notifications": {
+        "_metadata": {
+          "title": "Notifications settings | Monfuse"
+        },
         "_error": "An error occurred while changing the setting",
         "telegram": {
           "title": "Telegram Notifications",
@@ -576,6 +677,26 @@
           },
           "_toast": {
             "success": "A verification link has been sent to the email address"
+          },
+          "_error": "Passwords didn't match"
+        }
+      },
+      "reset-password": {
+        "title": "Reset Password",
+        "description": "Enter your new password to continue",
+        "form": {
+          "password": {
+            "label": "Password"
+          },
+          "confirm-password": {
+            "label": "Confirm Password"
+          },
+          "_submit": {
+            "label": "Submit"
+          },
+          "_toast": {
+            "success": "Password has been successfully changed!",
+            "error": "Passwords do not match"
           }
         }
       }

@@ -3,7 +3,8 @@
 import Form from "@/components/ui/form";
 import Toast from "@/components/ui/toast";
 import { Dict } from "@/const/dict";
-import { Input } from "@nextui-org/react";
+import { updateName } from "@/lib/settings/actions";
+import { cn, Input } from "@nextui-org/react";
 import { FormEvent, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -19,27 +20,16 @@ export default function PersonalDataInput({
   const [firstName, setFirstName] = useState(first_name);
   const [lastName, setLastName] = useState(last_name);
 
-  const onSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    const updated = { first_name: firstName, last_name: lastName };
-    // const { error } = await updateAccount(updated);
-    // if (error) {
-    //   toast.custom((t) => (
-    //     <Toast {...t} type="error" message="Wystąpił błąd!" />
-    //   ));
-    // } else {
-    //   toast.custom((t) => (
-    //     <Toast {...t} type="success" message="Pomyślnie zmieniono dane!" />
-    //   ));
-    // }
-  };
-
   return (
     <Form
+      mutation={updateName}
       buttonProps={{
         size: "sm",
         radius: "md",
         children: dict.form._submit.label,
+        className: cn(
+          firstName === first_name && lastName === last_name && "hidden"
+        ),
       }}
     >
       <div className="flex flex-col gap-4">

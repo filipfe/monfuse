@@ -9,6 +9,13 @@ import { getSettings } from "@/lib/general/actions";
 import CurrencyPicker from "@/components/ai-assistant/context/currency";
 import getDictionary from "@/const/dict";
 import ContextDropdown from "@/components/ai-assistant/context-dropdown";
+import { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSettings();
+  const { private: dict } = await getDictionary(settings.language);
+  return dict["ai-assistant"]._metadata;
+}
 
 export default async function Page() {
   const settings = await getSettings();

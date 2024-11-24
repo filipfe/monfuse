@@ -2,7 +2,7 @@
 
 import Form from "@/components/ui/form";
 import { Dict } from "@/const/dict";
-import { Input } from "@nextui-org/react";
+import { cn, Input } from "@nextui-org/react";
 import { useState } from "react";
 
 interface Props extends Pick<Account, "email"> {
@@ -17,6 +17,7 @@ export default function EmailInput({ dict, email: initialEmail }: Props) {
         size: "sm",
         radius: "md",
         children: dict.form._submit.label,
+        className: cn(email === initialEmail && "hidden"),
       }}
     >
       <div className="flex flex-col gap-4">

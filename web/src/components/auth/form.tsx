@@ -28,7 +28,7 @@ export default function Form({
             const { error } = isSignUp
               ? await signUp(formData)
               : await signIn(formData);
-            console.log({ error });
+            console.error("Couldn't sign up", error);
           })
         }
       >
