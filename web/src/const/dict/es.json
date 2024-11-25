@@ -299,6 +299,12 @@
           "add": {
             "label": "Agregar"
           },
+          "columns": {
+            "title": "Título",
+            "amount": "Monto",
+            "currency": "Moneda",
+            "next-payment": "Próximo pago"
+          },
           "_empty": {
             "title": "No hay pagos activos"
           }
@@ -374,7 +380,7 @@
     },
     "goals": {
       "_metadata": {
-        "title": "Metas | Monfuse"
+        "title": "Objetivos | Monfuse"
       },
       "list": {
         "title": "Actual",
@@ -397,10 +403,15 @@
           },
           "collected": "Recaudado"
         },
-        "_empty": "No hay metas activas"
+        "_empty": "No hay objetivos activas"
       },
       "payments": {
-        "title": "Pagos"
+        "title": "Pagos",
+        "columns": {
+          "date": "Fecha"
+        },
+        "today": "Hoy",
+        "sum": "Suma"
       },
       "priority": {
         "title": "Prioridad",

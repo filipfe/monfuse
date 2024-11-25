@@ -8,15 +8,12 @@ import NumberFormat from "@/utils/formatters/currency";
 import { useSettings } from "@/lib/general/queries";
 import { Dict } from "@/const/dict";
 
-export default function GoalRef({
-  dict,
-  goal,
-}: {
+interface Props extends Pick<Settings, "language"> {
   dict: Dict["private"]["goals"]["list"]["goal"];
   goal: Goal;
-}) {
-  const { data: settings } = useSettings();
+}
 
+export default function GoalRef({ dict, goal, language }: Props) {
   const { title, price, currency, deadline, total_paid } = goal;
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -34,7 +31,7 @@ export default function GoalRef({
         </div>
         <small className="text-white/60 text-tiny">
           {deadline
-            ? new Intl.DateTimeFormat(settings?.language, {
+            ? new Intl.DateTimeFormat(language, {
                 dateStyle: "short",
               }).format(new Date(deadline))
             : dict["no-deadline"]}
@@ -46,6 +43,7 @@ export default function GoalRef({
           <strong className="text-3xl font-bold text-white">
             <NumberFormat
               currency={currency}
+              language_code={language}
               amount={total_paid}
               notation="compact"
             />
@@ -54,6 +52,7 @@ export default function GoalRef({
             /{" "}
             <NumberFormat
               currency={currency}
+              language_code={language}
               amount={price}
               notation="compact"
             />

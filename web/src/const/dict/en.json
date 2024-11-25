@@ -299,6 +299,12 @@
           "add": {
             "label": "Add"
           },
+          "columns": {
+            "title": "Title",
+            "amount": "Amount",
+            "currency": "Currency",
+            "next-payment": "Next Payment"
+          },
           "_empty": {
             "title": "No active payments"
           }
@@ -400,7 +406,12 @@
         "_empty": "No active goals"
       },
       "payments": {
-        "title": "Payments"
+        "title": "Payments",
+        "columns": {
+          "date": "Date"
+        },
+        "today": "Today",
+        "sum": "Sum"
       },
       "priority": {
         "title": "Priority",

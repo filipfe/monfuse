@@ -7,13 +7,12 @@ import GoalRef from "./ref";
 import { Dict } from "@/const/dict";
 import Empty from "../ui/empty";
 
-export default async function GoalsList({
-  dict,
-  goals,
-}: {
+interface Props extends Pick<Settings, "language"> {
   dict: Dict["private"]["goals"]["list"];
   goals: Goal[];
-}) {
+}
+
+export default async function GoalsList({ dict, language, goals }: Props) {
   return (
     <Block
       title={dict.title}
@@ -38,7 +37,12 @@ export default async function GoalsList({
       {goals.length > 0 ? (
         <HorizontalScroll innerClassName="items-end">
           {goals.map((item) => (
-            <GoalRef dict={dict.goal} goal={item} key={item.id} />
+            <GoalRef
+              language={language}
+              dict={dict.goal}
+              goal={item}
+              key={item.id}
+            />
           ))}
         </HorizontalScroll>
       ) : (

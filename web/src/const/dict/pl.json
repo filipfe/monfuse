@@ -298,6 +298,12 @@
           "add": {
             "label": "Dodaj"
           },
+          "columns": {
+            "title": "Tytuł",
+            "amount": "Kwota",
+            "currency": "Waluta",
+            "next-payment": "Następna płatność"
+          },
           "_empty": {
             "title": "Brak aktywnych płatności"
           }

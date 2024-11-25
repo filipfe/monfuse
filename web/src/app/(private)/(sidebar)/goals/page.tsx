@@ -26,7 +26,7 @@ export default async function Page() {
 
   return (
     <div className="sm:px-10 py-4 sm:py-8 flex flex-col h-full gap-4 sm:gap-6 xl:grid grid-cols-2 grid-rows-[max-content_1fr]">
-      <List dict={dict.list} goals={goals} />
+      <List language={settings.language} dict={dict.list} goals={goals} />
       <Table
         goals={goals}
         tableData={tableData}
@@ -37,7 +37,7 @@ export default async function Page() {
           _empty: dict.list._empty,
         }}
       />
-      <GoalPriority goals={goals} dict={dict.priority} />
+      <GoalPriority language={settings.language} dict={dict.priority} />
     </div>
   );
 }
