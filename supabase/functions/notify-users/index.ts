@@ -4,6 +4,8 @@ import bot from "../_shared/telegram-bot.ts";
 import { createClient } from "supabase";
 import {} from "npm:date-fns";
 import { toZonedTime } from "npm:date-fns-tz";
+import dict from "./dict.ts";
+import { Locale } from "../_shared/types.ts";
 
 type Body = {
   message?: string;
@@ -50,9 +52,10 @@ const sendNotification = async (user: Profile, { message, options }: Body) => {
     });
     if (!user.telegram_id || !telegram_notifications) return;
     await bot.api.sendPhoto(user.telegram_id, graph, {
-      caption: message ||
-        `Cześć ${user.first_name}!
-    📊 Oto twój wykres wydatków z poprzedniego tygodnia na podstawie etykiet. Tak trzymaj!`,
+      caption: dict[user.settings.language as Locale].graph.replace(
+        "${first_name}",
+        user.first_name,
+      ),
     });
   } else {
     if (!user.telegram_id || !telegram_notifications || !message) return;

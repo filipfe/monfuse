@@ -1,10 +1,10 @@
 import { createClient } from "supabase";
 import "https://esm.sh/v135/@supabase/functions-js@2.4.1/src/edge-runtime.d.ts";
 import bot from "../_shared/telegram-bot.ts";
-import { breakpoints } from "./dict.ts";
+import { limitBreakpoints, recurringDict } from "./dict.ts";
 import { type Breakpoint } from "./types.ts";
 import { Payment } from "../_shared/types.ts";
-import { Preferences } from "../_shared/types.ts";
+import { Locale, Preferences } from "../_shared/types.ts";
 
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
 const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
@@ -49,15 +49,23 @@ const sendNotification = async (
   limit: Limit,
   breakpoint: Breakpoint,
 ) => {
+  const difference = new Intl.NumberFormat(profile.language, {
+    style: "currency",
+    currency: limit.currency,
+  }).format(Math.abs(limit.total - limit.amount));
+
   await bot.api.sendMessage(
     profile.telegram_id,
-    breakpoint.messages[profile.language.code](limit),
+    breakpoint.messages[profile.language](limit.period).replace(
+      "{amount}",
+      difference,
+    )
+      .replace("{currency}", limit.currency),
   );
 };
 
 Deno.serve(async (req) => {
   const body = (await req.json()) as Body;
-  console.log(req, { body });
   const {
     record: { currency, title, recurring, amount, user_id },
     operation_type,
@@ -65,14 +73,14 @@ Deno.serve(async (req) => {
   const { data: profile, error: profileError } = await supabase
     .from("profiles")
     .select(
-      "telegram_id, ...settings(timezone, language:languages(code, name))",
+      "telegram_id, ...settings(timezone, language)",
     )
     .eq("id", user_id)
     .returns<(Preferences & { telegram_id: string; timezone: string })[]>()
     .single();
 
   if (profileError) {
-    console.warn("Couldn't retrieve telegram_id: ", profileError);
+    console.warn("Couldn't retrieve profile: ", profileError);
     return new Response(JSON.stringify(profileError), {
       status: 500,
       headers: {
@@ -89,17 +97,19 @@ Deno.serve(async (req) => {
   if (recurring) {
     await bot.api.sendMessage(
       profile.telegram_id,
-      `Dodano ${
-        operation_type === "income" ? "przychód" : "wydatek"
-      } cykliczny ${title} na kwotę ${
+      recurringDict[profile.language as Locale](operation_type).replace(
+        "{title}",
+        title,
+      ).replace(
+        "{amount}",
         new Intl.NumberFormat(
-          profile.language.code,
+          profile.language,
           {
             style: "currency",
             currency,
           },
-        ).format(amount)
-      }`,
+        ).format(amount),
+      ),
     );
   }
 
@@ -131,7 +141,7 @@ Deno.serve(async (req) => {
         const paidPercentage = (limit.total / limit.amount) * 100;
         const noCurrentPaidPercentage =
           ((limit.total - amount) / limit.amount) * 100;
-        const exceededBreakpoint = breakpoints.find(
+        const exceededBreakpoint = limitBreakpoints.find(
           (breakpoint) =>
             paidPercentage >= breakpoint.value &&
             noCurrentPaidPercentage < breakpoint.value,
