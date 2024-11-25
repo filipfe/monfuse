@@ -84,7 +84,7 @@ Deno.serve(async (req) => {
   await Promise.all(
     (body.options?.graph
       ? users.filter(({ settings: { timezone } }) =>
-        toZonedTime(new Date(), timezone).getHours() === 16
+        toZonedTime(new Date(), timezone).getHours() === 8
       )
       : users).map((user) => sendNotification(user, body)),
   );

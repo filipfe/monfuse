@@ -61,17 +61,26 @@ export async function getOrCreateSubscription(): Promise<
 
     if (!subscription) {
       const prices = await stripe.prices.search({
-        query:
-          `currency:"${user.settings.currency.toLowerCase()}" product:"${process.env.STRIPE_PRODUCT_ID}" active:"true"`,
+        query: `product:"${process.env.STRIPE_PRODUCT_ID}" active:"true"`,
       });
       if (prices.data.length === 0) {
         throw new Error(`Couldn't find price for ${user.settings.currency}`);
+      }
+      const settingsCurrencyPrice = prices.data.find((price) =>
+        price.currency === user.settings.currency.toLowerCase()
+      );
+      let price = settingsCurrencyPrice;
+      if (!settingsCurrencyPrice) {
+        price = prices.data.find((price) => price.currency === "usd");
+      }
+      if (!price) {
+        throw new Error(`Couldn't find price for USD`);
       }
       const newSubscription = await stripe.subscriptions.create({
         customer: user.id,
         items: [
           {
-            price: prices.data[0].id,
+            price: price.id,
           },
         ],
         payment_settings: { save_default_payment_method: "on_subscription" },

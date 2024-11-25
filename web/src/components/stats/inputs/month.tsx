@@ -1,5 +1,5 @@
 import { StatsFilterContext } from "@/app/(private)/(sidebar)/stats/providers";
-import { Select, SelectItem } from "@nextui-org/react";
+import { cn, Select, SelectItem } from "@nextui-org/react";
 import { useContext } from "react";
 
 type Props = {
@@ -31,14 +31,13 @@ export default function MonthInput({ value, onChange, disabledKeys }: Props) {
     >
       {Array.from(Array(12)).map((_, k) => {
         const date = new Date();
+        date.setDate(1);
         date.setMonth(k);
         const month = formatter.format(date);
         return (
           <SelectItem
             classNames={{
-              base: `${
-                value === k ? "!bg-light" : "!bg-white hover:!bg-light"
-              }`,
+              base: cn(value === k ? "!bg-light" : "!bg-white hover:!bg-light"),
             }}
             key={k.toString()}
           >

@@ -625,6 +625,9 @@
         }
       },
       "sign-in": {
+        "_metadata": {
+          "title": "Iniciar sesión | Monfuse"
+        },
         "title": "¡Bienvenido de nuevo!",
         "description": "Inicia sesión para continuar",
         "form": {
@@ -633,6 +636,9 @@
           },
           "_submit": {
             "label": "Iniciar sesión"
+          },
+          "_error": {
+            "invalid": "Correo electrónico o contraseña no válidos"
           }
         },
         "forgot-password": {
@@ -645,6 +651,10 @@
         }
       },
       "sign-up": {
+        "_metadata": {
+          "title": "Regístrate | Monfuse"
+        },
+
         "title": "¡Bienvenido a Monfuse!",
         "description": "Regístrate para continuar",
         "form": {
@@ -659,6 +669,10 @@
           },
           "_submit": {
             "label": "Registrarse"
+          },
+          "_error": {
+            "already-exists": "Ya existe una cuenta con la dirección de correo electrónico proporcionada",
+            "password": "La contraseña debe tener al menos 8 caracteres"
           }
         },
         "swap": {
@@ -667,6 +681,9 @@
         }
       },
       "forgot-password": {
+        "_metadata": {
+          "title": "Restablecer contraseña | Monfuse"
+        },
         "title": "Restablecer contraseña",
         "description": "Ingresa tu dirección de correo electrónico para continuar",
         "form": {
@@ -680,6 +697,9 @@
         }
       },
       "reset-password": {
+        "_metadata": {
+          "title": "Restablecer contraseña | Monfuse"
+        },
         "title": "Restablecer la contraseña",
         "description": "Introduce tu nueva contraseña para continuar",
         "form": {

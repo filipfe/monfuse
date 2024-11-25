@@ -80,7 +80,7 @@ export async function signUp(formData: FormData) {
   if (error) {
     console.error({ error });
     return {
-      error: error.message,
+      error: error.code,
     };
   }
 
@@ -98,7 +98,7 @@ export async function signIn(formData: FormData) {
   });
 
   if (error) {
-    console.error(error);
+    console.warn(error.message);
     return {
       error: error.message,
     };
