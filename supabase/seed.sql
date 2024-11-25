@@ -204,13 +204,13 @@ from cte1 c1;
 with cte1 as(
   select
     case
-      when random() < 0.5 then 'Wypłata'
-      when random() < 0.7 then (array['Projekt freelance', 'Konsultacje', 'Dodatkowa praca'])[floor(random() * 3 + 1)]
-      when random() < 0.8 then (array['Premia od pracodawcy', 'Premia roczna', 'Premia za wyniki'])[floor(random() * 3 + 1)]
-      when random() < 0.85 then (array['Zwrot z inwestycji', 'Dywidenda', 'Zysk z handlu kryptowalutami'])[floor(random() * 3 + 1)]
-      when random() < 0.9 then (array['Prezent od rodziny', 'Spadek'])[floor(random() * 2 + 1)]
-      when random() < 0.95 then 'Dochód z wynajmu'
-      else 'Zwrot podatku'
+      when random() < 0.5 then 'Salary'
+      when random() < 0.7 then (array['Freelance Project', 'Consultations', 'Additional Work'])[floor(random() * 3 + 1)]
+      when random() < 0.8 then (array['Employer Bonus', 'Annual Bonus', 'Performance Bonus'])[floor(random() * 3 + 1)]
+      when random() < 0.85 then (array['Investment Return', 'Dividend', 'Cryptocurrency Trading Profit'])[floor(random() * 3 + 1)]
+      when random() < 0.9 then (array['Gift from Family', 'Inheritance'])[floor(random() * 2 + 1)]
+      when random() < 0.95 then 'Rental Income'
+      else 'Tax Refund'
     end as title
   from generate_series(1, 70)
 )
@@ -218,30 +218,30 @@ insert into incomes (title, amount, currency, user_id, recurring, from_telegram,
 select
   c1.title,
   case
-    when c1.title = 'Wypłata' then round((random() * 2000 + 6000)::numeric, 2)
-    when c1.title = 'Projekt freelance' then round((random() * 2000 + 2500)::numeric, 2)
-    when c1.title = 'Konsultacje' then round((random() * 2000 + 3000)::numeric, 2)
-    when c1.title = 'Dodatkowa praca' then round((random() * 1500 + 2000)::numeric, 2)
-    when c1.title = 'Premia od pracodawcy' then round((random() * 2000 + 3000)::numeric, 2)
-    when c1.title = 'Premia roczna' then round((random() * 2000 + 4000)::numeric, 2)
-    when c1.title = 'Premia za wyniki' then round((random() * 2000 + 3500)::numeric, 2)
-    when c1.title = 'Zwrot z inwestycji' then round((random() * 7000 + 5000)::numeric, 2)
-    when c1.title = 'Dywidenda' then round((random() * 5000 + 5000)::numeric, 2)
-    when c1.title = 'Zysk z handlu kryptowalutami' then round((random() * 7000 + 8000)::numeric, 2)
-    when c1.title = 'Prezent od rodziny' then round((random() * 2000 + 1000)::numeric, 2)
-    when c1.title = 'Spadek' then round((random() * 13000 + 7000)::numeric, 2)
-    when c1.title = 'Dochód z wynajmu' then round((random() * 2000 + 4000)::numeric, 2)
+    when c1.title = 'Salary' then round((random() * 2000 + 6000)::numeric, 2)
+    when c1.title = 'Freelance Project' then round((random() * 2000 + 2500)::numeric, 2)
+    when c1.title = 'Consultations' then round((random() * 2000 + 3000)::numeric, 2)
+    when c1.title = 'Additional Work' then round((random() * 1500 + 2000)::numeric, 2)
+    when c1.title = 'Employer Bonus' then round((random() * 2000 + 3000)::numeric, 2)
+    when c1.title = 'Annual Bonus' then round((random() * 2000 + 4000)::numeric, 2)
+    when c1.title = 'Performance Bonus' then round((random() * 2000 + 3500)::numeric, 2)
+    when c1.title = 'Investment Return' then round((random() * 7000 + 5000)::numeric, 2)
+    when c1.title = 'Dividend' then round((random() * 5000 + 5000)::numeric, 2)
+    when c1.title = 'Cryptocurrency Trading Profit' then round((random() * 7000 + 8000)::numeric, 2)
+    when c1.title = 'Gift from Family' then round((random() * 2000 + 1000)::numeric, 2)
+    when c1.title = 'Inheritance' then round((random() * 13000 + 7000)::numeric, 2)
+    when c1.title = 'Rental Income' then round((random() * 2000 + 4000)::numeric, 2)
     else round((random() * 1000 + 1000)::numeric, 2)
   end,
   ( 
     case
-      when random() < 0.9 then 'PLN'
+      when random() < 1 then 'USD'
       else (array['USD', 'EUR', 'GBP', 'CHF'])[floor(random() * 4 + 1)]
     end
   )::currency_type,
   '8d65ee5d-3897-4f61-b467-9bdc8df6f07f',
   case
-    when title = 'Wypłata' or title = 'Dochód z wynajmu' then true
+    when title = 'Salary' or title = 'Rental Income' then true
     else false
   end,
   random() < 0.2 as from_telegram,

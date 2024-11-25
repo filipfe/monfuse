@@ -111,9 +111,16 @@ export async function signIn(formData: FormData) {
 export async function signOut() {
   const supabase = createClient();
 
-  await supabase.auth.signOut();
+  const { error } = await supabase.auth.signOut();
 
-  redirect("/sign-in");
+  if (error) {
+    console.error("Couldn't sign out: ", error);
+    return {
+      error: true,
+    };
+  } else {
+    redirect("/sign-in");
+  }
 }
 
 export async function setupAccount(formData: FormData) {

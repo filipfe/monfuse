@@ -6,6 +6,7 @@ import { Metadata } from "next";
 import metadata, { openGraph } from "@/app/shared-metadata";
 import { getLang } from "@/lib/utils";
 import { LOCALES } from "@/lib/locales";
+import Description from "@/components/services/description";
 
 export async function generateMetadata({
   params,
@@ -61,6 +62,13 @@ export default async function Page({ params }: PageProps) {
       <Skeleton dict={{ ...incomes, cta }}>
         <IncomeCard dict={dictIncomeCard} />
       </Skeleton>
+      <Description
+        dict={incomes.info}
+        image={{
+          src: "/app/expenses.png",
+          alt: incomes.image.alt,
+        }}
+      />
       <FAQ dict={{ ...dictFaq, items: incomes.faq }} />
     </div>
   );

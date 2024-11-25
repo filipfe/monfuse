@@ -4,11 +4,12 @@ import { Fragment, useContext, useTransition } from "react";
 import { signOut } from "@/lib/auth/actions";
 import { BreadcrumbItem, Breadcrumbs, Button, cn } from "@nextui-org/react";
 import { AlignJustifyIcon, Bot, LogOutIcon, SettingsIcon } from "lucide-react";
-import { LINKS, PAGES, SETTINGS_PAGES } from "@/const";
+import { PAGES, SETTINGS_PAGES } from "@/const";
 import { usePathname } from "next/navigation";
 import { MenuContext } from "@/app/(private)/(sidebar)/providers";
 import { Dict } from "@/const/dict";
 import Logo from "@/assets/icons/logo";
+import toast from "@/utils/toast";
 
 const automationPage: Page = {
   href: "/automation",
@@ -26,7 +27,7 @@ const settingsPage: Page = {
 export default function Header({
   dict,
 }: {
-  dict: Dict["private"]["_navigation"];
+  dict: Dict["private"]["_navigation"] & Dict["private"]["general"];
 }) {
   const [isPending, startTransition] = useTransition();
   const { isMenuHidden, setIsMenuHidden } = useContext(MenuContext);
@@ -84,7 +85,17 @@ export default function Header({
           ))}
         </Breadcrumbs>
         <form
-          action={() => startTransition(signOut)}
+          action={() =>
+            startTransition(async () => {
+              const res = await signOut();
+              if (res?.error) {
+                toast({
+                  type: "error",
+                  message: dict._error,
+                });
+              }
+            })
+          }
           className="hidden sm:block"
         >
           <Button

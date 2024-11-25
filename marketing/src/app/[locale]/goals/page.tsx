@@ -66,7 +66,7 @@ export default async function Page({ params }: PageProps) {
         dict={goals.info}
         image={{
           src: "/app/goals.png",
-          alt: "Goals page showing goal progress and payment breakdown.",
+          alt: goals.image.alt,
         }}
       />
       <FAQ dict={{ ...dictFaq, items: goals.faq }} />

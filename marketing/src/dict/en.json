@@ -201,6 +201,9 @@
         },
         "title": "Incomes",
         "description": "Easily track all sources of income and view detailed reports to understand your earning patterns.",
+        "info": {
+          "markdown": "## Gain Insights On Your Income Sources\n\nTracking your income is just as important as managing [**expenses**](/expenses) when it comes to financial success. With Monfuse, you can easily log and categorize all your income sources—from salaries and freelance earnings to side hustles and unexpected windfalls. Having a clear picture of your earnings empowers you to plan better and make informed financial decisions.\n\nWhether you have a steady paycheck or variable income streams, Monfuse integrates all your data into one intuitive dashboard. This gives you a real-time snapshot of your financial health, enabling you to align your earnings with your [**goals**](/goals) and spending habits."
+        },
         "faq": [
           {
             "question": "How can I add a new income source?",
@@ -218,7 +221,10 @@
             "question": "How do I track recurring income?",
             "answer": "To track recurring income, you can set up the entry as a recurring payment, and the app will automatically track it on the specified schedule."
           }
-        ]
+        ],
+        "image": {
+          "alt": "Incomes page interface with transactions table, stats and bar chart"
+        }
       },
       "expenses": {
         "_metadata": {
@@ -259,7 +265,10 @@
           {
             "markdown": "## Organize Your Spending with Custom Labels\n\nCategorizing expenses is key to understanding your spending patterns. Our app allows you to create custom labels for each expense, helping you organize and track your transactions with ease. By assigning labels like “Work,” “Travel,” or “Household,” you can gain a clearer breakdown of your spending areas, making budget management straightforward.\n\nLabel-based tracking provides a detailed view of your spending habits, allowing you to analyze expenses by category over time. This can reveal patterns, show where you may be overspending, and highlight areas where you can cut back.\n\nOur labeling feature is designed to be as flexible as your budget. You can create, edit, or delete labels anytime to reflect changes in your lifestyle or financial goals. Whether your priorities shift toward travel, health, or saving, custom labels make it easy to keep your budget aligned with your current needs."
           }
-        ]
+        ],
+        "image": {
+          "alt": "Expenses page interface with categorized transactions and limits."
+        }
       },
       "recurring-payments": {
         "_metadata": {
@@ -294,7 +303,10 @@
             "question": "Can I categorize my recurring payments?",
             "answer": "Yes, you can assign categories to your recurring payments to help you manage and track your expenses more effectively."
           }
-        ]
+        ],
+        "image": {
+          "alt": "Recurring payments interface showcasing active, latest and upcoming payments along with calendar"
+        }
       },
       "goals": {
         "_metadata": {
@@ -323,6 +335,9 @@
         ],
         "info": {
           "markdown": "## Conquer Your Financial Goals\n\nStaying committed to financial goals can be difficult without the right tools. Many people struggle to track their progress or lose sight of their savings targets amidst day-to-day expenses. Without a clear, visual way to see how far they've come, it’s easy to become discouraged and fall off track. For help staying on top of your overall finances, explore how our [**expense tracking**](/expenses) can keep your spending in check.\n\nOur [**AI Assistant**](/ai-assistant) provides personalized insights, helping you understand your progress toward your financial milestones. You can easily track payments and contributions over time, making it easier to see your efforts pay off. The _visual representation_ keeps you motivated and focused on achieving your financial ambitions.\n\nFrom short-term savings goals to long-term financial ambitions, the app allows you to tailor your goals according to your unique needs. You can add, edit, or delete goals at any time, keeping your financial planning flexible and responsive to life’s changes."
+        },
+        "image": {
+          "alt": "Goals page interface showcasing goal progress and payment breakdown"
         }
       }
     }
