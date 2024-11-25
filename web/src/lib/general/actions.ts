@@ -15,6 +15,7 @@ export async function getSettings(): Promise<Settings> {
     .single();
 
   if (error) {
+    revalidatePath("/", "layout");
     throw new Error(error.message);
   }
 

@@ -201,6 +201,9 @@
         },
         "title": "Przychody",
         "description": "Z łatwością śledź wszystkie źródła przychodów i przeglądaj szczegółowe raporty, aby zrozumieć swoje wzorce zarobków.",
+        "info": {
+          "markdown": "## Uzyskaj wgląd w swoje źródła przychodów\n\nŚledzenie przychodów jest tak samo ważne jak zarządzanie [**wydatkami**](/expenses), jeśli chodzi o osiąganie sukcesu finansowego. Dzięki Monfuse możesz łatwo rejestrować i kategoryzować wszystkie swoje źródła przychodu – od wynagrodzeń i zarobków z pracy po dodatkowe zajęcia i niespodziewane wpływy pieniężne. Jasny obraz swoich zarobków pozwala lepiej planować i podejmować świadome decyzje finansowe.\n\nNiezależnie od tego, czy masz stałą pensję, czy zmienne źródła przychodu, Monfuse integruje wszystkie dane na jednym intuicyjnym panelu. Dzięki temu zyskujesz wgląd w swoją sytuację finansową w czasie rzeczywistym, co pozwala dostosować zarobki do swoich [**celów**](/goals) i nawyków wydatkowych."
+        },
         "faq": [
           {
             "question": "Jak dodać nowe źródło przychodu?",
@@ -218,7 +221,10 @@
             "question": "Jak śledzić przychody powtarzalne?",
             "answer": "Aby śledzić przychody powtarzalne, możesz ustawić je jako płatności cykliczne, a aplikacja automatycznie będzie je rejestrować zgodnie z wybranym harmonogramem."
           }
-        ]
+        ],
+        "image": {
+          "alt": "Interfejs strony przychodów z tabelą transakcji, statystykami i wykresem"
+        }
       },
       "expenses": {
         "_metadata": {
@@ -259,7 +265,10 @@
           {
             "markdown": "## Organizuj swoje wydatki za pomocą niestandardowych etykiet\n\nKategoryzowanie wydatków jest kluczowe dla zrozumienia ich wzorców. Nasza aplikacja pozwala na tworzenie niestandardowych etykiet dla każdego wydatku, co ułatwia organizację i śledzenie transakcji. Przypisując etykiety takie jak \"Praca\", \"Podróże\" czy \"Gospodarstwo domowe\", możesz uzyskać jaśniejszy obraz obszarów wydatków, co sprawia, że zarządzanie budżetem staje się proste.\n\nŚledzenie oparte na etykietach dostarcza szczegółowego widoku Twoich nawyków wydatkowych, pozwalając analizować je według kategorii w czasie.\n\nMożesz tworzyć, edytować lub usuwać etykiety w dowolnym momencie, aby odzwierciedlić zmiany w swoim stylu życia lub [**celach finansowych**](/goals). Niezależnie od tego, czy Twoje priorytety skupiają się na hobby, podróżach czy zdrowiu, niestandardowe etykiety ułatwiają utrzymanie budżetu zgodnie z Twoimi bieżącymi potrzebami."
           }
-        ]
+        ],
+        "image": {
+          "alt": "Interfejs strony wydatków z transakcjami podzielonymi na kategorie i limity"
+        }
       },
       "recurring-payments": {
         "_metadata": {
@@ -294,7 +303,10 @@
             "question": "Czy mogę kategoryzować moje płatności cykliczne?",
             "answer": "Tak, możesz przypisać kategorie do swoich płatności cyklicznych, aby skuteczniej zarządzać i śledzić swoje wydatki."
           }
-        ]
+        ],
+        "image": {
+          "alt": "Interfejs strony płatności cyklicznych przedstawiający aktywne, nadchodzące i przeszłe transakcje oraz kalendarz"
+        }
       },
       "goals": {
         "_metadata": {
@@ -323,6 +335,9 @@
         ],
         "info": {
           "markdown": "## Zrealizuj Swoje Cele Finansowe\n\nPozostanie zaangażowanym w realizację celów finansowych może być trudne bez odpowiednich narzędzi. Wiele osób ma problem ze śledzeniem postępów lub zaniedbuje swoje cele oszczędnościowe przez codzienne wydatki. Bez wyraźnego, wizualnego sposobu na zobaczenie postępu, łatwo jest stracić motywację i zrezygnować. Aby pomóc Ci lepiej zarządzać finansami, zobacz, jak nasze [**śledzenie wydatków**](/expenses) może utrzymać Twoje wydatki pod kontrolą.\n\nNasz [**Asystent AI**](/ai-assistant) zapewnia spersonalizowane wglądy, pomagając Ci zrozumieć postęp w realizacji Twoich celów finansowych. Możesz łatwo śledzić płatności i wkłady w czasie, co ułatwia dostrzeganie efektów swoich wysiłków. _Wizualna reprezentacja_ utrzymuje motywację i skupienie na osiągnięciu Twoich ambicji finansowych.\n\nOd celów oszczędnościowych krótkoterminowych po długoterminowe ambicje finansowe, aplikacja pozwala dostosować cele do Twoich unikalnych potrzeb. Możesz dodawać, edytować lub usuwać cele w dowolnym momencie, utrzymując swoje planowanie finansowe elastyczne i responsywne na zmiany w życiu."
+        },
+        "image": {
+          "alt": "Interfejs strony celów przedstawiający rozkład płatności oraz postęp w finalizacji"
         }
       }
     }
@@ -336,6 +351,10 @@
     "description": "Poznaj swojego finansowego asystenta AI — zaprojektowanego, aby uprościć śledzenie operacji i wspierać Twoje cele finansowe 24/7."
   },
   "pricing": {
+    "_metadata": {
+      "title": "Cennik, Jedna cena, Wszystkie funkcje | Monfuse",
+      "description": "Uzyskaj dostęp do wszystkich funkcji Monfuse za jedną, prostą opłatę. Brak poziomów, brak ukrytych opłat – tylko przejrzysta i prosta cena za śledzenie wydatków, zarządzanie przychodami, ustalanie celów i wiele więcej. Zacznij kontrolować swoje finanse już teraz."
+    },
     "title": "Cennik",
     "description": "Odblokuj pełen potencjał zarządzania finansami dzięki jednemu, przystępnemu planowi cenowemu Monfuse.",
     "faq": [
@@ -371,5 +390,13 @@
   "banner": {
     "title": "Przejmij pełną kontrolę nad finansami osobistymi",
     "button": "Rozpocznij"
+  },
+  "privacy-policy": {
+    "_metadata": {
+      "title": "Polityka prywatności | Monfuse",
+      "description": "Polityka prywatności Monfuse zawierająca informacje o przetwarzaniu danych osobowych, stosowanych metodach ochrony danych, wykorzystaniu plików cookies oraz prawach użytkownika w zakresie ochrony prywatności. Dowiedz się więcej o celach przetwarzania danych, możliwościach zarządzania plikami cookies i zabezpieczeniach stosowanych przez administratora."
+    },
+    "title": "Polityka prywatności",
+    "content": "# Polityka Prywatności\n\n## 1. Informacje ogólne\n\nNiniejsza polityka dotyczy Serwisu www, funkcjonującego pod adresem URL: [monfuse.com](https://monfuse.com). Operator serwisu oraz Administratorem danych osobowych jest: **Sebastian Magnucki**, Zaciszna 11/94, 35-326 Rzeszów, Polska. Adres kontaktowy e-mail: **se6359@gmail.com**. Operator jest Administratorem Twoich danych osobowych w odniesieniu do danych podanych dobrowolnie w Serwisie. Serwis wykorzystuje dane osobowe w następujących celach: - Prezentacja oferty lub informacji. Serwis realizuje funkcje pozyskiwania informacji o użytkownikach i ich zachowaniu w następujący sposób: 1. Poprzez dobrowolnie wprowadzone w formularzach dane, które zostają wprowadzone do systemów Operatora. 2. Poprzez zapisywanie w urządzeniach końcowych plików cookie (tzw. „ciasteczka”).\n\n## 2. Wybrane metody ochrony danych stosowane przez Operatora\n\n- Miejsca logowania i wprowadzania danych osobowych są chronione w warstwie transmisji (certyfikat SSL), co zabezpiecza dane przed przechwyceniem podczas przesyłania. - Dane osobowe przechowywane w bazie danych są zaszyfrowane i dostępne jedynie przy użyciu klucza Administratora. - Hasła użytkowników są przechowywane w formie hashowanej, co uniemożliwia ich odwrócenie. - Operator regularnie zmienia hasła administracyjne. - Wykonywane są regularne kopie bezpieczeństwa danych. - Oprogramowanie używane przez Operatora jest regularnie aktualizowane.\n\n## 3. Hosting\n\nSerwis jest hostowany na serwerach innej firmy. Firma hostingowa prowadzi logi serwerowe, które mogą obejmować: - adresy URL żądanych zasobów, - czas nadejścia i wysłania odpowiedzi, - informacje o przeglądarce użytkownika, - adres IP użytkownika, - inne dane diagnostyczne.\n\n## 4. Twoje prawa i dodatkowe informacje o sposobie wykorzystania danych\n\nW niektórych sytuacjach Administrator może przekazywać dane innym odbiorcom, np.: - pracownikom i współpracownikom, - firmom hostingowym, - firmom obsługującym mailingi i komunikaty SMS, - kurierom, - ubezpieczycielom, - bankom, - organom publicznym. Dane osobowe są przetwarzane przez Administratora przez okres nie dłuższy niż wymagają tego przepisy prawa lub cele ich przetwarzania. Przysługują Ci następujące prawa: - Dostęp do danych osobowych, - Sprostowanie danych, - Usunięcie danych, - Ograniczenie przetwarzania, - Przenoszenie danych, - Sprzeciw wobec przetwarzania danych w celach marketingowych. Możesz złożyć skargę do Prezesa Urzędu Ochrony Danych Osobowych (ul. Stawki 2, 00-193 Warszawa).\n\n## 5. Informacje w formularzach\n\nSerwis zbiera informacje podane dobrowolnie przez użytkownika. Dane w formularzach są przetwarzane w celu wynikającym z funkcji formularza (np. obsługa zgłoszeń, rejestracja usług).\n\n## 6. Logi Administratora\n\nInformacje o zachowaniu użytkowników mogą być logowane i wykorzystywane do administrowania serwisem.\n\n## 7. Istotne techniki marketingowe\n\nOperator korzysta z Google Analytics do analizy ruchu na stronie. Dane są anonimizowane i przetwarzane przy użyciu plików cookies. Użytkownik może zarządzać preferencjami dotyczącymi reklam poprzez narzędzie: [Google Ads Preferences](https://www.google.com/ads/preferences/).\n\n## 8. Informacja o plikach cookies\n\nSerwis korzysta z plików cookies, które: - Utrzymują sesję użytkownika, - Wspomagają analizę ruchu i działania marketingowe.\n\n### Typy plików cookies:\n\n1. **Sesyjne**: Przechowywane do wylogowania lub zamknięcia przeglądarki.\n\n2. **Stałe**: Przechowywane przez określony czas lub do ich usunięcia przez użytkownika. Przeglądarki internetowe umożliwiają zarządzanie ustawieniami plików cookies. Ograniczenie ich stosowania może wpłynąć na funkcjonalność serwisu.\n\n## 9. Zarządzanie plikami cookies\n\nInstrukcje zarządzania plikami cookies dla różnych przeglądarek: - **Edge**, **Internet Explorer**, **Chrome**, **Safari**, **Firefox**, **Opera**. Urządzenia mobilne: **Android**, **iOS (Safari)**, **Windows Phone**.\n\nNiniejszy wzór polityki został wygenerowany w celach informacyjnych na dzień 2018-08-14. Zaleca się dostosowanie dokumentu do specyfiki swojej strony oraz konsultację prawną."
   }
 }

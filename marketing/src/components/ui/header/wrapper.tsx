@@ -30,13 +30,16 @@ export default function Wrapper({
       <div
         className={cn(
           "sm:px-6 py-4",
-          !pathname.includes("/blog") && "bg-primary-dark"
+          !pathname.includes("/blog") &&
+            !pathname.includes("/privacy-policy") &&
+            "bg-primary-dark"
         )}
       >
         <div
           className={cn(
             "max-w-7xl mx-auto flex items-center justify-between h-14 sm:rounded-lg px-1 border-y sm:border border-white/10 bg-gradient-to-br from-[rgba(255,255,255,0.05)] to-[rgba(255,255,255,0)]",
             !pathname.includes("/blog") &&
+              !pathname.includes("/privacy-policy") &&
               "text-white [&_nav>a]:text-white [&_a]:text-white"
           )}
         >
@@ -44,7 +47,12 @@ export default function Wrapper({
             <>
               <Link href="/" className="w-9 sm:w-11 ml-5 sm:ml-3">
                 <span className="sr-only">{dict}</span>
-                <Logo isDown={pathname.includes("/blog")} />
+                <Logo
+                  isDown={
+                    pathname.includes("/blog") ||
+                    pathname.includes("/privacy-policy")
+                  }
+                />
               </Link>
               {children}
             </>

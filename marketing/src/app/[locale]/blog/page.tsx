@@ -38,7 +38,7 @@ export async function generateMetadata({
       languages: LOCALES.reduce(
         (prev, locale) => ({
           ...prev,
-          [lang]: `https://www.monfuse.com/${locale}/blog`,
+          [locale]: `https://www.monfuse.com/${locale}/blog`,
         }),
         {}
       ),

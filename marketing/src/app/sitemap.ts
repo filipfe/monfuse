@@ -11,6 +11,7 @@ const urls = [
   "/goals",
   "/ai-assistant",
   "/blog",
+  "/privacy-policy",
   // "/contact",
 ];
 

@@ -34,7 +34,7 @@ export async function generateMetadata({
       languages: LOCALES.reduce(
         (prev, locale) => ({
           ...prev,
-          [lang]: `https://www.monfuse.com/${locale}/expenses`,
+          [locale]: `https://www.monfuse.com/${locale}/expenses`,
         }),
         {}
       ),
@@ -68,7 +68,7 @@ export default async function Page({ params }: PageProps) {
           dict={section}
           image={{
             src: "/app/expenses.png",
-            alt: "Expenses page interface with categorized transactions and limits.",
+            alt: expenses.image.alt,
           }}
           key={`info-${k}`}
         />

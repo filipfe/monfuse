@@ -38,7 +38,7 @@ export default function Description({ dict: { markdown }, image, rtl }: Props) {
                 </p>
               ),
               strong: ({ children, ...props }) => (
-                <strong className="text-primary" {...props}>
+                <strong className="text-primary underline" {...props}>
                   {children}
                 </strong>
               ),
