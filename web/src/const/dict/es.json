@@ -25,6 +25,35 @@
       "expenses": "Gastos",
       "_error": "Ocurrió un error, por favor intenta de nuevo más tarde"
     },
+    "account-setup": {
+      "_metadata": {
+        "title": "Configuración de la cuenta | Monfuse"
+      },
+      "welcome": "Hola",
+      "description": "Configura tu cuenta antes de comenzar",
+      "progress": {
+        "label": "Paso"
+      },
+      "form": {
+        "personal-data": {
+          "title": "Datos personales"
+        },
+        "currency": {
+          "title": "Moneda predeterminada"
+        },
+        "location": {
+          "title": "Ubicación"
+        },
+        "automation": {
+          "title": "Bot de Telegram (opcional)"
+        },
+        "_back": "Atrás",
+        "_submit": {
+          "next": "Siguiente",
+          "start": "Comenzar"
+        }
+      }
+    },
     "dashboard": {
       "_metadata": {
         "title": "Tablero | Monfuse"
