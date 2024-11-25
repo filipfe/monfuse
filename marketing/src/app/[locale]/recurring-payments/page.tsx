@@ -64,7 +64,7 @@ export default async function Page({ params }: PageProps) {
           dict={section}
           image={{
             src: "/app/recurring-payments.png",
-            alt: "Recurring payments interface showcasing active, latest and upcoming payments along with calendar",
+            alt: items["recurring-payments"].image.alt,
           }}
           key={`info-${k}`}
         />

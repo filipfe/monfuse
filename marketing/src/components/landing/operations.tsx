@@ -1,6 +1,7 @@
 import { Dict } from "@/dict";
 import { Coins, Repeat, Wallet2 } from "lucide-react";
 import Motion from "../services/motion";
+import Link from "next/link";
 
 type Operation = {
   icon: React.ReactNode;
@@ -41,7 +42,13 @@ export default function Operations({
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-12 lg:gap-16 mt-6 sm:mt-12">
             {operations.map(({ icon, type }, i) => (
-              <OperationRef icon={icon} index={i} {...dict[type]} key={type} />
+              <OperationRef
+                icon={icon}
+                index={i}
+                type={type}
+                {...dict[type]}
+                key={type}
+              />
             ))}
           </div>
         </div>
@@ -55,21 +62,33 @@ const OperationRef = ({
   title,
   description,
   index,
+  type,
 }: Pick<Operation, "icon"> &
-  Dict["landing"]["operations"]["incomes"] & { index: number }) => (
+  Dict["landing"]["operations"]["incomes"] & {
+    index: number;
+    type: Operation["type"];
+  }) => (
   <Motion
     initial={{ translateX: -24, opacity: 0 }}
     whileInView={{ translateX: 0, opacity: 1 }}
     transition={{ delay: index * 0.05 }}
     viewport={{ once: true, amount: 1 }}
-    className="rounded-lg border text-card-foreground bg-background border-none shadow-none"
   >
-    <div className="flex flex-col gap-3">
-      <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center">
-        {icon}
+    <Link
+      href={`/${type}`}
+      className="rounded-lg border text-card-foreground bg-background border-none shadow-none group"
+    >
+      <div className="flex flex-col gap-3">
+        <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center">
+          {icon}
+        </div>
+        <h3 className="text-lg lg:text-xl font-semibold mt-3 group-hover:text-primary-dark transition-colors after:block after:h-0.5 max-w-max after:w-full after:max-w-0 after:transition-[max-width] group-hover:after:max-w-[50%] after:bg-primary">
+          {title}
+        </h3>
+        <p className="text-font/60 text-sm leading-relaxed group-hover:text-primary-dark/80 transition-colors">
+          {description}
+        </p>
       </div>
-      <h3 className="text-lg lg:text-xl font-semibold mt-3">{title}</h3>
-      <p className="text-font/60 text-sm leading-relaxed">{description}</p>
-    </div>
+    </Link>
   </Motion>
 );

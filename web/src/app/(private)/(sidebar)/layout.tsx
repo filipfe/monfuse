@@ -14,12 +14,12 @@ export default async function Layout({
   const settings = await getSettings();
 
   const {
-    private: { _navigation },
+    private: { _navigation, general },
   } = await getDictionary(settings.language);
 
   return (
     <Providers settings={settings}>
-      <Header dict={_navigation} />
+      <Header dict={{ ..._navigation, ...general }} />
       <Sidebar dict={_navigation} />
       <WebVitals />
       <main className="bg-light">{children}</main>

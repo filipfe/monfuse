@@ -201,6 +201,9 @@
         },
         "title": "Incomes",
         "description": "Easily track all sources of income and view detailed reports to understand your earning patterns.",
+        "info": {
+          "markdown": "## Gain Insights On Your Income Sources\n\nTracking your income is just as important as managing [**expenses**](/expenses) when it comes to financial success. With Monfuse, you can easily log and categorize all your income sources—from salaries and freelance earnings to side hustles and unexpected windfalls. Having a clear picture of your earnings empowers you to plan better and make informed financial decisions.\n\nWhether you have a steady paycheck or variable income streams, Monfuse integrates all your data into one intuitive dashboard. This gives you a real-time snapshot of your financial health, enabling you to align your earnings with your [**goals**](/goals) and spending habits."
+        },
         "faq": [
           {
             "question": "How can I add a new income source?",
@@ -218,7 +221,10 @@
             "question": "How do I track recurring income?",
             "answer": "To track recurring income, you can set up the entry as a recurring payment, and the app will automatically track it on the specified schedule."
           }
-        ]
+        ],
+        "image": {
+          "alt": "Incomes page interface with transactions table, stats and bar chart"
+        }
       },
       "expenses": {
         "_metadata": {
@@ -259,7 +265,10 @@
           {
             "markdown": "## Organize Your Spending with Custom Labels\n\nCategorizing expenses is key to understanding your spending patterns. Our app allows you to create custom labels for each expense, helping you organize and track your transactions with ease. By assigning labels like “Work,” “Travel,” or “Household,” you can gain a clearer breakdown of your spending areas, making budget management straightforward.\n\nLabel-based tracking provides a detailed view of your spending habits, allowing you to analyze expenses by category over time. This can reveal patterns, show where you may be overspending, and highlight areas where you can cut back.\n\nOur labeling feature is designed to be as flexible as your budget. You can create, edit, or delete labels anytime to reflect changes in your lifestyle or financial goals. Whether your priorities shift toward travel, health, or saving, custom labels make it easy to keep your budget aligned with your current needs."
           }
-        ]
+        ],
+        "image": {
+          "alt": "Expenses page interface with categorized transactions and limits."
+        }
       },
       "recurring-payments": {
         "_metadata": {
@@ -294,7 +303,10 @@
             "question": "Can I categorize my recurring payments?",
             "answer": "Yes, you can assign categories to your recurring payments to help you manage and track your expenses more effectively."
           }
-        ]
+        ],
+        "image": {
+          "alt": "Recurring payments interface showcasing active, latest and upcoming payments along with calendar"
+        }
       },
       "goals": {
         "_metadata": {
@@ -323,6 +335,9 @@
         ],
         "info": {
           "markdown": "## Conquer Your Financial Goals\n\nStaying committed to financial goals can be difficult without the right tools. Many people struggle to track their progress or lose sight of their savings targets amidst day-to-day expenses. Without a clear, visual way to see how far they've come, it’s easy to become discouraged and fall off track. For help staying on top of your overall finances, explore how our [**expense tracking**](/expenses) can keep your spending in check.\n\nOur [**AI Assistant**](/ai-assistant) provides personalized insights, helping you understand your progress toward your financial milestones. You can easily track payments and contributions over time, making it easier to see your efforts pay off. The _visual representation_ keeps you motivated and focused on achieving your financial ambitions.\n\nFrom short-term savings goals to long-term financial ambitions, the app allows you to tailor your goals according to your unique needs. You can add, edit, or delete goals at any time, keeping your financial planning flexible and responsive to life’s changes."
+        },
+        "image": {
+          "alt": "Goals page interface showcasing goal progress and payment breakdown"
         }
       }
     }
@@ -336,6 +351,10 @@
     "description": "Meet your AI-powered financial assistant—designed to simplify budgeting, track spending, and support your financial goals 24/7."
   },
   "pricing": {
+    "_metadata": {
+      "title": "Pricing, One price, All features | Monfuse",
+      "description": "Access all Monfuse features with one straightforward flat rate. No tiers, no hidden fees—just simple, transparent pricing for tracking expenses, managing income, setting goals, and more. Start taking control of your finances today."
+    },
     "title": "Pricing",
     "description": "Unlock the full potential of your financial management with Monfuse's single, affordable pricing plan.",
     "faq": [
@@ -371,5 +390,13 @@
   "banner": {
     "title": "Take full control of your personal finances",
     "button": "Start now"
+  },
+  "privacy-policy": {
+    "_metadata": {
+      "title": "Privacy policy | Monfuse",
+      "description": "Privacy policy of Monfuse, including information on personal data processing, data protection methods, the use of cookies, and user rights regarding privacy protection. Learn more about the purposes of data processing, cookie management options, and security measures implemented by the administrator."
+    },
+    "title": "Privacy policy",
+    "content": "# Privacy Policy\n\n## 1. General Information\n\nThis policy applies to the website operating at the URL: [monfuse.com](https://monfuse.com). The website operator and Data Controller is: **Sebastian Magnucki**, Zaciszna 11/94, 35-326 Rzeszów, Poland. Contact email address: **se6359@gmail.com**. The Operator is the Controller of your personal data submitted voluntarily via the website. The website uses personal data for the following purposes: - Presentation of offers or information. The website collects information about users and their behavior in the following ways: 1. Through data entered voluntarily in forms, which are saved in the Operator’s systems. 2. Through cookies stored on end-user devices.\n\n## 2. Selected Data Protection Methods Used by the Operator\n\n- Login areas and personal data entry points are secured through transmission encryption (SSL certificate), ensuring that data is encrypted before being transmitted. - Personal data stored in the database is encrypted and accessible only with the Operator’s key. - User passwords are stored in hashed form, making them irreversible, following modern standards. - The Operator regularly updates administrative passwords. - Regular backups are performed to ensure data security. - The Operator regularly updates all software used to process personal data.\n\n## 3. Hosting\n\nThe website is hosted by an external provider. The hosting company logs server activity for technical reliability, which may include: - URLs of requested resources, - Request and response timestamps, - Client workstation identifiers, - Error information during HTTP transactions, - Referrer URLs (if the user navigated to the website via a link), - Browser information, - IP addresses, - Diagnostic information related to service request processing or email interactions.\n\n## 4. Your Rights and Additional Information About Data Usage\n\nIn certain cases, the Administrator may share your personal data with other entities to fulfill a contract or meet legal obligations. These may include: - Authorized personnel, employees, and collaborators requiring access to data to perform their duties, - Hosting companies, - Email and SMS service providers, - Couriers, - Insurers, - Legal and debt collection agencies, - Banks, - Public authorities. Personal data is processed for no longer than necessary to fulfill the purposes outlined by applicable regulations. For marketing purposes, data is processed for no more than three years. You have the right to: - Access your personal data, - Rectify data, - Erase data, - Restrict data processing, - Transfer data, - Object to processing for legitimate interests, including profiling (with exceptions for overriding legal grounds). You may lodge a complaint with the President of the Personal Data Protection Office (ul. Stawki 2, 00-193 Warsaw). Providing personal data is voluntary but necessary for website functionality.\n\n## 5. Information in Forms\n\nThe website collects information voluntarily provided by users. Data from forms is processed for purposes specified by the form’s functionality (e.g., service requests, contact, registration).\n\n## 6. Administrator Logs\n\nUser behavior on the website may be logged and used for administrative purposes.\n\n## 7. Key Marketing Techniques\n\nThe Operator uses Google Analytics for statistical analysis of website traffic. Data is anonymized and processed using cookies. Users can manage ad preferences using: [Google Ads Preferences](https://www.google.com/ads/preferences/).\n\n## 8. Information About Cookies\n\nThe website uses cookies to: - Maintain user sessions, - Support analytics and marketing efforts.\n\n### Types of Cookies:\n\n1. **Session Cookies**: Stored until the user logs out or closes the browser.\n\n2. **Persistent Cookies**: Stored for a predefined duration or until manually deleted. Browsers allow users to manage cookie settings. Restricting cookies may affect website functionality.\n\n## 9. Managing Cookies\n\nInstructions for managing cookies in various browsers: - **Edge**, **Internet Explorer**, **Chrome**, **Safari**, **Firefox**, **Opera**. Mobile devices: **Android**, **iOS (Safari)**, **Windows Phone**.\n\nThis policy template was generated for informational purposes on 2018-08-14. It is recommended to tailor the document to your website’s specifics and consult legal advice."
   }
 }
