@@ -65,7 +65,7 @@ export default async function Page({ params }: PageProps) {
       <Description
         dict={incomes.info}
         image={{
-          src: "/app/expenses.png",
+          src: "/app/incomes.png",
           alt: incomes.image.alt,
         }}
       />
