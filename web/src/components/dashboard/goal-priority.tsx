@@ -4,11 +4,11 @@ import { Dict } from "@/const/dict";
 import { getPriorityGoal } from "@/lib/goals/actions";
 import Block from "../ui/block";
 
-export default async function GoalPriority({
-  dict,
-}: {
+interface Props extends Pick<Settings, "language"> {
   dict: Dict["private"]["goals"]["priority"];
-}) {
+}
+
+export default async function GoalPriority({ dict, language }: Props) {
   const { result: goal } = await getPriorityGoal(5);
 
   if (!goal) return <></>;
@@ -16,7 +16,7 @@ export default async function GoalPriority({
   return (
     <div className="col-span-3 [&>div]:w-full flex items-stretch">
       <Block className="max-md:!pt-12">
-        <Priority dict={dict} goal={goal} />
+        <Priority language={language} dict={dict} goal={goal} />
       </Block>
     </div>
   );

@@ -3,12 +3,12 @@ import NumberFormat from "@/utils/formatters/currency";
 import { Dict } from "@/const/dict";
 import { PaymentRef } from "./ref";
 
-type Props = {
+interface Props extends Pick<Settings, "language"> {
   dict: Dict["private"]["goals"]["priority"];
   goal: PriorityGoal;
-};
+}
 
-export default async function Priority({ dict, goal }: Props) {
+export default async function Priority({ dict, goal, language }: Props) {
   const percentage = (goal.total_paid / goal.price) * 100;
 
   return (
@@ -85,6 +85,7 @@ export default async function Priority({ dict, goal }: Props) {
             {goal.payments.map((payment) => (
               <PaymentRef
                 {...payment}
+                language={language}
                 currency={goal.currency}
                 key={payment.date}
               />

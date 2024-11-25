@@ -87,7 +87,7 @@ export default function GoalsTable({
                   });
                 }}
               >
-                <ChevronDown size={16} /> Dzisiaj
+                <ChevronDown size={16} /> {dict.today}
               </Button>
             </div>
           )}
@@ -107,7 +107,7 @@ export default function GoalsTable({
           >
             <TableHeader>
               <TableColumn className="font-medium text-sm text-foreground-700 shadow-[0_0_0_1px_rgba(23,121,129,0.1)]">
-                Data
+                {dict.columns.date}
               </TableColumn>
               {goals.length > 0 &&
                 (goals.map((goal) => (
@@ -137,7 +137,7 @@ export default function GoalsTable({
                         )}
                       >
                         {isToday
-                          ? "Dzisiaj"
+                          ? dict.today
                           : new Intl.DateTimeFormat(language, {
                               dateStyle: "long",
                             }).format(new Date(date))}
@@ -171,7 +171,7 @@ export default function GoalsTable({
               }
               <TableRow className="sticky z-10" style={{ insetBlockEnd: 0 }}>
                 <TableCell className="text-sm font-medium rounded-l-md shadow-[0_0_0_1px_rgba(23,121,129,0.1)] bg-light">
-                  Suma
+                  {dict.sum}
                 </TableCell>
                 {
                   goals.map((goal) => (
@@ -180,12 +180,14 @@ export default function GoalsTable({
                         <NumberFormat
                           currency={goal.currency}
                           amount={goal.total_paid}
+                          language_code={language}
                         />
                       </span>{" "}
                       <span className="font-medium text-tiny">
                         /{" "}
                         <NumberFormat
                           currency={goal.currency}
+                          language_code={language}
                           amount={goal.price}
                         />
                       </span>

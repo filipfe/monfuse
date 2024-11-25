@@ -2,6 +2,17 @@ import AccountSetupForm from "@/components/account-setup/form";
 import getDictionary from "@/const/dict";
 import { getSettings } from "@/lib/general/actions";
 import getLang from "@/utils/get-lang";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { locale: Locale };
+}): Promise<Metadata> {
+  const lang = getLang(params.locale);
+  const { private: dict } = await getDictionary(lang);
+  return dict["account-setup"]._metadata;
+}
 
 export default async function AccountSetup({
   params,

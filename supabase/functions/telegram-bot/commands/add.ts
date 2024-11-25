@@ -4,41 +4,25 @@ import getUser from "../utils/get-user.ts";
 import { BotContext } from "../../_shared/telegram-bot.ts";
 import { Payment } from "../../_shared/types.ts";
 
-const constructReply = (operations: Payment[]) =>
-  `💸 Dodałem następujące operacje:
-${
-    operations
-      .map(
-        ({ title, amount, type, currency }) =>
-          `• ${type === "expense" ? "Wydatek" : "Przychód"}: ${title} - ${
-            new Intl.NumberFormat("pl-PL", {
-              currency,
-              style: "currency",
-            }).format(amount)
-          }`,
-      )
-      .join("\n")
-  }`;
-
 export async function insertOperations(
   operations: Payment[],
   user: Profile,
-): Promise<ProcessReturn> {
-  const { data, error } = await supabase.rpc("actions_insert_operations", {
+): Promise<Omit<ProcessReturn, "operations">> {
+  const { data: ids, error } = await supabase.rpc("actions_insert_operations", {
     p_operations: operations.map((op) => ({ ...op, from_telegram: true })),
     p_user_id: user.id,
   });
   if (!error) {
-    console.log("Inserted operations: ", data);
+    console.log("Inserted operations: ", ids);
     return {
-      reply: constructReply(operations),
-      operations: data,
+      reply: "text.success",
+      ids,
     };
   } else {
     console.error(error);
     return {
-      operations: [],
-      reply: "Wystąpił błąd, spróbuj ponownie!",
+      ids: [],
+      reply: "global.error",
     };
   }
 }
@@ -46,7 +30,7 @@ export async function insertOperations(
 export default async function add(ctx: CommandContext<BotContext>) {
   if (!ctx.from) {
     await ctx.reply(
-      "Nie posiadam uprawnień do zidentyfikowania kim jesteś. Spróbuj zmienić ustawienia profilu Telegram.",
+      ctx.t("global.unauthorized"),
     );
     return;
   }
