@@ -8,11 +8,11 @@ export default async function processVoice(
 ): Promise<ProcessReturn> {
   const { duration, mime_type } = voice;
 
-  if (duration > 10) {
+  if (duration > 30) {
     return {
-      reply:
-        "Wybacz, twoja wiadomość jest za długa! Maksymalny czas trwania wiadomości głosowej to 8 sekund",
+      reply: "voice.too-long",
       operations: [],
+      ids: [],
     };
   }
 
@@ -46,21 +46,20 @@ export default async function processVoice(
 
     if (!transcription.ok) {
       return {
-        reply: "Wybacz, nie mogłem przetworzyć twojej wiadomości głosowej",
+        reply: "global.error",
+        ids: [],
         operations: [],
       };
     }
 
-    console.log(transcription);
-
     const textMessage = await transcription.text();
-
     return await processText(textMessage, user);
   } catch (err) {
     console.error(err);
     return {
-      reply: "Wystąpił błąd przy przetwarzaniu zapytania, spróbuj ponownie!",
+      reply: "global.error",
       operations: [],
+      ids: [],
     };
   }
 }

@@ -15,5 +15,6 @@ type Command = Record<string, string>;
 
 type ProcessReturn = {
   reply: string;
-  operations: string[];
+  ids: string[];
+  operations: Payment[];
 };
