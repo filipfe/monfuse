@@ -66,6 +66,9 @@ export default function Footer({ dict }: { dict: Dict }) {
           <small className="text-white/80">
             &copy; {new Date().getFullYear()} Monfuse, Inc. All rights reserved.
           </small>
+          <small className="text-white/80">
+            <Link href="/privacy-policy">{dict["privacy-policy"].title}</Link>
+          </small>
         </div>
       </div>
     </footer>
