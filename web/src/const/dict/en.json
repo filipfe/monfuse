@@ -25,6 +25,35 @@
       "expenses": "Expenses",
       "_error": "An error occurred, please try again later"
     },
+    "account-setup": {
+      "_metadata": {
+        "title": "Account Setup | Monfuse"
+      },
+      "welcome": "Hello",
+      "description": "Set up your account before you begin",
+      "progress": {
+        "label": "Step"
+      },
+      "form": {
+        "personal-data": {
+          "title": "Personal data"
+        },
+        "currency": {
+          "title": "Default currency"
+        },
+        "location": {
+          "title": "Location"
+        },
+        "automation": {
+          "title": "Telegram Bot (optional)"
+        },
+        "_back": "Back",
+        "_submit": {
+          "next": "Next",
+          "start": "Start"
+        }
+      }
+    },
     "dashboard": {
       "_metadata": {
         "title": "Dashboard | Monfuse"
@@ -270,6 +299,12 @@
           "add": {
             "label": "Add"
           },
+          "columns": {
+            "title": "Title",
+            "amount": "Amount",
+            "currency": "Currency",
+            "next-payment": "Next Payment"
+          },
           "_empty": {
             "title": "No active payments"
           }
@@ -371,7 +406,12 @@
         "_empty": "No active goals"
       },
       "payments": {
-        "title": "Payments"
+        "title": "Payments",
+        "columns": {
+          "date": "Date"
+        },
+        "today": "Today",
+        "sum": "Sum"
       },
       "priority": {
         "title": "Priority",

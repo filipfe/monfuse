@@ -37,7 +37,7 @@ ${labels.length > 0 ? labels.join(",\n") : "None"}
 Rules:
 - return { operations: Operation[], message?: string } in json
 - 'currency' is always 3-digit code
-- if user's message is irrelevant, return empty array and formulate a very short message directly to the client about what's wrong, don't be formal`;
+- if user's message is irrelevant, return empty array, the user will be notified by us`;
 
   console.log("Generating completion...", textPrompt);
 
@@ -60,8 +60,8 @@ Rules:
     });
 
     return {
-      reply:
-        "Wybacz, nie mogłem przetworzyć twojego zapytania. Może spróbujesz ponownie?",
+      reply: "global.error",
+      ids: [],
       operations: [],
     };
   }
@@ -69,21 +69,25 @@ Rules:
   try {
     const data = JSON.parse(response);
     if (!Array.isArray(data.operations) || data.operations.length === 0) {
-      return data.message ||
-        "Nie mogłem przetworzyć wiadomości, spróbuj innego sformułowania";
+      return {
+        operations: [],
+        ids: [],
+        reply: "_error.text-irrelevant-message",
+      };
     }
-    return await insertOperations(
+    const res = await insertOperations(
       data.operations,
       user,
     );
+    return { ...res, operations: data.operations };
   } catch (err) {
     console.log("Parse error: Couldn't parse the completion response", {
       response,
       err,
     });
     return {
-      reply:
-        "Wybacz, nie mogłem przetworzyć twojego zapytania. Może spróbujesz ponownie?",
+      reply: "global.error",
+      ids: [],
       operations: [],
     };
   }

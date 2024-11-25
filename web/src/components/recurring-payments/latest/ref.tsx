@@ -29,17 +29,17 @@ export default async function Ref({
           />
         </strong>
       </div>
-      <div className="flex items-center gap-2">
-        <span className="text-sm text-font/60">
-          {new Intl.DateTimeFormat(settings.language, {
-            weekday: "short",
-            day: "2-digit",
-            month: "short",
-            year: "numeric",
-          }).format(toZonedTime(payment.issued_at, settings.timezone))}
-        </span>
-        <Dropdown {...payment} />
-      </div>
+      {/* <div className="flex items-center gap-2"> */}
+      <span className="text-sm text-font/60">
+        {new Intl.DateTimeFormat(settings.language, {
+          weekday: "short",
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+        }).format(toZonedTime(payment.issued_at, settings.timezone))}
+      </span>
+      {/* <Dropdown {...payment} /> */}
+      {/* </div> */}
     </div>
   );
 }

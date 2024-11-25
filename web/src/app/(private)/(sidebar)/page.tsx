@@ -44,7 +44,7 @@ export default async function Dashboard() {
       </Suspense>
       <Limits dict={dictLimits} settings={settings} />
       <Suspense>
-        <GoalPriority dict={dictPriority} />
+        <GoalPriority language={settings.language} dict={dictPriority} />
       </Suspense>
       <WeeklyGraph settings={settings} dict={dict["weekly-graph"]} />
     </div>

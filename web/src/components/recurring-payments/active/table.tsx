@@ -14,7 +14,7 @@ import {
 } from "@nextui-org/react";
 import Block from "../../ui/block";
 import { useActivePayments } from "@/lib/recurring-payments/queries";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { Coins, PlusIcon, Wallet2 } from "lucide-react";
 import TopContent from "../../ui/table/top-content";
 import Add from "../../ui/cta/add";
@@ -23,30 +23,6 @@ import Loader from "@/components/stocks/loader";
 import { Dict } from "@/const/dict";
 import Menu from "./menu";
 import Empty from "@/components/ui/empty";
-
-const columns = [
-  {
-    key: "type",
-    label: "",
-  },
-  {
-    key: "title",
-    label: "TITLE",
-  },
-  {
-    key: "amount",
-    label: "AMOUNT",
-  },
-  {
-    key: "currency",
-    label: "CURRENCY",
-  },
-  {
-    key: "next_payment",
-    label: "NEXT PAYMENT",
-  },
-  { key: "actions", label: "" },
-];
 
 export default function RecurringPaymentsTable({
   settings,
@@ -57,6 +33,33 @@ export default function RecurringPaymentsTable({
 }) {
   const [page, setPage] = useState<number>(1);
   const { isLoading, data } = useActivePayments(page);
+
+  const columns = useMemo(
+    () => [
+      {
+        key: "type",
+        label: "",
+      },
+      {
+        key: "title",
+        label: dict.columns.title,
+      },
+      {
+        key: "amount",
+        label: dict.columns.amount,
+      },
+      {
+        key: "currency",
+        label: dict.columns.currency,
+      },
+      {
+        key: "next_payment",
+        label: dict.columns["next-payment"],
+      },
+      { key: "actions", label: "" },
+    ],
+    [settings.language]
+  );
 
   const renderCell = useCallback((item: any, columnKey: any) => {
     const cellValue = item[columnKey];
@@ -142,7 +145,9 @@ export default function RecurringPaymentsTable({
             >
               <TableHeader columns={columns}>
                 {(column) => (
-                  <TableColumn key={column.key}>{column.label}</TableColumn>
+                  <TableColumn className="uppercase" key={column.key}>
+                    {column.label}
+                  </TableColumn>
                 )}
               </TableHeader>
               <TableBody items={results}>

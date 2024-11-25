@@ -3,6 +3,7 @@
 import Toast from "@/components/ui/toast";
 import UniversalSelect from "@/components/ui/universal-select";
 import { Dict } from "@/const/dict";
+import { useSettings } from "@/lib/general/queries";
 import { updatePreferences } from "@/lib/settings/actions";
 import { getLanguages } from "@/lib/settings/queries";
 import { useEffect, useRef, useState, useTransition } from "react";
@@ -20,11 +21,10 @@ export default function LanguageSelect({ dict, defaultValue }: Props) {
   const [isPending, startTransition] = useTransition();
   const [selected, setSelected] = useState(defaultValue);
   const formRef = useRef<HTMLFormElement | null>(null);
-  const {
-    isLoading,
-    mutate,
-    data: languages,
-  } = useSWR("languages", () => getLanguages());
+  const { mutate } = useSettings();
+  const { isLoading, data: languages } = useSWR("languages", () =>
+    getLanguages()
+  );
 
   useEffect(() => {
     if (!formRef.current || isPending || selected === defaultValue) return;

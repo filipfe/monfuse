@@ -65,17 +65,17 @@ export default function AccountSetupForm({
       <div className="flex items-end gap-4 justify-between px-6 sm:px-0">
         <div className="grid gap-1">
           <h1 className="font-bold text-xl sm:text-2xl">
-            Cześć, {settings.first_name}
+            {dict["account-setup"].welcome}, {settings.first_name}
           </h1>
           <p className="text-font/80 text-sm">
-            Ustaw swoje konto zanim rozpoczniesz
+            {dict["account-setup"].description}
           </p>
         </div>
         <div className="max-w-32 w-full mb-1">
           <Progress
             size="sm"
             value={step + 1}
-            label="Krok"
+            label={dict["account-setup"].progress.label}
             maxValue={4}
             classNames={{
               label: "text-xs text-font/60",
@@ -90,7 +90,7 @@ export default function AccountSetupForm({
         <div className="flex flex-col gap-4 sm:gap-6">
           <div className="flex flex-col gap-2 sm:gap-3">
             <Dropdown
-              title="Dane"
+              title={dict["account-setup"].form["personal-data"].title}
               step={step}
               onOpen={() => setStep(0)}
               index={0}
@@ -125,7 +125,7 @@ export default function AccountSetupForm({
               />
             </Dropdown>
             <Dropdown
-              title="Domyślna waluta"
+              title={dict["account-setup"].form.currency.title}
               step={step}
               disabled={!firstName || !lastName}
               onOpen={() => setStep(1)}
@@ -142,7 +142,7 @@ export default function AccountSetupForm({
               />
             </Dropdown>
             <Dropdown
-              title="Lokalizacja"
+              title={dict["account-setup"].form.location.title}
               disabled={!currency}
               step={step}
               index={2}
@@ -184,7 +184,7 @@ export default function AccountSetupForm({
               <input type="hidden" name="timezone" value={timezone} />
             </Dropdown>
             <Dropdown
-              title="Telegram Bot (opcjonalnie)"
+              title={dict["account-setup"].form.automation.title}
               step={step}
               disabled={!currency || !language || !timezone}
               index={3}
@@ -205,7 +205,7 @@ export default function AccountSetupForm({
               disabled={step === 0}
               onPress={() => setStep((prev) => prev - 1)}
             >
-              Wstecz
+              {dict["account-setup"].form._back}
             </Button>
             <Button
               isDisabled={isDisabled || isPending}
@@ -217,7 +217,9 @@ export default function AccountSetupForm({
               type={submitAvailable ? "submit" : "button"}
               onPress={() => step < 3 && setStep((prev) => prev + 1)}
             >
-              {step < 3 ? "Dalej" : "Rozpocznij"}
+              {step < 3
+                ? dict["account-setup"].form._submit.next
+                : dict["account-setup"].form._submit.start}
             </Button>
           </div>
         </div>

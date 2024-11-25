@@ -6,6 +6,7 @@ const es = {
       "La clave de Telegram proporcionada no es válida, ¡inténtalo de nuevo!",
     "not-found":
       "¡No encontré tu cuenta! Regístrate para comenzar a guardar operaciones. Escribe el comando /start",
+    "error": "Ocurrió un error, por favor intenta de nuevo",
   },
   start: {
     registration:
@@ -22,6 +23,19 @@ const es = {
   Prueba a añadir una operación escribiendo el comando /añadir`,
     "already-registered":
       "¡Hola { $first_name }! El registro ya se ha completado.",
+  },
+  _error: {
+    "text-irrelevant-message":
+      "No pude procesar el mensaje, por favor intenta con otra formulación",
+    "voice-too-long":
+      "¡Perdón, tu mensaje es demasiado largo! La duración máxima de un mensaje de voz es de 30 segundos",
+    "photo-download": "No pude recuperar la imagen, por favor intenta de nuevo",
+    "photo-unknown":
+      "Ocurrió un error al procesar tus fotos, por favor intenta de nuevo.",
+  },
+  text: {
+    success: `💸 He añadido las siguientes operaciones:
+{ $operations }`,
   },
 };
 

@@ -5,6 +5,9 @@ const pl = {
     "invalid-token": "Podano nieprawidłowy klucz Telegram, spróbuj ponownie!",
     "not-found":
       "Nie znalazłem twojego konta! Zarejestruj się, aby zapisywać operacje. Wpisz komendę /start",
+    error: "Wystąpił błąd, spróbuj ponownie!",
+    income: "Przychód",
+    expense: "Wydatek",
   },
   start: {
     registration:
@@ -21,6 +24,19 @@ Aby zobaczyć dostępne komendy wpisz /pomoc
 Wypróbuj dodawanie operacji wpisując komendę /dodaj`,
     "already-registered":
       "Cześć { $first_name }! Rejestracja została już wykonana.",
+  },
+  _error: {
+    "text-irrelevant-message":
+      "Nie mogłem przetworzyć wiadomości, spróbuj innego sformułowania",
+    "voice-too-long":
+      "Wybacz, twoja wiadomość jest za długa! Maksymalny czas trwania wiadomości głosowej to 30 sekund",
+    "photo-download": "Nie udało mi się pobrać zdjęcia, spróbuj ponownie",
+    "photo-unknown":
+      "Wystąpił błąd przy przetwarzaniu twoich zdjęć, spróbuj ponownie",
+  },
+  text: {
+    success: `💸 Dodałem następujące operacje:
+{ $operations }`,
   },
 };
 

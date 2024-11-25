@@ -1,15 +1,13 @@
 import { webhookCallback } from "grammy";
 import undo from "./commands/undo.ts";
-import add, { insertOperations } from "./commands/add.ts";
-import help from "./commands/help.ts";
+import { insertOperations } from "./commands/add.ts";
 import getUser from "./utils/get-user.ts";
 import supabase from "./supabase.ts";
-import { ADD, GRAPH, HELP, UNDO } from "./commands.ts";
+import { UNDO } from "./commands.ts";
 import bot from "../_shared/telegram-bot.ts";
 import registerUser from "./commands/start.ts";
 import processVoice from "./utils/process-voice.ts";
 import processText from "./utils/process-text.ts";
-import graph from "./commands/graph.ts";
 import { Payment } from "../_shared/types.ts";
 
 // Setup type definitions for built-in Supabase Runtime APIs
@@ -37,21 +35,21 @@ bot.command("start", async (ctx) => {
   }
 });
 
-Object.values(ADD).forEach((command) => {
-  bot.command(command, add);
-});
+// Object.values(ADD).forEach((command) => {
+//   bot.command(command, add);
+// });
 
 Object.values(UNDO).forEach((command) => {
   bot.command(command, undo);
 });
 
-Object.values(HELP).forEach((command) => {
-  bot.command(command, help);
-});
+// Object.values(HELP).forEach((command) => {
+//   bot.command(command, help);
+// });
 
-Object.values(GRAPH).forEach((command) => {
-  bot.command(command, graph);
-});
+// Object.values(GRAPH).forEach((command) => {
+//   bot.command(command, graph);
+// });
 
 bot.on("message:text", async (ctx) => {
   await ctx.replyWithChatAction("typing");
@@ -61,11 +59,32 @@ bot.on("message:text", async (ctx) => {
     return;
   }
   console.log({ user });
-  const { reply, operations } = await processText(ctx.msg.text, user);
+  const { reply, operations, ids } = await processText(ctx.msg.text, user);
   if (operations.length > 0) {
-    ctx.session.lastPayments = operations;
+    ctx.session.lastPayments = ids;
   }
-  await ctx.reply(reply);
+  await ctx.reply(ctx.t(
+    reply,
+    reply === "text.success"
+      ? {
+        operations: operations
+          .map(
+            ({ title, amount, type, currency }) =>
+              `• ${
+                type === "expense"
+                  ? ctx.t("global.expense")
+                  : ctx.t("global.income")
+              }: ${title} - ${
+                new Intl.NumberFormat(user.settings.language, {
+                  currency,
+                  style: "currency",
+                }).format(amount)
+              }`,
+          )
+          .join("\n"),
+      }
+      : undefined,
+  ));
 });
 
 bot.on("message:photo", async (ctx) => {
@@ -83,7 +102,7 @@ bot.on("message:photo", async (ctx) => {
 
   if (!file_path) {
     ctx.reply(
-      "Nie udało mi się pobrać zdjęcia. Może spróbujesz ponownie?",
+      ctx.t("_error.photo-download"),
     );
     return;
   }
@@ -113,7 +132,7 @@ bot.on("message:photo", async (ctx) => {
 
     if (error) {
       await ctx.reply(
-        "Wystąpił błąd przy przetwarzaniu twojego zdjęcia. Może spróbujesz ponownie?",
+        ctx.t("_error.photo-unknown"),
       );
       console.error(error);
       return;
@@ -121,18 +140,39 @@ bot.on("message:photo", async (ctx) => {
 
     const operations = data.operations as Payment[];
 
-    const { reply, operations: payments } = await insertOperations(
+    const { reply, ids } = await insertOperations(
       operations,
       user,
     );
-    if (payments.length > 0) {
-      ctx.session.lastPayments = payments;
+    if (ids.length > 0) {
+      ctx.session.lastPayments = ids;
     }
-    await ctx.reply(reply);
+    await ctx.reply(ctx.t(
+      reply,
+      reply === "text.success"
+        ? {
+          operations: operations
+            .map(
+              ({ title, amount, type, currency }) =>
+                `• ${
+                  type === "expense"
+                    ? ctx.t("global.expense")
+                    : ctx.t("global.income")
+                }: ${title} - ${
+                  new Intl.NumberFormat(user.settings.language, {
+                    currency,
+                    style: "currency",
+                  }).format(amount)
+                }`,
+            )
+            .join("\n"),
+        }
+        : undefined,
+    ));
   } catch (err) {
     console.error("Caught an error: ", err);
     await ctx.reply(
-      "Wystąpił błąd przy przetwarzaniu twojego zdjęcia. Może spróbujesz ponownie?",
+      ctx.t("_error.photo-unknown"),
     );
   }
 });
@@ -144,22 +184,43 @@ bot.on("message:voice", async (ctx) => {
 
   if (!user) {
     ctx.reply(
-      "Nie znalazłem twojego konta! Zarejestruj się, aby zapisywać operacje. Wpisz komendę /start",
+      ctx.t("global.not-found"),
     );
     return;
   }
 
   const { file_path } = await ctx.getFile();
 
-  const { reply, operations } = await processVoice(
+  const { reply, operations, ids } = await processVoice(
     ctx.msg.voice,
     user,
     file_path,
   );
   if (operations.length > 0) {
-    ctx.session.lastPayments = operations;
+    ctx.session.lastPayments = ids;
   }
-  await ctx.reply(reply);
+  await ctx.reply(ctx.t(
+    reply,
+    reply === "text.success"
+      ? {
+        operations: operations
+          .map(
+            ({ title, amount, type, currency }) =>
+              `• ${
+                type === "expense"
+                  ? ctx.t("global.expense")
+                  : ctx.t("global.income")
+              }: ${title} - ${
+                new Intl.NumberFormat(user.settings.language, {
+                  currency,
+                  style: "currency",
+                }).format(amount)
+              }`,
+          )
+          .join("\n"),
+      }
+      : undefined,
+  ));
 });
 
 const handleUpdate = webhookCallback(bot, "std/http");
