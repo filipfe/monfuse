@@ -6,6 +6,8 @@ const en = {
     "not-found":
       "I couldn't find your account! Register to start saving operations. Type the command /start",
     error: "An error occurred, please try again!",
+    income: "Income",
+    expense: "Expense",
   },
   start: {
     registration:

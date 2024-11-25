@@ -10,14 +10,9 @@ export interface Payment {
   label?: string;
 }
 
-export type Language = {
-  code: string;
-  name: string;
-};
-
 export type Preferences = {
   currency: string;
-  language: Language;
+  language: string;
 };
 
 export type Period = "daily" | "weekly" | "monthly";

@@ -13,6 +13,7 @@ import { Payment } from "../_shared/types.ts";
 import { toZonedTime } from "npm:date-fns-tz";
 import {
   endOfDay,
+  format,
   intervalToDuration,
   parseISO,
   startOfDay,
@@ -70,7 +71,6 @@ Deno.serve(async (req) => {
 
   const { input, currency, ...context } = (await req.json()) as Body;
 
-  console.log(context);
   const getGoalPayments = async (goalId: string) => {
     const { data: payments, error } = await supabase
       .from("goals_payments")
@@ -137,8 +137,11 @@ Deno.serve(async (req) => {
     return {
       results: data.map((payment) => ({
         ...payment,
-        issued_at: toZonedTime(payment.issued_at, settings.timezone)
-          .toDateString(),
+        currency,
+        issued_at: format(
+          toZonedTime(payment.issued_at, settings.timezone),
+          "yyyy-MM-dd HH:mm:ss",
+        ),
       })),
     };
   };
@@ -147,7 +150,7 @@ Deno.serve(async (req) => {
     const { data, error } = await supabase
       .from("recurring_payments")
       .select(
-        "title, type, amount, interval_amount, interval_unit, start_datetime",
+        "title, type, amount, currency, interval_amount, interval_unit, start_datetime",
       )
       .eq("currency", currency);
 
@@ -163,10 +166,14 @@ Deno.serve(async (req) => {
     };
   }
 
+  const system = prompts.system(JSON.stringify(context), settings);
+
+  console.log(system);
+
   const messages: ChatCompletionMessageParam[] = [
     {
       role: "system",
-      content: prompts.system(JSON.stringify(context), settings),
+      content: system,
     },
     {
       role: "user",

@@ -6,7 +6,9 @@ const es = {
       "La clave de Telegram proporcionada no es válida, ¡inténtalo de nuevo!",
     "not-found":
       "¡No encontré tu cuenta! Regístrate para comenzar a guardar operaciones. Escribe el comando /start",
-    "error": "Ocurrió un error, por favor intenta de nuevo",
+    error: "Ocurrió un error, por favor intenta de nuevo",
+    income: "Ingreso",
+    expense: "Gasto",
   },
   start: {
     registration:
