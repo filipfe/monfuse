@@ -203,20 +203,20 @@
         "description": "Z łatwością śledź wszystkie źródła przychodów i przeglądaj szczegółowe raporty, aby zrozumieć swoje wzorce zarobków.",
         "faq": [
           {
-            "question": "How can I add a new income source?",
-            "answer": "You can add a new income source by navigating to the 'Incomes' section, clicking the 'Add' button, and filling out the necessary details like amount, date and currency. You can also add incomes through our Telegram Bot after connecting your account."
+            "question": "Jak dodać nowe źródło przychodu?",
+            "answer": "Aby dodać nowe źródło przychodu, przejdź do sekcji 'Przychody', kliknij przycisk 'Dodaj' i wypełnij wymagane pola, takie jak kwota, data i waluta. Możesz również dodawać przychody za pomocą naszego Bota na Telegramie po połączeniu konta."
           },
           {
-            "question": "Can I edit or delete an income entry?",
-            "answer": "Yes, you can edit or delete any income entry by selecting the entry from the 'Incomes' section and choosing the appropriate action."
+            "question": "Czy mogę edytować lub usunąć wpis dotyczący przychodu?",
+            "answer": "Tak, możesz edytować lub usunąć dowolny wpis dotyczący przychodu. Wystarczy wybrać wpis w sekcji 'Przychody' i wybrać odpowiednią opcję."
           },
           {
-            "question": "Can I view reports on my income?",
-            "answer": "Yes, our app provides detailed reports and visual charts showing your income trends over time, categorized by source, amount, and date."
+            "question": "Czy mogę przeglądać raporty na temat moich przychodów?",
+            "answer": "Tak, aplikacja oferuje szczegółowe raporty oraz wykresy, które pokazują trendy przychodów w czasie. Raporty są kategoryzowane według źródła, kwoty i daty."
           },
           {
-            "question": "How do I track recurring income?",
-            "answer": "To track recurring income, you can set up the entry as a recurring payment, and the app will automatically track it on the specified schedule."
+            "question": "Jak śledzić przychody powtarzalne?",
+            "answer": "Aby śledzić przychody powtarzalne, możesz ustawić je jako płatności cykliczne, a aplikacja automatycznie będzie je rejestrować zgodnie z wybranym harmonogramem."
           }
         ]
       },

@@ -36,7 +36,7 @@ export default function Toast({ id, type, message, visible }: ToastProps) {
                 )
               )}
               <p className="text-sm mb-0.5">
-                {isError ? "Coś poszło nie tak!" : message?.toString()}
+                {isError ? "Error" : message?.toString()}
               </p>
             </div>
             {isError && (

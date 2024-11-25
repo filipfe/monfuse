@@ -103,7 +103,7 @@ export default function BalanceByMonth({
     month + 1,
     year
   );
-  const { width, tickFormatter } = useYAxisWidth(currency);
+  const { width, tickFormatter } = useYAxisWidth(currency, settings.language);
 
   const maxValue = results
     ? Math.max(

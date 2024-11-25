@@ -41,7 +41,7 @@ export default function OperationsByMonth({
       currency,
     }
   );
-  const { width, tickFormatter } = useYAxisWidth(currency);
+  const { width, tickFormatter } = useYAxisWidth(currency, settings.language);
 
   return (
     <Block

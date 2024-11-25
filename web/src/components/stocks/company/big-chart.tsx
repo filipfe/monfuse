@@ -30,8 +30,10 @@ export default function BigChart({ quotes, isUp, isDown, currency }: Props) {
     notation: "standard",
     maximumFractionDigits: 2,
   });
-  const { width, tickFormatter } = useYAxisWidth(currency, (value) =>
-    numberFormat.format(value)
+  const { width, tickFormatter } = useYAxisWidth(
+    currency,
+    settings?.language,
+    (value) => numberFormat.format(value)
   );
   const [activeTime, setActiveTime] = useState<number | null>(null);
   const prices = quotes.map(({ price }) => price);
