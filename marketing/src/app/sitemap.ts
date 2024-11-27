@@ -16,21 +16,23 @@ const urls = [
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [...urls, Object.keys(articles).map((url) => "/blog/" + url)].map((
-    url,
-  ) => ({
-    url: `https://www.monfuse.com${url}`,
-    changeFrequency: "yearly",
-    priority: 1,
-    lastModified: new Date(),
-    alternates: {
-      languages: LOCALES.reduce(
-        (prev, locale) => ({
-          ...prev,
-          [locale]: `https://www.monfuse.com/${locale}${url}`,
-        }),
-        {},
-      ),
-    },
-  }));
+  return LOCALES.flatMap((locale) =>
+    [...urls, ...Object.keys(articles).map((url) => "/blog/" + url)].map(
+      (pathname) => ({
+        url: `https://www.monfuse.com/${locale}${pathname}`,
+        changeFrequency: "yearly",
+        priority: 1,
+        lastModified: new Date(),
+        alternates: {
+          languages: LOCALES.reduce(
+            (prev, lcl) => ({
+              ...prev,
+              [lcl]: `https://www.monfuse.com/${lcl}${pathname}`,
+            }),
+            {},
+          ),
+        },
+      }),
+    )
+  );
 }

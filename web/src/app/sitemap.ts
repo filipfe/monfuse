@@ -8,21 +8,40 @@ const urls = [
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return urls.map((
-    url,
-  ) => ({
-    url: `https://app.monfuse.com${url}`,
-    changeFrequency: "yearly",
-    priority: 1,
-    lastModified: new Date(),
-    alternates: {
-      languages: LOCALES.reduce(
-        (prev, locale) => ({
-          ...prev,
-          [locale]: `https://app.monfuse.com/${locale}${url}`,
-        }),
-        {},
-      ),
-    },
-  }));
+  return LOCALES.flatMap((locale) =>
+    urls.map(
+      (pathname) => ({
+        url: `https://app.monfuse.com/${locale}${pathname}`,
+        changeFrequency: "yearly",
+        priority: 1,
+        lastModified: new Date(),
+        alternates: {
+          languages: LOCALES.reduce(
+            (prev, lcl) => ({
+              ...prev,
+              [lcl]: `https://app.monfuse.com/${lcl}${pathname}`,
+            }),
+            {},
+          ),
+        },
+      }),
+    )
+  );
+  // return urls.map((
+  //   url,
+  // ) => ({
+  //   url: `https://app.monfuse.com${url}`,
+  //   changeFrequency: "yearly",
+  //   priority: 1,
+  //   lastModified: new Date(),
+  //   alternates: {
+  //     languages: LOCALES.reduce(
+  //       (prev, locale) => ({
+  //         ...prev,
+  //         [locale]: `https://app.monfuse.com/${locale}${url}`,
+  //       }),
+  //       {},
+  //     ),
+  //   },
+  // }));
 }
