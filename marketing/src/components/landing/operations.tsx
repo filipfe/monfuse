@@ -82,9 +82,9 @@ const OperationRef = ({
         <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center">
           {icon}
         </div>
-        <h3 className="text-lg lg:text-xl font-semibold mt-3 group-hover:text-primary-dark transition-colors after:block after:h-0.5 max-w-max after:w-full after:max-w-0 after:transition-[max-width] group-hover:after:max-w-[50%] after:bg-primary">
+        <h4 className="text-lg lg:text-xl font-semibold mt-3 group-hover:text-primary-dark transition-colors after:block after:h-0.5 max-w-max after:w-full after:max-w-0 after:transition-[max-width] group-hover:after:max-w-[50%] after:bg-primary">
           {title}
-        </h3>
+        </h4>
         <p className="text-font/60 text-sm leading-relaxed group-hover:text-primary-dark/80 transition-colors">
           {description}
         </p>

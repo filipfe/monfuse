@@ -34,16 +34,16 @@ export default async function Pricing({
         </div>
         <div className="mx-auto mt-6 sm:mt-12 max-w-7xl flex flex-col lg:grid grid-cols-[1fr_max-content] bg-white gap-6 sm:border-x border-y sm:px-6 py-6 sm:rounded-md">
           <div className="flex flex-col gap-3 px-6 sm:py-6">
-            <h3 className="text-lg sm:text-xl lg:text-2xl font-semibold">
+            <h4 className="text-lg sm:text-xl lg:text-2xl font-semibold">
               {dict.block.title}
-            </h3>
+            </h4>
             <p className="text-font/75 text-sm/relaxed max-w-lg">
               {dict.block.description}
             </p>
             <div className="mt-10 mb-4 h-px relative w-full bg-border flex items-center">
-              <h4 className="text-primary font-bold text-sm absolute left-0 bg-white pr-3">
+              <span className="text-primary font-bold text-sm absolute left-0 bg-white pr-3">
                 {dict.block.benefits.title}
-              </h4>
+              </span>
             </div>
             <ul className="flex flex-wrap sm:grid grid-cols-2 xl:grid-cols-3 gap-y-3 max-sm:gap-x-6">
               {dict.block.benefits.items.map((benefit) => (
@@ -55,9 +55,9 @@ export default async function Pricing({
             </ul>
           </div>
           <div className="bg-light sm:border-x border-y sm:rounded-md px-6 sm:px-10 py-6 flex flex-col">
-            <h4 className="text-center text-font/75 text-sm sm:text-base">
+            <h5 className="text-center text-font/75 text-sm sm:text-base">
               {dict.block.price.title}
-            </h4>
+            </h5>
             <div className="flex-1 flex flex-col justify-center gap-6 min-h-24">
               <div className="flex justify-center items-end gap-2">
                 <strong className="text-3xl/none sm:text-4xl/none">

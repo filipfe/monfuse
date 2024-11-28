@@ -23,10 +23,9 @@ export async function generateMetadata({
     openGraph: {
       ...openGraph,
       url: new URL(`https://www.monfuse.com/${locale}`),
-      locale,
+      locale: locale.replace("-", "_"),
       title,
       description,
-      type: "website",
     },
     twitter: {
       ...twitter,

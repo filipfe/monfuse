@@ -24,10 +24,10 @@ export async function generateMetadata({
     ..._metadata,
     ...metadata,
     openGraph: {
+      ...openGraph,
       ..._metadata,
       url: new URL(`https://www.monfuse.com/${locale}/incomes`),
-      locale,
-      ...openGraph,
+      locale: locale.replace("-", "_"),
     },
     alternates: {
       canonical: new URL(`https://www.monfuse.com/${locale}/incomes`),

@@ -88,12 +88,18 @@
       "operations": {
         "title": "Track Operations",
         "description": "Easily monitor your income, expenses, and recurring payments. Categorize transactions and set spending limits.",
-        "link": "Learn more"
+        "link": "Learn more",
+        "_image": {
+          "alt": "Expenses page interface with categorized transactions and limits."
+        }
       },
       "goals": {
         "title": "Achieve Your Goals",
         "description": "Set and track financial goals effortlessly. Whether saving or paying off debt, ensure your financial ambitions stay within reach.",
-        "link": "Learn more"
+        "link": "Learn more",
+        "_image": {
+          "alt": "Goals page interface showcasing goal progress and payment breakdown"
+        }
       },
       "navigation": {
         "title": "Navigate Seamlessly",

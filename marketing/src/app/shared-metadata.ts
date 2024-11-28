@@ -8,7 +8,7 @@ const metadata: Omit<Metadata, "openGraph"> = {
 export const openGraph: Metadata["openGraph"] = {
   type: "website",
   siteName: "Monfuse",
-  alternateLocale: LOCALES,
+  alternateLocale: LOCALES.map((locale) => locale.replace("-", "_")),
 };
 
 export const twitter: Metadata["twitter"] = {

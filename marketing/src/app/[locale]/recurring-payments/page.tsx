@@ -20,10 +20,10 @@ export async function generateMetadata({
     ...items["recurring-payments"]._metadata,
     ...metadata,
     openGraph: {
+      ...openGraph,
       ...items["recurring-payments"]._metadata,
       url: new URL(`https://www.monfuse.com/${locale}/recurring-payments`),
-      locale: lang,
-      ...openGraph,
+      locale: locale.replace("-", "_"),
     },
     alternates: {
       canonical: new URL(
@@ -32,7 +32,7 @@ export async function generateMetadata({
       languages: LOCALES.reduce(
         (prev, locale) => ({
           ...prev,
-          [lang]: `https://www.monfuse.com/${locale}/recurring-payments`,
+          [locale]: `https://www.monfuse.com/${locale}/recurring-payments`,
         }),
         {}
       ),

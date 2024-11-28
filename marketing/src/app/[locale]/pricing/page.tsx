@@ -20,7 +20,7 @@ export async function generateMetadata({
       ...openGraph,
       ...dict["pricing"]._metadata,
       url: new URL(`https://www.monfuse.com/${locale}/pricing`),
-      locale,
+      locale: locale.replace("-", "_"),
     },
     twitter: { ...twitter, ...dict["pricing"]._metadata },
     alternates: {
