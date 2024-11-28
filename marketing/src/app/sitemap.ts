@@ -6,19 +6,18 @@ const urls = [
   "",
   "/incomes",
   "/expenses",
-  "/incomes",
-  "/recurring-payments",
   "/goals",
+  "/recurring-payments",
   "/ai-assistant",
   "/blog",
+  "/pricing",
   "/privacy-policy",
-  // "/contact",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return LOCALES.flatMap((locale) =>
-    [...urls, ...Object.keys(articles).map((url) => "/blog/" + url)].map(
-      (pathname) => ({
+  return [...urls, ...Object.keys(articles).map((url) => "/blog/" + url)]
+    .flatMap((pathname) =>
+      LOCALES.map((locale) => ({
         url: `https://www.monfuse.com/${locale}${pathname}`,
         changeFrequency: "yearly",
         priority: 1,
@@ -32,7 +31,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
             {},
           ),
         },
-      }),
-    )
-  );
+      }))
+    );
 }
