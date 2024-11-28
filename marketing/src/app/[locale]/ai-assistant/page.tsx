@@ -16,17 +16,17 @@ export async function generateMetadata({
     ...dict["ai-assistant"]._metadata,
     ...metadata,
     openGraph: {
+      ...openGraph,
       ...dict["ai-assistant"]._metadata,
       url: new URL(`https://www.monfuse.com/${locale}/ai-assistant`),
-      locale,
-      ...openGraph,
+      locale: locale.replace("-", "_"),
     },
     alternates: {
       canonical: new URL(`https://www.monfuse.com/${locale}/ai-assistant`),
       languages: LOCALES.reduce(
         (prev, locale) => ({
           ...prev,
-          [lang]: `https://www.monfuse.com/${locale}/ai-assistant`,
+          [locale]: `https://www.monfuse.com/${locale}/ai-assistant`,
         }),
         {}
       ),

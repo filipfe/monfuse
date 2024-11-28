@@ -7,9 +7,9 @@ export default function ExpensesCard({
 }) {
   if (!dict) return;
   return (
-    <article className="border shadow-[inset_0px_2px_9px_rgba(255,255,255,0.15)] border-white/10 bg-gradient-to-b from-white/5 to-white/[0.01] p-4 rounded-lg backdrop-blur-lg flex flex-col gap-2 min-w-64">
+    <div className="border shadow-[inset_0px_2px_9px_rgba(255,255,255,0.15)] border-white/10 bg-gradient-to-b from-white/5 to-white/[0.01] p-4 rounded-lg backdrop-blur-lg flex flex-col gap-2 min-w-64">
       <div className="flex items-center justify-between mb-2">
-        <h3 className="text-white">{dict.title}</h3>
+        <span className="text-white">{dict.title}</span>
         <small className="text-white/60">{dict["30-days"]}</small>
       </div>
       <div className="h-24 rounded-md px-2 relative">
@@ -29,6 +29,6 @@ export default function ExpensesCard({
           <div className="h-px bg-white/20 rounded-full"></div>
         </div>
       </div>
-    </article>
+    </div>
   );
 }

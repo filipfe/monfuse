@@ -21,7 +21,7 @@ export async function generateMetadata({
     openGraph: {
       ...dict,
       url: new URL(`https://app.monfuse.com/${locale}/forgot-password`),
-      locale,
+      locale: locale.replace("-", "_"),
     },
     twitter: {
       ...dict,

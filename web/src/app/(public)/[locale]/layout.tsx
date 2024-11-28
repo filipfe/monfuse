@@ -11,14 +11,14 @@ export async function generateMetadata({
   return {
     openGraph: {
       url: new URL(`https://app.monfuse.com/${locale}`),
-      locale,
+      locale: locale.replace("-", "_"),
     },
     alternates: {
       canonical: new URL(`https://app.monfuse.com/${locale}`),
       languages: LOCALES.reduce(
-        (prev, lang) => ({
+        (prev, locale) => ({
           ...prev,
-          [lang]: `https://app.monfuse.com/${locale}`,
+          [locale]: `https://app.monfuse.com/${locale}`,
         }),
         {}
       ),
