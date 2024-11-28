@@ -25,9 +25,9 @@ export async function generateMetadata({
     ...metadata,
     openGraph: {
       ..._metadata,
-      url: new URL(`https://www.monfuse.com/${locale}/expenses`),
-      locale,
       ...openGraph,
+      url: new URL(`https://www.monfuse.com/${locale}/expenses`),
+      locale: locale.replace("-", "_"),
     },
     alternates: {
       canonical: new URL(`https://www.monfuse.com/${locale}/expenses`),

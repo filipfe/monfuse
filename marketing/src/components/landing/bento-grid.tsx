@@ -34,13 +34,15 @@ export default function BentoGrid({
         <div className="relative flex flex-col justify-center gap-4 px-6 sm:px-8 py-12 overflow-hidden sm:rounded-lg border border-white/10 bg-gradient-to-br from-[rgba(255,255,255,0.05)] to-[rgba(255,255,255,0)] col-span-2">
           <h3 className="text-xl sm:text-2xl lg:text-3xl text-white font-bold max-w-[65%]">
             {dict.possibilities.title[0]}
-            <br /> {dict.possibilities.title[1]}
+            <br />
+            <TextBeam className="font-bold">
+              {dict.possibilities.title[1]}
+            </TextBeam>
           </h3>
           <p className="text-white/60 text-sm leading-relaxed lg:max-w-sm max-w-[60%]">
             {dict.possibilities.description}
           </p>
           <div className="min-h-max flex flex-col gap-4 absolute -right-32 lg:right-8">
-            <StockCard />
             <GoalCard dict={dict.card.goal} />
             <IncomeCard dict={dict.card.income} />
             <ExpensesCard dict={dict.card.expense} />
@@ -49,7 +51,8 @@ export default function BentoGrid({
         <div className="relative overflow-hidden flex flex-col gap-4 px-6 sm:px-8 p-8 sm:rounded-lg border border-white/10 bg-gradient-to-br from-[rgba(255,255,255,0.05)] to-[rgba(255,255,255,0)] col-span-2">
           <h3 className="text-xl sm:text-2xl lg:text-3xl text-white font-bold max-w-[55%]">
             {dict.manage.title[0]}
-            <br /> <TextBeam>{dict.manage.title[1]}</TextBeam>
+            <br />{" "}
+            <TextBeam className="font-bold">{dict.manage.title[1]}</TextBeam>
           </h3>
           <div className="absolute -bottom-2 -right-16 sm:right-8">
             <IncomeCard dict={dict.card.income} />

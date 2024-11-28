@@ -19,9 +19,9 @@ export default function FAQ({ dict }: Props) {
       <div>
         <div className="relative container mx-auto px-4 py-16 max-w-7xl">
           <div className="text-center mx-auto pb-4">
-            <h2 className=" text-primary font-mono font-medium tracking-wider uppercase">
+            <span className=" text-primary font-mono font-medium tracking-wider uppercase">
               {dict.category}
-            </h2>
+            </span>
             <h3 className="mx-auto mt-2 sm:mt-4 max-w-xs text-2xl font-black sm:max-w-none sm:text-3xl lg:text-4xl">
               {dict.title}
             </h3>

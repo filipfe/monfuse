@@ -5,7 +5,7 @@ import expenses from "./expenses";
 
 export const articles = {
   "telegram-bot-integration": (lang: Lang) => telegramBotIntegration[lang](),
-  "expenses": (lang: Lang) => expenses[lang](),
+  // "expenses": (lang: Lang) => expenses[lang](),
 };
 
 export default async function getArticle(

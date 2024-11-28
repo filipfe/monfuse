@@ -33,7 +33,7 @@ export async function generateMetadata({
       title: _metadata.title,
       description: _metadata.description,
       url: new URL(`https://www.monfuse.com/${locale}`),
-      locale,
+      locale: locale.replace("-", "_"),
       ...openGraph,
     },
     twitter: {
@@ -44,9 +44,9 @@ export async function generateMetadata({
     alternates: {
       canonical: new URL(`https://www.monfuse.com/${locale}`),
       languages: LOCALES.reduce(
-        (prev, lang) => ({
+        (prev, locale) => ({
           ...prev,
-          [lang]: `https://www.monfuse.com/${locale}`,
+          [locale]: `https://www.monfuse.com/${locale}`,
         }),
         {}
       ),
@@ -66,8 +66,8 @@ export default async function RootLayout({
   params: Promise<{ locale: Locale }>;
 }>) {
   const { locale } = await params;
-  const [lang] = locale.split("-");
-  const dict = await getDictionary(lang as Lang);
+  const lang = getLang(locale);
+  const dict = await getDictionary(lang);
   const { banner } = dict;
   return (
     <html lang={lang} className="light">
