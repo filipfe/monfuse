@@ -13,15 +13,16 @@ import { CheckIcon } from "lucide-react";
 import UniversalSelect from "../ui/universal-select";
 import { CURRENCIES } from "@/const";
 import Block, { Section } from "../ui/block";
-import { format } from "date-fns";
 import toast from "@/utils/toast";
 import { addRecurringPayment } from "@/lib/recurring-payments/actions";
-import { CalendarDate, parseDate, parseTime } from "@internationalized/date";
+import {
+  CalendarDate,
+  now,
+  parseDate,
+  parseTime,
+} from "@internationalized/date";
 import { useSearchParams } from "next/navigation";
 import { Dict } from "@/const/dict";
-
-const tomorrow = new Date();
-tomorrow.setDate(tomorrow.getDate() + 1);
 
 interface NewRecurringPayment
   extends Partial<Omit<TimelinePayment, "id" | "amount">> {
@@ -32,23 +33,6 @@ interface NewRecurringPayment
   interval_unit: string;
 }
 
-const defaultRecord: Omit<NewRecurringPayment, "currency"> = {
-  title: "",
-  amount: "",
-  start_date: parseDate(format(tomorrow, "yyyy-MM-dd")),
-  interval_amount: "1",
-  interval_unit: "month",
-};
-
-const getInitialDate = (str: string | null) => {
-  if (!str) return defaultRecord.start_date;
-  try {
-    return parseDate(str);
-  } catch (err) {
-    return defaultRecord.start_date;
-  }
-};
-
 export default function RecurringPaymentForm({
   settings,
   dict,
@@ -56,10 +40,30 @@ export default function RecurringPaymentForm({
   settings: Settings;
   dict: Dict["private"]["operations"]["recurring-payments"]["add"];
 }) {
+  const today = now(settings.timezone);
+  const defaultStartDate =
+    today.hour === 23
+      ? new CalendarDate(today.year, today.month, today.day + 1)
+      : new CalendarDate(today.year, today.month, today.day);
   const searchParams = useSearchParams();
-  const [hour, setHour] = useState(0);
+  const [hour, setHour] = useState(today.hour === 23 ? 0 : today.hour + 1);
   const initialDate = searchParams.get("date");
   const [isPending, startTransition] = useTransition();
+  const defaultRecord: Omit<NewRecurringPayment, "currency"> = {
+    title: "",
+    amount: "",
+    start_date: defaultStartDate,
+    interval_amount: "1",
+    interval_unit: "month",
+  };
+  const getInitialDate = (str: string | null) => {
+    if (!str) return defaultRecord.start_date;
+    try {
+      return parseDate(str);
+    } catch (err) {
+      return defaultRecord.start_date;
+    }
+  };
   const [singleRecord, setSingleRecord] = useState<NewRecurringPayment>({
     ...defaultRecord,
     currency: settings.currency,
@@ -211,7 +215,7 @@ export default function RecurringPaymentForm({
             isInvalid={isStartTimeInvalid || undefined}
             label={dict.interval.form.date.label}
             value={singleRecord.start_date}
-            minValue={parseDate(format(tomorrow, "yyyy-MM-dd"))}
+            minValue={defaultStartDate}
             onChange={(date) => {
               setIsStartTimeInvalid(false);
               date &&
@@ -222,6 +226,15 @@ export default function RecurringPaymentForm({
             label={dict.interval.form.hour.label}
             value={parseTime(`${hour < 10 ? "0" + hour : hour}:00`)}
             hourCycle={24}
+            minValue={parseTime(
+              `${
+                today.hour < 10
+                  ? "0" + today.hour
+                  : today.hour === 23
+                  ? "00"
+                  : today.hour + 1
+              }:00`
+            )}
             onChange={(value) => setHour(value.hour)}
             classNames={{
               inputWrapper: "border shadow-none !bg-light",
