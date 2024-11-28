@@ -13,7 +13,7 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const { name, locale } = await params;
   const lang = getLang(locale);
-  const { attributes } = await getArticle(name, lang);
+  const { attributes } = (await getArticle(name, lang)) as any;
   const title = `${attributes.title} | Blog | Monfuse`;
   const { description } = attributes;
   return {
