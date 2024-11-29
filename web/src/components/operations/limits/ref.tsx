@@ -82,7 +82,7 @@ export default function LimitRef({ dict, period, settings, onAdd }: Props) {
         ) : (
           <h4 className="text-sm">{dict._empty.title[period]}</h4>
         )}
-        <div className="hidden sm:flex items-center justify-between gap-3">
+        <div className="grid grid-cols-2 sm:flex items-center justify-between gap-3">
           {limit && (
             <Button
               variant="flat"
@@ -120,7 +120,7 @@ export default function LimitRef({ dict, period, settings, onAdd }: Props) {
             </>
           )}
           <UniversalSelect
-            className="w-20"
+            className="w-20 col-span-2 row-start-1"
             name="currency"
             size="sm"
             radius="md"

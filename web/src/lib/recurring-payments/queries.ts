@@ -76,6 +76,9 @@ export const useCalendarRecords = (
     ["recurring-payments", "calendar", { timezone, month, year }],
     ([, , { timezone, month, year }]) =>
       getCalendarRecords(timezone, month, year),
+    {
+      revalidateOnFocus: false,
+    },
   );
 
 async function getUpcomingPayments(
@@ -105,3 +108,20 @@ export const useUpcomingPayments = (
     ([, , timezone]) => getUpcomingPayments(timezone),
     config,
   );
+
+export async function deleteRecurringPayment(id: string) {
+  const supabase = createClient();
+
+  const { error } = await supabase
+    .from("recurring_payments")
+    .delete()
+    .eq("id", id);
+
+  if (error) {
+    return {
+      error: error.message,
+    };
+  }
+
+  return {};
+}

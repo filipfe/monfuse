@@ -8,29 +8,34 @@ import {
 } from "react-day-picker";
 // import "react-day-picker/style.css";
 import { ChevronLeft, ChevronRight, Coins, Plus, Wallet2 } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { toZonedTime } from "date-fns-tz";
 import { format, startOfWeek } from "date-fns";
-import { useCalendarRecords } from "@/lib/recurring-payments/queries";
+import {
+  useActivePayments,
+  useCalendarRecords,
+} from "@/lib/recurring-payments/queries";
 import Link from "next/link";
 import NumberFormat from "@/utils/formatters/currency";
 import { Dict } from "@/const/dict";
 
-const classNames = getDefaultClassNames();
-
-export default function Calendar({
-  settings,
-  dict,
-}: {
+type Props = {
   settings: Settings;
   dict: Dict["private"]["operations"]["recurring-payments"]["calendar"];
-}) {
+  page: number;
+};
+
+const classNames = getDefaultClassNames();
+
+export default function Calendar({ settings, dict, page }: Props) {
+  const { data: activePayments, isLoading: areActivePaymentsLoading } =
+    useActivePayments(page);
   const currentDate = toZonedTime(new Date(), settings.timezone);
   const [monthDate, setMonthDate] = useState(currentDate);
   const {
     data: results,
+    mutate,
     isLoading,
-    isValidating,
   } = useCalendarRecords(
     settings.timezone,
     monthDate.getMonth(),
@@ -43,12 +48,9 @@ export default function Calendar({
         <div className="relative">
           <table
             {...props}
-            className={cn(
-              props.className,
-              isLoading && !isValidating && "opacity-0"
-            )}
+            className={cn(props.className, isLoading && "opacity-0")}
           ></table>
-          {isLoading && !isValidating && (
+          {isLoading && (
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 translate-y-1/2">
               <l-hatch />
             </div>
@@ -194,8 +196,13 @@ export default function Calendar({
         </thead>
       ),
     }),
-    [isLoading, isValidating, results]
+    [isLoading, results]
   );
+
+  useEffect(() => {
+    if (areActivePaymentsLoading || !activePayments) return;
+    mutate();
+  }, [areActivePaymentsLoading, page, activePayments]);
 
   return (
     <DayPicker

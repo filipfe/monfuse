@@ -12,16 +12,8 @@ const en = {
   start: {
     registration:
       "Provide your unique Telegram key. You can find it here: https://app.monfuse.com/automations",
-    welcome: `Hi { $first_name },
-Your registration was successful!
-
-You can now tell me about your income and expenses, and I will save them to your account!
-
-You can also send me photos of receipts and invoices, which I will process and save as the corresponding operations, or send me voice messages with operation details.
-
-To see available commands, type /help
-
-Try adding an operation by typing the command /add`,
+    welcome:
+      "Hi { $first_name },\n\nYour registration was successful!\n\nYou can now tell me about your income and expenses, and I will save them to your account!\n\nYou can also send me photos of receipts and invoices, which I will process and save as the corresponding operations, or send me voice messages with operation details.\n\nTo see available commands, type /help",
     "already-registered":
       "Hi { $first_name }! Registration has already been completed.",
   },
@@ -33,10 +25,19 @@ Try adding an operation by typing the command /add`,
     "photo-download": "I couldn't retrive the image, please try again",
     "photo-unknown":
       "An error occurred while processing the photos, please try again.",
+    "undo-not-found":
+      "No recent operations found, try removing them via the application",
   },
   text: {
     success: `💸 I added the following operations:
 { $operations }`,
+  },
+  graph: {
+    weekly: "📊 Here is your expense chart from last week based on labels",
+  },
+  undo: {
+    success:
+      "🔄 Successfully deleted the following operations:\n\n{ $operations }",
   },
 };
 

@@ -12,16 +12,8 @@ const pl = {
   start: {
     registration:
       "Podaj swój unikalny klucz Telegram. Znajdziesz go tutaj: https://app.monfuse.com/automations",
-    welcome: `Cześć { $first_name },
-Twoja rejestracja przebiegła pomyślnie!
-
-Możesz teraz pisać mi o swoich przychodach i wydatkach, a ja będę je zapisywać na twoim koncie!
-    
-Możesz również wysyłać mi zdjęcia paragonów i faktur, które przetworzę i zapiszę jako odpowiednie operacje lub wysyłać mi wiadomości głosowe z informacjami o operacjach
-
-Aby zobaczyć dostępne komendy wpisz /pomoc
-
-Wypróbuj dodawanie operacji wpisując komendę /dodaj`,
+    welcome:
+      "Cześć { $first_name },\n\nTwoja rejestracja przebiegła pomyślnie!\n\nMożesz teraz pisać mi o swoich przychodach i wydatkach, a ja będę je zapisywać na twoim koncie!\n\nMożesz również wysyłać mi zdjęcia paragonów i faktur, które przetworzę i zapiszę jako odpowiednie operacje lub wysyłać mi wiadomości głosowe z informacjami o operacjach\n\nAby zobaczyć dostępne komendy wpisz /pomoc",
     "already-registered":
       "Cześć { $first_name }! Rejestracja została już wykonana.",
   },
@@ -33,10 +25,19 @@ Wypróbuj dodawanie operacji wpisując komendę /dodaj`,
     "photo-download": "Nie udało mi się pobrać zdjęcia, spróbuj ponownie",
     "photo-unknown":
       "Wystąpił błąd przy przetwarzaniu twoich zdjęć, spróbuj ponownie",
+    "undo-not-found":
+      "Nie znaleziono ostatnich operacji, spróbuj usunąć je poprzez aplikację",
   },
   text: {
     success: `💸 Dodałem następujące operacje:
 { $operations }`,
+  },
+  graph: {
+    weekly:
+      "📊 Oto twój wykres wydatków z przeszłego tygodnia na podstawie etykiet",
+  },
+  undo: {
+    success: "🔄 Pomyślnie usunięto następujące operacje:\n\n{ $operations }",
   },
 };
 
