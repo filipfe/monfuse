@@ -6,7 +6,7 @@ import { BotContext } from "../../_shared/telegram-bot.ts";
 export default async function graph(ctx: CommandContext<BotContext>) {
   if (!ctx.from) {
     await ctx.reply(
-      "Nie posiadam uprawnień do zidentyfikowania kim jesteś. Spróbuj zmienić ustawienia profilu Telegram.",
+      ctx.t("global.unauthorized"),
     );
     return;
   }
@@ -22,14 +22,13 @@ export default async function graph(ctx: CommandContext<BotContext>) {
     });
     if (error) {
       console.error(error);
-      await ctx.reply("Wystąpił błąd, spróbuj ponownie!");
+      await ctx.reply(ctx.t("global.error"));
     } else {
       await ctx.replyWithPhoto(data, {
-        caption:
-          "📊 Oto twój wykres wydatków z obecnego tygodnia na podstawie etykiet",
+        caption: ctx.t("graph.weekly"),
       });
     }
   } else {
-    await ctx.reply("Zarejestruj się, aby kontynuować! Wpisz komendę /start");
+    await ctx.reply(ctx.t("global.not-found"));
   }
 }

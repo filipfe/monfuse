@@ -1,6 +1,12 @@
 "use client";
 
-import { deleteRecurringPayment } from "@/lib/recurring-payments/actions";
+import ConfirmationModal from "@/components/ui/confirmation-modal";
+import { Dict } from "@/const/dict";
+import {
+  deleteRecurringPayment,
+  useActivePayments,
+  useUpcomingPayments,
+} from "@/lib/recurring-payments/queries";
 import toast from "@/utils/toast";
 import {
   Dropdown,
@@ -9,9 +15,18 @@ import {
   DropdownTrigger,
 } from "@nextui-org/react";
 import { MoreVerticalIcon, PauseIcon, Trash2Icon } from "lucide-react";
-import { useState, useTransition } from "react";
+import { useState } from "react";
 
-export default function Menu({ id }: WithId<RecurringPayment>) {
+type Props = {
+  payment: WithId<RecurringPayment>;
+  page: number;
+  timezone: string;
+  dict: Dict["private"]["operations"]["recurring-payments"]["active"]["menu"];
+};
+
+export default function Menu({ payment: { id }, dict, page, timezone }: Props) {
+  const { mutate } = useActivePayments(page);
+  const { mutate: mutateUpcoming } = useUpcomingPayments(timezone);
   const [isLoading, setIsLoading] = useState({
     deletion: false,
   });
@@ -31,14 +46,15 @@ export default function Menu({ id }: WithId<RecurringPayment>) {
           switch (key) {
             case "delete":
               setIsLoading((prev) => ({ ...prev, deletion: true }));
-              const formData = new FormData();
-              formData.append("id", id);
-              const { error } = await deleteRecurringPayment(formData);
+              const { error } = await deleteRecurringPayment(id);
               if (error) {
                 toast({
                   type: "error",
-                  message: "Wystąpił błąd przy usuwaniu płatności",
+                  message: dict._error.delete,
                 });
+              } else {
+                mutate();
+                mutateUpcoming();
               }
               setIsLoading((prev) => ({ ...prev, deletion: false }));
               break;
@@ -47,24 +63,24 @@ export default function Menu({ id }: WithId<RecurringPayment>) {
           }
         }}
       >
-        <DropdownItem
+        {/* <DropdownItem
           key="pause"
-          description="Tymczasowo przerwij płatność"
+          description={dict.pause.description}
           startContent={<PauseIcon size={16} />}
           closeOnSelect={false}
           showDivider
         >
-          Przerwij płatność
-        </DropdownItem>
+          {dict.pause.title}
+        </DropdownItem> */}
         <DropdownItem
           closeOnSelect={false}
           key="delete"
           className="text-danger"
           color="danger"
-          description="Nieodwracalnie usuń płatność"
+          description={dict.delete.description}
           startContent={<Trash2Icon className="text-danger" size={16} />}
         >
-          Usuń płatność
+          {dict.delete.title}
         </DropdownItem>
       </DropdownMenu>
     </Dropdown>
