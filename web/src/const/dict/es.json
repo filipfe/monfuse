@@ -287,8 +287,8 @@
           "title": "Próximos",
           "timer": {
             "days": "días",
-            "hours": "horas",
-            "minutes": "minutos"
+            "hours": "hrs.",
+            "minutes": "min."
           },
           "_empty": {
             "title": "No hay pagos próximos"
@@ -371,6 +371,9 @@
               "hour": {
                 "label": "Hora"
               }
+            },
+            "change-timezone": {
+              "link": "Cambiar zona horaria"
             }
           },
           "_submit": "Guardar",

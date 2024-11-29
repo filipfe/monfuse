@@ -1,5 +1,5 @@
 import { cn } from "@nextui-org/react";
-import { HTMLAttributes } from "react";
+import React, { HTMLAttributes } from "react";
 
 type Props = {
   title?: string | React.ReactNode;
@@ -64,6 +64,7 @@ export default function Block({
 
 interface SectionProps extends HTMLAttributes<HTMLDivElement> {
   wrapperClassName?: string;
+  endContent?: React.ReactNode;
 }
 
 export function Section({
@@ -71,6 +72,7 @@ export function Section({
   className,
   children,
   wrapperClassName,
+  endContent,
   ...props
 }: SectionProps) {
   return (
@@ -81,7 +83,10 @@ export function Section({
       )}
       {...props}
     >
-      {title && <h4 className="text-sm">{title}</h4>}
+      <div className="flex items-center justify-between gap-2">
+        {title && <h4 className="text-sm">{title}</h4>}
+        {endContent}
+      </div>
       <div className={className}>{children}</div>
     </div>
   );

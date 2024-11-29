@@ -18,7 +18,7 @@ export default function Upcoming({
 
   return (
     <Block title={dict.title} className="2xl:min-h-48">
-      <div className="flex flex-col lg:grid grid-cols-3">
+      <div className="flex flex-col lg:grid grid-cols-3 gap-6">
         {payments && payments.length > 0 ? (
           payments.map((payment) => (
             <Ref
