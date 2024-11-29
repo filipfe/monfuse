@@ -1,8 +1,4 @@
 User-agent: *
-Disallow: /
-
-Allow: /*/sign-in$
-Allow: /*/sign-up$
-Allow: /*/forgot-password$
+Disallow: /$
 
 Sitemap: https://app.monfuse.com/sitemap.xml
