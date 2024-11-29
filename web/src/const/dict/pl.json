@@ -304,6 +304,20 @@
             "currency": "Waluta",
             "next-payment": "Następna płatność"
           },
+          "menu": {
+            "pause": {
+              "title": "Przerwij płatność",
+              "description": "Tymczasowo przerwij płatność"
+            },
+            "delete": {
+              "title": "Usuń płatność",
+              "description": "Nieodwracalnie usuń płatność"
+            },
+            "_error": {
+              "pause": "Nie udało się przerwać płatności, spróbuj ponownie!",
+              "delete": "Nie udało się usunąć płatności, spróbuj ponownie!"
+            }
+          },
           "_empty": {
             "title": "Brak aktywnych płatności"
           }

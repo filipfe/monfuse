@@ -305,7 +305,20 @@
             "currency": "Currency",
             "next-payment": "Next Payment"
           },
-
+          "menu": {
+            "pause": {
+              "title": "Pause Payment",
+              "description": "Temporarily pause the payment"
+            },
+            "delete": {
+              "title": "Delete Payment",
+              "description": "Irreversibly delete the payment"
+            },
+            "_error": {
+              "pause": "Failed to pause the payment, please try again!",
+              "delete": "Failed to delete the payment, please try again!"
+            }
+          },
           "_empty": {
             "title": "No active payments"
           }

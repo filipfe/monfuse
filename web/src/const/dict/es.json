@@ -299,6 +299,20 @@
           "add": {
             "label": "Agregar"
           },
+          "menu": {
+            "pause": {
+              "title": "Pausar el pago",
+              "description": "Pausar temporalmente el pago"
+            },
+            "delete": {
+              "title": "Eliminar el pago",
+              "description": "Eliminar el pago de forma irreversible"
+            },
+            "_error": {
+              "pause": "No se pudo pausar el pago, ¡inténtalo de nuevo!",
+              "delete": "No se pudo eliminar el pago, ¡inténtalo de nuevo!"
+            }
+          },
           "columns": {
             "title": "Título",
             "amount": "Monto",

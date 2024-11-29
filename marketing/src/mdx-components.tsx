@@ -2,6 +2,7 @@ import type { MDXComponents } from "mdx/types";
 import Image, { ImageProps } from "next/image";
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
+  let isFirstImage = true;
   return {
     ...components,
     p: ({ children, ...props }) => (
@@ -79,16 +80,20 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         {children}
       </li>
     ),
-    img: (props) => (
-      <Image
-        priority
-        loading="eager"
-        width={768}
-        height={768}
-        className="rounded-md object-cover my-4 sm:my-6 max-w-3xl w-full"
-        {...(props as ImageProps)}
-      />
-    ),
+    img: (props) => {
+      const isThumbnail = isFirstImage;
+      isFirstImage = false;
+      return (
+        <Image
+          priority={isThumbnail}
+          loading={isThumbnail ? "eager" : "lazy"}
+          fill
+          sizes="(min-width: 768px) 800px, 100vw"
+          className="rounded-md object-contain my-4 sm:my-6 max-w-3xl w-full border !relative"
+          {...(props as ImageProps)}
+        />
+      );
+    },
     // li: ({ children, ...props }) => (
     //   <li className="font-medium" {...props}>
     //     {children}

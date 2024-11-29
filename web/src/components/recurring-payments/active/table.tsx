@@ -14,24 +14,33 @@ import {
 } from "@nextui-org/react";
 import Block from "../../ui/block";
 import { useActivePayments } from "@/lib/recurring-payments/queries";
-import { useCallback, useMemo, useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useMemo,
+  useState,
+} from "react";
 import { Coins, PlusIcon, Wallet2 } from "lucide-react";
-import TopContent from "../../ui/table/top-content";
-import Add from "../../ui/cta/add";
 import Link from "next/link";
 import Loader from "@/components/stocks/loader";
 import { Dict } from "@/const/dict";
 import Menu from "./menu";
 import Empty from "@/components/ui/empty";
 
+type Props = {
+  settings: Settings;
+  dict: Dict["private"]["operations"]["recurring-payments"]["active"];
+  page: number;
+  setPage: Dispatch<SetStateAction<number>>;
+};
+
 export default function RecurringPaymentsTable({
   settings,
   dict,
-}: {
-  settings: Settings;
-  dict: Dict["private"]["operations"]["recurring-payments"]["active"];
-}) {
-  const [page, setPage] = useState<number>(1);
+  page,
+  setPage,
+}: Props) {
   const { isLoading, data } = useActivePayments(page);
 
   const columns = useMemo(
@@ -58,37 +67,47 @@ export default function RecurringPaymentsTable({
       },
       { key: "actions", label: "" },
     ],
-    [settings.language]
+    [dict.columns]
   );
 
-  const renderCell = useCallback((item: any, columnKey: any) => {
-    const cellValue = item[columnKey];
+  const renderCell = useCallback(
+    (item: any, columnKey: any) => {
+      const cellValue = item[columnKey];
 
-    switch (columnKey) {
-      case "type":
-        return item.type === "income" ? (
-          <Wallet2 size={15} color="#177981" />
-        ) : (
-          <Coins size={16} color="#fdbb2d" />
-        );
-      case "title":
-        return (
-          <span className="line-clamp-1 break-all min-w-[14ch]">
-            {cellValue}
-          </span>
-        );
-      case "amount":
-        return new Intl.NumberFormat(settings.language).format(cellValue);
-      case "next_payment":
-        return new Intl.DateTimeFormat(settings.language).format(
-          new Date(cellValue)
-        );
-      case "actions":
-        return <Menu {...item} />;
-      default:
-        return cellValue;
-    }
-  }, []);
+      switch (columnKey) {
+        case "type":
+          return item.type === "income" ? (
+            <Wallet2 size={15} color="#177981" />
+          ) : (
+            <Coins size={16} color="#fdbb2d" />
+          );
+        case "title":
+          return (
+            <span className="line-clamp-1 break-all min-w-[14ch]">
+              {cellValue}
+            </span>
+          );
+        case "amount":
+          return new Intl.NumberFormat(settings.language).format(cellValue);
+        case "next_payment":
+          return new Intl.DateTimeFormat(settings.language).format(
+            new Date(cellValue)
+          );
+        case "actions":
+          return (
+            <Menu
+              payment={item}
+              timezone={settings.timezone}
+              page={page}
+              dict={dict.menu}
+            />
+          );
+        default:
+          return cellValue;
+      }
+    },
+    [page, settings.timezone]
+  );
 
   const cta = (
     <Link href="/recurring-payments/add">

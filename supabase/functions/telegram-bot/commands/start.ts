@@ -15,7 +15,7 @@ export default async function registerUser(
     if (error.code === "PGRST116" || error.code === "22P02") {
       await ctx.reply(ctx.t("global.invalid-token"));
     } else {
-      await ctx.reply("Wystąpił błąd, spróbuj ponownie później!");
+      await ctx.reply("global.errror");
       return;
     }
     return;
