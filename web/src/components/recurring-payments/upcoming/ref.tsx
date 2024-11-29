@@ -13,14 +13,16 @@ export default function Ref({
   dict: Dict["private"]["operations"]["recurring-payments"]["upcoming"]["timer"];
 }) {
   return (
-    <div className="flex flex-col gap-2 items-center py-6 border-b last:border-b-0 first:pt-0 lg:py-0 last:pb-0 lg:border-b-0 lg:px-10 first:pl-0 last:pr-0 lg:border-r last:border-0">
-      <span className="text-sm text-font/75 truncate">{payment.title}</span>
-      <strong className="flex items-center gap-2">
+    <div className="flex flex-col bg-light border rounded-md gap-2 items-center py-4 px-6">
+      <h5 className="text-sm text-font/75 truncate flex items-center gap-2">
         {payment.type === "income" ? (
           <Wallet2 size={14} color="#177981" />
         ) : (
           <Coins size={14} color="#fdbb2d" />
         )}{" "}
+        {payment.title}
+      </h5>
+      <strong className="flex items-center gap-2 mb-2">
         <NumberFormat
           amount={
             payment.type === "income" ? payment.amount : -1 * payment.amount

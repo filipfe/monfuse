@@ -286,8 +286,8 @@
           "title": "Nadchodzące",
           "timer": {
             "days": "dni",
-            "hours": "godziny",
-            "minutes": "minuty"
+            "hours": "godz.",
+            "minutes": "min"
           },
           "_empty": {
             "title": "Brak nadchodzących płatności"
@@ -370,6 +370,9 @@
               "hour": {
                 "label": "Godzina"
               }
+            },
+            "change-timezone": {
+              "link": "Zmień strefę czasową"
             }
           },
           "_submit": "Zapisz",
