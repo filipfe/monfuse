@@ -287,8 +287,8 @@
           "title": "Upcoming",
           "timer": {
             "days": "days",
-            "hours": "hours",
-            "minutes": "minutes"
+            "hours": "hrs",
+            "minutes": "mins"
           },
           "_empty": {
             "title": "No upcoming payments"
@@ -305,6 +305,7 @@
             "currency": "Currency",
             "next-payment": "Next Payment"
           },
+
           "_empty": {
             "title": "No active payments"
           }
@@ -371,6 +372,9 @@
               "hour": {
                 "label": "Hour"
               }
+            },
+            "change-timezone": {
+              "link": "Change timezone"
             }
           },
           "_submit": "Save",

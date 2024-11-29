@@ -3,7 +3,6 @@
 import { Dict } from "@/const/dict";
 import { useUpcomingPayments } from "@/lib/recurring-payments/queries";
 import dateFormat from "@/utils/formatters/dateFormat";
-import { intervalToDuration } from "date-fns";
 import { useEffect, useRef, useState } from "react";
 
 function getTimeRemaining(datetime: string, timezone: string) {
@@ -36,7 +35,6 @@ type Props = {
 
 export default function Timer({ timezone, paymentDatetime, dict }: Props) {
   const timeoutRef = useRef<number>();
-  console.log(paymentDatetime);
   const { mutate } = useUpcomingPayments(timezone);
   const [timeRemaining, setTimeRemaining] = useState(
     getTimeRemaining(paymentDatetime, timezone)
@@ -60,11 +58,9 @@ export default function Timer({ timezone, paymentDatetime, dict }: Props) {
   }, [paymentDatetime, timeRemaining.minutes]);
 
   const renderTimeUnit = (value: string | number, unit: string) => (
-    <div className="flex flex-col items-center gap-1 flex-1">
-      <div className="border-1 bg-light rounded-md w-full h-12 grid place-content-center">
-        <span>{value}</span>
-      </div>
-      <span className="text-sm text-font/75">
+    <div className="border bg-white rounded-md w-full h-12 flex items-center justify-center flex-1 gap-1">
+      <span>{value}</span>
+      <span className="text-xs text-font/50 mt-0.5">
         {dict[unit as keyof typeof dict]}
       </span>
     </div>
@@ -72,11 +68,19 @@ export default function Timer({ timezone, paymentDatetime, dict }: Props) {
 
   return (
     <div className="flex items-start gap-2 w-full">
-      {renderTimeUnit(timeRemaining.days, "days")}
-      <span className="relative top-3">:</span>
+      {timeRemaining.days > 0 && (
+        <>
+          {renderTimeUnit(timeRemaining.days, "days")}
+          <span className="relative top-3">:</span>
+        </>
+      )}
       {renderTimeUnit(timeRemaining.hours, "hours")}
-      <span className="relative top-3">:</span>
-      {renderTimeUnit(timeRemaining.minutes, "minutes")}
+      {timeRemaining.days === 0 && (
+        <>
+          <span className="relative top-3">:</span>
+          {renderTimeUnit(timeRemaining.minutes, "minutes")}
+        </>
+      )}
     </div>
   );
 }
