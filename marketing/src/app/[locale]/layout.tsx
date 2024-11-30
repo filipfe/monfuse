@@ -14,12 +14,6 @@ import { LOCALES } from "@/lib/locales";
 
 const inter = Inter({ subsets: ["latin"] });
 
-// const IBMPlexMono = IBM_Plex_Mono({
-//   weight: ["400"],
-//   subsets: ["latin"],
-//   variable: "--font-mono",
-// });
-
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
@@ -41,6 +35,7 @@ export async function generateMetadata({
       description: _metadata.description,
       card: "summary_large_image",
     },
+    robots: { index: false, follow: false },
     alternates: {
       canonical: new URL(`https://www.monfuse.com/${locale}`),
       languages: LOCALES.reduce(

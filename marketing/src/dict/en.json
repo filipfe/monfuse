@@ -25,6 +25,14 @@
       "AI financial assistant"
     ]
   },
+  "not-found": {
+    "title": "Page not found",
+    "description": "The page you are looking for doesn't exist.",
+    "cta": {
+      "back": "Go back",
+      "home": "Home"
+    }
+  },
   "general": {
     "card": {
       "goal": {
@@ -44,7 +52,7 @@
   "landing": {
     "title": "Home page",
     "hero": {
-      "title": "Manage all your finances with ease",
+      "title": "Manage all your finances with Monfuse",
       "description": "Effortlessly track income and expenses, set goals, and gain insights with our finance web app. Start your journey to financial freedom today!",
       "cta": {
         "primary": "Start now",

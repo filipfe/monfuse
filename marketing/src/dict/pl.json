@@ -25,6 +25,14 @@
       "asystent finansowy AI"
     ]
   },
+  "not-found": {
+    "title": "Nie znaleziono strony",
+    "description": "Strona, której szukasz nie została znaleziona",
+    "cta": {
+      "back": "Powrót",
+      "home": "Strona główna"
+    }
+  },
   "general": {
     "card": {
       "goal": {

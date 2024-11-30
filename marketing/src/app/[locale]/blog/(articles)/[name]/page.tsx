@@ -3,6 +3,7 @@ import getArticle, { articles } from "@/dict/blog";
 import { LOCALES } from "@/lib/locales";
 import { getLang } from "@/lib/utils";
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 type PageProps = {
   params: Promise<{ name: string; locale: Locale }>;
@@ -13,7 +14,9 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const { name, locale } = await params;
   const lang = getLang(locale);
-  const { attributes } = (await getArticle(name, lang)) as any;
+  const article = (await getArticle(name, lang)) as any;
+  if (!article) notFound();
+  const { attributes } = article;
   const title = `${attributes.title} | Blog | Monfuse`;
   const { description } = attributes;
   return {
@@ -55,6 +58,7 @@ export default async function Page({ params }: PageProps) {
   const { name, locale } = await params;
   const lang = getLang(locale);
   const article = await getArticle(name, lang);
+  if (!article) notFound();
   const Content = article.default;
   return <Content />;
 }

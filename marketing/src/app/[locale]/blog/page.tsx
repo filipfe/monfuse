@@ -49,7 +49,7 @@ export default async function Page({ params }: PageProps) {
   const { locale } = await params;
   const lang = getLang(locale);
   const { blog } = await getDictionary(lang);
-  const data = await Promise.all(
+  const posts = await Promise.all(
     Object.entries(articles).map(([href, article]) =>
       article(lang).then((m) => ({
         ...(m as unknown as { attributes: Omit<ArticleAttributes, "href"> })
@@ -69,8 +69,8 @@ export default async function Page({ params }: PageProps) {
             {blog.description}
           </p>
         </div>
-        <div className="lg:grid grid-cols-3 gap-4 sm:gap-6 flex flex-col mt-12">
-          {data.map((article) => (
+        <div className="lg:grid grid-cols-3 gap-4 sm:gap-6 flex flex-col mt-6">
+          {posts.map((article) => (
             <ArticleRef
               article={article}
               dict={blog.article}
