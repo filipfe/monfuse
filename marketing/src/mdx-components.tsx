@@ -32,7 +32,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     h3: ({ children, ...props }) => (
       <h3
         {...props}
-        className="text-lg sm:text-xl lg:text-2xl lg:leading-tight leading-snug text-foreground font-bold mt-6 mb-2"
+        className="text-lg sm:text-xl lg:text-2xl lg:leading-tight leading-snug text-foreground font-bold mt-4 mb-2"
       >
         {children}
       </h3>
@@ -40,7 +40,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     h4: ({ children, ...props }) => (
       <h4
         {...props}
-        className="text-lg lg:text-xl lg:leading-tight leading-tight text-foreground font-bold mt-6 mb-2"
+        className="text-lg lg:text-xl lg:leading-tight leading-tight text-foreground font-bold mt-4"
       >
         {children}
       </h4>

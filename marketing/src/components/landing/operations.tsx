@@ -68,27 +68,27 @@ const OperationRef = ({
     index: number;
     type: Operation["type"];
   }) => (
-  <Motion
-    initial={{ translateX: -24, opacity: 0 }}
-    whileInView={{ translateX: 0, opacity: 1 }}
-    transition={{ delay: index * 0.05 }}
-    viewport={{ once: true, amount: 1 }}
+  // <Motion
+  //   initial={{ translateX: -24, opacity: 0 }}
+  //   whileInView={{ translateX: 0, opacity: 1 }}
+  //   transition={{ delay: index * 0.05 }}
+  //   viewport={{ once: true, amount: 1 }}
+  // >
+  <Link
+    href={`/${type}`}
+    className="rounded-lg border text-card-foreground bg-background border-none shadow-none group"
   >
-    <Link
-      href={`/${type}`}
-      className="rounded-lg border text-card-foreground bg-background border-none shadow-none group"
-    >
-      <div className="flex flex-col gap-3">
-        <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center">
-          {icon}
-        </div>
-        <h4 className="text-lg lg:text-xl font-semibold mt-3 group-hover:text-primary-dark transition-colors after:block after:h-0.5 max-w-max after:w-full after:max-w-0 after:transition-[max-width] group-hover:after:max-w-[50%] after:bg-primary">
-          {title}
-        </h4>
-        <p className="text-font/60 text-sm leading-relaxed group-hover:text-primary-dark/80 transition-colors">
-          {description}
-        </p>
+    <div className="flex flex-col gap-3">
+      <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center">
+        {icon}
       </div>
-    </Link>
-  </Motion>
+      <h4 className="text-lg lg:text-xl font-semibold mt-3 group-hover:text-primary-dark transition-colors after:block after:h-0.5 max-w-max after:w-full after:max-w-0 after:transition-[max-width] group-hover:after:max-w-[50%] after:bg-primary">
+        {title}
+      </h4>
+      <p className="text-font/60 text-sm leading-relaxed group-hover:text-primary-dark/80 transition-colors">
+        {description}
+      </p>
+    </div>
+  </Link>
+  // </Motion>
 );

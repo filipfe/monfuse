@@ -5,7 +5,7 @@ import { cn } from "@/utils/cn";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useLayoutEffect, useState } from "react";
 
 export default function Wrapper({
   children,
@@ -24,6 +24,10 @@ export default function Wrapper({
       window.removeEventListener("scroll", onScroll);
     };
   }, []);
+
+  useLayoutEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [pathname]);
 
   return (
     <Fragment>

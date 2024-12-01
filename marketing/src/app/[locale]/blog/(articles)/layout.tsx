@@ -1,6 +1,6 @@
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="px-6 py-6 lg:py-16">
+    <div className="px-6 py-4 lg:py-12">
       <div className="max-w-3xl mx-auto flex flex-col">
         {/* lg:grid grid-cols-[3fr_1fr] gap-24 */}
         <section className="flex flex-col gap-2 sm:gap-4">{children}</section>
