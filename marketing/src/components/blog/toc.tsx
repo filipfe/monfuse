@@ -21,7 +21,7 @@ export default async function ToC({ name, lang, dict }: Props) {
               const subheadings: Heading[] = [];
               const targetLevel = 2;
 
-              if (heading.level !== targetLevel) return <></>;
+              if (heading.level !== targetLevel) return;
 
               for (let i = index + 1; i < arr.length; i++) {
                 // Stop when another level-2 heading is encountered

@@ -14,7 +14,7 @@ export default function ArticleRef({
   dict,
 }: Props) {
   return (
-    <article className="sm:border-x border-y sm:rounded-md p-6 flex flex-col gap-3 max-w-md w-full max-lg:mx-auto bg-white">
+    <article className="border rounded-md p-6 flex flex-col gap-3 max-w-md w-full max-lg:mx-auto bg-white">
       <div className="bg-light overflow-hidden rounded-md h-52 border mb-3">
         <Image
           className="object-cover object-center h-full w-full"
