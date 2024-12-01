@@ -15,10 +15,10 @@ export default function Copyable({ content }: { content: string }) {
   }, [copied]);
 
   return (
-    <div className="relative flex items-center max-w-max">
-      <div className="py-3 px-4 bg-light border pr-24 rounded-md">
+    <span className="relative flex items-center max-w-max">
+      <span className="block py-3 px-4 bg-light border pr-24 rounded-md">
         {content}
-      </div>
+      </span>
       <button
         className="border h-8 w-8 rounded absolute right-2 grid place-content-center"
         onClick={() => {
@@ -59,6 +59,6 @@ export default function Copyable({ content }: { content: string }) {
           </svg>
         )}
       </button>
-    </div>
+    </span>
   );
 }

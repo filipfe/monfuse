@@ -9,13 +9,14 @@ const urls = [
   "/goals",
   "/recurring-payments",
   "/ai-assistant",
-  "/blog",
   "/pricing",
   "/privacy-policy",
+  "/blog",
+  ...Object.keys(articles).map((name) => "/blog/" + name),
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [...urls, ...Object.keys(articles).map((url) => "/blog/" + url)]
+  return urls
     .flatMap((pathname) =>
       LOCALES.map((locale) => ({
         url: `https://www.monfuse.com/${locale}${pathname}`,
