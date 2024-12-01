@@ -59,7 +59,7 @@ export async function generateStaticParams() {
 export default async function Page({ params }: PageProps) {
   const { name, locale } = await params;
   const lang = getLang(locale);
-  const article = await getArticle(name, lang);
+  const article = (await getArticle(name, lang)) as any;
   if (!article) notFound();
   const Content = article.default;
 
