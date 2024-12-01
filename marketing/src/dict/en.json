@@ -399,6 +399,9 @@
     "description": "Learn how to manage your finances effectively with Monfuse",
     "article": {
       "learn-more": "Czytaj dalej"
+    },
+    "toc": {
+      "title": "On this page"
     }
   },
   "banner": {

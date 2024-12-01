@@ -1,68 +1,67 @@
 import Copyable from "@/components/blog/copyable";
+import TextBeam from "@/components/ui/text-beam";
 
 export const attributes = {
-  title: "Telegram Bot: Automating finance management",
+  title: "Telegram Bot: Automating Financial Management",
   description:
-    "Integrating and using our tailored Telegram bot can streamline your operations by automating tasks such as managing expenses and incomes. This guide will help you sign in, obtain a Telegram Token, and configure the bot for seamless integration with your account on Monfuse.",
+    "Integrating and using our custom Telegram bot can streamline your operations by automating tasks such as managing expenses and incomes. This guide will help you log in, obtain your Telegram token, and configure the bot for seamless integration with your Monfuse account.",
   publishedDate: "2024-11-24",
   image: {
     src: "/blog/telegram-bot-integration/thumbnail.png",
-    alt: "A person using Telegram Bot on their mobile phone",
+    alt: "Person using the Telegram bot on their mobile phone",
   },
+  similar: ["how-to-manage-incomes"],
 };
 
-# How to Use Our Tailored Telegram Bot to Automate Operations
+# How to Use the <TextBeam>Telegram Bot</TextBeam> to Automate Payment Logging
 
-Integrating and using our tailored Telegram bot can streamline your operations by automating tasks such as managing expenses and incomes. This guide will help you sign in, obtain a Telegram Token, and configure the bot for seamless integration with your account.
+Integrating and using our custom Telegram bot can streamline your operations by automating tasks such as managing expenses and incomes. This guide will help you log in, obtain your Telegram token, and configure the bot for seamless integration with your account.
 
-![A person using Telegram Bot on their mobile phone](/blog/telegram-bot-integration/telegram.png "Telegram Bot")
+![Person using the Telegram bot on their mobile phone](/blog/telegram-bot-integration/telegram.png "Telegram Bot")
 
-### Step 1: Sign In to Your Account
+## Connecting the Bot to Your Monfuse Account
 
-To begin using our tailored Telegram bot, [sign in](https://app.monfuse.com/sign-in) to your account on Monfuse.
+To get started, follow these simple steps:
 
-![Sign in page interface of the Monfuse finance app](/app/sign-in.png "Sign In")
+### Step 1: Log in to Your Account
+
+To begin using our custom Telegram bot, [log in](https://app.monfuse.com/sign-in) to your Monfuse account.
+
+![Monfuse App login interface](/app/sign-in.png "Login")
 
 ### Step 2: Obtain Your Telegram Token
 
-After signing in, you'll need to obtain your Telegram Token. This token is necessary to connect the bot to your account. Navigate to the [Automations page](https://app.monfuse.com/automations) and copy your prepared Telegram Bot Token.
+After logging in, you’ll need to obtain your Telegram token. This token is necessary to connect the bot to your account. Go to the [Automation page](https://app.monfuse.com/automations) and copy your Telegram bot token.
 
-![Automation page interface of the Monfuse finance app](/app/automation.png "Automation")
+![Monfuse App automation interface](/app/automation.png "Automation")
 
-### Step 3: Paste the Token into the Bot Chat
+### Step 3: Paste the Token into the Bot’s Chat
 
-With your token in hand, the next step is to connect your account with the bot chat. To do this:
+Once you have your token, the next step is to connect your account to the bot chat. To do this:
 
-1. **Start**: Click the "Start" button on the bottom of [chat](https://t.me/CredivioBot),
-2. **Register**: Paste and send your token to the bot
+1. **Start**: Click the "Start" button at the bottom of the [chat](https://t.me/CredivioBot).
+2. **Registration**: Paste and send your token to the bot.
 
-The bot will automatically verify your token assign and assign your account to it. From now on, you can use the bot to add operations!
+The bot will automatically verify your token and link it to your account. From now on, you can use the bot to add operations!
 
-### Using the Telegram Bot for Automation
+## Using the Telegram Bot for Automation
 
-Our Telegram bot is designed to help you manage your financial operations efficiently. Here's how you can use it to automate various tasks:
+Our Telegram bot is designed to help you manage your financial operations efficiently. Here’s how you can use it to automate various tasks:
 
-#### Log Incomes and Expenses
+### Registering Incomes and Expenses
 
-1. **Text Entries**: Simply type the income or expense details into the chat, and the bot will automatically log them. For example, you can enter: <div className="my-4"><Copyable content="Spent $50 on groceries" /></div> The bot's response should indicate that the expenses has been logged to your account.
+1. **Text Entries**: Type details about your incomes or expenses in the chat, and the bot will automatically register them. For example: <span className="my-4 block"><Copyable content="I spent 50 PLN on shopping" /></span> The bot’s response will confirm that the expense has been logged to your account.
 
----
+2. **Categorizing Expenses**: The bot categorizes expenses for better tracking and reporting.
 
-2. **Categorize Expenses**: The bot categorizes expenses for better tracking and reporting.
+3. **Scanning Receipts**: Send a photo of a receipt, and the bot will automatically extract the details and log the expense.
 
----
+4. **Voice Registration**: Send a voice message with a payment you’ve made, and the bot will automatically save it to your account.
 
-3. **Scan Receipts**: Send a photo of a receipt, and the bot will automatically extract the expense details and log them.
+## Summary
 
----
+Using our custom Telegram bot for automating financial operations can save you time and improve accuracy. By following the steps outlined in this guide, you can easily integrate and start using the bot to manage expenses, incomes, and generate reports.
 
-4. **Audio processing**: Send audio message with details of your recent payment, and the bot will automatically save it on your account.
+For further assistance, visit our [login page](https://app.monfuse.com/sign-in), get your [Telegram token](https://app.monfuse.com/automations), and connect with the bot via [bot chat](https://t.me/CredivioBot).
 
-## Conclusion
-
-Using our tailored Telegram bot to automate your financial operations can save you time and improve accuracy. By following the steps outlined in this guide, you can easily integrate and start using the bot to manage expenses, incomes, and generate reports.
-
-For further assistance, visit our [sign-in](https://app.monfuse.com/sign-in) page, obtain your [Telegram Token](https://app.monfuse.com/automations), and interact with the bot via the [Bot chat](https://t.me/CredivioBot).
-
-Feel free to reach out if you have any questions or need additional support. Happy automating!
-@/components/blog/copyable
+If you have any questions or need additional support, feel free to contact us. We wish you successful automation!

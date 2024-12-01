@@ -1,5 +1,6 @@
 import type { MDXComponents } from "mdx/types";
 import Image, { ImageProps } from "next/image";
+import { slugifyHeading } from "./utils/blog/headings";
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   let isFirstImage = true;
@@ -16,6 +17,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     h1: ({ children, ...props }) => (
       <h1
         {...props}
+        id={slugifyHeading(children as string)}
         className="text-2xl font-black sm:text-3xl lg:text-4xl sm:leading-tight lg:leading-tight leading-tight text-foreground mb-3 max-w-3xl"
       >
         {children}
@@ -24,6 +26,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     h2: ({ children, ...props }) => (
       <h2
         {...props}
+        id={slugifyHeading(children as string)}
         className="text-xl sm:text-2xl lg:text-3xl sm:leading-tight lg:leading-tight leading-tight text-foreground font-bold mb-2 mt-6"
       >
         {children}
@@ -32,6 +35,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     h3: ({ children, ...props }) => (
       <h3
         {...props}
+        id={slugifyHeading(children as string)}
         className="text-lg sm:text-xl lg:text-2xl lg:leading-tight leading-snug text-foreground font-bold mt-4 mb-2"
       >
         {children}
@@ -40,6 +44,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     h4: ({ children, ...props }) => (
       <h4
         {...props}
+        id={slugifyHeading(children as string)}
         className="text-lg lg:text-xl lg:leading-tight leading-tight text-foreground font-bold mt-4"
       >
         {children}
@@ -61,12 +66,12 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       </strong>
     ),
     ol: ({ children, ...props }) => (
-      <ol className="list-decimal pl-5 sm:pl-6 my-2" {...props}>
+      <ol className="list-decimal pl-5 my-2" {...props}>
         {children}
       </ol>
     ),
     ul: ({ children, ...props }) => (
-      <ul className="list-disc pl-5 sm:pl-6 my-2" {...props}>
+      <ul className="list-disc pl-5 my-2" {...props}>
         {children}
       </ul>
     ),

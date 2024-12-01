@@ -7,4 +7,5 @@ type ArticleAttributes = {
     src: string;
     alt: string;
   };
+  similar: string[];
 };

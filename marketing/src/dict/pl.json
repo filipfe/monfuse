@@ -402,6 +402,9 @@
     "description": "Poznaj sposoby efektywniejszego zarządzania finansami z Monfuse",
     "article": {
       "learn-more": "Czytaj dalej"
+    },
+    "toc": {
+      "title": "Spis treści"
     }
   },
   "banner": {

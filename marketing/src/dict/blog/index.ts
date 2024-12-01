@@ -1,7 +1,7 @@
 import "server-only";
 
 import telegramBotIntegration from "./telegram-bot-integration";
-import howToManageIncomes from "./incomes";
+import howToManageIncomes from "./how-to-manage-incomes";
 
 export const articles = {
   "how-to-manage-incomes": (lang: Lang) => howToManageIncomes[lang](),
