@@ -24,7 +24,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     h2: ({ children, ...props }) => (
       <h2
         {...props}
-        className="text-xl sm:text-2xl lg:text-3xl sm:leading-tight lg:leading-tight leading-tight text-foreground font-bold mb-2"
+        className="text-xl sm:text-2xl lg:text-3xl sm:leading-tight lg:leading-tight leading-tight text-foreground font-bold mb-2 mt-6"
       >
         {children}
       </h2>

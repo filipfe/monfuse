@@ -18,7 +18,7 @@ export async function generateMetadata({
   if (!article) notFound();
   const { attributes } = article;
   const title = `${attributes.title} | Blog | Monfuse`;
-  const { description } = attributes;
+  const { description, publishedDate } = attributes;
   return {
     ...metadata,
     title,
@@ -31,6 +31,7 @@ export async function generateMetadata({
       locale: locale.replace("-", "_"),
       type: "article",
       images: [{ url: attributes.image.src, alt: attributes.image.alt }],
+      publishedTime: new Date(publishedDate).toISOString(),
     },
     twitter: {
       ...twitter,

@@ -1,24 +1,24 @@
 import TextBeam from "@/components/ui/text-beam";
+import ArticleRef from "@/components/blog/article";
 
 export const attributes = {
   title: "Przychody: Jak rejestrować i zarządzać płatnościami?",
   description:
     "Dowiedz się, jak dodawać, edytować i usuwać przychody w aplikacji Monfuse. Odkryj sposoby na śledzenie swoich przychodów, wydatków i realizację celów finansowych!",
+  publishedDate: "2024-12-01",
   image: {
-    src: "/blog/telegram-bot-integration/telegram.png",
-    alt: "Osoba korzystająca z bota Telegram na swoim telefonie komórkowym",
+    src: "/blog/incomes/incomes.jpg",
+    alt: "Banknot dolara zwinięty w pół na zielonym tle",
   },
 };
 
 # Jak zarządzać <TextBeam>przychodami</TextBeam> w aplikacji Monfuse? Poradnik dla użytkowników
 
-Zarządzanie finansami osobistymi nigdy nie było prostsze! **Monfuse** to aplikacja finansowa, która pomaga śledzić **przychody**, **wydatki** oraz realizować **cele finansowe**. W tym artykule dowiesz się, jak korzystać z funkcji **Strony Przychody** – krok po kroku pokażemy, jak dodawać, modyfikować i usuwać przychody. Gotowy? Zaczynamy!
-
----
+Zarządzanie finansami osobistymi nigdy nie było prostsze! **Monfuse** to aplikacja finansowa, która pomaga śledzić [przychody](/incomes), [wydatki](/expenses) oraz realizować [cele finansowe](/goals). W tym artykule dowiesz się, jak korzystać z funkcji **Przychody** – krok po kroku pokażemy, jak dodawać, modyfikować i usuwać przychody. Gotowy? Zaczynamy!
 
 ## Co znajdziesz na stronie Przychody?
 
-Strona **[Przychody](/incomes)** w aplikacji **Monfuse** to miejsce, gdzie możesz:
+Strona [Przychody](/incomes) w aplikacji **Monfuse** to miejsce, gdzie możesz:
 
 - **Dodawać** nowe źródła dochodów, np. wypłatę, dodatkowe zlecenia czy dochody pasywne.
 - **Edytować** istniejące wpisy, aby były zawsze aktualne.
@@ -27,8 +27,6 @@ Strona **[Przychody](/incomes)** w aplikacji **Monfuse** to miejsce, gdzie może
 Dzięki temu masz pełną kontrolę nad swoimi dochodami i możesz łatwo analizować, skąd pochodzą Twoje środki.
 
 ![Interfejs strony przychodów Monfuse z tabelą transakcji, statystykami i wykresem](/app/incomes.png "Przychody")
-
----
 
 ## Jak dodać nowy przychód?
 
@@ -47,8 +45,6 @@ I gotowe! Twój nowy przychód pojawi się na liście.
 
 ![Interfejs strony przychodów Monfuse z tabelą transakcji, statystykami i wykresem](/app/incomes.png "Przychody")
 
----
-
 ## Jak edytować istniejący przychód?
 
 Czasami zachodzi potrzeba wprowadzenia zmian w już dodanym przychodzie. W Monfuse zrobisz to w kilku prostych krokach:
@@ -60,8 +56,6 @@ Czasami zachodzi potrzeba wprowadzenia zmian w już dodanym przychodzie. W Monfu
 
 _(Miejsce na zrzut ekranu: Proces edycji przychodu w Monfuse)_
 
----
-
 ## Jak usunąć przychód?
 
 Jeśli dany wpis jest już nieaktualny, możesz go szybko usunąć:
@@ -71,8 +65,6 @@ Jeśli dany wpis jest już nieaktualny, możesz go szybko usunąć:
 3. Potwierdź usunięcie, aby zakończyć proces.
 
 _(Miejsce na zrzut ekranu: Przycisk usuwania przychodu w Monfuse)_
-
----
 
 ## Dlaczego warto śledzić swoje przychody w Monfuse?
 
@@ -84,7 +76,30 @@ Monitorowanie swoich przychodów pozwala:
 
 _(Miejsce na zrzut ekranu: Podsumowanie przychodów i wydatków w Monfuse)_
 
----
+## Dodawanie przychodów przez bota Telegram
+
+W Monfuse możesz również dodawać **[przychody](/incomes)**, **[wydatki](/expenses)** oraz **[płatności cykliczne](/recurring-payments)** za pomocą naszego dostosowanego bota Telegram. To innowacyjne rozwiązanie, które pozwala na jeszcze szybsze i wygodniejsze zarządzanie finansami – wystarczy wysłać wiadomość do naszego bota! Oto, co potrafi:
+
+- Dodawanie przychodów tekstem: Napisz do bota, np. „Wynagrodzenie 5000 zł” – a Monfuse automatycznie doda ten przychód do Twojego konta.
+- Dodawanie przychodów ze zdjęcia: Prześlij botowi zdjęcie dokumentu, np. potwierdzenia wpłaty, a system rozpozna dane i zapisze je w aplikacji.
+- Dodawanie głosowe: Wyślij wiadomość głosową, a Monfuse przekształci ją w przychód – szybciej się nie da!
+
+Chcesz dowiedzieć się więcej? Sprawdź szczegóły w naszym artykule:
+
+<ArticleRef
+  article={{
+    href: "telegram-bot-integration",
+    title: "Telegram Bot: Automatyzacja zarządzania finansami",
+    publishedDate: "2024-12-01",
+    description:
+      "Integracja i używanie naszego dostosowanego bota Telegram może usprawnić Twoje operacje poprzez automatyzację zadań, takich jak zarządzanie wydatkami i przychodami. Ten przewodnik pomoże Ci zalogować się, uzyskać token Telegram oraz skonfigurować bota do bezproblemowej integracji z Twoim kontem w Monfuse.",
+    image: {
+      src: "/blog/telegram-bot-integration/telegram.png",
+      alt: "Osoba korzystająca z bota Telegram na swoim telefonie komórkowym",
+    },
+  }}
+  dict={{ "learn-more": "Czytaj dalej" }}
+/>
 
 ## Zacznij zarządzać swoimi finansami z Monfuse już dziś!
 

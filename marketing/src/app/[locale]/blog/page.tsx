@@ -59,9 +59,9 @@ export default async function Page({ params }: PageProps) {
     )
   );
   return (
-    <section className="py-6 sm:py-16 px-6">
+    <section className="py-6 sm:py-16 sm:px-6">
       <div className="mx-auto max-w-7xl w-full">
-        <div>
+        <div className="max-sm:px-6">
           <h1 className="text-center text-3xl font-black sm:text-4xl lg:text-5xl mb-4 sm:mb-6">
             {blog.title}
           </h1>
@@ -69,7 +69,7 @@ export default async function Page({ params }: PageProps) {
             {blog.description}
           </p>
         </div>
-        <div className="lg:grid grid-cols-3 gap-4 sm:gap-6 flex flex-col mt-6">
+        <div className="lg:grid grid-cols-3 gap-4 sm:gap-6 flex flex-col mt-12">
           {posts.map((article) => (
             <ArticleRef
               article={article}
