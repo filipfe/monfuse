@@ -5,7 +5,7 @@ import { cn } from "@/utils/cn";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useLayoutEffect, useState } from "react";
 
 export default function Wrapper({
   children,
@@ -24,6 +24,10 @@ export default function Wrapper({
       window.removeEventListener("scroll", onScroll);
     };
   }, []);
+
+  useLayoutEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [pathname]);
 
   return (
     <Fragment>
@@ -69,7 +73,7 @@ export default function Wrapper({
           >
             <div
               className={cn(
-                "max-w-7xl text-foreground bg-white shadow-lg shadow-primary-dark/10 [&_nav>a]:text-foreground [&_a]:text-foreground mx-auto flex items-center justify-between h-14 sm:rounded-b-lg border bg-gradient-to-br from-[rgba(255,255,255,0.05)] to-[rgba(255,255,255,0)] px-1"
+                "max-w-7xl text-foreground bg-white shadow-primary-dark/10 [&_nav>a]:text-foreground [&_a]:text-foreground mx-auto flex items-center justify-between h-14 sm:rounded-b-lg border bg-gradient-to-br from-[rgba(255,255,255,0.05)] to-[rgba(255,255,255,0)] px-1"
               )}
             >
               <Link href="/" className="w-9 sm:w-11 ml-5 sm:ml-3">

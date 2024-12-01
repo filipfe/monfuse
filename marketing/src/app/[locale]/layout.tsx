@@ -14,12 +14,6 @@ import { LOCALES } from "@/lib/locales";
 
 const inter = Inter({ subsets: ["latin"] });
 
-// const IBMPlexMono = IBM_Plex_Mono({
-//   weight: ["400"],
-//   subsets: ["latin"],
-//   variable: "--font-mono",
-// });
-
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
@@ -41,6 +35,7 @@ export async function generateMetadata({
       description: _metadata.description,
       card: "summary_large_image",
     },
+    robots: { index: false, follow: false },
     alternates: {
       canonical: new URL(`https://www.monfuse.com/${locale}`),
       languages: LOCALES.reduce(
@@ -70,7 +65,7 @@ export default async function RootLayout({
   const dict = await getDictionary(lang);
   const { banner } = dict;
   return (
-    <html lang={lang} className="light">
+    <html lang={lang} className="light scroll-p-20">
       <body className={cn(inter.className)}>
         <Header dict={dict} />
         <main>{children}</main>
@@ -83,23 +78,10 @@ export default async function RootLayout({
             "@context": "https://schema.org",
             "@type": "Organization",
             image: "https://www.monfuse.com/opengraph-image.png",
-            url: "https://www.monfuse.com",
-            // "logo": "https://www.example.com/images/logo.png",
+            url: `https://www.monfuse.com/${locale}`,
+            logo: "https://www.monfuse.com/logo.png",
             name: "Monfuse",
-            description:
-              "Finance app allowing to track incomes, expenses, recurring payments, financial goals, manage spending limits and get insights from AI Assistant",
-            // email: "contact@example.com",
-            // telephone: "+47-99-999-9999",
-            // address: {
-            //   "@type": "PostalAddress",
-            //   streetAddress: "Rue Improbable 99",
-            //   addressLocality: "Paris",
-            //   addressCountry: "FR",
-            //   addressRegion: "Ile-de-France",
-            //   postalCode: "75001",
-            // },
-            // vatID: "FR12345678901",
-            // iso6523Code: "0199:724500PMK2A2M1SQQ228",
+            description: dict._metadata.description,
           })}
         </Script>
       </body>

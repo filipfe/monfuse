@@ -1,8 +1,10 @@
 import "server-only";
 
-const expenses = {
+const howToManageIncomes = {
   pl: () => import("./pl.mdx").then((module) => module),
   en: () => import("./en.mdx").then((module) => module),
 };
 
-export default expenses;
+// const getArticle = async (locale: Locale) => articles[locale]();
+
+export default howToManageIncomes;
