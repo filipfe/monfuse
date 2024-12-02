@@ -18,7 +18,7 @@ export async function generateMetadata({
   const article = (await getArticle(name, lang)) as any;
   if (!article) notFound();
   const { attributes } = article;
-  const title = `${attributes.title} | Blog | Monfuse`;
+  const title = `${attributes.title} - Monfuse Blog`;
   const { description, publishedDate } = attributes;
   return {
     ...metadata,

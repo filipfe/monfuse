@@ -1,0 +1,102 @@
+import TextBeam from "@/components/ui/text-beam";
+import ArticleRef from "@/components/blog/article";
+
+export const attributes = {
+  title: "How to Manage Your Recurring Payments?",
+  description:
+    "Learn how to manage recurring payments with Monfuse. Schedule transactions and receive notifications about processed operations.",
+  image: {
+    src: "",
+    alt: "",
+  },
+  publishedDate: "2024-12-02",
+  similar: ["how-to-manage-incomes"],
+};
+
+# How to Manage Your <TextBeam>Recurring Payments</TextBeam> with Monfuse? Guide for users
+
+Managing recurring payments is crucial for financial stability. Monfuse simplifies this with its **Recurring Payments** feature, allowing users to track, schedule, and manage consistent inflows and outflows like bills, rent, salaries, or subscriptions.
+
+{/* ![Recurring Payments Dashboard](/uploaded-image) */}
+
+## Why Use Recurring Payments in Monfuse?
+
+1. **Track Consistent Payments:** Never miss a payment with due dates and notifications.
+2. **Visual Dashboard:** View upcoming and past payments at a glance.
+3. **Automation:** Reduce manual tracking—recurring payments update themselves.
+4. **Telegram Notifications:** Stay updated on recurring payments when connected with the Monfuse Telegram bot.
+
+## Managing Recurring Payments
+
+Learn how to schedule, modify and delete recurring payments in Monfuse.
+
+### Add a Recurring Payment
+
+1. Click _Add_ Button:
+   - Located above the _Active Payments_ section.
+2. Fill in Payment Details:
+   - **Title**: Name of the payment (e.g., "Apartment Rent").
+   - **Amount** and **Currency**.
+   - **Interval**: Daily, weekly or monthly.
+3. Save Changes:
+   - Your payment will appear in the **Active Payments** list and sync with the calendar.
+
+### Edit or Update a Payment
+
+- Locate the payment in the **Active Payments** table.
+- Click the options menu (three dots) and select **Edit**.
+- Update details like amount, frequency, or end date.
+
+### Delete a Recurring Payment
+
+- From the same menu, select **Delete** to remove the payment.
+
+## Understanding the Dashboard
+
+### Upcoming Section
+
+- Shows payments due soon.
+- Includes countdown timers for each entry (e.g., “4 days 13 hours 14 minutes” for "Rental Income").
+
+### Active Payments
+
+- Comprehensive table view with sortable columns for better tracking.
+
+### Calendar Integration
+
+- Provides a holistic view of all payments, color-coded for easy identification.
+
+## Notifications for Recurring Payments
+
+Monfuse ensures you stay informed about your recurring transactions by focusing on critical updates. Notifications are sent exclusively for **processed payments**, confirming that a recurring transaction has been successfully completed and recorded in your account. This ensures you only receive relevant, actionable updates, minimizing unnecessary alerts.
+
+### Seamless Integration with Telegram Bot
+
+For added convenience, if your Monfuse account is linked to the **Telegram bot**, notifications for recurring payments are also delivered via Telegram. You'll receive a clear summary once the payment is successfully processed. This integration provides instant updates, keeping you informed on the go.
+
+By leveraging Telegram notifications, you can manage your financial updates effortlessly, ensuring transparency and convenience. Read more in our article about automation:
+
+<ArticleRef
+  article={{
+    href: "telegram-bot-integration",
+    title: "Telegram Bot: Automating Financial Management",
+    description:
+      "Integrating and using our custom Telegram bot can streamline your operations by automating tasks such as managing expenses and incomes. This guide will help you log in, obtain your Telegram token, and configure the bot for seamless integration with your Monfuse account.",
+    publishedDate: "2024-11-24",
+    image: {
+      src: "/blog/telegram-bot-integration/thumbnail.png",
+      alt: "Person using the Telegram bot on their mobile phone",
+    },
+  }}
+  dict={{ "learn-more": "Learn more" }}
+/>
+
+## Tips for Effective Use
+
+1. **Set Notifications**: Ensure reminders are turned on for payments due soon.
+2. **Group Payments**: Use descriptive titles to group similar payments (e.g., "Utility Bills").
+3. **Leverage the Telegram Bot**: Receive updates directly in your Telegram chat for seamless integration.
+
+## Conclusion
+
+With Monfuse's [recurring payments](/recurring-payments), financial management becomes effortless. From rent to subscriptions, this feature ensures you’re always on top of your financial commitments. Start automating your finances today to save time and avoid missed payments.
