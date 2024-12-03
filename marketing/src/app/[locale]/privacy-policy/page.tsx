@@ -39,7 +39,7 @@ export default async function Page({ params }: PageProps) {
   const lang = getLang(locale);
   const dict = await getDictionary(lang);
   return (
-    <section className="py-12 sm:py-16 sm:px-6">
+    <section className="sm:py-12 px-6">
       <div className="w-full max-w-7xl mx-auto">
         <Markdown
           components={{

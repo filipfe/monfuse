@@ -2,11 +2,11 @@ import TextBeam from "@/components/ui/text-beam";
 import ArticleRef from "@/components/blog/article";
 
 export const attributes = {
-  title: "How to Manage Your Recurring Payments?",
+  title: "Recurring payments: How to manage repetitive transactions?",
   description:
     "Learn how to manage recurring payments with Monfuse. Schedule transactions and receive notifications about processed operations.",
   image: {
-    src: "",
+    src: "/app/recurring-payments.png",
     alt: "",
   },
   publishedDate: "2024-12-02",
@@ -15,7 +15,7 @@ export const attributes = {
 
 # How to Manage Your <TextBeam>Recurring Payments</TextBeam> with Monfuse? Guide for users
 
-Managing recurring payments is crucial for financial stability. Monfuse simplifies this with its **Recurring Payments** feature, allowing users to track, schedule, and manage consistent inflows and outflows like bills, rent, salaries, or subscriptions.
+Managing recurring payments is crucial for financial stability. Monfuse simplifies this with its [recurring payments](/recurring-payments) feature, allowing users to track, schedule, and manage consistent inflows and outflows like bills, rent, salaries, or subscriptions.
 
 {/* ![Recurring Payments Dashboard](/uploaded-image) */}
 
@@ -33,17 +33,17 @@ Learn how to schedule, modify and delete recurring payments in Monfuse.
 ### Add a Recurring Payment
 
 1. Click _Add_ Button:
-   - Located above the _Active Payments_ section.
+   - Located above the [Active Payments](#active-payments) section.
 2. Fill in Payment Details:
    - **Title**: Name of the payment (e.g., "Apartment Rent").
    - **Amount** and **Currency**.
    - **Interval**: Daily, weekly or monthly.
 3. Save Changes:
-   - Your payment will appear in the **Active Payments** list and sync with the calendar.
+   - Your payment will appear in the [Active Payments](#active-payments) list and sync with the calendar.
 
-### Edit or Update a Payment
+### Edit a Payment
 
-- Locate the payment in the **Active Payments** table.
+- Locate the payment in the [Active Payments](#active-payments) table.
 - Click the options menu (three dots) and select **Edit**.
 - Update details like amount, frequency, or end date.
 
@@ -53,18 +53,40 @@ Learn how to schedule, modify and delete recurring payments in Monfuse.
 
 ## Understanding the Dashboard
 
+The Monfuse recurring payments dashboard is designed to provide a clear, organized overview of your recurring transactions. Each section offers tailored features that simplify financial tracking, improve transparency, and allow you to take full control of your payments. Here's an in-depth look:
+
+![Recurring payments interface from Monfuse app with active, past, upcoming records and calendar](/app/recurring-payments.png)
+
 ### Upcoming Section
 
-- Shows payments due soon.
-- Includes countdown timers for each entry (e.g., “4 days 13 hours 14 minutes” for "Rental Income").
+The upcoming section highlights payments that are due soon, ensuring you’re always prepared.
+
+- Countdown Timers: Each entry includes a live countdown timer (e.g., “4 days 13 hours 14 minutes” for "Rental Income"), making it easy to prioritize upcoming payments.
+- Early Preparation: This section acts as a reminder, helping you stay on top of deadlines and avoid missed payments.
 
 ### Active Payments
 
-- Comprehensive table view with sortable columns for better tracking.
+This section lists all ongoing recurring payments, giving you a consolidated view of transactions that are currently in progress.
 
-### Calendar Integration
+- Detailed Table View: Displays key information such as title, amount, currency, last payment date, and the next scheduled payment..
+- Payment Management: As discussed in the [Managing Recurring Payments](#managing-recurring-payments) section, you can edit or delete payments directly from this view.
 
-- Provides a holistic view of all payments, color-coded for easy identification.
+### Calendar
+
+The calendar provides a complete timeline of your payment history and schedules, blending past and future data into one seamless interface.
+
+- Holistic Payment View: Payments are color-coded for quick identification (e.g., green for successful, yellow for upcoming).
+- Date Selection: Select specific dates to view all payments scheduled for that day, making it easy to plan and review your financial commitments.
+- Payment Scheduling: You can use the calendar to schedule a new payment by selecting the desired date and adding payment details directly.
+
+### Latest Payments
+
+This section offers a snapshot of your recently processed payments.
+
+- Payment History: Displays the most recent transactions, including essential details such as payment source, amount, and date.
+- Quick Access: Ideal for reviewing past financial activity or reconciling payments that have already been made.
+
+This dashboard brings everything together—upcoming tasks, active transactions, and historical data—empowering you to take full control of your recurring financial obligations. With features like sortable columns, countdowns, and calendar scheduling, Monfuse delivers a comprehensive and intuitive financial management experience.
 
 ## Notifications for Recurring Payments
 
@@ -90,12 +112,6 @@ By leveraging Telegram notifications, you can manage your financial updates effo
   }}
   dict={{ "learn-more": "Learn more" }}
 />
-
-## Tips for Effective Use
-
-1. **Set Notifications**: Ensure reminders are turned on for payments due soon.
-2. **Group Payments**: Use descriptive titles to group similar payments (e.g., "Utility Bills").
-3. **Leverage the Telegram Bot**: Receive updates directly in your Telegram chat for seamless integration.
 
 ## Conclusion
 

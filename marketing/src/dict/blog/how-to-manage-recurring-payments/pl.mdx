@@ -2,101 +2,120 @@ import TextBeam from "@/components/ui/text-beam";
 import ArticleRef from "@/components/blog/article";
 
 export const attributes = {
-  title: "How to Manage Your Recurring Payments?",
+  title: "Płatności cykliczne: Jak zarządzać powtarzalnymi transakcjami?",
   description:
-    "Learn how to manage recurring payments with Monfuse. Schedule transactions and receive notifications about processed operations.",
+    "Dowiedz się, jak zarządzać płatnościami cyklicznymi w Monfuse. Planuj transakcje i otrzymuj powiadomienia o przetworzonych operacjach.",
   image: {
-    src: "",
+    src: "/app/recurring-payments.png",
     alt: "",
   },
   publishedDate: "2024-12-02",
   similar: ["how-to-manage-incomes"],
 };
 
-# How to Manage Your <TextBeam>Recurring Payments</TextBeam> with Monfuse? Guide for users
+# Jak zarządzać <TextBeam>płatnościami cyklicznymi</TextBeam> w Monfuse? Poradnik dla użytkowników
 
-Managing recurring payments is crucial for financial stability. Monfuse simplifies this with its **Recurring Payments** feature, allowing users to track, schedule, and manage consistent inflows and outflows like bills, rent, salaries, or subscriptions.
+Zarządzanie płatnościami cyklicznymi jest kluczowe dla utrzymania stabilności finansowej. Monfuse upraszcza ten proces dzięki funkcji [płatności cyklicznych](/recurring-payments), która pozwala śledzić, planować i zarządzać regularnymi wpływami i wydatkami, takimi jak rachunki, czynsze, pensje czy subskrypcje.
 
-{/* ![Recurring Payments Dashboard](/uploaded-image) */}
+{/* ![Pulpit Płatności Cyklicznych](/uploaded-image) */}
 
-## Why Use Recurring Payments in Monfuse?
+## Dlaczego warto korzystać z płatności cyklicznych w Monfuse?
 
-1. **Track Consistent Payments:** Never miss a payment with due dates and notifications.
-2. **Visual Dashboard:** View upcoming and past payments at a glance.
-3. **Automation:** Reduce manual tracking—recurring payments update themselves.
-4. **Telegram Notifications:** Stay updated on recurring payments when connected with the Monfuse Telegram bot.
+1. **Śledzenie regularnych płatności:** Nigdy nie przegapisz płatności dzięki przypomnieniom i powiadomieniom.
+2. **Wizualny pulpit:** Przeglądaj nadchodzące i minione płatności na pierwszy rzut oka.
+3. **Automatyzacja:** Ogranicz ręczne śledzenie – płatności cykliczne aktualizują się automatycznie.
+4. **Powiadomienia Telegram:** Bądź na bieżąco, łącząc swoje konto Monfuse z botem Telegram.
 
-## Managing Recurring Payments
+## Zarządzanie płatnościami cyklicznymi
 
-Learn how to schedule, modify and delete recurring payments in Monfuse.
+Dowiedz się, jak dodawać, edytować i usuwać płatności cykliczne w Monfuse.
 
-### Add a Recurring Payment
+### Dodawanie płatności cyklicznej
 
-1. Click _Add_ Button:
-   - Located above the _Active Payments_ section.
-2. Fill in Payment Details:
-   - **Title**: Name of the payment (e.g., "Apartment Rent").
-   - **Amount** and **Currency**.
-   - **Interval**: Daily, weekly or monthly.
-3. Save Changes:
-   - Your payment will appear in the **Active Payments** list and sync with the calendar.
+1. Kliknij przycisk _Dodaj_:
+   - Znajdziesz go nad sekcją [Aktywne płatności](#aktywne-patnoci).
+2. Uzupełnij dane płatności:
+   - **Tytuł:** Nazwa płatności (np. „Czynsz za mieszkanie”).
+   - **Kwota** i **Waluta**.
+   - **Interwał:** Codziennie, co tydzień lub co miesiąc.
+3. Zapisz zmiany:
+   - Twoja płatność pojawi się w sekcji [Aktywne płatności](#aktywne-patnoci) i zostanie zsynchronizowana z kalendarzem.
 
-### Edit or Update a Payment
+### Edytowanie płatności
 
-- Locate the payment in the **Active Payments** table.
-- Click the options menu (three dots) and select **Edit**.
-- Update details like amount, frequency, or end date.
+- Zlokalizuj płatność w tabeli [Aktywne płatności](#aktywne-patnoci).
+- Kliknij menu opcji (trzy kropki) i wybierz **Edytuj**.
+- Zaktualizuj dane, takie jak kwota, częstotliwość lub data zakończenia.
 
-### Delete a Recurring Payment
+### Usuwanie płatności cyklicznej
 
-- From the same menu, select **Delete** to remove the payment.
+- W tym samym menu wybierz opcję **Usuń**, aby usunąć płatność.
+- Płatność zostanie usunięta z Twojego pulpitu i harmonogramu.
 
-## Understanding the Dashboard
+## Panel nawigacyjny
 
-### Upcoming Section
+Pulpit nawigacyjny płatności cyklicznych w Monfuse został zaprojektowany tak, aby zapewnić przejrzysty i zorganizowany widok Twoich transakcji cyklicznych. Każda sekcja oferuje funkcje dostosowane do prostszego śledzenia finansów, poprawy przejrzystości i umożliwienia pełnej kontroli nad płatnościami. Oto szczegółowy opis:
 
-- Shows payments due soon.
-- Includes countdown timers for each entry (e.g., “4 days 13 hours 14 minutes” for "Rental Income").
+![Interfejs płatności cyklicznych w aplikacji Monfuse z aktywnymi, przeszłymi, nadchodzącymi rekordami i kalendarzem](/app/recurring-payments.png)
 
-### Active Payments
+### Nadchodzące płatności
 
-- Comprehensive table view with sortable columns for better tracking.
+Sekcja nadchodzących płatności pozwala Ci przygotować się na najbliższe transakcje.
 
-### Calendar Integration
+- **Odliczanie czasu:** Każdy wpis zawiera licznik odliczania (np. „4 dni 13 godzin 14 minut” dla „Dochód z wynajmu”), co ułatwia priorytetyzację płatności.
+- **Przypomnienia:** Pomaga dotrzymać terminów i uniknąć opóźnień.
 
-- Provides a holistic view of all payments, color-coded for easy identification.
+### Aktywne płatności
 
-## Notifications for Recurring Payments
+Sekcja **Aktywne płatności** to miejsce, gdzie znajdziesz wszystkie obecnie realizowane płatności cykliczne.
 
-Monfuse ensures you stay informed about your recurring transactions by focusing on critical updates. Notifications are sent exclusively for **processed payments**, confirming that a recurring transaction has been successfully completed and recorded in your account. This ensures you only receive relevant, actionable updates, minimizing unnecessary alerts.
+- **Szczegółowy widok tabeli:** Wyświetla kluczowe informacje, takie jak tytuł, kwota, waluta, data ostatniej płatności i kolejna zaplanowana transakcja.
+- **Zarządzanie płatnościami:** Jak omówiono w sekcji [Zarządzanie płatnościami cyklicznymi](#zarzdzanie-patnociami-cyklicznymi), możesz edytować lub usuwać płatności bezpośrednio z tego widoku.
 
-### Seamless Integration with Telegram Bot
+### Ostatnie płatności
 
-For added convenience, if your Monfuse account is linked to the **Telegram bot**, notifications for recurring payments are also delivered via Telegram. You'll receive a clear summary once the payment is successfully processed. This integration provides instant updates, keeping you informed on the go.
+Sekcja ta prezentuje Twoje ostatnio przetworzone transakcje.
 
-By leveraging Telegram notifications, you can manage your financial updates effortlessly, ensuring transparency and convenience. Read more in our article about automation:
+- **Historia płatności:** Wyświetla najnowsze transakcje, w tym kluczowe szczegóły, takie jak źródło płatności, kwota i data.
+- **Szybki dostęp:** Idealna do przeglądania wcześniejszych aktywności finansowych lub rozliczania już zrealizowanych płatności.
+
+### Kalendarz
+
+Kalendarz łączy dane o płatnościach przeszłych i przyszłych w jedno spójne narzędzie.
+
+- **Kolorowe oznaczenia:** Płatności są oznaczone kolorami (np. zielony dla pomyślnych, żółty dla nadchodzących).
+- **Interaktywna selekcja dat:** Kliknij datę, aby zobaczyć lub zarządzać płatnościami zaplanowanymi na ten dzień.
+- **Planowanie płatności:** Możesz dodać nową płatność, wybierając datę i wprowadzając szczegóły bezpośrednio w kalendarzu.
+
+---
+
+Panel integruje wszystkie aspekty – nadchodzące zadania, aktywne transakcje i dane historyczne – zapewniając pełną kontrolę nad cyklicznymi zobowiązaniami finansowymi. Dzięki takim funkcjom, jak kolumny z możliwością sortowania, odliczanie czasu i planowanie w kalendarzu, Monfuse dostarcza kompleksowe i intuicyjne narzędzie do zarządzania finansami.
+
+## Powiadomienia o płatnościach cyklicznych
+
+Monfuse dba o to, abyś był na bieżąco z płatnościami cyklicznymi, wysyłając tylko kluczowe powiadomienia. Powiadomienia są przesyłane wyłącznie w przypadku **zrealizowanych płatności**, co minimalizuje zbędne alerty i zapewnia, że otrzymujesz tylko istotne aktualizacje.
+
+### Integracja z botem Telegram
+
+Jeśli Twoje konto Monfuse jest połączone z **botem Telegram**, powiadomienia o płatnościach cyklicznych są również dostarczane przez Telegram. Otrzymasz przejrzyste podsumowanie każdej zrealizowanej płatności. Integracja ta zapewnia natychmiastowe aktualizacje, ułatwiając zarządzanie finansami w ruchu.
+
+Dowiedz się więcej o automatyzacji w artykule:
 
 <ArticleRef
   article={{
     href: "telegram-bot-integration",
-    title: "Telegram Bot: Automating Financial Management",
+    title: "Telegram Bot: Automatyzacja zarządzania finansami",
     description:
-      "Integrating and using our custom Telegram bot can streamline your operations by automating tasks such as managing expenses and incomes. This guide will help you log in, obtain your Telegram token, and configure the bot for seamless integration with your Monfuse account.",
+      "Integracja i używanie naszego dostosowanego bota Telegram może usprawnić Twoje operacje poprzez automatyzację zadań, takich jak zarządzanie wydatkami i przychodami. Ten przewodnik pomoże Ci zalogować się, uzyskać token Telegram oraz skonfigurować bota do bezproblemowej integracji z Twoim kontem w Monfuse.",
     publishedDate: "2024-11-24",
     image: {
       src: "/blog/telegram-bot-integration/thumbnail.png",
-      alt: "Person using the Telegram bot on their mobile phone",
+      alt: "Osoba korzystająca z bota Telegram na swoim telefonie komórkowym",
     },
   }}
-  dict={{ "learn-more": "Learn more" }}
+  dict={{ "learn-more": "Czytaj dalej" }}
 />
 
-### Tips for Effective Use
+## Podsumowanie
 
-1. **Set Notifications**: Ensure reminders are turned on for payments due soon.
-2. **Group Payments**: Use descriptive titles to group similar payments and utilize [expenses](/expenses) labels (e.g., "Utility Bills").
-3. **Leverage the Telegram Bot**: Receive updates directly in your Telegram chat for seamless integration.
-
-## Conclusion
-
-With Monfuse's [recurring payments](/recurring-payments), financial management becomes effortless. From rent to subscriptions, this feature ensures you’re always on top of your financial commitments. Start automating your finances today to save time and avoid missed payments.
+Dzięki funkcji [płatności cyklicznych](/recurring-payments) w Monfuse zarządzanie finansami staje się proste i wygodne. Od czynszów po subskrypcje – to narzędzie pozwala Ci zawsze być na bieżąco z zobowiązaniami finansowymi. Zacznij automatyzować swoje finanse już dziś, aby zaoszczędzić czas i uniknąć pomijania płatności.
