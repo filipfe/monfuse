@@ -141,13 +141,13 @@ insert into auth.identities (
 with cte1 as (
   select
     case
-      when random() < 0.3 then 'Jedzenie'
-      when random() < 0.6 then 'Rachunki'
+      when random() < 0.3 then 'Food'
+      when random() < 0.6 then 'Bills'
       when random() < 0.75 then 'Transport'
-      when random() < 0.85 then 'Rozrywka'
-      when random() < 0.9 then 'Ubrania'
+      when random() < 0.85 then 'Entertainment'
+      when random() < 0.9 then 'Clothing'
       else (array[
-        'Prezenty', 'Urlop', 'Zdrowie', 'Mieszkanie', 'Sport', 'Kultura', 'Elektronika'
+        'Gifts', 'Vacation', 'Health', 'Apartment', 'Sport', 'Culture', 'Electronics'
       ])[floor(random() * 7 + 1)]
     end as label
   from generate_series(1, 1000)
@@ -155,33 +155,33 @@ with cte1 as (
 insert into expenses (title, amount, currency, user_id, label, recurring, from_telegram, issued_at)
 select
   case
-    when c1.label = 'Jedzenie' then (array['Zakupy spożywcze', 'Obiad w restauracji', 'Lunch w kawiarni', 'Jedzenie na wynos'])[floor(random() * 4 + 1)]
-    when c1.label = 'Rachunki' then (array['Rachunek za prąd', 'Rachunek za wodę', 'Rachunek za gaz', 'Rachunek za telefon', 'Rachunek za internet'])[floor(random() * 5 + 1)]
-    when c1.label = 'Transport' then (array['Bilety na pociąg', 'Bilety autobusowe', 'Paliwo', 'Serwis samochodowy', 'Przejazd taksówką'])[floor(random() * 5 + 1)]
-    when c1.label = 'Rozrywka' then (array['Bilety do kina', 'Bilety na koncert', 'Abonament streamingowy', 'Wycieczka do parku rozrywki'])[floor(random() * 4 + 1)]
-    when c1.label = 'Ubrania' then (array['Zakup ubrań', 'Zakup butów', 'Zakup kurtki zimowej', 'Zakup koszulki i spodni'])[floor(random() * 4 + 1)]
-    when c1.label = 'Prezenty' then (array['Prezent urodzinowy', 'Prezent świąteczny', 'Prezent dla przyjaciela'])[floor(random() * 3 + 1)]
-    when c1.label = 'Urlop' then (array['Wakacje w górach', 'Wakacje na plaży', 'Weekendowy wypad'])[floor(random() * 3 + 1)]
-    when c1.label = 'Zdrowie' then (array['Wizyta u lekarza', 'Zakup leków w aptece', 'Ubezpieczenie zdrowotne'])[floor(random() * 3 + 1)]
-    when c1.label = 'Mieszkanie' then 'Czynsz za mieszkanie'
-    when c1.label = 'Sport' then (array['Karnet na siłownię', 'Zakup sprzętu sportowego', 'Zajęcia fitness'])[floor(random() * 3 + 1)]
-    when c1.label = 'Kultura' then (array['Bilety do teatru', 'Zwiedzanie muzeum', 'Wydarzenie kulturalne'])[floor(random() * 3 + 1)]
-    when c1.label = 'Elektronika' then (array['Zakup laptopa', 'Zakup smartfona', 'Zakup słuchawek'])[floor(random() * 3 + 1)]
-    else 'Inny wydatek'
+    when c1.label = 'Food' then (array['Groceries', 'Restaurant lunch', 'Cafe lunch', 'Takeout food'])[floor(random() * 4 + 1)]
+    when c1.label = 'Bills' then (array['Electricity bill', 'Water bill', 'Gas bill', 'Phone bill', 'Internet bill'])[floor(random() * 5 + 1)]
+    when c1.label = 'Transport' then (array['Train ticket', 'Bus ticket', 'Fuel', 'Car service', 'Taxi ride'])[floor(random() * 5 + 1)]
+    when c1.label = 'Entertainment' then (array['Cinema ticket', 'Concert ticket', 'Streaming subscription', 'Amusement park trip'])[floor(random() * 4 + 1)]
+    when c1.label = 'Clothing' then (array['Clothing purchase', 'Shoe purchase', 'Winter jacket purchase', 'T-shirt and pants purchase'])[floor(random() * 4 + 1)]
+    when c1.label = 'Gifts' then (array['Birthday gift', 'Christmas gift', 'Gift for a friend'])[floor(random() * 3 + 1)]
+    when c1.label = 'Vacation' then (array['Mountain vacation', 'Beach vacation', 'Weekend getaway'])[floor(random() * 3 + 1)]
+    when c1.label = 'Health' then (array['Doctor visit', 'Medicine purchase', 'Health insurance'])[floor(random() * 3 + 1)]
+    when c1.label = 'Apartment' then 'Apartment rent'
+    when c1.label = 'Sport' then (array['Gym membership', 'Sports equipment purchase', 'Fitness classes'])[floor(random() * 3 + 1)]
+    when c1.label = 'Culture' then (array['Theater ticket', 'Museum visit', 'Cultural event'])[floor(random() * 3 + 1)]
+    when c1.label = 'Electronics' then (array['Laptop purchase', 'Smartphone purchase', 'Headphone purchase'])[floor(random() * 3 + 1)]
+    else 'Other'
   end,
   case
-    when c1.label = 'Jedzenie' then round((random() * 200 + 20)::numeric, 2)
-    when c1.label = 'Rachunki' then round((random() * 400 + 100)::numeric, 2)
+    when c1.label = 'Food' then round((random() * 200 + 20)::numeric, 2)
+    when c1.label = 'Bills' then round((random() * 400 + 100)::numeric, 2)
     when c1.label = 'Transport' then round((random() * 150 + 10)::numeric, 2)
-    when c1.label = 'Rozrywka' then round((random() * 300 + 30)::numeric, 2)
-    when c1.label = 'Ubrania' then round((random() * 500 + 50)::numeric, 2)
-    when c1.label = 'Prezenty' then round((random() * 300 + 50)::numeric, 2)
-    when c1.label = 'Urlop' then round((random() * 3000 + 500)::numeric, 2)
-    when c1.label = 'Zdrowie' then round((random() * 500 + 50)::numeric, 2)
-    when c1.label = 'Mieszkanie' then round((random() * 2000 + 800)::numeric, 2)
+    when c1.label = 'Entertainment' then round((random() * 300 + 30)::numeric, 2)
+    when c1.label = 'Clothing' then round((random() * 500 + 50)::numeric, 2)
+    when c1.label = 'Gifts' then round((random() * 300 + 50)::numeric, 2)
+    when c1.label = 'Vacation' then round((random() * 3000 + 500)::numeric, 2)
+    when c1.label = 'Health' then round((random() * 500 + 50)::numeric, 2)
+    when c1.label = 'Apartment' then round((random() * 2000 + 800)::numeric, 2)
     when c1.label = 'Sport' then round((random() * 400 + 50)::numeric, 2)
-    when c1.label = 'Kultura' then round((random() * 200 + 30)::numeric, 2)
-    when c1.label = 'Elektronika' then round((random() * 5000 + 500)::numeric, 2)
+    when c1.label = 'Culture' then round((random() * 200 + 30)::numeric, 2)
+    when c1.label = 'Electronics' then round((random() * 5000 + 500)::numeric, 2)
     else round((random() * 1000 + 100)::numeric, 2)
   end,
   ( 
@@ -249,68 +249,78 @@ select
 from cte1 c1;
 
 -- RECURRING PAYMENTS
-with cte1 as (
-  select 
-    (array['income', 'expense'])[floor(random() * 2 + 1)]::operation_type as type
-  from generate_series(1, 10)
-), cte2 as (
-  select
-    c1.type,
-    case
-      when c1.type = 'expense' then 
-        case
-          when random() < 0.6 then 'month'
-          when random() < 0.8 then 'year'
-          when random() < 0.9 then 'week'
-          else 'day'
-        end
-      else 
-        case
-          when random() < 0.7 then 'month'
-          when random() < 0.9 then 'week'
-          else 'year'
-        end
-    end::interval_unit_type as interval_unit
-  from cte1 c1
-)
 insert into recurring_payments (title, amount, currency, type, user_id, interval_amount, interval_unit, start_datetime)
-select
-  case
-    when c2.type = 'expense' then 
-      (array['Apartment rent', 'Electricity bill', 'Internet bill', 'Phone subscription', 'Streaming subscription', 'Insurance policy'])[floor(random() * 6 + 1)]
-    else 
-      (array['Salary', 'Bonus', 'Rental income', 'Investment return'])[floor(random() * 4 + 1)]
-  end,
-  case
-    when c2.type = 'expense' then round((random() * 500 + 50)::numeric, 2)
-    else round((random() * 10000 + 2000)::numeric, 2)
-  end,
-  case
-    when random() < 1 then 'USD'
-    else (array['USD', 'EUR', 'GBP', 'CHF'])[floor(random() * 4 + 1)]
-  end::currency_type,
-  c2.type,
-  '8d65ee5d-3897-4f61-b467-9bdc8df6f07f',
-  case
-    when c2.interval_unit = 'day' then floor(random() * 5 + 1)
-    when c2.interval_unit = 'week' then floor(random() * 3 + 1)
-    when c2.interval_unit = 'month' then 1
-    when c2.interval_unit = 'year' then 1
-  end,
-  c2.interval_unit,
-  now() - (random() * interval '3 day')
-from cte2 c2;
+values 
+  ('Apartment rent', 1200.00, 'USD', 'expense', '8d65ee5d-3897-4f61-b467-9bdc8df6f07f', 1, 'month', (current_date || ' 10:00:00')::timestamp),
+  ('Electricity bill', 120.50, 'USD', 'expense', '8d65ee5d-3897-4f61-b467-9bdc8df6f07f', 1, 'month', (current_date || ' 08:00:00')::timestamp),
+  ('Internet bill', 50.00, 'USD', 'expense', '8d65ee5d-3897-4f61-b467-9bdc8df6f07f', 1, 'month', (current_date || ' 09:00:00')::timestamp),
+  ('Phone subscription', 60.00, 'EUR', 'expense', '8d65ee5d-3897-4f61-b467-9bdc8df6f07f', 1, 'month', (current_date || ' 11:00:00')::timestamp),
+  ('Salary', 3500.00, 'USD', 'income', '8d65ee5d-3897-4f61-b467-9bdc8df6f07f', 1, 'month', (current_date || ' 10:00:00')::timestamp),
+  ('Bonus', 500.00, 'USD', 'income', '8d65ee5d-3897-4f61-b467-9bdc8df6f07f', 1, 'year', (current_date || ' 14:00:00')::timestamp),
+  ('Rental income', 2000.00, 'GBP', 'income', '8d65ee5d-3897-4f61-b467-9bdc8df6f07f', 1, 'month', (current_date || ' 12:00:00')::timestamp),
+  ('Investment return', 1500.00, 'USD', 'income', '8d65ee5d-3897-4f61-b467-9bdc8df6f07f', 1, 'year', (current_date || ' 10:00:00')::timestamp);
+-- with cte1 as (
+--   select 
+--     (array['income', 'expense'])[floor(random() * 2 + 1)]::operation_type as type
+--   from generate_series(1, 10)
+-- ), cte2 as (
+--   select
+--     c1.type,
+--     case
+--       when c1.type = 'expense' then 
+--         case
+--           when random() < 0.6 then 'month'
+--           when random() < 0.8 then 'year'
+--           when random() < 0.9 then 'week'
+--           else 'day'
+--         end
+--       else 
+--         case
+--           when random() < 0.7 then 'month'
+--           when random() < 0.9 then 'week'
+--           else 'year'
+--         end
+--     end::interval_unit_type as interval_unit
+--   from cte1 c1
+-- )
+-- insert into recurring_payments (title, amount, currency, type, user_id, interval_amount, interval_unit, start_datetime)
+-- select
+--   case
+--     when c2.type = 'expense' then 
+--       (array['Apartment rent', 'Electricity bill', 'Internet bill', 'Phone subscription', 'Streaming subscription', 'Insurance policy'])[floor(random() * 6 + 1)]
+--     else 
+--       (array['Salary', 'Bonus', 'Rental income', 'Investment return'])[floor(random() * 4 + 1)]
+--   end,
+--   case
+--     when c2.type = 'expense' then round((random() * 500 + 50)::numeric, 2)
+--     else round((random() * 10000 + 2000)::numeric, 2)
+--   end,
+--   case
+--     when random() < 1 then 'USD'
+--     else (array['USD', 'EUR', 'GBP', 'CHF'])[floor(random() * 4 + 1)]
+--   end::currency_type,
+--   c2.type,
+--   '8d65ee5d-3897-4f61-b467-9bdc8df6f07f',
+--   case
+--     when c2.interval_unit = 'day' then floor(random() * 5 + 1)
+--     when c2.interval_unit = 'week' then floor(random() * 3 + 1)
+--     when c2.interval_unit = 'month' then 1
+--     when c2.interval_unit = 'year' then 1
+--   end,
+--   c2.interval_unit,
+--   now() - (random() * interval '3 day')
+-- from cte2 c2;
 
 -- GOALS
 with cte1 as (
   select 
     case
-      when random() < 0.2 then 'Wakacje'
-      when random() < 0.4 then 'Zakup samochodu'
-      when random() < 0.6 then 'Remont mieszkania'
-      when random() < 0.75 then 'Sprzęt elektroniczny'
-      when random() < 0.85 then 'Nowy telefon'
-      else 'Inwestycja'
+      when random() < 0.2 then 'Vacation'
+      when random() < 0.4 then 'Car Purchase'
+      when random() < 0.6 then 'Apartment Renovation'
+      when random() < 0.75 then 'Electronic Equipment'
+      when random() < 0.85 then 'New Phone'
+      else 'Investment'
     end as title
   from generate_series(1, 7)
 ), cte2 as (
@@ -318,11 +328,11 @@ with cte1 as (
   select
     c1.title,
     case
-      when c1.title = 'Wakacje' then round((random() * 8000 + 2000)::numeric, 2)
-      when c1.title = 'Zakup samochodu' then round((random() * 50000 + 20000)::numeric, 2)
-      when c1.title = 'Remont mieszkania' then round((random() * 30000 + 10000)::numeric, 2)
-      when c1.title = 'Sprzęt elektroniczny' then round((random() * 5000 + 1000)::numeric, 2)
-      when c1.title = 'Nowy telefon' then round((random() * 3000 + 1000)::numeric, 2)
+      when c1.title = 'Vacation' then round((random() * 8000 + 2000)::numeric, 2)
+      when c1.title = 'Car Purchase' then round((random() * 50000 + 20000)::numeric, 2)
+      when c1.title = 'Apartment Renovation' then round((random() * 30000 + 10000)::numeric, 2)
+      when c1.title = 'Electronic Equipment' then round((random() * 5000 + 1000)::numeric, 2)
+      when c1.title = 'New Phone' then round((random() * 3000 + 1000)::numeric, 2)
       else round((random() * 100000 + 50000)::numeric, 2)
     end,
     case
