@@ -250,17 +250,15 @@ from cte1 c1;
 
 -- RECURRING PAYMENTS
 insert into recurring_payments (title, amount, currency, type, user_id, interval_amount, interval_unit, start_datetime)
-values (
+values 
   ('Apartment rent', 1200.00, 'USD', 'expense', '8d65ee5d-3897-4f61-b467-9bdc8df6f07f', 1, 'month', (current_date || ' 10:00:00')::timestamp),
   ('Electricity bill', 120.50, 'USD', 'expense', '8d65ee5d-3897-4f61-b467-9bdc8df6f07f', 1, 'month', (current_date || ' 08:00:00')::timestamp),
   ('Internet bill', 50.00, 'USD', 'expense', '8d65ee5d-3897-4f61-b467-9bdc8df6f07f', 1, 'month', (current_date || ' 09:00:00')::timestamp),
   ('Phone subscription', 60.00, 'EUR', 'expense', '8d65ee5d-3897-4f61-b467-9bdc8df6f07f', 1, 'month', (current_date || ' 11:00:00')::timestamp),
-  
   ('Salary', 3500.00, 'USD', 'income', '8d65ee5d-3897-4f61-b467-9bdc8df6f07f', 1, 'month', (current_date || ' 10:00:00')::timestamp),
   ('Bonus', 500.00, 'USD', 'income', '8d65ee5d-3897-4f61-b467-9bdc8df6f07f', 1, 'year', (current_date || ' 14:00:00')::timestamp),
   ('Rental income', 2000.00, 'GBP', 'income', '8d65ee5d-3897-4f61-b467-9bdc8df6f07f', 1, 'month', (current_date || ' 12:00:00')::timestamp),
   ('Investment return', 1500.00, 'USD', 'income', '8d65ee5d-3897-4f61-b467-9bdc8df6f07f', 1, 'year', (current_date || ' 10:00:00')::timestamp);
-)
 -- with cte1 as (
 --   select 
 --     (array['income', 'expense'])[floor(random() * 2 + 1)]::operation_type as type
