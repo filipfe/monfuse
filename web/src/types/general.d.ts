@@ -96,6 +96,7 @@ type Settings = {
   first_name: string;
   last_name: string;
   currency: string;
+  email: string;
   timezone: string;
   language: Lang;
   telegram_token: string;
