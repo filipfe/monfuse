@@ -7,7 +7,7 @@ import { Button } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 
 export default function Form({
   children,
@@ -22,6 +22,12 @@ export default function Form({
 }) {
   const { lang } = useParams();
   const [isPending, startTransition] = useTransition();
+  // const [isSuccess, setIsSuccess] = useState(false);
+
+  // if(isSuccess) {
+  //   return
+  // }
+
   return (
     <div className="flex flex-col gap-6">
       <form

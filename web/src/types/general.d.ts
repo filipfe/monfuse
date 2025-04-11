@@ -114,4 +114,4 @@ type PageParams = {
 
 type Locale = `${Lang}-${string}`;
 
-type Lang = "pl" | "en" | "es";
+type Lang = "pl" | "en";
