@@ -1,8 +1,7 @@
 import { CommandContext } from "grammy";
 import supabase from "../supabase.ts";
-import getUser from "../utils/get-user.ts";
-import { BotContext } from "../../_shared/telegram-bot.ts";
-import { Payment } from "../../_shared/types.ts";
+import { BotContext, Payment } from "../types.ts";
+import menu from "../menu.ts";
 
 export async function insertOperations(
   operations: Payment[],
@@ -28,16 +27,9 @@ export async function insertOperations(
 }
 
 export default async function add(ctx: CommandContext<BotContext>) {
-  if (!ctx.from) {
-    await ctx.reply(
-      ctx.t("global.unauthorized"),
-    );
-    return;
-  }
-  const user = await getUser(ctx.from.id);
-  if (user) {
-    // await ctx.reply("Wybierz typ operacji:", { reply_markup: menu });
+  if (ctx.session.user) {
+    await ctx.reply(ctx.t("add.type"), { reply_markup: menu });
   } else {
-    await ctx.reply("Zarejestruj się, aby kontynuować! Wpisz komendę /start");
+    await ctx.reply(ctx.t("gl"));
   }
 }

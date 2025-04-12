@@ -1,4 +1,4 @@
-import openai from "../../_shared/openai.ts";
+import openai from "../openai.ts";
 import { insertOperations } from "../commands/add.ts";
 import supabase from "../supabase.ts";
 

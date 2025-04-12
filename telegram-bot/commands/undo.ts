@@ -1,7 +1,6 @@
 import { CommandContext } from "grammy";
 import supabase from "../supabase.ts";
-import { BotContext } from "../../_shared/telegram-bot.ts";
-import { Payment } from "../../_shared/types.ts";
+import { BotContext, Payment } from "../types.ts";
 
 export default async function undo(ctx: CommandContext<BotContext>) {
   const lastPayments = ctx.session.lastPayments;

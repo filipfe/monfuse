@@ -1,7 +1,7 @@
 import { CommandContext } from "grammy";
 import supabase from "../supabase.ts";
 import getUser from "../utils/get-user.ts";
-import { BotContext } from "../../_shared/telegram-bot.ts";
+import { BotContext } from "../types.ts";
 
 export default async function graph(ctx: CommandContext<BotContext>) {
   if (!ctx.from) {

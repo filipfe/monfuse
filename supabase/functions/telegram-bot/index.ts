@@ -30,7 +30,7 @@ bot.command("start", async (ctx) => {
     );
   } else {
     await ctx.reply(
-      ctx.t("start.registration"),
+      ctx.t("start"),
     );
   }
 });
@@ -102,7 +102,7 @@ bot.on("message:photo", async (ctx) => {
 
   if (!file_path) {
     ctx.reply(
-      ctx.t("_error.photo-download"),
+      ctx.t("error.photo-download"),
     );
     return;
   }
@@ -132,7 +132,7 @@ bot.on("message:photo", async (ctx) => {
 
     if (error) {
       await ctx.reply(
-        ctx.t("_error.photo-unknown"),
+        ctx.t("error"),
       );
       console.error(error);
       return;
@@ -172,7 +172,7 @@ bot.on("message:photo", async (ctx) => {
   } catch (err) {
     console.error("Caught an error: ", err);
     await ctx.reply(
-      ctx.t("_error.photo-unknown"),
+      ctx.t("error"),
     );
   }
 });
