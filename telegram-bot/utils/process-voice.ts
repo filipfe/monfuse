@@ -1,4 +1,5 @@
 import { Voice } from "https://deno.land/x/grammy_types@v3.9.0/message.ts";
+import { ProcessReturn, Profile } from "../types.ts";
 import processText from "./process-text.ts";
 
 export default async function processVoice(
@@ -46,7 +47,7 @@ export default async function processVoice(
 
     if (!transcription.ok) {
       return {
-        reply: "global.error",
+        reply: "error",
         ids: [],
         operations: [],
       };
@@ -57,7 +58,7 @@ export default async function processVoice(
   } catch (err) {
     console.error(err);
     return {
-      reply: "global.error",
+      reply: "error",
       operations: [],
       ids: [],
     };

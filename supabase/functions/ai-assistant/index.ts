@@ -22,6 +22,7 @@ import functions from "./functions.ts";
 import { ChatCompletionMessageParam } from "https://deno.land/x/openai@v4.51.0/resources/chat/completions.ts";
 import { OperationsType } from "./types.ts";
 import { fromZonedTime } from "npm:date-fns-tz";
+import { Profile } from "../_shared/types.ts";
 
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
 const SUPABASE_ANON_KEY = Deno.env.get("SUPABASE_ANON_KEY");
@@ -167,8 +168,6 @@ Deno.serve(async (req) => {
   }
 
   const system = prompts.system(JSON.stringify(context), settings);
-
-  console.log(system);
 
   const messages: ChatCompletionMessageParam[] = [
     {

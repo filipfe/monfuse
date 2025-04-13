@@ -8,13 +8,15 @@
     "supabase:deploy:dev": "supabase functions deploy --project-ref ssprqijuhymtwacivhup",
     "supabase:deploy:prod": "supabase functions deploy --project-ref zjvcoczxcyffbcudeodc",
     "build:web": "cd web && npm run build",
-    "build:marketing": "cd marketing && npm run build"
-  },
-  "devDependencies": {
-    "supabase": "^1.167.4"
+    "build:marketing": "cd marketing && npm run build",
+    "telegram-bot": "cd telegram-bot && deno task dev"
   },
   "workspaces": [
     "web",
-    "marketing"
-  ]
+    "marketing",
+    "internal"
+  ],
+  "devDependencies": {
+    "supabase": "^2.20.12"
+  }
 }

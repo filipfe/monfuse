@@ -1,4 +1,3 @@
-import OpenAI from "openai";
 import { corsHeaders } from "../_shared/cors.ts";
 import {
   FormFile,
@@ -6,11 +5,12 @@ import {
 } from "https://deno.land/x/multiparser@0.114.0/mod.ts";
 import { createClient } from "supabase";
 import { ChatCompletionContentPart } from "https://deno.land/x/openai@v4.51.0/resources/chat/completions.ts";
+import { zodResponseFormat } from "https://deno.land/x/openai@v4.69.0/helpers/zod.ts";
+import { z } from "npm:zod";
+import openai from "../_shared/openai.ts";
 
 // Setup type definitions for built-in Supabase Runtime APIs
 /// <reference types="https://esm.sh/@supabase/functions-js/src/edge-runtime.d.ts" />
-
-const openai = new OpenAI({ apiKey: Deno.env.get("OPENAI_API_TOKEN") });
 
 type UploadedFile = {
   id: string;
@@ -23,18 +23,17 @@ const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
 const ANON_KEY = Deno.env.get("SUPABASE_ANON_KEY");
 const NGROK_URL = Deno.env.get("NGROK_URL");
 
+if (!SUPABASE_URL || !ANON_KEY) {
+  throw new Error(
+    `Environment variables missing: ${
+      SUPABASE_URL ? "SUPABASE_ANON_KEY" : "SUPABASE_URL"
+    }`,
+  );
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
-  }
-
-  if (!SUPABASE_URL || !ANON_KEY) {
-    return new Response(
-      `Environment variables missing: ${
-        SUPABASE_URL ? "ANON_KEY" : "SUPABASE_URL"
-      }`,
-      { status: 400 },
-    );
   }
 
   try {
@@ -124,37 +123,31 @@ Deno.serve(async (req) => {
       },
     }));
 
-    console.log("Generating completion...", { uploadedFiles });
-
     const textPrompt =
-      `Extract finance information from the receipts and invoices. Analyze context and classify operation either as 'income' or 'expense'. Generate a list of operations:
-
-type Operation = {
-  id: string;
-  issued_at: string;
-  title: string;
-  amount: number;
-  currency: string;
-  type: "income" | "expense";
-  doc_path: string | null;
-};
-
-Rules:
-- return { operations: Operation[] } in json
-- 'id' and 'doc_path' for each image are available on the image's index in this array:
+      `Extract finance information from the receipts and invoices. Analyze context and classify each operation either as 'income' or 'expense'. Generate a list of operations.
+The 'id' and 'doc_path' for each image are available on the image's index in this array:
   [${
         uploadedFiles
           .map(({ id, path }) => `{ id: ${id}, doc_path: ${path} }`)
           .join(", ")
-      }],
-- 'title' should be in the same language as the document
-- 'currency' is always 3-digit code`;
-
-    console.log("Text prompt: ", textPrompt);
+      }]`;
 
     const completion = await openai.chat.completions.create({
       model: "gpt-4o",
-      response_format: { type: "json_object" },
+      response_format: zodResponseFormat(
+        z.object({
+          operations: z.array(z.object({
+            id: z.string(),
+            title: z.string().min(1),
+            issued_at: z.string(),
+            amount: z.number().positive(),
+            currency: z.string().length(3),
+            type: z.enum(["income", "expense"]),
+            doc_path: z.string().nullable(),
+          })),
+        }),
+        "operations",
+      ),
       messages: [
         {
           role: "user",
@@ -163,8 +156,6 @@ Rules:
       ],
     });
     const response = completion.choices[0].message.content;
-
-    console.log(completion.usage);
 
     console.log("Generated the following response: ", response);
 

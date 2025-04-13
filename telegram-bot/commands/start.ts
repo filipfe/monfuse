@@ -1,5 +1,5 @@
 import supabase from "../supabase.ts";
-import { BotContext } from "../../_shared/telegram-bot.ts";
+import { BotContext } from "../types.ts";
 
 export default async function registerUser(
   ctx: BotContext,

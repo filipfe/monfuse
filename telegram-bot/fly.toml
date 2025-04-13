@@ -1,0 +1,30 @@
+# fly.toml app configuration file generated for monfuse-telegram-bot-winter-shadow-9505 on 2025-04-13T15:46:46+02:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'monfuse-telegram-bot-winter-shadow-9505'
+kill_signal = "SIGINT"
+kill_timeout = 5
+primary_region = 'fra'
+
+# [build]
+
+# [env]
+#   PORT = '8080'
+
+[processes]
+  app = 'run --allow-net --allow-env --allow-read ./main.ts'
+
+# [http_service]
+#   internal_port = 8080
+#   force_https = true
+#   auto_stop_machines = 'stop'
+#   auto_start_machines = true
+#   min_machines_running = 1
+#   processes = ['app']
+
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
