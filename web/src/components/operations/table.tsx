@@ -56,7 +56,10 @@ export default function OperationTable({
     handlePageChange,
     handleLabelChange,
     handleCurrencyChange,
-  } = useTableQuery(rows, { viewOnly: !!viewOnly, period });
+  } = useTableQuery(rows, {
+    viewOnly: !!viewOnly,
+    period,
+  });
   // const {
   //   selectionMode,
   //   selectedKeys,

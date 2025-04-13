@@ -89,7 +89,7 @@ export default function PeriodSelect({
                 disabled={period.from === "" || period.to === ""}
                 disableRipple
                 size="sm"
-                onClick={() => {
+                onPress={() => {
                   setIsOpen(false);
                   setPeriod({ from: "", to: "" });
                 }}

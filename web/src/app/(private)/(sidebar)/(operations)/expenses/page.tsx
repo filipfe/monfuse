@@ -69,7 +69,7 @@ export default async function Page({
           stat={last_month}
         />
       </div>
-      {/* <Providers
+      <Providers
         defaultPeriod={{
           from: searchParams.from || "",
           to: searchParams.to || "",
@@ -91,7 +91,7 @@ export default async function Page({
             dict={dict["operation-table"]}
           />
         </Suspense>
-      </Providers> */}
+      </Providers>
     </div>
   );
 }
@@ -121,6 +121,8 @@ async function Expenses({
     p_from: searchParams.from,
     p_to: searchParams.to,
   });
+
+  console.log("RENDERED");
 
   return (
     <div className="row-span-2 col-span-2 flex items-stretch">

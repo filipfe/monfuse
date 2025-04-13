@@ -69,23 +69,23 @@ export default function useTableQuery<T>(rows: T[], options?: Options) {
     setSearchQuery((prev) => ({ ...prev, page: 1, transaction }));
   };
 
-  useEffect(() => {
-    if (options?.viewOnly) return;
-    const params = new URLSearchParams();
-    const query = { ...searchQuery, ...(options?.period || {}) };
-    Object.keys(query).forEach((key) => {
-      const value = query[key as keyof typeof searchQuery];
-      value && params.set(key, String(value));
-    });
-    router.push(`${pathname}?${params.toString()}`, { scroll: false });
-  }, [searchQuery, options]);
+  // useEffect(() => {
+  //   if (options?.viewOnly) return;
+  //   const params = new URLSearchParams();
+  //   const query = { ...searchQuery, ...(options?.period || {}) };
+  //   Object.keys(query).forEach((key) => {
+  //     const value = query[key as keyof typeof searchQuery];
+  //     value && params.set(key, String(value));
+  //   });
+  //   router.push(`${pathname}?${params.toString()}`, { scroll: false });
+  // }, [searchQuery, options]);
 
-  useEffect(() => {
-    if (!options?.viewOnly) return;
-    const start = ((searchQuery.page || 1) - 1) * 10;
-    const end = start + 10;
-    return setItems(rows.slice(start, end));
-  }, [rows, options?.viewOnly, searchQuery.page]);
+  // useEffect(() => {
+  //   if (!options?.viewOnly) return;
+  //   const start = ((searchQuery.page || 1) - 1) * 10;
+  //   const end = start + 10;
+  //   return setItems(rows.slice(start, end));
+  // }, [rows, options?.viewOnly, searchQuery.page]);
 
   return {
     items,

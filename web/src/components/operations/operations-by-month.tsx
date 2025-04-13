@@ -41,7 +41,7 @@ export default function OperationsByMonth({
       currency,
     }
   );
-  const { width, tickFormatter } = useYAxisWidth(currency, settings.language);
+  // const { width, tickFormatter } = useYAxisWidth(currency, settings.language);
 
   return (
     <Block
@@ -68,12 +68,18 @@ export default function OperationsByMonth({
           <BarChart data={results}>
             <CartesianGrid vertical={false} opacity={0.5} />
             <YAxis
-              width={width}
+              // width={width}
               tick={{ fontSize: 12 }}
               dataKey="total_amount"
               axisLine={false}
               tickLine={false}
-              tickFormatter={tickFormatter}
+              tickFormatter={(value) =>
+                new Intl.NumberFormat(settings.language, {
+                  style: "currency",
+                  currency,
+                  notation: "compact",
+                }).format(value)
+              }
             />
             <XAxis
               tickMargin={8}

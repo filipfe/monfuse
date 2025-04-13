@@ -61,7 +61,7 @@ export default function NavLink({
         )}
       >
         <div className="overflow-hidden">
-          <div className="space-y-1.5 px-3 sm:px-4 mt-1.5">
+          <div className="space-y-1 px-3 sm:px-4 mt-1">
             {links?.map((link) => (
               <NavLink
                 {...link}
@@ -92,7 +92,7 @@ export default function NavLink({
         <Icon size={15} />
       </div>
       <span
-        className={`flex-1 whitespace-nowrap text-ellipsis mt-px ${
+        className={`flex-1 select-none whitespace-nowrap text-ellipsis mt-px ${
           isMenuHidden.desktop ? "sm:opacity-0 absolute" : "opacity-100"
         }`}
       >
