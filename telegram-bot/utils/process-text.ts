@@ -6,9 +6,9 @@ import { zodResponseFormat } from "https://deno.land/x/openai@v4.69.0/helpers/zo
 import { z } from "npm:zod";
 
 const OperationSchema = z.object({
-  title: z.string().min(1),
-  amount: z.number().positive(),
-  currency: z.string().min(3).max(3),
+  title: z.string(),
+  amount: z.number(),
+  currency: z.string(),
   type: z.enum(["income", "expense"]),
   label: z.string().nullable(),
 });

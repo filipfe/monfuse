@@ -1,5 +1,16 @@
 {
   "version": "3",
+  "packages": {
+    "specifiers": {
+      "npm:zod": "npm:zod@3.23.8"
+    },
+    "npm": {
+      "zod@3.23.8": {
+        "integrity": "sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==",
+        "dependencies": {}
+      }
+    }
+  },
   "redirects": {
     "https://lib.deno.dev/x/grammy@1.x/mod.ts": "https://deno.land/x/grammy@v1.25.0/mod.ts",
     "https://lib.deno.dev/x/grammy@1.x/types.ts": "https://deno.land/x/grammy@v1.25.0/types.ts",
@@ -153,8 +164,46 @@
     "https://deno.land/x/openai@v4.69.0/_shims/MultipartBody.ts": "fe06a56b54ae358c9cf99823096e34b36795fdba2e17513f0e9539210edd797d",
     "https://deno.land/x/openai@v4.69.0/_shims/mod.ts": "2e253cb26bfa7060bd37e45626e60e4bf3e7b3fb3e0f559fdfdeef94c73f9372",
     "https://deno.land/x/openai@v4.69.0/_vendor/partial-json-parser/parser.ts": "5ee7caf85edb570fb4b95a81e8fb48fc3c9450b70a46efe7f9c1a2010738d060",
+    "https://deno.land/x/openai@v4.69.0/_vendor/zod-to-json-schema/Options.ts": "da8779de3d838606293fa4a796f338a5becedad75539f9b56d6e2e1b51df1e63",
+    "https://deno.land/x/openai@v4.69.0/_vendor/zod-to-json-schema/Refs.ts": "4a581fb4f7547976025febaccd7d132a814d8a6185630794f11e0ff72f60b850",
+    "https://deno.land/x/openai@v4.69.0/_vendor/zod-to-json-schema/errorMessages.ts": "4147962e0537498e36f57f960a75ce481d1ff17e7243870957e31680d595b299",
+    "https://deno.land/x/openai@v4.69.0/_vendor/zod-to-json-schema/mod.ts": "fd460c66a8202dffb474d27db37381438a45c12b25d0826a64c100bccf70d18c",
+    "https://deno.land/x/openai@v4.69.0/_vendor/zod-to-json-schema/parseDef.ts": "0f049d6874e3401e6e77684cd2eb71a3731382050e60e5a9e41c16bd4420aeef",
+    "https://deno.land/x/openai@v4.69.0/_vendor/zod-to-json-schema/parsers/any.ts": "79a4db369e7d2d0d282a27205008c158907cf13c785dd2a4ea47afbf86b04b7f",
+    "https://deno.land/x/openai@v4.69.0/_vendor/zod-to-json-schema/parsers/array.ts": "78da37b33254af4de9f855c38dd90f0b8e3a9c0cce3c5f99f5f845e080033be3",
+    "https://deno.land/x/openai@v4.69.0/_vendor/zod-to-json-schema/parsers/bigint.ts": "e474e5df0786c97454c42bf585c5dde3755d556fa905d8ec1b82fab1d431bbb9",
+    "https://deno.land/x/openai@v4.69.0/_vendor/zod-to-json-schema/parsers/boolean.ts": "21f013df593b5f883288ce79ad30d7e45230918584b48d148f3f0738c8634317",
+    "https://deno.land/x/openai@v4.69.0/_vendor/zod-to-json-schema/parsers/branded.ts": "73ef54847b7356679d52c4649f99f824eb84b26053f1569ebf2659ca1c79ea69",
+    "https://deno.land/x/openai@v4.69.0/_vendor/zod-to-json-schema/parsers/catch.ts": "964760fb5429f7dd397dfdec7e101aef66ca32397ed759b93b2d5111c2241989",
+    "https://deno.land/x/openai@v4.69.0/_vendor/zod-to-json-schema/parsers/date.ts": "b572823f4cdabec59ca8ea1fe3a0d2946fc46248a17dca0bf9e7682143be2be0",
+    "https://deno.land/x/openai@v4.69.0/_vendor/zod-to-json-schema/parsers/default.ts": "270169850ce9c06956fd5a2c0dbfa2dcacfac75d2f811fd4495c1a52f7f14e72",
+    "https://deno.land/x/openai@v4.69.0/_vendor/zod-to-json-schema/parsers/effects.ts": "1a0bda234d9a64903ee29de9c4652bc2064540e16a9e7779b43d0c4f1a57fbce",
+    "https://deno.land/x/openai@v4.69.0/_vendor/zod-to-json-schema/parsers/enum.ts": "28476e3f76820d43d713375414f2e598aedfe82e1bbd2b275e4cde587ce830e1",
+    "https://deno.land/x/openai@v4.69.0/_vendor/zod-to-json-schema/parsers/intersection.ts": "8e3ce429ba3c4dd72782e48325256b27e45aa09d6f4730aaf3e1aa32b85aeb47",
+    "https://deno.land/x/openai@v4.69.0/_vendor/zod-to-json-schema/parsers/literal.ts": "3ffe5c566379d01fe0beaf318fc86bb93717c78f2f134051df42cd18c122edd8",
+    "https://deno.land/x/openai@v4.69.0/_vendor/zod-to-json-schema/parsers/map.ts": "f3c08d7fab9e231363427b8501d39af17b066f1f525a8fc1230b086a627ec440",
+    "https://deno.land/x/openai@v4.69.0/_vendor/zod-to-json-schema/parsers/nativeEnum.ts": "05044da1d3394ccc9a67b63b23b8844d2bb7a85eba306e759fd3510d9d8c505e",
+    "https://deno.land/x/openai@v4.69.0/_vendor/zod-to-json-schema/parsers/never.ts": "301bda283d33de7055345551dab3a450bd90d3b630a7642901c3982a8e1d0238",
+    "https://deno.land/x/openai@v4.69.0/_vendor/zod-to-json-schema/parsers/null.ts": "f717c6698db075ffff5b33a2108c1c75899318b76c629619ef83233733afcb19",
+    "https://deno.land/x/openai@v4.69.0/_vendor/zod-to-json-schema/parsers/nullable.ts": "08ec0008b64ab8a6aed7eac1d14d748806c90d480829b7fbce8f6828d3ec2175",
+    "https://deno.land/x/openai@v4.69.0/_vendor/zod-to-json-schema/parsers/number.ts": "5ff0c80bc8e3310c74d69c00b71705ec4565f6c9d44f8bec93fd582757915667",
+    "https://deno.land/x/openai@v4.69.0/_vendor/zod-to-json-schema/parsers/object.ts": "c617bbf266b02086eae7aec6a19e607b944c46035fbbeabc6acd10011a2fbeda",
+    "https://deno.land/x/openai@v4.69.0/_vendor/zod-to-json-schema/parsers/optional.ts": "e34fa14dc96e21c9478daceca713ba0e3b9465d2613a53544c98d9abd5c1ea30",
+    "https://deno.land/x/openai@v4.69.0/_vendor/zod-to-json-schema/parsers/pipeline.ts": "e890e882e837a82ef227aebaa59ed39d5899d64297ba52083bbbdb7df2698425",
+    "https://deno.land/x/openai@v4.69.0/_vendor/zod-to-json-schema/parsers/promise.ts": "097dccdfa584416ef75be3b8aa4c811671b4a12d5771520ca1e602aaa1b2f922",
+    "https://deno.land/x/openai@v4.69.0/_vendor/zod-to-json-schema/parsers/readonly.ts": "e23577b3906a8c825b6b78d031ee213263895ccd16420d20404196aeb006463b",
+    "https://deno.land/x/openai@v4.69.0/_vendor/zod-to-json-schema/parsers/record.ts": "a9c8feb0b9f71c83c3921353bc3c9432409706882dc55febc8d3ed738f6ba943",
+    "https://deno.land/x/openai@v4.69.0/_vendor/zod-to-json-schema/parsers/set.ts": "f04831db146a3ba2c60a14500ce882887fe449143243afddd5b6b57985918278",
+    "https://deno.land/x/openai@v4.69.0/_vendor/zod-to-json-schema/parsers/string.ts": "b33e5b9f89013e6514f1f39d83de2c09d0af171418303c03337357355f78e6b9",
+    "https://deno.land/x/openai@v4.69.0/_vendor/zod-to-json-schema/parsers/tuple.ts": "149aaa18090694da286b71adb3f70243dd1430b2ab2e7878e14f83850cd784f2",
+    "https://deno.land/x/openai@v4.69.0/_vendor/zod-to-json-schema/parsers/undefined.ts": "15bf8cfc7f15258bd17b3e8c4dcbc4dddeddadf4aa33a0fa9aafec986f49c942",
+    "https://deno.land/x/openai@v4.69.0/_vendor/zod-to-json-schema/parsers/union.ts": "8e9e17e9777ec7da5b72641f781b57f5a6629f8017f125e21e6fa90e297b3417",
+    "https://deno.land/x/openai@v4.69.0/_vendor/zod-to-json-schema/parsers/unknown.ts": "4a61e81afaa4041f87498870fbd0b90249364c886dae360e7ef1f749a53c84a7",
+    "https://deno.land/x/openai@v4.69.0/_vendor/zod-to-json-schema/util.ts": "9e253fc96b7f4eb5ddcb7e0acb586b66c3ba986962546148cd8e3fca3b08b57d",
+    "https://deno.land/x/openai@v4.69.0/_vendor/zod-to-json-schema/zodToJsonSchema.ts": "55eaae1efe71cf525729edd344dfd7c92b8d5af2a4135c7d1e6150a9288bcc94",
     "https://deno.land/x/openai@v4.69.0/core.ts": "1a22d633616438e05192c7220c2e6206ce16fb1c46316a50ac4b0e786b1617cb",
     "https://deno.land/x/openai@v4.69.0/error.ts": "ffe2c1e6a373a88593c70289b94a44a508a925fde16807e489fa146b538f37de",
+    "https://deno.land/x/openai@v4.69.0/helpers/zod.ts": "f6fb400a6589f46d1a1f2704d68dc79b47f0caf9e3126bb976f4d9ef6dd2e958",
     "https://deno.land/x/openai@v4.69.0/internal/decoders/line.ts": "6ca47bdd694f2b96506012aa3f4d23a82d71d44dbe66f6f07d62e4733b161bfb",
     "https://deno.land/x/openai@v4.69.0/internal/qs/formats.ts": "7bbe68548238a984644a723bd045614c5b0e81c1a0ae5c3acc050931442d67d7",
     "https://deno.land/x/openai@v4.69.0/internal/qs/mod.ts": "eab02831aa5e2896d12b824cebf9b2c3a0fc718e8488a05b6d7c2d35895c102a",
