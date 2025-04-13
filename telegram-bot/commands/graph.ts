@@ -1,18 +1,10 @@
 import { CommandContext } from "grammy";
 import supabase from "../supabase.ts";
-import getUser from "../utils/get-user.ts";
 import { BotContext } from "../types.ts";
 
 export default async function graph(ctx: CommandContext<BotContext>) {
-  if (!ctx.from) {
-    await ctx.reply(
-      ctx.t("global.unauthorized"),
-    );
-    return;
-  }
-  await ctx.replyWithChatAction("typing");
-  const user = await getUser(ctx.from.id);
-  if (user) {
+  if (ctx.session.user) {
+    const { user } = ctx.session;
     const date = ctx.msg.date * 1000;
     const { data, error } = await supabase.functions.invoke("weekly-graph", {
       body: {
@@ -21,7 +13,6 @@ export default async function graph(ctx: CommandContext<BotContext>) {
       },
     });
     if (error) {
-      console.error(error);
       await ctx.reply(ctx.t("error"));
     } else {
       await ctx.replyWithPhoto(data, {

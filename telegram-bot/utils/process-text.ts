@@ -2,6 +2,16 @@ import openai from "../openai.ts";
 import { insertOperations } from "../commands/add.ts";
 import supabase from "../supabase.ts";
 import { ProcessReturn, Profile } from "../types.ts";
+import { zodResponseFormat } from "https://deno.land/x/openai@v4.69.0/helpers/zod.ts";
+import { z } from "npm:zod";
+
+const OperationSchema = z.object({
+  title: z.string().min(1),
+  amount: z.number().positive(),
+  currency: z.string().min(3).max(3),
+  type: z.enum(["income", "expense"]),
+  label: z.string().nullable(),
+});
 
 export default async function processText(
   message: string,
@@ -13,46 +23,34 @@ export default async function processText(
 
   const labels = data || [];
 
-  const textPrompt = `Analyze user's message:
-"${message}"
-Classify each operation either as 'income' or 'expense'. Generate a list of operations:
-
-type Operation = {
-  title: string;
-  amount: number;
-  currency: string;
-  type: "income" | "expense";
-  label: string | null;
-};
-
+  const completion = await openai.chat.completions.create({
+    model: "gpt-4o",
+    response_format: zodResponseFormat(
+      z.object({
+        operations: z.array(OperationSchema),
+        message: z.string().optional(),
+      }),
+      "operations",
+    ),
+    messages: [{
+      role: "system",
+      content:
+        `You're private financial accountant. You generate list operations based on user's prompt. Classify each operation either as 'income' or 'expense'.
 User's native language: ${user.settings.language} - use it for 'title' and 'label' unless user specified otherwise
 User's default currency: ${user.settings.currency} - use it in case client didn't mention any other
 
-Important: Only insert 'label' when you classified operation as 'expense'
-If there's no matching label, you can come up with one yourself but choose very general naming
-If there's no good label to assign, don't include label field in the object
+- Only insert 'label' when you've classified operation as 'expense'
+- If there's no matching label, you can come up with one yourself but choose very general naming
+- If there's no good label to assign, don't include label field in the object
 
 List of available labels:
-${labels.length > 0 ? labels.join(",\n") : "None"}
-
-Rules:
-- return { operations: Operation[], message?: string } in json
-- 'currency' is always 3-digit code
-- if user's message is irrelevant, return empty array, the user will be notified by us`;
-
-  console.log("Generating completion...", textPrompt);
-
-  const completion = await openai.chat.completions.create({
-    model: "gpt-4o",
-    response_format: { type: "json_object" },
-    messages: [{
+${labels.length > 0 ? labels.join(",\n") : ""}`,
+    }, {
       role: "user",
-      "content": [
-        { type: "text", text: textPrompt },
-      ],
+      "content": message,
     }],
   });
-  console.log(completion.usage);
+
   const response = completion.choices[0].message.content;
 
   if (typeof response !== "string") {
