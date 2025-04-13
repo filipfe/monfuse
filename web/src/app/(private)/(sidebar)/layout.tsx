@@ -5,6 +5,7 @@ import Header from "@/components/ui/header";
 import Sidebar from "@/components/ui/sidebar";
 import getDictionary from "@/const/dict";
 import { getSettings } from "@/lib/general/actions";
+import BugReport from "@/components/bug-report";
 
 export default async function Layout({
   children,
@@ -24,6 +25,7 @@ export default async function Layout({
       <WebVitals />
       <main className="bg-light">{children}</main>
       {/* <MobileActions /> */}
+      <BugReport {...settings} />
     </Providers>
   );
 }

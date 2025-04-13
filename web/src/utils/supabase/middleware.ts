@@ -15,6 +15,8 @@ const PUBLIC_ROUTES = [
   "/sign-up",
   "/forgot-password",
   "/auth/confirm",
+  "/sentry-example-page",
+  "/api/sentry-example-api",
 ];
 
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
