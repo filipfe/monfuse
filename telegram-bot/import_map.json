@@ -6,6 +6,6 @@
     "grammy:storage": "https://deno.land/x/grammy_storages@v2.4.2/free/src/mod.ts",
     "grammy:i18n": "https://deno.land/x/grammy_i18n@v1.1.0/mod.ts",
     "grammy:conversations": "https://deno.land/x/grammy_conversations@v2.0.1/mod.ts",
-    "openai": "https://deno.land/x/openai@v4.51.0/mod.ts"
+    "openai": "https://deno.land/x/openai@v4.69.0/mod.ts"
   }
 }

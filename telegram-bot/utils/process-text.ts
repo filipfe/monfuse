@@ -1,6 +1,7 @@
 import openai from "../openai.ts";
 import { insertOperations } from "../commands/add.ts";
 import supabase from "../supabase.ts";
+import { ProcessReturn, Profile } from "../types.ts";
 
 export default async function processText(
   message: string,
@@ -43,7 +44,7 @@ Rules:
 
   const completion = await openai.chat.completions.create({
     model: "gpt-4o",
-    "response_format": { type: "json_object" },
+    response_format: { type: "json_object" },
     messages: [{
       role: "user",
       "content": [

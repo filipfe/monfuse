@@ -15,6 +15,7 @@ import {
 } from "https://deno.land/x/grammy_conversations@v2.0.1/mod.ts";
 import { token } from "./conversations/index.ts";
 import add, { typeMenu } from "./conversations/add.ts";
+import { Profile } from "./types.ts";
 
 const TELEGRAM_BOT_TOKEN = Deno.env.get("TELEGRAM_BOT_TOKEN");
 
@@ -35,12 +36,13 @@ const i18n = new I18n<BotContext>({
       .eq("telegram_id", ctx.from?.id)
       .returns<Profile[]>()
       .single();
+    console.log(data, error);
     if (error) {
       return ctx.from?.language_code ?? "en";
     }
     return data.settings.language;
   },
-  useSession: true,
+  useSession: false,
   directory: "locales",
 });
 
@@ -87,7 +89,10 @@ bot.command("start", async (ctx) => {
 });
 
 Object.values(ADD).forEach((command) => {
-  bot.command(command, (ctx) => ctx.conversation.enter("add", "expense"));
+  bot.command(
+    command,
+    (ctx) => ctx.reply(ctx.t("add.type"), { reply_markup: typeMenu }),
+  );
 });
 
 Object.values(UNDO).forEach((command) => {
@@ -267,5 +272,8 @@ bot.on("message:voice", async (ctx) => {
     );
   }
 });
+
+Deno.addSignalListener("SIGINT", () => bot.stop());
+Deno.addSignalListener("SIGTERM", () => bot.stop());
 
 bot.start();

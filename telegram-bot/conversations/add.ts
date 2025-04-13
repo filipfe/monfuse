@@ -24,11 +24,13 @@ export default async function add(
   if (!user) return;
 
   await ctx.reply(
-    ctx.t("add.title", { type: type === "income" ? "przychodu" : "wydatku " }),
+    ctx.t("add.title", { type: type === "income" ? "przychód" : "wydatek" }),
   );
   const title = await conversation.form.text();
   await ctx.reply(ctx.t("add.amount"));
-  const amount = await conversation.form.number();
+  const amount = await conversation.form.number({
+    otherwise: (ctx) => ctx.reply(ctx.t("add.invalid-amount")),
+  });
 
   const { data, error } = await supabase.from(`${type}s`).insert({
     title,

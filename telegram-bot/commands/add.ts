@@ -1,5 +1,5 @@
 import supabase from "../supabase.ts";
-import { Payment, ProcessReturn } from "../types.ts";
+import { Payment, ProcessReturn, Profile } from "../types.ts";
 
 export async function insertOperations(
   operations: Payment[],

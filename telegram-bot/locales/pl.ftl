@@ -25,8 +25,9 @@ graph =
 
 add =
     .type = Wybierz typ operacji:
-    .title = Jaki będzie tytuł { &type }?
-    .amount = Ok! Jaka była kwota operacji?
+    .title = Nowy { $type }! Jaki tytuł?
+    .amount = Ok! Podaj kwotę.
+    .invalid-amount = Nieprawidłowa kwota, spróbuj ponownie!
     .success = 
         💸 Dodałem następujące operacje:
         { $operations }
