@@ -15,7 +15,7 @@ export async function insertOperations(
   if (!error) {
     console.log("Inserted operations: ", ids);
     return {
-      reply: "text.success",
+      reply: "add.success",
       ids,
     };
   } else {

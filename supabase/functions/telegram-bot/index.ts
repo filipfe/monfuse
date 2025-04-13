@@ -65,7 +65,7 @@ bot.on("message:text", async (ctx) => {
   }
   await ctx.reply(ctx.t(
     reply,
-    reply === "text.success"
+    reply === "add.success"
       ? {
         operations: operations
           .map(
@@ -149,7 +149,7 @@ bot.on("message:photo", async (ctx) => {
     }
     await ctx.reply(ctx.t(
       reply,
-      reply === "text.success"
+      reply === "add.success"
         ? {
           operations: operations
             .map(
@@ -201,7 +201,7 @@ bot.on("message:voice", async (ctx) => {
   }
   await ctx.reply(ctx.t(
     reply,
-    reply === "text.success"
+    reply === "add.success"
       ? {
         operations: operations
           .map(

@@ -6,7 +6,7 @@ global =
     .not-found = Nie znalazłem twojego konta! Zarejestruj się, aby zapisywać operacje. Wpisz komendę /start
 
 start = Podaj swój unikalny klucz Telegram. Znajdziesz go tutaj: https://app.monfuse.com/automations
-    .already-registered = Podaj swój unikalny klucz Telegram. Znajdziesz go tutaj: https://app.monfuse.com/automations
+    .already-registered = Cześć { $first_name }! Rejestracja została już wykonana.
     .welcome =
         Cześć { $first_name }, twoja rejestracja przebiegła pomyślnie!
 
@@ -20,16 +20,16 @@ error = Wystąpił nieznany błąd, spróbuj ponownie!
     .photo-download = Nie udało mi się pobrać zdjęcia, spróbuj ponownie
     .undo-not-found = Nie znaleziono ostatnich operacji, spróbuj usunąć je poprzez aplikację
 
-text =
-    .success = 
-        💸 Dodałem następujące operacje:
-        { $operations }
-
 graph = 
     .weekly = 📊 Oto twój wykres wydatków z przeszłego tygodnia na podstawie etykiet
 
 add =
     .type = Wybierz typ operacji:
+    .title = Jaki będzie tytuł { &type }?
+    .amount = Ok! Jaka była kwota operacji?
+    .success = 
+        💸 Dodałem następujące operacje:
+        { $operations }
 
 undo =
     .success = 

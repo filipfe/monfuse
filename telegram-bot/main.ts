@@ -9,13 +9,12 @@ import { insertOperations } from "./commands/add.ts";
 import { Payment } from "./types.ts";
 import { BotContext } from "./types.ts";
 import { SessionData } from "./types.ts";
-import menu from "./menu.ts";
 import {
   conversations,
   createConversation,
 } from "https://deno.land/x/grammy_conversations@v2.0.1/mod.ts";
 import { token } from "./conversations/index.ts";
-import add from "./commands/add.ts";
+import add, { typeMenu } from "./conversations/add.ts";
 
 const TELEGRAM_BOT_TOKEN = Deno.env.get("TELEGRAM_BOT_TOKEN");
 
@@ -57,8 +56,6 @@ bot.use(
 
 bot.use(i18n);
 
-bot.use(menu);
-
 bot.use(conversations({
   plugins: [
     i18n,
@@ -66,26 +63,31 @@ bot.use(conversations({
 }));
 
 bot.use(createConversation(token));
+bot.use(createConversation(add));
+
+bot.use(typeMenu);
 
 bot.command("start", async (ctx) => {
-  if (!ctx.from) {
-    await ctx.reply(
-      ctx.t("global.unauthorized"),
-    );
-  } else if (ctx.session.user) {
+  if (!ctx.session.user) {
+    if (!ctx.from) {
+      await ctx.reply(
+        ctx.t("global.unauthorized"),
+      );
+    } else {
+      await ctx.conversation.enter("token");
+    }
+  } else {
     const { first_name } = ctx.session.user;
     await ctx.reply(
       ctx.t("start.already-registered", {
         first_name,
       }),
     );
-  } else {
-    await ctx.conversation.enter("token");
   }
 });
 
 Object.values(ADD).forEach((command) => {
-  bot.command(command, add);
+  bot.command(command, (ctx) => ctx.conversation.enter("add", "expense"));
 });
 
 Object.values(UNDO).forEach((command) => {
@@ -114,7 +116,7 @@ Object.values(UNDO).forEach((command) => {
 //   }
 //   await ctx.reply(ctx.t(
 //     reply,
-//     reply === "text.success"
+//     reply === "add.success"
 //       ? {
 //         operations: operations
 //           .map(
@@ -193,7 +195,7 @@ bot.on("message:photo", async (ctx) => {
       }
       await ctx.reply(ctx.t(
         reply,
-        reply === "text.success"
+        reply === "add.success"
           ? {
             operations: operations
               .map(
@@ -239,7 +241,7 @@ bot.on("message:voice", async (ctx) => {
     }
     await ctx.reply(ctx.t(
       reply,
-      reply === "text.success"
+      reply === "add.success"
         ? {
           operations: operations
             .map(

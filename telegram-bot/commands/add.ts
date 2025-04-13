@@ -1,7 +1,5 @@
-import { CommandContext } from "grammy";
 import supabase from "../supabase.ts";
-import { BotContext, Payment } from "../types.ts";
-import menu from "../menu.ts";
+import { Payment, ProcessReturn } from "../types.ts";
 
 export async function insertOperations(
   operations: Payment[],
@@ -14,7 +12,7 @@ export async function insertOperations(
   if (!error) {
     console.log("Inserted operations: ", ids);
     return {
-      reply: "text.success",
+      reply: "add.success",
       ids,
     };
   } else {
@@ -23,13 +21,5 @@ export async function insertOperations(
       ids: [],
       reply: "error",
     };
-  }
-}
-
-export default async function add(ctx: CommandContext<BotContext>) {
-  if (ctx.session.user) {
-    await ctx.reply(ctx.t("add.type"), { reply_markup: menu });
-  } else {
-    await ctx.reply(ctx.t("gl"));
   }
 }
