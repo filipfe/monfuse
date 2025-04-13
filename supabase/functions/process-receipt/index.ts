@@ -124,7 +124,7 @@ Deno.serve(async (req) => {
     }));
 
     const textPrompt =
-      `Extract finance information from the receipts and invoices. Analyze context and classify each operation either as 'income' or 'expense'. Generate a list of operations.
+      `Extract finance information from the receipts and invoices. Analyze context and classify each operation either as 'income' or 'expense'. Generate a list of operations. The 'currency' is a 3-digit code.
 The 'id' and 'doc_path' for each image are available on the image's index in this array:
   [${
         uploadedFiles
@@ -138,10 +138,10 @@ The 'id' and 'doc_path' for each image are available on the image's index in thi
         z.object({
           operations: z.array(z.object({
             id: z.string(),
-            title: z.string().min(1),
+            title: z.string(),
             issued_at: z.string(),
-            amount: z.number().positive(),
-            currency: z.string().length(3),
+            amount: z.number(),
+            currency: z.string(),
             type: z.enum(["income", "expense"]),
             doc_path: z.string().nullable(),
           })),
