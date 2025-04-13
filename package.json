@@ -11,11 +11,12 @@
     "build:marketing": "cd marketing && npm run build",
     "telegram-bot": "cd telegram-bot && deno task dev"
   },
-  "devDependencies": {
-    "supabase": "^1.167.4"
-  },
   "workspaces": [
     "web",
-    "marketing"
-  ]
+    "marketing",
+    "internal"
+  ],
+  "devDependencies": {
+    "supabase": "^2.20.12"
+  }
 }

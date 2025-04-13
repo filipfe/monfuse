@@ -1,5 +1,6 @@
 import { format } from "npm:date-fns";
 import { toZonedTime } from "npm:date-fns-tz";
+import { Profile } from "../_shared/types.ts";
 
 const prompts = {
   system: (context: string, settings: Profile["settings"]) =>
