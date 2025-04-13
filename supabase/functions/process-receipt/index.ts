@@ -125,8 +125,7 @@ Deno.serve(async (req) => {
 
     const textPrompt =
       `Extract finance information from the receipts and invoices. Analyze context and classify each operation either as 'income' or 'expense'. Generate a list of operations.
-Rules:
-- 'id' and 'doc_path' for each image are available on the image's index in this array:
+The 'id' and 'doc_path' for each image are available on the image's index in this array:
   [${
         uploadedFiles
           .map(({ id, path }) => `{ id: ${id}, doc_path: ${path} }`)
