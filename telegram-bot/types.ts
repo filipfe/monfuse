@@ -1,3 +1,19 @@
+import { Context, SessionFlavor } from "grammy";
+import { I18nFlavor } from "grammy:i18n";
+import { type ConversationFlavor } from "https://deno.land/x/grammy_conversations@v2.0.1/mod.ts";
+
+export type SessionData = {
+  lastPayments: string[];
+  user: Profile | null;
+  __language_code?: string;
+};
+
+export type BotContext = ConversationFlavor<
+  & Context
+  & SessionFlavor<SessionData>
+  & I18nFlavor
+>;
+
 export type Profile = {
   id: string;
   first_name: string;
@@ -9,6 +25,14 @@ export type Profile = {
     email_notifications: boolean;
     timezone: string;
   };
+};
+
+export type Command = Record<string, string>;
+
+export type ProcessReturn = {
+  reply: string;
+  ids: string[];
+  operations: Payment[];
 };
 
 export interface Payment {

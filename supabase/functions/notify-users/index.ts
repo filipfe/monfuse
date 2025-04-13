@@ -5,7 +5,7 @@ import { createClient } from "supabase";
 import {} from "npm:date-fns";
 import { toZonedTime } from "npm:date-fns-tz";
 import dict from "./dict.ts";
-import { Locale } from "../_shared/types.ts";
+import { Locale, Profile } from "../_shared/types.ts";
 
 type Body = {
   message?: string;

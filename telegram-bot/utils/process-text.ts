@@ -1,6 +1,7 @@
-import openai from "../../_shared/openai.ts";
+import openai from "../openai.ts";
 import { insertOperations } from "../commands/add.ts";
 import supabase from "../supabase.ts";
+import { ProcessReturn, Profile } from "../types.ts";
 
 export default async function processText(
   message: string,
@@ -43,7 +44,7 @@ Rules:
 
   const completion = await openai.chat.completions.create({
     model: "gpt-4o",
-    "response_format": { type: "json_object" },
+    response_format: { type: "json_object" },
     messages: [{
       role: "user",
       "content": [
@@ -60,7 +61,7 @@ Rules:
     });
 
     return {
-      reply: "global.error",
+      reply: "error",
       ids: [],
       operations: [],
     };
@@ -72,7 +73,7 @@ Rules:
       return {
         operations: [],
         ids: [],
-        reply: "_error.text-irrelevant-message",
+        reply: "error.text-irrelevant-message",
       };
     }
     const res = await insertOperations(
@@ -86,7 +87,7 @@ Rules:
       err,
     });
     return {
-      reply: "global.error",
+      reply: "error",
       ids: [],
       operations: [],
     };

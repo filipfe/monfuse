@@ -1,7 +1,7 @@
 import "https://esm.sh/@supabase/functions-js/src/edge-runtime.d.ts";
 import { createClient } from "supabase";
 import { corsHeaders } from "../_shared/cors.ts";
-import { Payment } from "../_shared/types.ts";
+import { Payment, Profile } from "../_shared/types.ts";
 import { toZonedTime } from "npm:date-fns-tz";
 import { endOfWeek, startOfWeek, subWeeks } from "npm:date-fns";
 import { fromZonedTime } from "npm:date-fns-tz";
