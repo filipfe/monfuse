@@ -7,10 +7,11 @@ import { Input } from "@nextui-org/react";
 import Link from "next/link";
 
 export async function generateMetadata({
-  params: { locale },
+  params,
 }: {
-  params: { locale: Locale };
+  params: Promise<{ locale: Locale }>;
 }) {
+  const { locale } = await params;
   const lang = getLang(locale);
   const {
     public: { auth },
@@ -39,8 +40,13 @@ export async function generateMetadata({
   };
 }
 
-export default async function Page({ params }: { params: { locale: Locale } }) {
-  const lang = getLang(params.locale);
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}) {
+  const { locale } = await params;
+  const lang = getLang(locale);
   const {
     private: { general },
     public: {

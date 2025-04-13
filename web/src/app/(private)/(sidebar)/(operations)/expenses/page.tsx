@@ -24,10 +24,11 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Page({
-  searchParams,
+  searchParams: searchParamsPromise,
 }: {
-  searchParams: SearchParams;
+  searchParams: Promise<SearchParams>;
 }) {
+  const searchParams = await searchParamsPromise;
   const settings = await getSettings();
 
   const {

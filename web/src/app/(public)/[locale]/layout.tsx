@@ -4,10 +4,11 @@ import { Metadata } from "next";
 import React from "react";
 
 export async function generateMetadata({
-  params: { locale },
+  params,
 }: {
-  params: { locale: Locale };
+  params: Promise<{ locale: Locale }>;
 }): Promise<Metadata> {
+  const { locale } = await params;
   return {
     openGraph: {
       url: new URL(`https://app.monfuse.com/${locale}`),
