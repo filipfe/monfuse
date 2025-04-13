@@ -69,7 +69,7 @@ export default async function Page({
           stat={last_month}
         />
       </div>
-      <Providers
+      {/* <Providers
         defaultPeriod={{
           from: searchParams.from || "",
           to: searchParams.to || "",
@@ -91,7 +91,7 @@ export default async function Page({
             dict={dict["operation-table"]}
           />
         </Suspense>
-      </Providers>
+      </Providers> */}
     </div>
   );
 }
@@ -107,7 +107,7 @@ async function Expenses({
   title: string;
   dict: Dict["private"]["operations"]["operation-table"];
 }) {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const {
     data: { results: expenses, count },

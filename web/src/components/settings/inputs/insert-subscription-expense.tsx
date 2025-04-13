@@ -14,7 +14,7 @@ import {
   Input,
   Switch,
   Tooltip,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { Check } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState, useTransition } from "react";

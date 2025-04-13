@@ -1,6 +1,6 @@
 import NumberFormat from "@/utils/formatters/currency";
 import dateFormat from "@/utils/formatters/dateFormat";
-import { Skeleton, cn } from "@nextui-org/react";
+import { Skeleton, cn } from "@heroui/react";
 import { formatDistance } from "date-fns";
 import * as locales from "date-fns/locale";
 import { Coins, Wallet2 } from "lucide-react";

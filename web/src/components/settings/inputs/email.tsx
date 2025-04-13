@@ -2,7 +2,7 @@
 
 import Form from "@/components/ui/form";
 import { Dict } from "@/const/dict";
-import { cn, Input } from "@nextui-org/react";
+import { cn, Input } from "@heroui/react";
 import { useState } from "react";
 
 interface Props extends Pick<Account, "email"> {

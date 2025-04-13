@@ -2,7 +2,7 @@
 
 import { Dict } from "@/const/dict";
 import { useLabels } from "@/lib/operations/queries";
-import { Autocomplete, AutocompleteItem, cn, Tooltip } from "@nextui-org/react";
+import { Autocomplete, AutocompleteItem, cn, Tooltip } from "@heroui/react";
 import { HelpCircleIcon } from "lucide-react";
 
 type Props = {

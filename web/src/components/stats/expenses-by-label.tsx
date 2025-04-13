@@ -2,7 +2,7 @@
 
 import { useContext } from "react";
 import Block from "../ui/block";
-import { Skeleton } from "@nextui-org/react";
+import { Skeleton } from "@heroui/react";
 import { ArrowUpRight, Coins } from "lucide-react";
 import Link from "next/link";
 import Empty from "../ui/empty";

@@ -1,6 +1,6 @@
 import Dropzone from "@/components/ui/dropzone";
 import parseCSV from "@/utils/operations/parse-csv";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import { FileSpreadsheet, PaperclipIcon } from "lucide-react";
 import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 

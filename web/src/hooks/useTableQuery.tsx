@@ -1,4 +1,4 @@
-import { SortDescriptor } from "@nextui-org/react";
+import { SortDescriptor } from "@heroui/react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { useDebouncedCallback } from "use-debounce";

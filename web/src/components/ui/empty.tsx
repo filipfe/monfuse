@@ -1,4 +1,4 @@
-import { Button, cn } from "@nextui-org/react";
+import { Button, cn } from "@heroui/react";
 import { LucideIcon, PlusIcon } from "lucide-react";
 import Link from "next/link";
 import { HTMLAttributes } from "react";

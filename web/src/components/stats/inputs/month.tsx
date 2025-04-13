@@ -1,5 +1,5 @@
 import { StatsFilterContext } from "@/app/(private)/(sidebar)/stats/providers";
-import { cn, Select, SelectItem } from "@nextui-org/react";
+import { cn, Select, SelectItem } from "@heroui/react";
 import { useContext } from "react";
 
 type Props = {

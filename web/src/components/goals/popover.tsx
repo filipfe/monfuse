@@ -7,7 +7,7 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useRef, useState, useTransition } from "react";
 import toast from "react-hot-toast";
 import Toast from "../ui/toast";

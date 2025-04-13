@@ -2,7 +2,7 @@
 
 import { Fragment, useContext, useTransition } from "react";
 import { signOut } from "@/lib/auth/actions";
-import { BreadcrumbItem, Breadcrumbs, Button, cn } from "@nextui-org/react";
+import { BreadcrumbItem, Breadcrumbs, Button, cn } from "@heroui/react";
 import { AlignJustifyIcon, Bot, LogOutIcon, SettingsIcon } from "lucide-react";
 import { PAGES, SETTINGS_PAGES } from "@/const";
 import { usePathname } from "next/navigation";

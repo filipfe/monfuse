@@ -15,7 +15,7 @@ import {
   SelectItem,
   Input,
   useDisclosure,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { FormEvent, useLayoutEffect, useState } from "react";
 
 interface Props

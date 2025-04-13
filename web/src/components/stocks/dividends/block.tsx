@@ -1,5 +1,5 @@
 import Block from "@/components/ui/block";
-import { Button, ScrollShadow } from "@nextui-org/react";
+import { Button, ScrollShadow } from "@heroui/react";
 import { ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
 import DividendsTable from "./dividends-table";

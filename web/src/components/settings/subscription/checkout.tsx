@@ -1,6 +1,6 @@
 import { Dict } from "@/const/dict";
 import toast from "@/utils/toast";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import {
   PaymentElement,
   useElements,

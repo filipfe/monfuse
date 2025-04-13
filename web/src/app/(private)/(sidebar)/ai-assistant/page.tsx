@@ -4,7 +4,7 @@ import LimitsContext from "@/components/ai-assistant/context/limits";
 import OperationsContext from "@/components/ai-assistant/context/operations";
 import Block from "@/components/ui/block";
 import AIAssistantProvider from "./providers";
-import { ScrollShadow } from "@nextui-org/react";
+import { ScrollShadow } from "@heroui/react";
 import { getSettings } from "@/lib/general/actions";
 import CurrencyPicker from "@/components/ai-assistant/context/currency";
 import getDictionary from "@/const/dict";

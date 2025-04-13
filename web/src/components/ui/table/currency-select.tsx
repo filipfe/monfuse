@@ -2,7 +2,7 @@
 
 import { CURRENCIES } from "@/const";
 import { Dict } from "@/const/dict";
-import { Select, SelectItem, SelectProps } from "@nextui-org/react";
+import { Select, SelectItem, SelectProps } from "@heroui/react";
 
 export default function CurrencySelect({
   dict,

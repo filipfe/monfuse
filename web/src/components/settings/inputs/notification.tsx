@@ -4,7 +4,7 @@ import { Dict } from "@/const/dict";
 import { useSettings } from "@/lib/general/queries";
 import { updateSettings } from "@/lib/settings/queries";
 import toast from "@/utils/toast";
-import { Button, Switch, Tooltip } from "@nextui-org/react";
+import { Button, Switch, Tooltip } from "@heroui/react";
 import Link from "next/link";
 
 type Props = {

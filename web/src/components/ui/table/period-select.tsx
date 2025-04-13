@@ -10,7 +10,7 @@ import {
   PopoverTrigger,
   RangeCalendar,
   RangeValue,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { CalendarDaysIcon, ListRestartIcon } from "lucide-react";
 import { useContext, useRef, useState } from "react";
 

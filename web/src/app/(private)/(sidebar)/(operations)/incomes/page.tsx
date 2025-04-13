@@ -102,7 +102,7 @@ async function Incomes({
     title: Dict["private"]["general"]["incomes" | "expenses"];
   } & Dict["private"]["operations"]["operation-table"];
 }) {
-  const supabase = createClient();
+  const supabase = await createClient();
   const {
     data: { results: incomes, count },
   } = await supabase.rpc("get_incomes_own_rows", {

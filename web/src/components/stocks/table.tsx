@@ -1,6 +1,6 @@
 "use client";
 
-import { Spinner } from "@nextui-org/react";
+import { Spinner } from "@heroui/react";
 import {
   Table,
   TableBody,
@@ -8,7 +8,7 @@ import {
   TableColumn,
   TableHeader,
   TableRow,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { TrendingDownIcon, TrendingUpIcon } from "lucide-react";
 import { useCallback } from "react";
 import Empty from "../ui/empty";

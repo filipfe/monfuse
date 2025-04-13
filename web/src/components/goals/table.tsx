@@ -10,7 +10,7 @@ import {
   TableHeader,
   TableRow,
   cn,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import Block from "../ui/block";
 import { useEffect, useRef, useState } from "react";
 import { CheckCircle, ChevronDown } from "lucide-react";

@@ -1,6 +1,6 @@
 "use client";
 
-import { cn, Popover, PopoverContent, PopoverTrigger } from "@nextui-org/react";
+import { cn, Popover, PopoverContent, PopoverTrigger } from "@heroui/react";
 import {
   CustomComponents,
   DayPicker,

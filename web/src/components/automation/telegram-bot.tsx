@@ -2,7 +2,7 @@ import LatestOperations from "@/components/automation/latest-operations";
 import TokenInput from "@/components/automation/token-input";
 import Block from "@/components/ui/block";
 import { Dict } from "@/const/dict";
-import { Button, cn } from "@nextui-org/react";
+import { Button, cn } from "@heroui/react";
 import { LinkIcon, Send } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";

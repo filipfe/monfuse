@@ -19,7 +19,7 @@ import {
   Pagination,
   ScrollShadow,
   Button,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import useTableQuery from "@/hooks/useTableQuery";
 import { PaperclipIcon } from "lucide-react";
 import Block from "./block";

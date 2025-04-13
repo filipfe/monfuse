@@ -1,7 +1,7 @@
 "use client";
 
 import { TRANSACTION_TYPES } from "@/const";
-import { Select, SelectItem } from "@nextui-org/react";
+import { Select, SelectItem } from "@heroui/react";
 
 export default function TransactionSelect({ onChange, value }: State) {
   return (

@@ -2,7 +2,7 @@ import { Fragment, Suspense } from "react";
 // import TransactionTable from "./transactions-table";
 import { ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import Loader from "./loader";
 import OwnStocks from "./own-stocks";
 import { getHoldings, getOwnStocks } from "@/lib/stocks/actions";

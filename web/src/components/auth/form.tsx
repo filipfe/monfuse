@@ -3,7 +3,7 @@
 import { Dict } from "@/const/dict";
 import { signIn, signInWithGoogle, signUp } from "@/lib/auth/actions";
 import toast from "@/utils/toast";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";

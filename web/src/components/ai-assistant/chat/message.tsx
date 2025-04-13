@@ -1,4 +1,4 @@
-import { cn } from "@nextui-org/react";
+import { cn } from "@heroui/react";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { motion } from "framer-motion";

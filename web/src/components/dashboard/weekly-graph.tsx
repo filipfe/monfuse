@@ -1,7 +1,7 @@
 "use client";
 
 import Empty from "../ui/empty";
-import { Skeleton } from "@nextui-org/react";
+import { Skeleton } from "@heroui/react";
 import { useLimits } from "@/lib/general/queries";
 import Block from "../ui/block";
 import NumberFormat from "@/utils/formatters/currency";

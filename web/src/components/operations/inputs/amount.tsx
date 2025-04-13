@@ -1,5 +1,5 @@
 import formatAmount from "@/utils/operations/format-amount";
-import { Input } from "@nextui-org/react";
+import { Input } from "@heroui/react";
 import { useState } from "react";
 
 type Props = {

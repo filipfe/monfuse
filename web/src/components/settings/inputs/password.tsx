@@ -3,7 +3,7 @@
 import Form from "@/components/ui/form";
 import { Dict } from "@/const/dict";
 import { resetPassword } from "@/lib/auth/actions";
-import { Input } from "@nextui-org/react";
+import { Input } from "@heroui/react";
 import { useState } from "react";
 
 export default function PasswordInput({

@@ -5,7 +5,7 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { MoreVertical, Undo } from "lucide-react";
 import { Key } from "react";
 

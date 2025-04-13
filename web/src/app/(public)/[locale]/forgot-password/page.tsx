@@ -4,7 +4,7 @@ import getDictionary from "@/const/dict";
 import { LOCALES } from "@/const/locales";
 import { requestPasswordChange } from "@/lib/auth/actions";
 import getLang from "@/utils/get-lang";
-import { Input } from "@nextui-org/react";
+import { Input } from "@heroui/react";
 
 export async function generateMetadata({
   params,

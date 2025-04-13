@@ -2,7 +2,7 @@
 
 import { MenuContext } from "@/app/(private)/(sidebar)/providers";
 import { Dict } from "@/const/dict";
-import { cn } from "@nextui-org/react";
+import { cn } from "@heroui/react";
 import { ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";

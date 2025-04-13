@@ -3,7 +3,7 @@ import Form from "@/components/auth/form";
 import getDictionary from "@/const/dict";
 import { LOCALES } from "@/const/locales";
 import getLang from "@/utils/get-lang";
-import { Input } from "@nextui-org/react";
+import { Input } from "@heroui/react";
 import Link from "next/link";
 
 export async function generateMetadata({

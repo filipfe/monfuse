@@ -1,6 +1,6 @@
 "use client";
 
-import { Progress } from "@nextui-org/react";
+import { Progress } from "@heroui/react";
 import { useRef } from "react";
 import useOutsideObserver from "@/hooks/useOutsideObserver";
 import Menu from "./menu";

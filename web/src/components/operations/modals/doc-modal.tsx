@@ -10,7 +10,7 @@ import {
   ModalHeader,
   cn,
   useDisclosure,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import Image from "next/image";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import toast from "react-hot-toast";

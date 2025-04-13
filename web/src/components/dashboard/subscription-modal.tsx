@@ -9,7 +9,7 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useSearchParams } from "next/navigation";
 import { Fragment, useEffect, useState } from "react";
 import Link from "next/link";

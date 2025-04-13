@@ -13,7 +13,7 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { MoreVerticalIcon, PauseIcon, Trash2Icon } from "lucide-react";
 import { useState } from "react";
 

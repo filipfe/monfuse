@@ -3,7 +3,7 @@
 import { StatsFilterContext } from "@/app/(private)/(sidebar)/stats/providers";
 import Block from "@/components/ui/block";
 import NumberFormat from "@/utils/formatters/currency";
-import { Skeleton, cn } from "@nextui-org/react";
+import { Skeleton, cn } from "@heroui/react";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { useContext } from "react";

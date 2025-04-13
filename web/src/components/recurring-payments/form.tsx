@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  Button,
-  DateInput,
-  Input,
-  Spinner,
-  TimeInput,
-} from "@nextui-org/react";
+import { Button, DateInput, Input, Spinner, TimeInput } from "@heroui/react";
 import formatAmount from "@/utils/operations/format-amount";
 import { useState, useTransition } from "react";
 import { CheckIcon } from "lucide-react";

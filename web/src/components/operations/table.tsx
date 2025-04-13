@@ -18,7 +18,7 @@ import {
   Pagination,
   ScrollShadow,
   Button,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import useTableQuery from "@/hooks/useTableQuery";
 import TopContent from "../ui/table/top-content";
 import Block from "../ui/block";

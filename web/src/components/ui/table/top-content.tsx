@@ -1,4 +1,4 @@
-import { Input } from "@nextui-org/react";
+import { Input } from "@heroui/react";
 import { SearchIcon } from "lucide-react";
 import Add from "../cta/add";
 

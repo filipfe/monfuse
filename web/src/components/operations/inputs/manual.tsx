@@ -1,6 +1,6 @@
 import UniversalSelect from "@/components/ui/universal-select";
 import { CURRENCIES } from "@/const";
-import { Input, Textarea } from "@nextui-org/react";
+import { Input, Textarea } from "@heroui/react";
 import LabelInput from "./label";
 import AmountInput from "./amount";
 import { Dict } from "@/const/dict";

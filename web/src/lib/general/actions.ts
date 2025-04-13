@@ -4,7 +4,7 @@ import { createClient } from "@/utils/supabase/server";
 import { revalidatePath } from "next/cache";
 
 export async function getSettings(): Promise<Settings> {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const { data, error } = await supabase
     .from("profiles")
@@ -27,7 +27,7 @@ export async function updateRow(
   type: OperationType,
   fields: { [key: string]: any },
 ) {
-  const supabase = createClient();
+  const supabase = await createClient();
   const { error } = await supabase.from(`${type}s`).update(fields).eq("id", id);
 
   if (error) {
@@ -48,7 +48,7 @@ export async function deleteRows<T>(
   data: "all" | string[],
   type: string,
 ): Promise<Pick<SupabaseResponse, "error">> {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   let query = supabase.from(`${type}s`).delete();
 

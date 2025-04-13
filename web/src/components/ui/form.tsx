@@ -2,7 +2,7 @@
 
 import { FormHTMLAttributes, useTransition } from "react";
 import toast from "@/utils/toast";
-import { Button, ButtonProps, cn } from "@nextui-org/react";
+import { Button, ButtonProps, cn } from "@heroui/react";
 import { Check, type LucideIcon } from "lucide-react";
 
 interface Props extends FormHTMLAttributes<HTMLFormElement> {

@@ -6,7 +6,7 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { ListFilterIcon, ListRestartIcon } from "lucide-react";
 import { useRef, useState } from "react";
 import CurrencySelect from "./currency-select";
