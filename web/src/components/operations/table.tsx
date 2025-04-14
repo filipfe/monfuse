@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  MouseEvent,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { MouseEvent, useCallback, useContext, useState } from "react";
 import {
   Table,
   TableHeader,
@@ -18,7 +12,7 @@ import {
   Pagination,
   ScrollShadow,
   Button,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import useTableQuery from "@/hooks/useTableQuery";
 import TopContent from "../ui/table/top-content";
 import Block from "../ui/block";
@@ -28,35 +22,40 @@ import DocModal from "./modals/doc-modal";
 import ActionsDropdown from "./actions-dropdown";
 import { PeriodContext } from "@/app/(private)/(sidebar)/(operations)/providers";
 import { Dict } from "@/const/dict";
+import { useOperations } from "@/lib/operations/queries";
+
+interface Props extends TableProps {
+  settings: Settings;
+  dict: Dict["private"]["operations"]["operation-table"];
+  title: string;
+}
 
 export default function OperationTable({
   title,
   dict,
-  rows,
-  count,
   children,
-  viewOnly,
+  type,
   settings,
-  ...props
-}: TableProps<Operation> & {
-  settings: Settings;
-  dict: Dict["private"]["operations"]["operation-table"];
-  title: string;
-}) {
+}: Props) {
+  const [pages, setPages] = useState(0);
   const [docPath, setDocPath] = useState<string | null>(null);
-  const pages = Math.ceil(count / 10);
+  const { searchQuery, handleSearch, changeFilter } = useTableQuery();
   const { period } = useContext(PeriodContext);
-  const {
-    items,
-    isLoading,
-    setIsLoading,
-    searchQuery,
-    handleSearch,
-    handleSort,
-    handlePageChange,
-    handleLabelChange,
-    handleCurrencyChange,
-  } = useTableQuery(rows, { viewOnly: !!viewOnly, period });
+  const { data, isLoading } = useOperations(
+    type,
+    {
+      ...searchQuery,
+      from: period.from || undefined,
+      to: period.to || undefined,
+    },
+    settings.timezone,
+    {
+      onSuccess: (data) => setPages(Math.ceil(data.count / 10)),
+    }
+  );
+  // const { period } = useContext(PeriodContext);
+  const operations = data?.results || [];
+
   // const {
   //   selectionMode,
   //   selectedKeys,
@@ -65,10 +64,6 @@ export default function OperationTable({
   //   setSelectedKeys,
   // } = useSelection((viewOnly ? items : rows).map((item) => item.id));
   const { page, sort, search, label: _label } = searchQuery;
-
-  useEffect(() => {
-    setIsLoading(false);
-  }, [rows]);
 
   const columns = useCallback(
     (hasLabel: boolean, hasDoc: boolean) => [
@@ -137,7 +132,7 @@ export default function OperationTable({
           return (
             <ActionsDropdown
               dict={dict.dropdown}
-              type={props.type}
+              type={type}
               operation={item}
             />
           );
@@ -147,7 +142,7 @@ export default function OperationTable({
     },
     [
       // selectedKeys,
-      props.type,
+      type,
       //  onRowAction
     ]
   );
@@ -159,22 +154,22 @@ export default function OperationTable({
       hideTitleMobile
       cta={
         <TopContent
-          {...props}
+          type={type}
           dict={dict["top-content"]}
           viewOnly={false}
           // selected={selectedKeys}
           handleSearch={handleSearch}
           // deletionCallback={() => setSelectedKeys([])}
           search={search}
-          addHref={`/${props.type}s/add`}
+          addHref={`/${type}s/add`}
           state={{
             label: {
-              value: searchQuery.label,
-              onChange: handleLabelChange,
+              value: searchQuery.label || "",
+              onChange: (value) => changeFilter("label", value),
             },
             currency: {
-              value: searchQuery.currency,
-              onChange: handleCurrencyChange,
+              value: searchQuery.currency || "",
+              onChange: (value) => changeFilter("currency", value),
             },
           }}
           showPeriodFilter
@@ -187,13 +182,23 @@ export default function OperationTable({
           removeWrapper
           shadow="none"
           color="primary"
-          sortDescriptor={{
-            column: sort?.includes("-")
-              ? sort?.split("-")[1]
-              : sort?.toString(),
-            direction: sort?.includes("-") ? "descending" : "ascending",
-          }}
-          onSortChange={handleSort}
+          sortDescriptor={
+            sort
+              ? {
+                  column: sort.includes("-")
+                    ? sort.split("-")[1]
+                    : sort.toString(),
+                  direction: sort.includes("-") ? "descending" : "ascending",
+                }
+              : undefined
+          }
+          onSortChange={(descriptor) =>
+            changeFilter(
+              "sort",
+              (descriptor.direction === "descending" ? "-" : "") +
+                descriptor.column
+            )
+          }
           topContentPlacement="outside"
           bottomContentPlacement="outside"
           aria-label="operations-table"
@@ -204,8 +209,8 @@ export default function OperationTable({
         >
           <TableHeader>
             {columns(
-              rows.some((item) => item.label),
-              rows.some((item) => item.doc_path)
+              operations.some((item) => item.label),
+              operations.some((item) => item.doc_path)
             ).map((column) => (
               <TableColumn
                 key={column.key}
@@ -218,14 +223,14 @@ export default function OperationTable({
             ))}
           </TableHeader>
           <TableBody
-            items={rows}
+            items={operations}
             isLoading={isLoading}
             emptyContent={
               <Empty
                 title={dict._empty.title}
                 cta={{
-                  title: dict._empty.button[props.type as "expense" | "income"],
-                  href: `/${props.type}s/add`,
+                  title: dict._empty.button[type as "expense" | "income"],
+                  href: `/${type}s/add`,
                 }}
               />
             }
@@ -241,7 +246,7 @@ export default function OperationTable({
           </TableBody>
         </Table>
       </ScrollShadow>
-      {count > 0 && (
+      {pages > 0 && (
         <div className="mt-2 flex-1 flex items-end justify-end">
           <Pagination
             size="sm"
@@ -256,7 +261,7 @@ export default function OperationTable({
             page={page}
             isDisabled={isLoading}
             total={pages}
-            onChange={handlePageChange}
+            onChange={(value) => changeFilter("page", value)}
           />
         </div>
       )}

@@ -2,7 +2,7 @@
 
 import { CURRENCIES } from "@/const";
 import { Dict } from "@/const/dict";
-import { Select, SelectItem, SelectProps } from "@nextui-org/react";
+import { Select, SelectItem, SelectProps } from "@heroui/react";
 
 export default function CurrencySelect({
   dict,
@@ -34,7 +34,6 @@ export default function CurrencySelect({
       {
         (
           <SelectItem
-            value=""
             className={`${
               value === "" ? "!bg-light" : "!bg-white hover:!bg-light"
             }`}
@@ -46,7 +45,6 @@ export default function CurrencySelect({
       }
       {CURRENCIES.map((curr) => (
         <SelectItem
-          value={curr}
           className={`${
             curr === value ? "!bg-light" : "!bg-white hover:!bg-light"
           }`}

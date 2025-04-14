@@ -2,7 +2,7 @@
 
 import { Fragment, useRef } from "react";
 import Block from "../ui/block";
-import { Button, Chip, ScrollShadow } from "@nextui-org/react";
+import { Button, Chip, ScrollShadow } from "@heroui/react";
 import { CheckIcon, PlusIcon } from "lucide-react";
 import { formatDistance } from "date-fns";
 import { pl } from "date-fns/locale";

@@ -1,7 +1,7 @@
 "use client";
 
 import NumberFormat from "@/utils/formatters/currency";
-import { Skeleton, cn } from "@nextui-org/react";
+import { Skeleton, cn } from "@heroui/react";
 import { ArrowDownIcon, ArrowUpIcon, ArrowUpRight, Minus } from "lucide-react";
 
 type Props = {

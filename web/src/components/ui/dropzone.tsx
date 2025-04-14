@@ -1,5 +1,5 @@
 import toast from "@/utils/toast";
-import { cn } from "@nextui-org/react";
+import { cn } from "@heroui/react";
 import { DragEvent } from "react";
 
 type Props = {

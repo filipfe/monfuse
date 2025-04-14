@@ -37,9 +37,9 @@ export default function useYAxisWidth(
           }).format(val)
         : val.toString();
       const width = checkWidth(formattedTick);
-      if (width > longestTick) {
-        setLongestTick(width);
-      }
+      // if (width > longestTick) {
+      //   setLongestTick(width);
+      // }
       return formattedTick;
     },
     [currency, formatter, longestTick]

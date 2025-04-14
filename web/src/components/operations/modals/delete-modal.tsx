@@ -9,7 +9,7 @@ import {
   ModalFooter,
   ModalHeader,
   useDisclosure,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { Trash2Icon } from "lucide-react";
 import { Fragment, useEffect, useTransition } from "react";
 import toast from "react-hot-toast";

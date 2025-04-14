@@ -1,42 +1,30 @@
-import { SortDescriptor } from "@nextui-org/react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
-import { useDebouncedCallback } from "use-debounce";
+import { useSearchParams } from "next/navigation";
+import { Dispatch, SetStateAction, useState } from "react";
+import { DebouncedState, useDebouncedCallback } from "use-debounce";
 
-type Options = {
-  viewOnly?: boolean;
-  period?: Period;
+type UseTableQuery<T> = {
+  items: T[];
+  setItems: Dispatch<SetStateAction<T[]>>;
+  searchQuery: SearchParams;
+  handleSearch: DebouncedState<(value: string) => void>;
+  changeFilter: <K extends keyof SearchParams>(
+    key: K,
+    value: SearchParams[K]
+  ) => void;
 };
 
-export default function useTableQuery<T>(rows: T[], options?: Options) {
-  const router = useRouter();
-  const pathname = usePathname();
+export default function useTableQuery<T>(): UseTableQuery<T> {
   const searchParams = useSearchParams();
   const [items, setItems] = useState<T[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [searchQuery, setSearchQuery] = useState({
+  const [searchQuery, setSearchQuery] = useState<SearchParams>({
     page: 1,
     sort: "",
     search: "",
     label: searchParams.get("label") || "",
     currency: searchParams.get("currency") || "",
-    transaction: "",
   });
 
-  const handleLabelChange = useCallback(
-    (selectedKey?: string) => {
-      !options?.viewOnly && setIsLoading(true);
-      setSearchQuery((prev) => ({
-        ...prev,
-        page: 1,
-        label: selectedKey ? selectedKey : "",
-      }));
-    },
-    [options?.viewOnly]
-  );
-
   const handleSearch = useDebouncedCallback((value: string) => {
-    setIsLoading(true);
     setSearchQuery((prev) => ({
       ...prev,
       page: 1,
@@ -44,61 +32,42 @@ export default function useTableQuery<T>(rows: T[], options?: Options) {
     }));
   }, 300);
 
-  const handleSort = (descriptor: SortDescriptor) => {
-    !options?.viewOnly && setIsLoading(true);
-    setSearchQuery((prev) => ({
-      ...prev,
-      page: 1,
-      sort:
-        (descriptor.direction === "descending" ? "-" : "") + descriptor.column,
-    }));
+  const changeFilter = <K extends keyof SearchParams>(
+    key: K,
+    value: SearchParams[K]
+  ) => {
+    switch (key) {
+      case "page":
+        setSearchQuery((prev) => ({ ...prev, [key]: value }));
+        break;
+      default:
+        setSearchQuery((prev) => ({ ...prev, page: 1, [key]: value }));
+    }
   };
 
-  const handlePageChange = (page: number) => {
-    !options?.viewOnly && setIsLoading(true);
-    setSearchQuery((prev) => ({ ...prev, page }));
-  };
+  // useEffect(() => {
+  //   if (options?.viewOnly) return;
+  //   const params = new URLSearchParams();
+  //   const query = { ...searchQuery, ...(options?.period || {}) };
+  //   Object.keys(query).forEach((key) => {
+  //     const value = query[key as keyof typeof searchQuery];
+  //     value && params.set(key, String(value));
+  //   });
+  //   router.push(`${pathname}?${params.toString()}`, { scroll: false });
+  // }, [searchQuery, options]);
 
-  const handleCurrencyChange = (currency: string) => {
-    !options?.viewOnly && setIsLoading(true);
-    setSearchQuery((prev) => ({ ...prev, page: 1, currency }));
-  };
-
-  const handleTransactionChange = (transaction: string) => {
-    !options?.viewOnly && setIsLoading(true);
-    setSearchQuery((prev) => ({ ...prev, page: 1, transaction }));
-  };
-
-  useEffect(() => {
-    if (options?.viewOnly) return;
-    const params = new URLSearchParams();
-    const query = { ...searchQuery, ...(options?.period || {}) };
-    Object.keys(query).forEach((key) => {
-      const value = query[key as keyof typeof searchQuery];
-      value && params.set(key, String(value));
-    });
-    router.push(`${pathname}?${params.toString()}`, { scroll: false });
-  }, [searchQuery, options]);
-
-  useEffect(() => {
-    if (!options?.viewOnly) return;
-    const start = ((searchQuery.page || 1) - 1) * 10;
-    const end = start + 10;
-    return setItems(rows.slice(start, end));
-  }, [rows, options?.viewOnly, searchQuery.page]);
+  // useEffect(() => {
+  //   if (!options?.viewOnly) return;
+  //   const start = ((searchQuery.page || 1) - 1) * 10;
+  //   const end = start + 10;
+  //   return setItems(rows.slice(start, end));
+  // }, [rows, options?.viewOnly, searchQuery.page]);
 
   return {
     items,
     setItems,
     searchQuery,
-    isLoading,
-    setIsLoading,
-    setSearchQuery,
+    changeFilter,
     handleSearch,
-    handleSort,
-    handlePageChange,
-    handleLabelChange,
-    handleCurrencyChange,
-    handleTransactionChange,
   };
 }

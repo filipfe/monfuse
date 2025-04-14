@@ -8,7 +8,7 @@ import { redirect } from "next/navigation";
 export async function getLatestOperations(
   from?: string,
 ): Promise<SupabaseResponse<Payment>> {
-  const supabase = createClient();
+  const supabase = await createClient();
   let query = supabase
     .from("operations")
     .select("id, title, amount, currency, type, issued_at")
@@ -42,7 +42,7 @@ export async function addOperations(
   const label = formData.get("label")?.toString() || undefined;
   const data = formData.get("data")?.toString();
 
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const {
     data: { user },
@@ -133,7 +133,6 @@ export async function addOperations(
 
   const path = type === "expense" ? "/expenses" : "/incomes";
 
-  revalidatePath(path);
   revalidatePath("/dashboard");
   redirect(path);
 }
@@ -143,7 +142,7 @@ export async function getOperationsStats(
   currency: string,
   type: string,
 ): Promise<SupabaseSingleRowResponse<OperationsStats>> {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const { data: result, error } = await supabase.rpc("get_operations_stats", {
     p_currency: currency,
@@ -164,7 +163,7 @@ export async function getOperationsStats(
 }
 
 export async function getPortfolioBudgets(): Promise<SupabaseResponse<Budget>> {
-  const supabase = createClient();
+  const supabase = await createClient();
   const { data: results, error } = await supabase.rpc(
     "get_dashboard_portfolio_budgets",
   );
@@ -215,7 +214,7 @@ export async function updateOperation(
       }
     }
 
-    const supabase = createClient();
+    const supabase = await createClient();
     const { error } = await supabase
       .from(`${type}s`)
       .update(operation)
@@ -242,7 +241,7 @@ export async function updateOperation(
 export async function deleteLimit(formData: FormData) {
   const period = formData.get("period") as string;
 
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const { error } = await supabase.from("limits").delete().eq("period", period);
 

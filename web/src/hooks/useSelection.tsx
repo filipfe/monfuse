@@ -1,4 +1,4 @@
-import { Selection, SelectionMode } from "@nextui-org/react";
+import { Selection, SelectionMode } from "@heroui/react";
 import { useState } from "react";
 
 export default function useSelection(items: string[]) {

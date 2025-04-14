@@ -13,7 +13,7 @@ import {
   Spinner,
   Tab,
   Tabs,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import {
   CheckIcon,
   FileSpreadsheetIcon,

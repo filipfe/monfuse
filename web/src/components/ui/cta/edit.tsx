@@ -1,4 +1,4 @@
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import { SquarePenIcon } from "lucide-react";
 import Link from "next/link";
 

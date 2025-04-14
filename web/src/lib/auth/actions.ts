@@ -9,7 +9,7 @@ export async function requestPasswordChange(
 ): Promise<SupabaseResponse<any>> {
   const email = formData.get("email")?.toString();
 
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const { error } = await supabase.auth.resetPasswordForEmail(email!);
 
@@ -31,7 +31,7 @@ export async function resetPassword(
   const password = formData.get("password")?.toString();
   const shouldRedirect = formData.get("redirect")?.toString() === "true";
 
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const { error } = await supabase.auth.updateUser({
     password,
@@ -61,7 +61,7 @@ export async function signUp(formData: FormData) {
   const language = (formData.get("lang") as string) || "en";
   const timezone = formData.get("timezone") as string;
 
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const { error } = await supabase.auth.signUp({
     email,
@@ -91,7 +91,7 @@ export async function signIn(formData: FormData) {
   const email = formData.get("email")?.toString() || "";
   const password = formData.get("password")?.toString() || "";
 
-  const supabase = createClient();
+  const supabase = await createClient();
   const { error } = await supabase.auth.signInWithPassword({
     email,
     password,
@@ -109,7 +109,7 @@ export async function signIn(formData: FormData) {
 }
 
 export async function signOut() {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const { error } = await supabase.auth.signOut();
 
@@ -136,7 +136,7 @@ export async function setupAccount(formData: FormData) {
     };
   }
 
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const {
     data: { user },
@@ -183,7 +183,7 @@ export async function setupAccount(formData: FormData) {
 }
 
 export async function signInWithGoogle() {
-  const supabase = createClient();
+  const supabase = await createClient();
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {

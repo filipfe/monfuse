@@ -3,7 +3,7 @@
 import { useEffect, useState, useTransition } from "react";
 import Dropdown from "./dropdown";
 import { Dict } from "@/const/dict";
-import { Button, Input, Progress } from "@nextui-org/react";
+import { Button, Input, Progress } from "@heroui/react";
 import UniversalSelect from "../ui/universal-select";
 import TelegramBot from "../automation/telegram-bot";
 import { useTimezoneSelect } from "react-timezone-select";

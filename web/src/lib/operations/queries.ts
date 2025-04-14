@@ -1,9 +1,41 @@
 import { createClient } from "@/utils/supabase/client";
-import useSWR from "swr";
+import useSWR, { SWRConfiguration } from "swr";
+
+async function getOperations(
+  type: OperationType,
+  searchParams: SearchParams,
+  timezone: string,
+): Promise<{ results: Operation[]; count: number }> {
+  const supabase = createClient();
+  const {
+    data,
+  } = await supabase.rpc(`get_${type}s_own_rows`, {
+    p_timezone: timezone,
+    ...Object.entries(searchParams).reduce(
+      (prev, [k, v]) => v ? ({ ...prev, ["p_" + k]: v }) : prev,
+      {},
+    ),
+  });
+  return data;
+}
+
+export function useOperations(
+  type: OperationType,
+  searchParams: SearchParams,
+  timezone: string,
+  config?: SWRConfiguration,
+) {
+  return useSWR(
+    ["operations", type, searchParams, timezone],
+    ([_k, type, search_params, timezone]) =>
+      getOperations(type, search_params, timezone),
+    config,
+  );
+}
 
 export async function getDailyTotalAmounts(
   type: string,
-  currency?: string
+  currency?: string,
 ): Promise<DailyAmount[]> {
   const supabase = createClient();
 
@@ -23,7 +55,7 @@ export async function getDailyTotalAmounts(
 async function getOperationsAmountsHistory(
   type: "income" | "expense",
   timezone: string,
-  params: SearchParams
+  params: SearchParams,
 ): Promise<DailyAmount[]> {
   const supabase = createClient();
 
@@ -44,10 +76,12 @@ async function getOperationsAmountsHistory(
 export const useOperationsAmountsHistory = (
   type: "income" | "expense",
   timezone: string,
-  params: SearchParams
+  params: SearchParams,
 ) =>
-  useSWR(["history", type, timezone, params], ([_, type, timezone, params]) =>
-    getOperationsAmountsHistory(type, timezone, params)
+  useSWR(
+    ["history", type, timezone, params],
+    ([_, type, timezone, params]) =>
+      getOperationsAmountsHistory(type, timezone, params),
   );
 
 export async function addLimit(limit: NewLimit) {

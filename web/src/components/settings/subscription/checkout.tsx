@@ -1,11 +1,12 @@
 import { Dict } from "@/const/dict";
 import toast from "@/utils/toast";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import {
   PaymentElement,
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
+import { Hatch } from "ldrs/react";
 import { FormEvent, useState } from "react";
 
 export default function Checkout({
@@ -72,7 +73,7 @@ export default function Checkout({
         className="w-full mt-6 font-medium"
         disableRipple
       >
-        {isLoading && <l-hatch stroke={1.5} size={14} color="white" />}
+        {isLoading && <Hatch stroke={1.5} size={14} color="white" />}
         {dict}
       </Button>
     </form>

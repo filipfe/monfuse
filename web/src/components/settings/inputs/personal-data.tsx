@@ -4,7 +4,7 @@ import Form from "@/components/ui/form";
 import Toast from "@/components/ui/toast";
 import { Dict } from "@/const/dict";
 import { updateName } from "@/lib/settings/actions";
-import { cn, Input } from "@nextui-org/react";
+import { cn, Input } from "@heroui/react";
 import { FormEvent, useState } from "react";
 import toast from "react-hot-toast";
 

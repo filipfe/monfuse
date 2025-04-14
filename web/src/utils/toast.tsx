@@ -27,7 +27,7 @@ export default function toast(props: Partial<ToastProps>) {
 //             <div className="flex items-start gap-2.5">
 //               {isLoading ? (
 //                 <div className="mr-1.5">
-//                   <l-hatch size={16} stroke={2} />
+//                   <Hatch size={16} stroke={2} />
 //                 </div>
 //               ) : (
 //                 !isBlank && (

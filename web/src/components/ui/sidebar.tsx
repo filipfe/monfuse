@@ -48,7 +48,7 @@ export default function Sidebar({
             : "translate-x-0"
         }`}
       >
-        <nav className="flex flex-col gap-2">
+        <nav className="flex flex-col gap-1">
           {links.map((group) => (
             <NavLink
               {...group}
@@ -59,7 +59,7 @@ export default function Sidebar({
             />
           ))}
         </nav>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-1">
           <NavLink
             title={dict.automation}
             href="/automation"

@@ -7,9 +7,10 @@ import { Metadata } from "next";
 export async function generateMetadata({
   params,
 }: {
-  params: { locale: Locale };
+  params: Promise<{ locale: Locale }>;
 }): Promise<Metadata> {
-  const lang = getLang(params.locale);
+  const { locale } = await params;
+  const lang = getLang(locale);
   const { private: dict } = await getDictionary(lang);
   return dict["account-setup"]._metadata;
 }
@@ -17,22 +18,18 @@ export async function generateMetadata({
 export default async function AccountSetup({
   params,
 }: {
-  params: { locale: Locale };
+  params: Promise<{ locale: Locale }>;
 }) {
   const settings = await getSettings();
-
-  const lang = getLang(params.locale);
+  const { locale } = await params;
+  const lang = getLang(locale);
 
   const { private: dict } = await getDictionary(settings.language || lang);
 
   return (
     <div className="h-screen sm:h-auto min-h-screen sm:px-10 py-4 sm:py-8 flex items-center justify-center">
       <div className="mx-auto w-full max-w-xl flex flex-col gap-4 sm:gap-6">
-        <AccountSetupForm
-          settings={settings}
-          dict={dict}
-          locale={params.locale}
-        />
+        <AccountSetupForm settings={settings} dict={dict} locale={locale} />
       </div>
     </div>
   );

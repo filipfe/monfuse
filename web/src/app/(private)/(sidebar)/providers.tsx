@@ -1,7 +1,6 @@
 "use client";
 
-import { useSettings } from "@/lib/general/queries";
-import { NextUIProvider } from "@nextui-org/react";
+import { HeroUIProvider } from "@heroui/react";
 import { usePathname, useRouter } from "next/navigation";
 import {
   Dispatch,
@@ -48,7 +47,7 @@ export default function Providers({
   }, [pathname]);
 
   return (
-    <NextUIProvider navigate={router.push} locale={settings.language}>
+    <HeroUIProvider navigate={router.push} locale={settings.language}>
       <MenuContext.Provider value={{ isMenuHidden, setIsMenuHidden }}>
         <div
           className={`max-w-screen h-full grid grid-rows-[64px_1fr] sm:grid-rows-[80px_1fr] ${
@@ -60,6 +59,6 @@ export default function Providers({
           {children}
         </div>
       </MenuContext.Provider>
-    </NextUIProvider>
+    </HeroUIProvider>
   );
 }

@@ -2,7 +2,7 @@
 
 import { Dict } from "@/const/dict";
 import { useLabels } from "@/lib/operations/queries";
-import { Autocomplete, AutocompleteItem, cn, Tooltip } from "@nextui-org/react";
+import { Autocomplete, AutocompleteItem, cn, Tooltip } from "@heroui/react";
 import { HelpCircleIcon } from "lucide-react";
 
 type Props = {
@@ -37,7 +37,7 @@ export default function LabelInput({ dict, defaultValue, className }: Props) {
         {labels
           ? labels.map((label) => (
               <AutocompleteItem
-                value={label.name}
+                // value={label.name}
                 textValue={label.name}
                 description={`${label.count} ${dict.description}`}
                 classNames={{

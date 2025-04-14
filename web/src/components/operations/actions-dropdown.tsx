@@ -4,13 +4,8 @@ import {
   DropdownMenu,
   DropdownTrigger,
   useDisclosure,
-} from "@nextui-org/react";
-import {
-  MoreVerticalIcon,
-  MousePointerSquareIcon,
-  SquarePenIcon,
-  Trash2Icon,
-} from "lucide-react";
+} from "@heroui/react";
+import { MoreVerticalIcon, SquarePenIcon, Trash2Icon } from "lucide-react";
 import { Fragment, Key, useState } from "react";
 import EditModal from "./modals/edit-modal";
 import DeleteModal from "./modals/delete-modal";

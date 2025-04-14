@@ -5,15 +5,15 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export async function getPriorityGoal(
-  limit?: number
+  limit?: number,
 ): Promise<SupabaseSingleRowResponse<PriorityGoal>> {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const { data: result, error } = await supabase.rpc(
     "get_goals_priority_goal",
     {
       p_limit: limit,
-    }
+    },
   );
 
   if (error) {
@@ -29,7 +29,7 @@ export async function getPriorityGoal(
 }
 
 export async function getCurrentGoals(): Promise<SupabaseResponse<Goal>> {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const { data: results, error } = await supabase.rpc("get_goals_current");
 
@@ -46,9 +46,9 @@ export async function getCurrentGoals(): Promise<SupabaseResponse<Goal>> {
 }
 
 export async function getGoalsPayments(
-  timezone: string
+  timezone: string,
 ): Promise<SupabaseResponse<GoalPayment>> {
-  const supabase = createClient();
+  const supabase = await createClient();
   const { data: results, error } = await supabase.rpc("get_goals_payments", {
     p_timezone: timezone,
     p_page: 1,
@@ -67,10 +67,10 @@ export async function getGoalsPayments(
 }
 
 export async function addGoal(
-  formData: FormData
+  formData: FormData,
 ): Promise<Pick<SupabaseResponse, "error">> {
   const data = JSON.parse(formData.get("data")!.toString());
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const {
     data: { user },
@@ -98,12 +98,12 @@ export async function addGoal(
 }
 
 export async function addGoalPayment(
-  formData: FormData
+  formData: FormData,
 ): Promise<Pick<SupabaseResponse, "error">> {
   const amount = formData.get("amount")?.toString();
   const goal_id = formData.get("goal_id")?.toString();
   const date = new Date().toDateString();
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const { error } = await supabase
     .from("goals_payments")
@@ -122,7 +122,7 @@ export async function addGoalPayment(
 }
 
 export async function updateAsPriority(id: string) {
-  const supabase = createClient();
+  const supabase = await createClient();
   const { error: removeError } = await supabase
     .from("goals")
     .update({

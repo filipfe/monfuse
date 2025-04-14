@@ -7,7 +7,7 @@ import { revalidatePath } from "next/cache";
 export async function getAccount(): Promise<
   SupabaseSingleRowResponse<Account>
 > {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const { data, error: authError } = await supabase
     .from("profiles")
@@ -30,7 +30,7 @@ export async function updatePreferences(formData: FormData) {
   const name = formData.get("name")?.toString() ?? "";
   const value = formData.get("value")?.toString() ?? "";
 
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const {
     data: { user },
@@ -58,7 +58,7 @@ export async function updateName(
   const first_name = formData.get("first_name") as string;
   const last_name = formData.get("last_name") as string;
 
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const {
     data: { user },

@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@nextui-org/react";
+import { cn } from "@heroui/react";
 import Block from "../../ui/block";
 import NumberFormat from "@/utils/formatters/currency";
 import { Dict } from "@/const/dict";

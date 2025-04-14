@@ -1,4 +1,4 @@
-import { Progress, ScrollShadow } from "@nextui-org/react";
+import { Progress, ScrollShadow } from "@heroui/react";
 import NumberFormat from "@/utils/formatters/currency";
 import { Dict } from "@/const/dict";
 import { PaymentRef } from "./ref";

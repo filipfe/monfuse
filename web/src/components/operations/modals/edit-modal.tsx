@@ -6,7 +6,7 @@ import {
   ModalContent,
   ModalHeader,
   useDisclosure,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { Dispatch, FormEvent, SetStateAction, useEffect } from "react";
 import Manual from "../inputs/manual";
 import { updateOperation } from "@/lib/operations/actions";

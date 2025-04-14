@@ -2,8 +2,9 @@
 
 import { FormHTMLAttributes, useTransition } from "react";
 import toast from "@/utils/toast";
-import { Button, ButtonProps, cn } from "@nextui-org/react";
+import { Button, ButtonProps, cn } from "@heroui/react";
 import { Check, type LucideIcon } from "lucide-react";
+import { Hatch } from "ldrs/react";
 
 interface Props extends FormHTMLAttributes<HTMLFormElement> {
   mutation?: (formData: FormData) => Promise<SupabaseResponse<any> | undefined>;
@@ -110,7 +111,7 @@ export default function Form({
         >
           {isLoading || isPending ? (
             <div className="w-4 grid place-content-center">
-              <l-hatch size={14} color="#FFF" stroke={2} />
+              <Hatch size={14} color="#FFF" stroke={2} />
             </div>
           ) : ButtonIcon ? (
             <ButtonIcon size={16} />

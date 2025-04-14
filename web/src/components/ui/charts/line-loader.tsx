@@ -1,4 +1,4 @@
-import { Skeleton, cn } from "@nextui-org/react";
+import { Skeleton, cn } from "@heroui/react";
 import Block from "../block";
 type Props = { className?: string; hideTitle?: boolean };
 

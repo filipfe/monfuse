@@ -3,11 +3,13 @@
 import { useAIAssistant } from "@/app/(private)/(sidebar)/ai-assistant/providers";
 import { createClient } from "@/utils/supabase/client";
 import toast from "@/utils/toast";
-import { Button, Input, ScrollShadow } from "@nextui-org/react";
+import { Button, Input, ScrollShadow } from "@heroui/react";
 import { Send } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import MessageRef from "./chat/message";
 import { Dict } from "@/const/dict";
+import { Bouncy } from "ldrs/react";
+import "ldrs/react/Bouncy.css";
 
 export default function Chat({
   dict,
@@ -84,7 +86,7 @@ export default function Chat({
                   />
                 ))}
               {isLoading && (
-                <MessageRef from="assistant" content={<l-bouncy size={24} />} />
+                <MessageRef from="assistant" content={<Bouncy size={24} />} />
               )}
             </div>
           </ScrollShadow>

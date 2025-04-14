@@ -9,7 +9,7 @@ import { revalidatePath } from "next/cache";
 export async function getOrCreateSubscription(): Promise<
   SupabaseSingleRowResponse<Subscription>
 > {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const { data: user, error: authError } = await supabase
     .from("profiles")

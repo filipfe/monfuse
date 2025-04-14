@@ -5,7 +5,7 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { MoreVertical, Undo } from "lucide-react";
 import { Key } from "react";
 
@@ -28,6 +28,7 @@ export default function Dropdown(payment: Payment) {
           color="danger"
           startContent={<Undo size={16} />}
           description="Undo operation"
+          key="revert"
         >
           Revert
         </DropdownItem>

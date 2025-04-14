@@ -14,7 +14,7 @@ import {
   cn,
   Skeleton,
   useDisclosure,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { Plus, SquarePen, Trash2 } from "lucide-react";
 import { useState } from "react";
 

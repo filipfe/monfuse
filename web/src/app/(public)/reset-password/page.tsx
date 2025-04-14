@@ -3,7 +3,7 @@ import Form from "@/components/ui/form";
 import getDictionary from "@/const/dict";
 import { resetPassword } from "@/lib/auth/actions";
 import { getSettings } from "@/lib/general/actions";
-import { Input } from "@nextui-org/react";
+import { Input } from "@heroui/react";
 
 export async function generateMetadata() {
   const settings = await getSettings();

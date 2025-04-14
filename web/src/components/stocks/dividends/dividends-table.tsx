@@ -2,7 +2,7 @@
 
 import HorizontalScroll from "@/components/ui/horizontal-scroll";
 import { useSettings } from "@/lib/general/queries";
-import { Spinner } from "@nextui-org/react";
+import { Spinner } from "@heroui/react";
 import {
   Table,
   TableBody,
@@ -10,7 +10,7 @@ import {
   TableColumn,
   TableHeader,
   TableRow,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useCallback } from "react";
 
 type Props = {

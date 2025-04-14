@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Input, Spinner, Textarea } from "@nextui-org/react";
+import { Button, Input, Spinner, Textarea } from "@heroui/react";
 import formatAmount from "@/utils/operations/format-amount";
 import { useState, useTransition } from "react";
 import { CheckIcon } from "lucide-react";

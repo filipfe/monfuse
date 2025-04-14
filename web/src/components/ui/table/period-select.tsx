@@ -10,7 +10,7 @@ import {
   PopoverTrigger,
   RangeCalendar,
   RangeValue,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { CalendarDaysIcon, ListRestartIcon } from "lucide-react";
 import { useContext, useRef, useState } from "react";
 
@@ -71,6 +71,7 @@ export default function PeriodSelect({
       <PopoverContent>
         <RangeCalendar
           showShadow={false}
+          // @ts-ignore
           value={
             numberOfParams === 2
               ? { start: parseDate(period.from), end: parseDate(period.to) }
@@ -89,7 +90,7 @@ export default function PeriodSelect({
                 disabled={period.from === "" || period.to === ""}
                 disableRipple
                 size="sm"
-                onClick={() => {
+                onPress={() => {
                   setIsOpen(false);
                   setPeriod({ from: "", to: "" });
                 }}

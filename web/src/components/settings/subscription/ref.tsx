@@ -1,5 +1,5 @@
 import { LINKS } from "@/const";
-import { Chip } from "@nextui-org/react";
+import { Chip } from "@heroui/react";
 import { CheckIcon } from "lucide-react";
 
 type Props = {

@@ -1,7 +1,7 @@
 import { getStocks } from "@/lib/stocks/actions";
 import Block from "../ui/block";
 import StockTable from "./table";
-import { ScrollShadow } from "@nextui-org/react";
+import { ScrollShadow } from "@heroui/react";
 
 export default async function StocksByIndex({ title, name }: StocksIndex) {
   const { results: stocks } = await getStocks(name);

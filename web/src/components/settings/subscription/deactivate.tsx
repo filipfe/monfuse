@@ -3,7 +3,7 @@
 import ConfirmationModal from "@/components/ui/confirmation-modal";
 import { Dict } from "@/const/dict";
 import { cancelOrReactivateSubscription } from "@/lib/subscription/actions";
-import { Button, useDisclosure } from "@nextui-org/react";
+import { Button, useDisclosure } from "@heroui/react";
 import { useTransition } from "react";
 
 export default function Deactivate({

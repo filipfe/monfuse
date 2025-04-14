@@ -1,6 +1,6 @@
 "use client";
 
-import { Select, SelectItem, SelectProps } from "@nextui-org/react";
+import { Select, SelectItem, SelectProps } from "@heroui/react";
 
 type Props = Omit<SelectProps, "children"> & {
   elements: string[] | Option<string>[];
@@ -17,7 +17,7 @@ export default function UniversalSelect(props: Props) {
     >
       {props.elements.map((element) => (
         <SelectItem
-          value={typeof element === "string" ? element : element.value}
+          // value={typeof element === "string" ? element : element.value}
           classNames={{
             base: "!bg-white hover:!bg-light",
           }}

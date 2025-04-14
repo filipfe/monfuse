@@ -1,6 +1,7 @@
 import Dropzone from "@/components/ui/dropzone";
 import parseCSV from "@/utils/operations/parse-csv";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
+import { Hatch } from "ldrs/react";
 import { FileSpreadsheet, PaperclipIcon } from "lucide-react";
 import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 
@@ -40,7 +41,7 @@ export default function CSVInput<T>({ type, formatter, setRecords }: Props<T>) {
       onChange={onChange}
     >
       {isLoading ? (
-        <l-hatch size="28" stroke="4" speed="3.5" color="black"></l-hatch>
+        <Hatch size="28" stroke="4" speed="3.5" color="black" />
       ) : (
         <>
           <FileSpreadsheet size={28} />

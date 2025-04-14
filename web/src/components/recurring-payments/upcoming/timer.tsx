@@ -34,7 +34,7 @@ type Props = {
 };
 
 export default function Timer({ timezone, paymentDatetime, dict }: Props) {
-  const timeoutRef = useRef<number>();
+  const timeoutRef = useRef<number>(undefined);
   const { mutate } = useUpcomingPayments(timezone);
   const [timeRemaining, setTimeRemaining] = useState(
     getTimeRemaining(paymentDatetime, timezone)

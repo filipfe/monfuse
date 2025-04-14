@@ -1,6 +1,6 @@
 "use client";
 
-import { cn, Popover, PopoverContent, PopoverTrigger } from "@nextui-org/react";
+import { cn, Popover, PopoverContent, PopoverTrigger } from "@heroui/react";
 import {
   CustomComponents,
   DayPicker,
@@ -18,6 +18,7 @@ import {
 import Link from "next/link";
 import NumberFormat from "@/utils/formatters/currency";
 import { Dict } from "@/const/dict";
+import { Hatch } from "ldrs/react";
 
 type Props = {
   settings: Settings;
@@ -52,7 +53,7 @@ export default function Calendar({ settings, dict, page }: Props) {
           ></table>
           {isLoading && (
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 translate-y-1/2">
-              <l-hatch />
+              <Hatch />
             </div>
           )}
         </div>

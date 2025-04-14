@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Block from "../ui/block";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import { CheckCircle, PlusIcon } from "lucide-react";
 import HorizontalScroll from "../ui/horizontal-scroll";
 import GoalRef from "./ref";

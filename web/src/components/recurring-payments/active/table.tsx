@@ -11,7 +11,7 @@ import {
   ScrollShadow,
   getKeyValue,
   Button,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import Block from "../../ui/block";
 import { useActivePayments } from "@/lib/recurring-payments/queries";
 import {

@@ -3,7 +3,7 @@
 import Empty from "../ui/empty";
 import { useLayoutEffect, useRef } from "react";
 import OperationRef from "../operations/ref";
-import { ScrollShadow } from "@nextui-org/react";
+import { ScrollShadow } from "@heroui/react";
 import { AnimatePresence, motion } from "framer-motion";
 import useSWR from "swr";
 import { getLatestOperations } from "@/lib/operations/queries";
