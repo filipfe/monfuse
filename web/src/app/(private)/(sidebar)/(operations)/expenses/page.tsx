@@ -1,7 +1,6 @@
 import OperationTable from "@/components/operations/table";
 import Stat from "@/components/ui/stat-ref";
 import { getOperationsStats } from "@/lib/operations/actions";
-import { createClient } from "@/utils/supabase/server";
 import Providers from "../providers";
 import OperationsByMonth from "@/components/operations/operations-by-month";
 import Limits from "@/components/operations/limits";

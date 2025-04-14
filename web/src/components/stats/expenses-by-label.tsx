@@ -83,43 +83,10 @@ export default function ExpensesByLabel({
                   ? "100"
                   : ((label.total_amount / sum) * 100).toFixed(1);
 
-              const labelBackgroundColor = label.name ? colors[k] : "#d1d5db";
-
-              const labelContent = (
-                <div className="rounded-md border px-4 py-3 flex flex-col gap-1 relative">
-                  <div className="flex items-center gap-2">
-                    <div
-                      style={{ backgroundColor: labelBackgroundColor }}
-                      className="h-2.5 w-2.5 rounded-full"
-                    ></div>
-                    <h5 className="text-sm text-font/75">
-                      {label.name || dict.other}
-                    </h5>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <span className="text-sm font-bold">
-                      {totalPercentage}%
-                    </span>
-                    <span>-</span>
-                    <span className="text-sm">
-                      <NumberFormat
-                        amount={label.total_amount}
-                        currency={currency}
-                      />
-                    </span>
-                  </div>
-                  {label.name && (
-                    <ArrowUpRight
-                      className="absolute right-4 top-3 text-neutral-400"
-                      size={16}
-                    />
-                  )}
-                </div>
-              );
+              const backgroundColor = label.name ? colors[k] : "#d1d5db";
 
               return label.name ? (
                 <Link
-                  key={k}
                   href={`/expenses?currency=${currency}&label=${
                     label.name
                   }&from=${year}-${String(month + 1).padStart(2, "0")}-01&to=${
@@ -131,11 +98,26 @@ export default function ExpensesByLabel({
                           new Date(year, month + 1, 0).getDate()
                         ).padStart(2, "0")}`
                   }`}
+                  key={`label-link-${k}`}
                 >
-                  {labelContent}
+                  <LabelRef
+                    label={label}
+                    currency={currency}
+                    backgroundColor={backgroundColor}
+                    totalPercentage={totalPercentage}
+                    dict={dict.other}
+                    key={`label-${k}`}
+                  />
                 </Link>
               ) : (
-                labelContent
+                <LabelRef
+                  label={label}
+                  currency={currency}
+                  backgroundColor={backgroundColor}
+                  totalPercentage={totalPercentage}
+                  dict={dict.other}
+                  key={`label-${k}`}
+                />
               );
             })}
           </div>
@@ -146,3 +128,42 @@ export default function ExpensesByLabel({
     </Block>
   );
 }
+
+type LabelProps = {
+  label: ChartLabel;
+  totalPercentage: string;
+  dict: Dict["private"]["stats"]["expenses-by-label"]["other"];
+  backgroundColor: string;
+  currency: string;
+};
+
+const LabelRef = ({
+  label,
+  totalPercentage,
+  backgroundColor,
+  dict: otherDict,
+  currency,
+}: LabelProps) => (
+  <div className="rounded-md border px-4 py-3 flex flex-col gap-1 relative">
+    <div className="flex items-center gap-2">
+      <div
+        style={{ backgroundColor }}
+        className="h-2.5 w-2.5 rounded-full"
+      ></div>
+      <h5 className="text-sm text-font/75">{label.name || otherDict}</h5>
+    </div>
+    <div className="flex items-center gap-1">
+      <span className="text-sm font-bold">{totalPercentage}%</span>
+      <span>-</span>
+      <span className="text-sm">
+        <NumberFormat amount={label.total_amount} currency={currency} />
+      </span>
+    </div>
+    {label.name && (
+      <ArrowUpRight
+        className="absolute right-4 top-3 text-neutral-400"
+        size={16}
+      />
+    )}
+  </div>
+);

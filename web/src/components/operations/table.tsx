@@ -1,6 +1,6 @@
 "use client";
 
-import { MouseEvent, useCallback, useState } from "react";
+import { MouseEvent, useCallback, useContext, useState } from "react";
 import {
   Table,
   TableHeader,
@@ -40,9 +40,14 @@ export default function OperationTable({
   const [pages, setPages] = useState(0);
   const [docPath, setDocPath] = useState<string | null>(null);
   const { searchQuery, handleSearch, changeFilter } = useTableQuery();
+  const { period } = useContext(PeriodContext);
   const { data, isLoading } = useOperations(
     type,
-    searchQuery,
+    {
+      ...searchQuery,
+      from: period.from || undefined,
+      to: period.to || undefined,
+    },
     settings.timezone,
     {
       onSuccess: (data) => setPages(Math.ceil(data.count / 10)),
