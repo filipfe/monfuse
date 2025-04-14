@@ -6,6 +6,7 @@ import {
   ReactNode,
   SetStateAction,
   useCallback,
+  useEffect,
   useState,
 } from "react";
 import {
@@ -53,18 +54,13 @@ export default function PreviewTable({
   const { data: settings } = useSettings();
   const [docPath, setDocPath] = useState<string | null>(null);
   const pages = Math.ceil(count / 10);
-  const {
-    items,
-    setItems,
-    isLoading,
-    // setIsLoading,
-    searchQuery,
-    // handleSearch,
-    handlePageChange,
-    // handleCurrencyChange,
-    // handleTransactionChange,
-  } = useTableQuery(rows, { viewOnly: true });
+  const { items, setItems, searchQuery, changeFilter, handleSearch } =
+    useTableQuery<Operation | StockTransaction>();
   const { page } = searchQuery;
+
+  useEffect(() => {
+    setItems(rows);
+  }, [rows]);
   // const { selectionMode, selectedKeys, onSelectionChange, onRowAction } =
   //   useSelection(items.map((item) => item.id));
 
@@ -239,7 +235,6 @@ export default function PreviewTable({
           </TableHeader>
           <TableBody
             items={items}
-            isLoading={isLoading}
             emptyContent={
               <Empty
                 title={`Dodaj ${
@@ -272,9 +267,8 @@ export default function PreviewTable({
               wrapper: "!shadow-none border",
             }}
             page={page}
-            isDisabled={isLoading}
             total={pages}
-            onChange={handlePageChange}
+            onChange={(value) => changeFilter("page", value)}
           />
         </div>
       )}

@@ -1,7 +1,5 @@
 import OperationTable from "@/components/operations/table";
 import Stat from "@/components/ui/stat-ref";
-import { Suspense } from "react";
-import Loader from "@/components/stocks/loader";
 import { getOperationsStats } from "@/lib/operations/actions";
 import { createClient } from "@/utils/supabase/server";
 import Providers from "../providers";
@@ -83,57 +81,23 @@ export default async function Page({
             dict={dict["operations-by-month"]}
           />
         </div>
-        <Suspense fallback={<Loader className="row-span-3 col-span-2" />}>
+        {/* <Suspense fallback={<Loader className="row-span-3 col-span-2" />}>
           <Expenses
             searchParams={searchParams}
             settings={settings}
             title={title}
             dict={dict["operation-table"]}
           />
-        </Suspense>
+        </Suspense> */}
+        <div className="row-span-2 col-span-2 flex items-stretch">
+          <OperationTable
+            title={title}
+            type="expense"
+            settings={settings}
+            dict={dict["operation-table"]}
+          />
+        </div>
       </Providers>
-    </div>
-  );
-}
-
-async function Expenses({
-  title,
-  searchParams,
-  settings,
-  dict,
-}: {
-  searchParams: SearchParams;
-  settings: Settings;
-  title: string;
-  dict: Dict["private"]["operations"]["operation-table"];
-}) {
-  const supabase = await createClient();
-
-  const {
-    data: { results: expenses, count },
-  } = await supabase.rpc("get_expenses_own_rows", {
-    p_timezone: settings.timezone,
-    p_page: searchParams.page,
-    p_sort: searchParams.sort,
-    p_search: searchParams.search,
-    p_currency: searchParams.currency,
-    p_label: searchParams.label,
-    p_from: searchParams.from,
-    p_to: searchParams.to,
-  });
-
-  console.log("RENDERED");
-
-  return (
-    <div className="row-span-2 col-span-2 flex items-stretch">
-      <OperationTable
-        title={title}
-        type="expense"
-        rows={expenses || []}
-        count={count || 0}
-        settings={settings}
-        dict={dict}
-      />
     </div>
   );
 }

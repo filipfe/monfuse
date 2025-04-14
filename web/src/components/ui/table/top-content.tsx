@@ -8,7 +8,7 @@ import PeriodSelect from "./period-select";
 import Delete from "../cta/delete";
 import { Dict } from "@/const/dict";
 
-type Props = FilterProps & {
+interface Props extends FilterProps {
   dict: Dict["private"]["operations"]["operation-table"]["top-content"];
   search?: string;
   handleSearch: DebouncedState<(search?: string) => void>;
@@ -18,7 +18,7 @@ type Props = FilterProps & {
   addHref?: string;
   showPeriodFilter?: boolean;
   viewOnly?: boolean;
-};
+}
 
 export default function TopContent({
   dict,
