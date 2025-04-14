@@ -264,6 +264,7 @@ export default function RecurringPaymentForm({
             isRequired
             isInvalid={isStartTimeInvalid || undefined}
             label={dict.interval.form.date.label}
+            // @ts-ignore
             value={singleRecord.start_date}
             minValue={defaultStartDate}
             onChange={(date) => {

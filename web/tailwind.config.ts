@@ -40,6 +40,7 @@ const config: Config = {
   },
   darkMode: "class",
   plugins: [
+    // @ts-ignore
     heroui({
       defaultTheme: "light",
       layout: {

@@ -8,7 +8,7 @@ if (!STRIPE_SECRET_KEY) {
 
 const stripe = new Stripe(STRIPE_SECRET_KEY, {
   typescript: true,
-  apiVersion: "2024-11-20.acacia",
+  apiVersion: "2025-02-24.acacia",
 });
 
 export default stripe;

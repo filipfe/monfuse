@@ -3,6 +3,7 @@
 import Dropzone from "@/components/ui/dropzone";
 import { createClient } from "@/utils/supabase/client";
 import toast from "@/utils/toast";
+import { Hatch } from "ldrs/react";
 import { ScanLineIcon } from "lucide-react";
 import {
   Dispatch,
@@ -49,7 +50,7 @@ export default function Scan({ description, type, setRecords }: Props) {
       className={type === "expense" ? "h-[382px]" : "h-[310px]"}
     >
       {isLoading ? (
-        <l-hatch size="28" stroke="4" speed="3.5" color="black"></l-hatch>
+        <Hatch size="28" stroke="4" speed="3.5" color="black" />
       ) : (
         <>
           <ScanLineIcon size={28} />

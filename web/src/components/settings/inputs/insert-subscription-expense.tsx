@@ -15,6 +15,7 @@ import {
   Switch,
   Tooltip,
 } from "@heroui/react";
+import { Hatch } from "ldrs/react";
 import { Check } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState, useTransition } from "react";
@@ -129,7 +130,7 @@ export default function InsertSubscriptionExpenseSwitch({ dict }: Props) {
                 radius="md"
                 startContent={
                   isPending ? (
-                    <l-hatch size={10} stroke={1} color="#FFF" />
+                    <Hatch size={10} stroke={1} color="#FFF" />
                   ) : (
                     <Check size={14} />
                   )

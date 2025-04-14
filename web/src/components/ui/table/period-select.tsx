@@ -71,6 +71,7 @@ export default function PeriodSelect({
       <PopoverContent>
         <RangeCalendar
           showShadow={false}
+          // @ts-ignore
           value={
             numberOfParams === 2
               ? { start: parseDate(period.from), end: parseDate(period.to) }

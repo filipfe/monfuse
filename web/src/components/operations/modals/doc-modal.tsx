@@ -18,6 +18,7 @@ import Toast from "../../ui/toast";
 import { DownloadIcon } from "lucide-react";
 import Link from "next/link";
 import { Dict } from "@/const/dict";
+import { Hatch } from "ldrs/react";
 
 type Props = {
   dict: Dict["private"]["operations"]["operation-table"]["modal"];
@@ -74,7 +75,7 @@ export default function DocModal({ dict, docPath, setDocPath }: Props) {
               )}
             </ModalHeader>
             <ModalBody className="relative flex items-center justify-center min-h-48 py-0 [&:has(+button)]:z-40">
-              {isLoading.url || (isLoading.image && <l-hatch size={32} />)}
+              {isLoading.url || (isLoading.image && <Hatch size={32} />)}
               {!isLoading.url && (
                 <Image
                   width={0}

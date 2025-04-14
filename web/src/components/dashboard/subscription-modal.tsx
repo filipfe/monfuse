@@ -13,6 +13,7 @@ import {
 import { useSearchParams } from "next/navigation";
 import { Fragment, useEffect, useState } from "react";
 import Link from "next/link";
+import { Hatch } from "ldrs/react";
 
 const getTitle = (status: Stripe.PaymentIntent.Status) => {
   switch (status) {
@@ -64,7 +65,7 @@ export default function SubscriptionModal() {
       <ModalContent>
         {isLoading ? (
           <div className="flex-1 grid place-content-center min-h-48">
-            <l-hatch size={32} />
+            <Hatch size={32} />
           </div>
         ) : (
           <Fragment>

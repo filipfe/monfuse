@@ -21,7 +21,7 @@ export default async function Layout({
     <Providers settings={settings}>
       <Header dict={{ ..._navigation, ...general }} />
       <Sidebar dict={_navigation} />
-      <WebVitals />
+      {/* <WebVitals /> */}
       <main className="bg-light">{children}</main>
       {/* <MobileActions /> */}
     </Providers>
