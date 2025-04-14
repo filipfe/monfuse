@@ -17,7 +17,7 @@ export default function UniversalSelect(props: Props) {
     >
       {props.elements.map((element) => (
         <SelectItem
-          value={typeof element === "string" ? element : element.value}
+          // value={typeof element === "string" ? element : element.value}
           classNames={{
             base: "!bg-white hover:!bg-light",
           }}

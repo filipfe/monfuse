@@ -34,7 +34,6 @@ export default function CurrencySelect({
       {
         (
           <SelectItem
-            value=""
             className={`${
               value === "" ? "!bg-light" : "!bg-white hover:!bg-light"
             }`}
@@ -46,7 +45,6 @@ export default function CurrencySelect({
       }
       {CURRENCIES.map((curr) => (
         <SelectItem
-          value={curr}
           className={`${
             curr === value ? "!bg-light" : "!bg-white hover:!bg-light"
           }`}

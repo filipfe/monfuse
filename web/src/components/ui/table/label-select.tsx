@@ -31,7 +31,7 @@ export default function LabelSelect({
       {
         (
           <SelectItem
-            value={dict.default}
+            // value={dict.default}
             className={`${
               value === "" ? "!bg-light" : "!bg-white hover:!bg-light"
             }`}
@@ -44,7 +44,7 @@ export default function LabelSelect({
       {labels
         ? labels.map(({ name, count }) => (
             <SelectItem
-              value={name}
+              // value={name}
               description={`${count} ${dict.description}`}
               classNames={{
                 base: `${

@@ -37,7 +37,7 @@ export default function LabelInput({ dict, defaultValue, className }: Props) {
         {labels
           ? labels.map((label) => (
               <AutocompleteItem
-                value={label.name}
+                // value={label.name}
                 textValue={label.name}
                 description={`${label.count} ${dict.description}`}
                 classNames={{

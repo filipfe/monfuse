@@ -106,7 +106,6 @@ export default function InsertSubscriptionExpenseSwitch({ dict }: Props) {
             {labels
               ? labels.map((label) => (
                   <AutocompleteItem
-                    value={label.name}
                     textValue={label.name}
                     description={`${label.count} ${dict.label.description}`}
                     classNames={{

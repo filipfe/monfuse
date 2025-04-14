@@ -22,7 +22,7 @@ export default function TransactionSelect({ onChange, value }: State) {
       {
         (
           <SelectItem
-            value=""
+            // value=""
             className={`${
               value === "" ? "!bg-light" : "!bg-white hover:!bg-light"
             }`}
@@ -34,7 +34,7 @@ export default function TransactionSelect({ onChange, value }: State) {
       }
       {TRANSACTION_TYPES.map((type) => (
         <SelectItem
-          value={type.value}
+          // value={type.value}
           className={`${
             type.value === value ? "!bg-light" : "!bg-white hover:!bg-light"
           }`}

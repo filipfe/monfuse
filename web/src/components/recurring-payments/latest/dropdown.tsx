@@ -28,6 +28,7 @@ export default function Dropdown(payment: Payment) {
           color="danger"
           startContent={<Undo size={16} />}
           description="Undo operation"
+          key="revert"
         >
           Revert
         </DropdownItem>
