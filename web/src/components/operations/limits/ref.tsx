@@ -2,6 +2,13 @@
 
 import Block from "@/components/ui/block";
 import ConfirmationModal from "@/components/ui/confirmation-modal";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import UniversalSelect from "@/components/ui/universal-select";
 import { CURRENCIES } from "@/const";
 import { Dict } from "@/const/dict";
@@ -82,7 +89,7 @@ export default function LimitRef({ dict, period, settings, onAdd }: Props) {
         ) : (
           <h4 className="text-sm">{dict._empty.title[period]}</h4>
         )}
-        <div className="grid grid-cols-2 sm:flex items-center justify-between gap-3">
+        <div className="grid grid-cols-2 sm:flex items-center justify-between gap-2">
           {limit && (
             <Button
               variant="flat"
@@ -119,7 +126,7 @@ export default function LimitRef({ dict, period, settings, onAdd }: Props) {
               </ConfirmationModal>
             </>
           )}
-          <UniversalSelect
+          {/* <UniversalSelect
             className="w-20 col-span-2 row-start-1"
             name="currency"
             size="sm"
@@ -128,7 +135,22 @@ export default function LimitRef({ dict, period, settings, onAdd }: Props) {
             selectedKeys={[currency]}
             elements={CURRENCIES}
             onChange={(e) => setCurrency(e.target.value)}
-          />
+          /> */}
+          <Select
+            value={currency}
+            onValueChange={(value) => setCurrency(value)}
+          >
+            <SelectTrigger size="sm" className="w-20 col-span-2 row-start-1">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent className="w-20">
+              {CURRENCIES.map((curr) => (
+                <SelectItem value={curr} key={curr}>
+                  {curr}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
       </div>
       {!isLoading && !limit && (

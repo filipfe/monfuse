@@ -8,6 +8,23 @@ type Props = Omit<SelectProps, "children"> & {
 
 export default function UniversalSelect(props: Props) {
   return (
+    // <Select>
+    //   <SelectTrigger>
+    //     <SelectValue />
+    //   </SelectTrigger>
+    //   <SelectContent>
+    //     {elements.map((element) => (
+    //       <SelectItem
+    //         value={typeof element === "string" ? element : element.value}
+    //         key={typeof element === "string" ? element : element.value}
+    //       >
+    //         {typeof element === "string"
+    //           ? element
+    //           : element.label || element.name}
+    //       </SelectItem>
+    //     ))}
+    //   </SelectContent>
+    // </Select>
     <Select
       classNames={{
         trigger: "bg-light shadow-none border",

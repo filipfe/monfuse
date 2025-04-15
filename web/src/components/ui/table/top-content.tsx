@@ -1,12 +1,13 @@
 import { Input } from "@heroui/react";
-import { SearchIcon } from "lucide-react";
-import Add from "../cta/add";
+import { PlusIcon, SearchIcon } from "lucide-react";
 
 import Filter from "./filter";
 import { DebouncedState } from "use-debounce";
 import PeriodSelect from "./period-select";
 import Delete from "../cta/delete";
 import { Dict } from "@/const/dict";
+import Link from "next/link";
+import { Button } from "../button";
 
 interface Props extends FilterProps {
   dict: Dict["private"]["operations"]["operation-table"]["top-content"];
@@ -66,9 +67,16 @@ Props) {
           state={state}
         />
         {addHref && (
-          <div className="hidden sm:block">
-            <Add title={dict.add} size="sm" href={addHref} className="!h-10" />
-          </div>
+          <Button
+            variant="outline"
+            size="sm"
+            className="h-10 hidden sm:flex"
+            asChild
+          >
+            <Link href={addHref}>
+              <PlusIcon size={16} /> {dict.add}
+            </Link>
+          </Button>
         )}
       </div>
     </div>

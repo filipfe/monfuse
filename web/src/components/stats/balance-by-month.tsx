@@ -25,6 +25,7 @@ import { useBalanceHistory } from "@/lib/stats/queries";
 import ChartLoader from "../ui/charts/loader";
 import NumberFormat from "@/utils/formatters/currency";
 import { Dict } from "@/const/dict";
+import { ChartConfig, ChartContainer } from "../ui/chart";
 
 const CustomTooltip = ({
   dict,
@@ -52,32 +53,13 @@ const CustomTooltip = ({
           </p>
         </div>
         {payload.map((record, k) => (
-          <div className="py-2 px-4 flex items-center justify-between gap-6">
-            <div className="flex items-center gap-2">
-              {record.color && (
-                <div className="w-3 h-3 bg-white rounded-full flex items-center justify-center shadow">
-                  <div
-                    style={{
-                      backgroundColor: record.color,
-                      opacity: k === 0 ? 1 : 0.5,
-                    }}
-                    className="w-2 h-2 rounded-full"
-                  />
-                </div>
-              )}
-              <span className="text-sm">
-                {record.dataKey === "total_expenses"
-                  ? dict.expenses
-                  : dict.incomes}
-              </span>
-            </div>
-            <strong className="font-medium text-sm">
-              <NumberFormat
-                currency={currency}
-                amount={record.value ? parseFloat(record.value.toString()) : 0}
-              />
-            </strong>
-          </div>
+          <PayloadRef
+            {...record}
+            dict={dict}
+            currency={currency}
+            index={k}
+            key={`payload-${k}`}
+          />
         ))}
       </div>
     );
@@ -86,16 +68,56 @@ const CustomTooltip = ({
   return null;
 };
 
-export default function BalanceByMonth({
+interface PayloadProps extends Payload<ValueType, NameType> {
+  dict: Props["dict"]["general"];
+  index: number;
+  currency: string;
+}
+
+const PayloadRef = ({
+  color,
+  dataKey,
+  value,
   dict,
-}: {
+  index,
+  currency,
+}: PayloadProps) => (
+  <div className="py-2 px-4 flex items-center justify-between gap-6">
+    <div className="flex items-center gap-2">
+      {color && (
+        <div className="w-3 h-3 bg-white rounded-full flex items-center justify-center shadow">
+          <div
+            style={{
+              backgroundColor: color,
+              opacity: index === 0 ? 1 : 0.5,
+            }}
+            className="w-2 h-2 rounded-full"
+          />
+        </div>
+      )}
+      <span className="text-sm">
+        {dataKey === "total_expenses" ? dict.expenses : dict.incomes}
+      </span>
+    </div>
+    <strong className="font-medium text-sm">
+      <NumberFormat
+        currency={currency}
+        amount={value ? parseFloat(value.toString()) : 0}
+      />
+    </strong>
+  </div>
+);
+
+type Props = {
   dict: {
     general: {
       incomes: Dict["private"]["general"]["incomes"];
       expenses: Dict["private"]["general"]["expenses"];
     };
   } & Dict["private"]["stats"]["balance-by-month"];
-}) {
+};
+
+export default function BalanceByMonth({ dict }: Props) {
   const { month, year, currency, settings } = useContext(StatsFilterContext);
   const { data: results, isLoading } = useBalanceHistory(
     settings.timezone,
@@ -132,11 +154,15 @@ export default function BalanceByMonth({
         <ChartLoader className="!p-0" hideTitle />
       ) : maxValue !== 0 ? (
         <div className="flex-1 grid">
-          <ResponsiveContainer width="100%" height="100%" minHeight={240}>
+          <ChartContainer
+            config={{} satisfies ChartConfig}
+            style={{ minHeight: 240 }}
+            className="h-full w-full"
+          >
             <BarChart data={results} stackOffset="sign" reverseStackOrder>
-              <CartesianGrid vertical={false} opacity={0.5} />
+              {/* <CartesianGrid vertical={false} opacity={0.5} /> */}
               <YAxis
-                width={width}
+                // width={width}
                 tick={{ fontSize: 12 }}
                 axisLine={false}
                 tickLine={false}
@@ -161,10 +187,10 @@ export default function BalanceByMonth({
                 type="category"
               />
               <CartesianGrid
-                opacity={0.6}
-                strokeWidth={1}
+                // opacity={0.6}
+                // strokeWidth={1}
                 vertical={false}
-                className="stroke-content4"
+                // className="stroke-neutral-500"
               />
               <ReferenceLine y={0} stroke="#737373" opacity={0.5} />
               <Tooltip
@@ -173,7 +199,7 @@ export default function BalanceByMonth({
                 content={(props) => (
                   <CustomTooltip
                     {...props}
-                    dict={{ ...dict.general }}
+                    dict={dict.general}
                     labelFormatter={(label) =>
                       new Intl.DateTimeFormat(settings.language, {
                         dateStyle: "full",
@@ -186,7 +212,7 @@ export default function BalanceByMonth({
               <Bar dataKey="total_expenses" stackId="a" fill="#fdbb2d" />
               <Bar dataKey="total_incomes" stackId="a" fill="#177981" />
             </BarChart>
-          </ResponsiveContainer>
+          </ChartContainer>
         </div>
       ) : (
         <Empty title={dict._empty} />

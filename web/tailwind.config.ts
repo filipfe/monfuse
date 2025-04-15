@@ -8,20 +8,52 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      // screens: {
-      //   xs: "540px",
-      // },
       colors: {
-        primary: "#177981",
-        secondary: "#fdbb2d",
-
-        // secondary: "#ff807e",
+        primary: {
+          DEFAULT: "#177981",
+          foreground: "#FFF",
+        },
+        secondary: {
+          DEFAULT: "#fdbb2d",
+          foreground: "#000",
+        },
         font: "#000000",
         light: "#FAFAFA",
-        background: "#FFFFFF",
+        background: "hsl(var(--background))",
         "success-light": "#EFFCEE",
         danger: "#c43333",
         "danger-light": "#FCEEEE",
+        foreground: "hsl(var(--foreground))",
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        chart: {
+          "1": "hsl(var(--chart-1))",
+          "2": "hsl(var(--chart-2))",
+          "3": "hsl(var(--chart-3))",
+          "4": "hsl(var(--chart-4))",
+          "5": "hsl(var(--chart-5))",
+        },
       },
       keyframes: {
         "animate-enter": {
@@ -36,9 +68,14 @@ const config: Config = {
       animation: {
         "animate-enter": "animate-enter 150ms ease-out",
       },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
+      },
     },
   },
-  darkMode: "class",
+  darkMode: ["class", "class"],
   plugins: [
     // @ts-ignore
     heroui({
@@ -86,6 +123,7 @@ const config: Config = {
         },
       },
     }),
+    require("tailwindcss-animate"),
   ],
 };
 export default config;
