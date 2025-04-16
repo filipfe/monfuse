@@ -1,3 +1,4 @@
+import { NewLimit } from "@/components/operations/limits/form";
 import { createClient } from "@/utils/supabase/client";
 import useSWR, { SWRConfiguration } from "swr";
 

@@ -2,7 +2,6 @@
 
 import LimitRef from "./limits/ref";
 import { useState } from "react";
-// import { useDisclosure } from "@heroui/react";
 import LimitForm from "./limits/form";
 import { Dict } from "@/const/dict";
 
@@ -14,7 +13,6 @@ export default function Limits({
   dict: Dict["private"]["operations"]["expenses"]["limits"];
 }) {
   const [isOpen, setIsOpen] = useState(false);
-  // const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
   const [defaultLimit, setDefaultLimit] = useState({
     currency: settings.currency,
     period: "daily" as "daily" | "weekly" | "monthly",

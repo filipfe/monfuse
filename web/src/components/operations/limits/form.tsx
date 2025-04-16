@@ -6,14 +6,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import {
-  Form,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import UniversalSelect from "@/components/ui/universal-select";
+import { Form, FormField, FormItem } from "@/components/ui/form";
 import { CURRENCIES } from "@/const";
 import { Dict } from "@/const/dict";
 import { useLimits } from "@/lib/general/queries";
@@ -21,7 +14,7 @@ import { addLimit } from "@/lib/operations/queries";
 import formatAmount from "@/utils/operations/format-amount";
 import toast from "@/utils/toast";
 import { DialogProps } from "@radix-ui/react-dialog";
-import { FormEvent, useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -43,11 +36,11 @@ interface Props extends DialogProps {
 
 const formSchema = z.object({
   amount: z.string().min(1),
-  currency: z.string().length(3),
+  currency: z.string().min(3),
   period: z.enum(["daily", "weekly", "monthly"]),
 });
 
-type NewLimit = z.infer<typeof formSchema>;
+export type NewLimit = z.infer<typeof formSchema>;
 
 export default function LimitForm({
   open,
@@ -70,7 +63,9 @@ export default function LimitForm({
     form.reset(defaultLimit);
   }, [defaultLimit]);
 
+  // console.log(form.getValues());
   const onSubmit = async (data: NewLimit) => {
+    console.log(data, form.getValues());
     setIsLoading(true);
     const { error } = await addLimit(data);
     if (error) {
@@ -88,7 +83,9 @@ export default function LimitForm({
 
   const isEdit = !!defaultLimit.amount;
 
-  const { isValid } = form.formState;
+  const { isValid, isDirty } = form.formState;
+
+  const period = form.watch("period");
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -100,33 +97,28 @@ export default function LimitForm({
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div>
               <div className="grid grid-cols-[1fr_128px] gap-4">
-                <FormField
-                  control={form.control}
-                  name="period"
-                  render={({ field }) => (
-                    <FormItem className="col-span-2">
-                      {/* <FormLabel>{dict.form.period.label}</FormLabel> */}
-                      <Select
-                        disabled={isEdit}
-                        value={field.value}
-                        onValueChange={(value) => field.onChange(value)}
-                      >
-                        <SelectTrigger label={dict.form.period.label}>
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {Object.entries(dict.form.period.values).map(
-                            ([key, value]) => (
-                              <SelectItem value={key} key={key}>
-                                {value}
-                              </SelectItem>
-                            )
-                          )}
-                        </SelectContent>
-                      </Select>
-                    </FormItem>
-                  )}
-                />
+                <FormItem className="col-span-2">
+                  <Select
+                    disabled={isEdit}
+                    value={period}
+                    onValueChange={(value) =>
+                      form.setValue("period", value as NewLimit["period"])
+                    }
+                  >
+                    <SelectTrigger label={dict.form.period.label}>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {Object.entries(dict.form.period.values).map(
+                        ([key, value]) => (
+                          <SelectItem value={key} key={key}>
+                            {value}
+                          </SelectItem>
+                        )
+                      )}
+                    </SelectContent>
+                  </Select>
+                </FormItem>
                 <FormField
                   control={form.control}
                   name="amount"
@@ -150,31 +142,24 @@ export default function LimitForm({
                     </FormItem>
                   )}
                 />
-                <FormField
-                  control={form.control}
-                  name="currency"
-                  disabled={isEdit}
-                  render={({ field }) => (
-                    <FormItem>
-                      <Select
-                        disabled={isEdit}
-                        value={field.value}
-                        onValueChange={field.onChange}
-                      >
-                        <SelectTrigger label={dict.form.currency.label}>
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {CURRENCIES.map((curr) => (
-                            <SelectItem value={curr} key={curr}>
-                              {curr}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </FormItem>
-                  )}
-                />
+                <FormItem>
+                  <Select
+                    disabled={isEdit}
+                    value={currency}
+                    onValueChange={(value) => form.setValue("currency", value)}
+                  >
+                    <SelectTrigger label={dict.form.currency.label}>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {CURRENCIES.map((curr) => (
+                        <SelectItem value={curr} key={curr}>
+                          {curr}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </FormItem>
               </div>
             </div>
             <DialogFooter>
@@ -183,7 +168,7 @@ export default function LimitForm({
                   {dict.form._close.label}
                 </Button>
               </DialogClose>
-              <Button disabled={isLoading || !isValid}>
+              <Button disabled={isLoading || !isValid || !isDirty}>
                 {dict.form._submit.label}
               </Button>
             </DialogFooter>
