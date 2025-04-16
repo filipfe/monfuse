@@ -2,57 +2,32 @@
 
 import { CURRENCIES } from "@/const";
 import { Dict } from "@/const/dict";
-import { Select, SelectItem, SelectProps } from "@heroui/react";
+import {
+  Select,
+  SelectItem,
+  SelectContent,
+  SelectTrigger,
+  SelectValue,
+} from "../select";
 
-export default function CurrencySelect({
-  dict,
-  onChange,
-  value,
-  ...props
-}: Pick<SelectProps, "labelPlacement"> &
-  State & {
-    dict: Dict["private"]["operations"]["operation-table"]["top-content"]["filter"]["currency"];
-  }) {
+interface Props extends State {
+  dict: Dict["private"]["operations"]["operation-table"]["top-content"]["filter"]["currency"];
+}
+
+export default function CurrencySelect({ dict, onChange, value }: Props) {
   return (
-    <Select
-      name="currency"
-      label={dict.label}
-      size="sm"
-      radius="md"
-      selectedKeys={[value]}
-      onSelectionChange={(keys) => {
-        const selectedKey = Array.from(keys)[0]?.toString();
-        onChange(selectedKey === "all" ? "" : selectedKey);
-      }}
-      classNames={{
-        trigger: "bg-light shadow-none ",
-      }}
-      disallowEmptySelection
-      className="w-full"
-      {...props}
-    >
-      {
-        (
-          <SelectItem
-            className={`${
-              value === "" ? "!bg-light" : "!bg-white hover:!bg-light"
-            }`}
-            key=""
-          >
-            {dict.default}
+    <Select value={value} onValueChange={onChange}>
+      <SelectTrigger label={dict.label}>
+        <SelectValue />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value="*">{dict.default}</SelectItem>
+        {CURRENCIES.map((curr) => (
+          <SelectItem value={curr} key={curr}>
+            {curr}
           </SelectItem>
-        ) as any
-      }
-      {CURRENCIES.map((curr) => (
-        <SelectItem
-          className={`${
-            curr === value ? "!bg-light" : "!bg-white hover:!bg-light"
-          }`}
-          key={curr}
-        >
-          {curr}
-        </SelectItem>
-      ))}
+        ))}
+      </SelectContent>
     </Select>
   );
 }

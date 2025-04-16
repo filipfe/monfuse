@@ -266,7 +266,7 @@
           "delete": {
             "modal": {
               "title": "Czy na pewno chcesz usunąć limit?",
-              "description": "Limit zostanie usunięty od razu, ale możliwe będzie dodanie następnego limitu",
+              "description": "Limit zostanie usunięty od razu, ale możliwe będzie dodanie następnego limitu.",
               "proceed": "Usuń",
               "cancel": "Anuluj"
             }

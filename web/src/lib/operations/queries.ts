@@ -140,3 +140,8 @@ export async function getLatestOperations(from?: string): Promise<Payment[]> {
   }
   return data;
 }
+
+export async function deleteLimit(period: Limit["period"]) {
+  const supabase = createClient();
+  await supabase.from("limits").delete().eq("period", period).throwOnError();
+}

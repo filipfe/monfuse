@@ -23,7 +23,7 @@ const config: Config = {
         "success-light": "#EFFCEE",
         danger: "#c43333",
         "danger-light": "#FCEEEE",
-        foreground: "hsl(var(--foreground))",
+        foreground: "#000000",
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",

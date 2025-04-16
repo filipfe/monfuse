@@ -237,22 +237,3 @@ export async function updateOperation(
     };
   }
 }
-
-export async function deleteLimit(formData: FormData) {
-  const period = formData.get("period") as string;
-
-  const supabase = await createClient();
-
-  const { error } = await supabase.from("limits").delete().eq("period", period);
-
-  if (error) {
-    return {
-      error: error.message,
-    };
-  }
-
-  revalidatePath("/");
-  revalidatePath("/expenses");
-
-  return {};
-}

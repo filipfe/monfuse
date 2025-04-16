@@ -1,16 +1,7 @@
 "use client";
 
 import { createClient } from "@/utils/supabase/client";
-import {
-  Button,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  cn,
-  useDisclosure,
-} from "@heroui/react";
+
 import Image from "next/image";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -19,6 +10,15 @@ import { DownloadIcon } from "lucide-react";
 import Link from "next/link";
 import { Dict } from "@/const/dict";
 import { Hatch } from "ldrs/react";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/utils/cn";
 
 type Props = {
   dict: Dict["private"]["operations"]["operation-table"]["modal"];
@@ -27,7 +27,6 @@ type Props = {
 };
 
 export default function DocModal({ dict, docPath, setDocPath }: Props) {
-  const { onClose, onOpenChange } = useDisclosure();
   const [mediaUrl, setMediaUrl] = useState<string>("");
   const [isLoading, setIsLoading] = useState({
     url: true,
@@ -50,53 +49,42 @@ export default function DocModal({ dict, docPath, setDocPath }: Props) {
         toast.custom((t) => (
           <Toast {...t} message={dict._error} type="error" />
         ));
-        onClose();
         setDocPath(null);
       }
     })();
   }, [docPath]);
 
   return (
-    <Modal
-      isOpen={!!docPath}
-      onOpenChange={onOpenChange}
-      onClose={() => setDocPath(null)}
-    >
-      <ModalContent>
-        {(onClose) => (
-          <>
-            <ModalHeader>
-              {mediaUrl && (
-                <Link href={`${mediaUrl}&download`}>
-                  <Button as="div" disableRipple type="submit">
-                    <DownloadIcon size={16} /> {dict.button}
-                  </Button>
-                </Link>
+    <Dialog open={!!docPath} onOpenChange={(open) => !open && setDocPath(null)}>
+      <DialogContent>
+        <DialogHeader className="space-y-0">
+          <DialogTitle className="sr-only">Operation</DialogTitle>
+          {mediaUrl && (
+            <Button variant="outline" className="max-w-max" asChild>
+              <Link href={`${mediaUrl}&download`}>
+                <DownloadIcon size={16} /> {dict.button}
+              </Link>
+            </Button>
+          )}
+        </DialogHeader>
+        <div className="relative flex items-center justify-center min-h-48 py-0 [&:has(+button)]:z-40">
+          {isLoading.url || (isLoading.image && <Hatch size={32} />)}
+          {mediaUrl && (
+            <Image
+              width={0}
+              height={0}
+              sizes="100vw"
+              onLoad={() => setIsLoading((prev) => ({ ...prev, image: false }))}
+              className={cn(
+                "w-full h-auto rounded-md max-h-[80vh]",
+                isLoading.image && "sr-only"
               )}
-            </ModalHeader>
-            <ModalBody className="relative flex items-center justify-center min-h-48 py-0 [&:has(+button)]:z-40">
-              {isLoading.url || (isLoading.image && <Hatch size={32} />)}
-              {!isLoading.url && (
-                <Image
-                  width={0}
-                  height={0}
-                  sizes="100vw"
-                  onLoad={() =>
-                    setIsLoading((prev) => ({ ...prev, image: false }))
-                  }
-                  className={cn(
-                    "w-full h-auto rounded-md max-h-[80vh]",
-                    isLoading.image && "sr-only"
-                  )}
-                  src={mediaUrl}
-                  alt=""
-                />
-              )}
-            </ModalBody>
-            <ModalFooter></ModalFooter>
-          </>
-        )}
-      </ModalContent>
-    </Modal>
+              src={mediaUrl}
+              alt=""
+            />
+          )}
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 }

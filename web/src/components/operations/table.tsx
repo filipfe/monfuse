@@ -1,18 +1,6 @@
 "use client";
 
-import { MouseEvent, useCallback, useContext, useState } from "react";
-import {
-  Table,
-  TableHeader,
-  TableColumn,
-  TableBody,
-  TableRow,
-  TableCell,
-  Spinner,
-  Pagination,
-  ScrollShadow,
-  Button,
-} from "@heroui/react";
+import { MouseEvent, useCallback, useContext, useMemo, useState } from "react";
 import useTableQuery from "@/hooks/useTableQuery";
 import TopContent from "../ui/table/top-content";
 import Block from "../ui/block";
@@ -23,6 +11,11 @@ import ActionsDropdown from "./actions-dropdown";
 import { PeriodContext } from "@/app/(private)/(sidebar)/(operations)/providers";
 import { Dict } from "@/const/dict";
 import { useOperations } from "@/lib/operations/queries";
+import DataTable from "../ui/data-table";
+import { ColumnDef } from "@tanstack/react-table";
+import { formatNumber, formatPrice } from "@/utils/format";
+import { Button } from "../ui/button";
+import { Pagination } from "@heroui/react";
 
 interface Props extends TableProps {
   settings: Settings;
@@ -56,6 +49,85 @@ export default function OperationTable({
   // const { period } = useContext(PeriodContext);
   const operations = data?.results || [];
 
+  const { hasDoc, hasLabel } = useMemo(
+    () => ({
+      hasDoc: operations.some((item) => item.doc_path),
+      hasLabel: operations.some((item) => item.label),
+    }),
+    [data]
+  );
+
+  const columns: ColumnDef<Operation>[] = useMemo(
+    () => [
+      {
+        accessorFn: ({ issued_at }) =>
+          new Intl.DateTimeFormat(settings.language, {
+            dateStyle: "short",
+            timeZone: settings.timezone,
+          }).format(new Date(issued_at)),
+        header: dict.columns.issued_at,
+      },
+      {
+        accessorKey: "title",
+        header: dict.columns.title,
+      },
+      {
+        accessorFn: ({ amount, currency }) =>
+          formatPrice(amount, currency, settings.language),
+        header: dict.columns.amount,
+      },
+      // {
+      //   accessorKey: "currency",
+      //   header: dict.columns.currency
+      // }
+      ...(type === "expense"
+        ? [
+            {
+              accessorFn: ({ label }) => label || "-",
+              header: dict.columns.label,
+            } as ColumnDef<Operation>,
+          ]
+        : []),
+      ...(hasDoc
+        ? [
+            {
+              accessorKey: "doc_path",
+              header: "",
+              cell: ({ row }) =>
+                row.original.doc_path ? (
+                  <Button
+                    size="icon"
+                    variant="outline"
+                    className="w-8 h-8"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setDocPath(row.original.doc_path);
+                    }}
+                  >
+                    <PaperclipIcon size={18} />
+                  </Button>
+                ) : (
+                  <></>
+                ),
+            } as ColumnDef<Operation>,
+          ]
+        : []),
+      {
+        id: "actions",
+        header: "",
+        cell: ({ row }) => (
+          <ActionsDropdown
+            dict={dict.dropdown}
+            type={type}
+            operation={row.original}
+          />
+        ),
+      },
+    ],
+    [dict, settings, type, hasDoc]
+  );
+
   // const {
   //   selectionMode,
   //   selectedKeys,
@@ -65,87 +137,87 @@ export default function OperationTable({
   // } = useSelection((viewOnly ? items : rows).map((item) => item.id));
   const { page, sort, search, label: _label } = searchQuery;
 
-  const columns = useCallback(
-    (hasLabel: boolean, hasDoc: boolean) => [
-      { key: "issued_at", label: dict.columns.issued_at },
-      { key: "title", label: dict.columns.title },
-      { key: "amount", label: dict.columns.amount },
-      { key: "currency", label: dict.columns.currency },
-      ...(hasLabel ? [{ key: "label", label: dict.columns.label }] : []),
-      ...(hasDoc ? [{ key: "doc_path", label: "" }] : []),
-      { key: "actions", label: "" },
-    ],
-    [page]
-  );
+  // const columns = useCallback(
+  //   (hasLabel: boolean, hasDoc: boolean) => [
+  //     { key: "issued_at", label: dict.columns.issued_at },
+  //     { key: "title", label: dict.columns.title },
+  //     { key: "amount", label: dict.columns.amount },
+  //     { key: "currency", label: dict.columns.currency },
+  //     ...(hasLabel ? [{ key: "label", label: dict.columns.label }] : []),
+  //     ...(hasDoc ? [{ key: "doc_path", label: "" }] : []),
+  //     { key: "actions", label: "" },
+  //   ],
+  //   [page]
+  // );
 
-  const renderCell = useCallback(
-    (item: any, columnKey: any) => {
-      const cellValue = item[columnKey];
+  // const renderCell = useCallback(
+  //   (item: any, columnKey: any) => {
+  //     const cellValue = item[columnKey];
 
-      switch (columnKey) {
-        case "title":
-          return <span className="line-clamp-1 break-all">{cellValue}</span>;
-        case "label":
-          return (
-            <span className="line-clamp-1 break-all">{cellValue || "-"}</span>
-          );
-        case "issued_at":
-          return (
-            <span className="line-clamp-1 break-all w-[10ch]">
-              {new Intl.DateTimeFormat(settings.language, {
-                dateStyle: "short",
-                timeZone: settings.timezone,
-              }).format(new Date(cellValue))}
-            </span>
-          );
-        case "doc_path":
-          const handleChange = (e: MouseEvent<HTMLButtonElement>) => {
-            e.preventDefault();
-            e.stopPropagation();
-            setDocPath(cellValue);
-          };
-          return cellValue ? (
-            <Button
-              size="sm"
-              isIconOnly
-              onClick={handleChange}
-              radius="md"
-              disableRipple
-              className="flex items-center ml-auto relative z-40 -my-2 border"
-            >
-              <PaperclipIcon size={18} />
-            </Button>
-          ) : (
-            <></>
-          );
-        // case "actions":
-        //   return selectedKeys.length === 0 ? (
-        //     <ActionsDropdown
-        //       type={props.type}
-        //       operation={item}
-        //       onSelect={() => onRowAction(item.id)}
-        //     />
-        //   ) : (
-        //     <></>
-        //   );
-        case "actions":
-          return (
-            <ActionsDropdown
-              dict={dict.dropdown}
-              type={type}
-              operation={item}
-            />
-          );
-        default:
-          return <span className="line-clamp-1 break-all">{cellValue}</span>;
-      }
-    },
-    [
-      // selectedKeys,
-      type,
-      //  onRowAction
-    ]
-  );
+  //     switch (columnKey) {
+  //       case "title":
+  //         return <span className="line-clamp-1 break-all">{cellValue}</span>;
+  //       case "label":
+  //         return (
+  //           <span className="line-clamp-1 break-all">{cellValue || "-"}</span>
+  //         );
+  //       case "issued_at":
+  //         return (
+  //           <span className="line-clamp-1 break-all w-[10ch]">
+  //             {new Intl.DateTimeFormat(settings.language, {
+  //               dateStyle: "short",
+  //               timeZone: settings.timezone,
+  //             }).format(new Date(cellValue))}
+  //           </span>
+  //         );
+  //       case "doc_path":
+  //         const handleChange = (e: MouseEvent<HTMLButtonElement>) => {
+  //           e.preventDefault();
+  //           e.stopPropagation();
+  //           setDocPath(cellValue);
+  //         };
+  //         return cellValue ? (
+  //           <Button
+  //             size="sm"
+  //             isIconOnly
+  //             onClick={handleChange}
+  //             radius="md"
+  //             disableRipple
+  //             className="flex items-center ml-auto relative z-40 -my-2 border"
+  //           >
+  //             <PaperclipIcon size={18} />
+  //           </Button>
+  //         ) : (
+  //           <></>
+  //         );
+  //       // case "actions":
+  //       //   return selectedKeys.length === 0 ? (
+  //       //     <ActionsDropdown
+  //       //       type={props.type}
+  //       //       operation={item}
+  //       //       onSelect={() => onRowAction(item.id)}
+  //       //     />
+  //       //   ) : (
+  //       //     <></>
+  //       //   );
+  //       case "actions":
+  //         return (
+  //           <ActionsDropdown
+  //             dict={dict.dropdown}
+  //             type={type}
+  //             operation={item}
+  //           />
+  //         );
+  //       default:
+  //         return <span className="line-clamp-1 break-all">{cellValue}</span>;
+  //     }
+  //   },
+  //   [
+  //     // selectedKeys,
+  //     type,
+  //     //  onRowAction
+  //   ]
+  // );
 
   return (
     <Block
@@ -164,11 +236,11 @@ export default function OperationTable({
           addHref={`/${type}s/add`}
           state={{
             label: {
-              value: searchQuery.label || "",
+              value: searchQuery.label || "*",
               onChange: (value) => changeFilter("label", value),
             },
             currency: {
-              value: searchQuery.currency || "",
+              value: searchQuery.currency || "*",
               onChange: (value) => changeFilter("currency", value),
             },
           }}
@@ -177,7 +249,14 @@ export default function OperationTable({
       }
     >
       <DocModal dict={dict.modal} docPath={docPath} setDocPath={setDocPath} />
-      <ScrollShadow orientation="horizontal" hideScrollBar>
+      <DataTable
+        data={operations}
+        columns={columns}
+        enableSorting
+        // className="[&_td]:whitespace-nowrap [&_td]:text-ellipsis [&_td]:overflow-hidden"
+        className="[&_td]:h-11 [&_td]:py-0 [&_td]:whitespace-nowrap [&_td]:max-w-24 [&_td]:text-ellipsis [&_td]:overflow-hidden"
+      />
+      {/* <ScrollShadow orientation="horizontal" hideScrollBar>
         <Table
           removeWrapper
           shadow="none"
@@ -245,7 +324,7 @@ export default function OperationTable({
             )}
           </TableBody>
         </Table>
-      </ScrollShadow>
+      </ScrollShadow> */}
       {pages > 0 && (
         <div className="mt-2 flex-1 flex items-end justify-end">
           <Pagination
