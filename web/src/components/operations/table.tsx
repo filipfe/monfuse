@@ -16,6 +16,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { formatNumber, formatPrice } from "@/utils/format";
 import { Button } from "../ui/button";
 import { Pagination } from "@heroui/react";
+import { useSWRConfig } from "swr";
 
 interface Props extends TableProps {
   settings: Settings;
@@ -30,11 +31,16 @@ export default function OperationTable({
   type,
   settings,
 }: Props) {
+  const { mutate } = useSWRConfig();
   const [pages, setPages] = useState(0);
   const [docPath, setDocPath] = useState<string | null>(null);
   const { searchQuery, handleSearch, changeFilter } = useTableQuery();
   const { period } = useContext(PeriodContext);
-  const { data, isLoading } = useOperations(
+  const {
+    data,
+    mutate: mutateOperations,
+    isLoading,
+  } = useOperations(
     type,
     {
       ...searchQuery,
@@ -46,7 +52,7 @@ export default function OperationTable({
       onSuccess: (data) => setPages(Math.ceil(data.count / 10)),
     }
   );
-  // const { period } = useContext(PeriodContext);
+
   const operations = data?.results || [];
 
   const { hasDoc, hasLabel } = useMemo(
@@ -80,7 +86,7 @@ export default function OperationTable({
       //   accessorKey: "currency",
       //   header: dict.columns.currency
       // }
-      ...(type === "expense"
+      ...(hasLabel
         ? [
             {
               accessorFn: ({ label }) => label || "-",
@@ -121,11 +127,23 @@ export default function OperationTable({
             dict={dict.dropdown}
             type={type}
             operation={row.original}
+            onDelete={() => {
+              mutateOperations();
+              mutate([
+                "history",
+                type,
+                settings.timezone,
+                row.original.currency,
+              ]);
+              if (type === "expense") {
+                mutate(["limits", settings.timezone, row.original.currency]);
+              }
+            }}
           />
         ),
       },
     ],
-    [dict, settings, type, hasDoc]
+    [dict, settings, type, hasLabel, hasDoc]
   );
 
   // const {
@@ -136,19 +154,6 @@ export default function OperationTable({
   //   setSelectedKeys,
   // } = useSelection((viewOnly ? items : rows).map((item) => item.id));
   const { page, sort, search, label: _label } = searchQuery;
-
-  // const columns = useCallback(
-  //   (hasLabel: boolean, hasDoc: boolean) => [
-  //     { key: "issued_at", label: dict.columns.issued_at },
-  //     { key: "title", label: dict.columns.title },
-  //     { key: "amount", label: dict.columns.amount },
-  //     { key: "currency", label: dict.columns.currency },
-  //     ...(hasLabel ? [{ key: "label", label: dict.columns.label }] : []),
-  //     ...(hasDoc ? [{ key: "doc_path", label: "" }] : []),
-  //     { key: "actions", label: "" },
-  //   ],
-  //   [page]
-  // );
 
   // const renderCell = useCallback(
   //   (item: any, columnKey: any) => {
@@ -252,79 +257,11 @@ export default function OperationTable({
       <DataTable
         data={operations}
         columns={columns}
+        isLoading={isLoading}
         enableSorting
-        // className="[&_td]:whitespace-nowrap [&_td]:text-ellipsis [&_td]:overflow-hidden"
         className="[&_td]:h-11 [&_td]:py-0 [&_td]:whitespace-nowrap [&_td]:max-w-24 [&_td]:text-ellipsis [&_td]:overflow-hidden"
+        dict={{ _empty: dict._empty.title }}
       />
-      {/* <ScrollShadow orientation="horizontal" hideScrollBar>
-        <Table
-          removeWrapper
-          shadow="none"
-          color="primary"
-          sortDescriptor={
-            sort
-              ? {
-                  column: sort.includes("-")
-                    ? sort.split("-")[1]
-                    : sort.toString(),
-                  direction: sort.includes("-") ? "descending" : "ascending",
-                }
-              : undefined
-          }
-          onSortChange={(descriptor) =>
-            changeFilter(
-              "sort",
-              (descriptor.direction === "descending" ? "-" : "") +
-                descriptor.column
-            )
-          }
-          topContentPlacement="outside"
-          bottomContentPlacement="outside"
-          aria-label="operations-table"
-          className="max-w-full w-full flex-1"
-          classNames={{
-            td: "[&_span:last-child]:before:!border-neutral-200",
-          }}
-        >
-          <TableHeader>
-            {columns(
-              operations.some((item) => item.label),
-              operations.some((item) => item.doc_path)
-            ).map((column) => (
-              <TableColumn
-                key={column.key}
-                allowsSorting={
-                  column.key !== "actions" && column.key !== "doc_path"
-                }
-              >
-                {column.label}
-              </TableColumn>
-            ))}
-          </TableHeader>
-          <TableBody
-            items={operations}
-            isLoading={isLoading}
-            emptyContent={
-              <Empty
-                title={dict._empty.title}
-                cta={{
-                  title: dict._empty.button[type as "expense" | "income"],
-                  href: `/${type}s/add`,
-                }}
-              />
-            }
-            loadingContent={<Spinner />}
-          >
-            {(operation) => (
-              <TableRow className="hover:bg-light" key={operation.id}>
-                {(columnKey) => (
-                  <TableCell>{renderCell(operation, columnKey)}</TableCell>
-                )}
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </ScrollShadow> */}
       {pages > 0 && (
         <div className="mt-2 flex-1 flex items-end justify-end">
           <Pagination

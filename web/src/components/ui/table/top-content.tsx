@@ -1,4 +1,3 @@
-import { Input } from "@heroui/react";
 import { PlusIcon, SearchIcon } from "lucide-react";
 
 import Filter from "./filter";
@@ -8,6 +7,7 @@ import Delete from "../cta/delete";
 import { Dict } from "@/const/dict";
 import Link from "next/link";
 import { Button } from "../button";
+import { Input } from "../input";
 
 interface Props extends FilterProps {
   dict: Dict["private"]["operations"]["operation-table"]["top-content"];
@@ -35,7 +35,7 @@ export default function TopContent({
 Props) {
   return (
     <div className="flex-1 flex items-center justify-between gap-4 sm:gap-8">
-      <Input
+      {/* <Input
         isClearable
         size="sm"
         className="max-w-[24rem]"
@@ -47,6 +47,11 @@ Props) {
         startContent={<SearchIcon size={16} className="mx-1" />}
         defaultValue={search}
         onValueChange={handleSearch}
+      /> */}
+      <Input
+        placeholder={dict.search.placeholder}
+        className="h-9"
+        startContent={<SearchIcon size={16} />}
       />
       <div className="items-center gap-3 flex">
         {selected && selected.length > 0 && (

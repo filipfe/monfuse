@@ -18,17 +18,24 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { cn } from "@/utils/cn";
+import { Hatch } from "ldrs/react";
 
 interface DataTableProps<TData, TValue> extends Partial<TableOptions<TData>> {
   data: TData[];
   columns: ColumnDef<TData, TValue>[];
   className?: string;
+  isLoading?: boolean;
+  dict: {
+    _empty: string;
+  };
 }
 
 export default function DataTable<TData, TValue>({
   data,
   columns,
   className,
+  dict,
+  isLoading,
   ...props
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
@@ -60,7 +67,15 @@ export default function DataTable<TData, TValue>({
         ))}
       </TableHeader>
       <TableBody>
-        {table.getRowModel().rows?.length ? (
+        {isLoading ? (
+          <TableRow className="hover:bg-transparent">
+            <TableCell colSpan={columns.length} className="!h-24">
+              <div className="h-full w-full flex justify-center items-center">
+                <Hatch size={24} />
+              </div>
+            </TableCell>
+          </TableRow>
+        ) : table.getRowModel().rows?.length ? (
           table.getRowModel().rows.map((row) => (
             <TableRow
               key={row.id}
@@ -74,9 +89,9 @@ export default function DataTable<TData, TValue>({
             </TableRow>
           ))
         ) : (
-          <TableRow>
-            <TableCell colSpan={columns.length} className="h-24 text-center">
-              No results.
+          <TableRow className="hover:bg-transparent">
+            <TableCell colSpan={columns.length} className="!h-24 text-center">
+              {dict._empty}
             </TableCell>
           </TableRow>
         )}

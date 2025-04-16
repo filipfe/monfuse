@@ -36,9 +36,7 @@ export default function OperationsByMonth({
   const { data: results, isLoading } = useOperationsAmountsHistory(
     type,
     settings.timezone,
-    {
-      currency,
-    }
+    currency
   );
 
   return (
@@ -63,67 +61,70 @@ export default function OperationsByMonth({
       {isLoading ? (
         <ChartLoader className="!p-0" hideTitle />
       ) : results && results.length > 0 ? (
-        <ChartContainer
-          ref={containerRef}
-          config={{}}
-          className="w-full h-full"
-          style={{ minHeight: 240 }}
-        >
-          <BarChart data={results}>
-            {/* <CartesianGrid vertical={false} opacity={0.5} /> */}
-            <YAxis
-              tick={{ fontSize: 12 }}
-              dataKey="total_amount"
-              axisLine={false}
-              tickLine={false}
-              tickFormatter={(value) =>
-                new Intl.NumberFormat(settings.language, {
-                  style: "currency",
-                  currency,
-                  notation: "compact",
-                }).format(value)
-              }
-            />
-            <XAxis
-              tickMargin={8}
-              dataKey="date"
-              tick={{ fontSize: 12 }}
-              tickFormatter={(label) => {
-                const [year, month, day] = label.split("-");
-                return new Intl.DateTimeFormat(settings.language, {
-                  day: "2-digit",
-                  month: "short",
-                  timeZone: settings.timezone,
-                }).format(new Date(year, parseInt(month) - 1, day));
-              }}
-              minTickGap={32}
-              axisLine={false}
-              tickLine={false}
-              type="category"
-            />
-            <CartesianGrid strokeWidth={1} vertical={false} />
-            <Tooltip
-              cursor={{ fill: "#177981", fillOpacity: 0.1 }}
-              isAnimationActive={false}
-              labelFormatter={(label) => label}
-              content={(props) => (
-                <ChartTooltip
-                  {...props}
-                  payloadName={title}
-                  currency={currency}
-                  label={undefined}
-                  labelFormatter={(label) =>
-                    new Intl.DateTimeFormat(settings.language, {
-                      dateStyle: "full",
-                      timeZone: settings.timezone,
-                    }).format(new Date(label))
+        <div className="flex-1 relative" style={{ minHeight: 240 }}>
+          <div className="absolute inset-0 w-full h-full">
+            <ChartContainer
+              ref={containerRef}
+              config={{}}
+              className="w-full h-full"
+            >
+              <BarChart data={results}>
+                {/* <CartesianGrid vertical={false} opacity={0.5} /> */}
+                <YAxis
+                  tick={{ fontSize: 12 }}
+                  dataKey="total_amount"
+                  axisLine={false}
+                  tickLine={false}
+                  tickFormatter={(value) =>
+                    new Intl.NumberFormat(settings.language, {
+                      style: "currency",
+                      currency,
+                      notation: "compact",
+                    }).format(value)
                   }
                 />
-              )}
-            />
-            <Bar dataKey="total_amount" fill="#177981" />
-          </BarChart>
-        </ChartContainer>
+                <XAxis
+                  tickMargin={8}
+                  dataKey="date"
+                  tick={{ fontSize: 12 }}
+                  tickFormatter={(label) => {
+                    const [year, month, day] = label.split("-");
+                    return new Intl.DateTimeFormat(settings.language, {
+                      day: "2-digit",
+                      month: "short",
+                      timeZone: settings.timezone,
+                    }).format(new Date(year, parseInt(month) - 1, day));
+                  }}
+                  minTickGap={32}
+                  axisLine={false}
+                  tickLine={false}
+                  type="category"
+                />
+                <CartesianGrid strokeWidth={1} vertical={false} />
+                <Tooltip
+                  cursor={{ fill: "#177981", fillOpacity: 0.1 }}
+                  isAnimationActive={false}
+                  labelFormatter={(label) => label}
+                  content={(props) => (
+                    <ChartTooltip
+                      {...props}
+                      payloadName={title}
+                      currency={currency}
+                      label={undefined}
+                      labelFormatter={(label) =>
+                        new Intl.DateTimeFormat(settings.language, {
+                          dateStyle: "full",
+                          timeZone: settings.timezone,
+                        }).format(new Date(label))
+                      }
+                    />
+                  )}
+                />
+                <Bar dataKey="total_amount" fill="#177981" />
+              </BarChart>
+            </ChartContainer>
+          </div>
+        </div>
       ) : (
         <Empty
           title={dict._empty.title}
