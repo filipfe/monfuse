@@ -26,6 +26,7 @@ import ChartLoader from "../ui/charts/loader";
 import NumberFormat from "@/utils/formatters/currency";
 import { Dict } from "@/const/dict";
 import { ChartConfig, ChartContainer } from "../ui/chart";
+import formatAmount from "@/utils/operations/format-amount";
 
 const CustomTooltip = ({
   dict,
@@ -125,7 +126,7 @@ export default function BalanceByMonth({ dict }: Props) {
     month + 1,
     year
   );
-  const { width, tickFormatter } = useYAxisWidth(currency, settings.language);
+  const { width, setChartRef } = useYAxisWidth();
 
   const maxValue = results
     ? Math.max(
@@ -159,14 +160,24 @@ export default function BalanceByMonth({ dict }: Props) {
             style={{ minHeight: 240 }}
             className="h-full w-full"
           >
-            <BarChart data={results} stackOffset="sign" reverseStackOrder>
+            <BarChart
+              data={results}
+              stackOffset="sign"
+              reverseStackOrder
+              ref={setChartRef}
+            >
               {/* <CartesianGrid vertical={false} opacity={0.5} /> */}
               <YAxis
-                // width={width}
+                width={width}
                 tick={{ fontSize: 12 }}
                 axisLine={false}
                 tickLine={false}
-                tickFormatter={tickFormatter}
+                tickFormatter={(value) =>
+                  new Intl.NumberFormat(settings.language, {
+                    style: "currency",
+                    currency,
+                  }).format(value)
+                }
                 domain={[-yAxisMaxValue, yAxisMaxValue]}
                 ticks={ticks}
               />

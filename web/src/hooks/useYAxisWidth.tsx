@@ -1,51 +1,37 @@
-import { satoshi } from "@/assets/font/satoshi";
 import { useCallback, useState } from "react";
+import type { LineChart } from "recharts";
 
-const checkWidth = (label: string): number => {
-  const tempElement = document.createElement("p");
-  tempElement.classList.add(satoshi.className);
-  tempElement.style.visibility = "hidden";
-  tempElement.style.position = "absolute";
-  tempElement.style.width = "max-content";
-  tempElement.style.fontSize = "12px";
+const PADDING = 0;
+const TICK_VALUE_SELECTOR = ".recharts-cartesian-axis-tick-value";
 
-  tempElement.textContent = label;
+type ChartRef =
+  | ({
+      container?: HTMLElement;
+    } & Partial<typeof LineChart>)
+  | null;
 
-  document.body.appendChild(tempElement);
+/**
+ * This hook is used to dynamically set the width of the y-axis based on the width of the tick values.
+ * This is used to ensure that the y-axis labels (and tick) are not cut off.
+ */
+export default function useYAxisWidth() {
+  const [yAxisWidth, setYAxisWidth] = useState<number | undefined>(undefined);
 
-  const width = tempElement.offsetWidth;
+  const setChartRef = useCallback((chartRef: ChartRef) => {
+    if (chartRef && chartRef.container) {
+      const tickValueElements: NodeListOf<Element> =
+        chartRef.container.querySelectorAll(TICK_VALUE_SELECTOR);
+      const highestWidth = Array.from(tickValueElements).reduce(
+        (maxWidth, el) => {
+          const width = el.getBoundingClientRect().width;
+          return Math.max(maxWidth, width);
+        },
+        0
+      );
 
-  document.body.removeChild(tempElement);
-  return width;
-};
+      setYAxisWidth(highestWidth + PADDING);
+    }
+  }, []);
 
-export default function useYAxisWidth(
-  currency?: string,
-  language?: Lang,
-  formatter?: (value: number) => string
-) {
-  const [longestTick, setLongestTick] = useState(0);
-  const tickFormatter = useCallback(
-    (val: number): string => {
-      const formattedTick = formatter
-        ? formatter(val)
-        : currency
-        ? new Intl.NumberFormat(language, {
-            style: "currency",
-            currency,
-            notation: "compact",
-          }).format(val)
-        : val.toString();
-      const width = checkWidth(formattedTick);
-      // if (width > longestTick) {
-      //   setLongestTick(width);
-      // }
-      return formattedTick;
-    },
-    [currency, formatter, longestTick]
-  );
-  return {
-    width: longestTick + 8.2 * 1,
-    tickFormatter,
-  };
+  return { width: yAxisWidth, setChartRef };
 }

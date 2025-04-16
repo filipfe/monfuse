@@ -9,7 +9,7 @@ import Scan from "./inputs/scan";
 import Manual from "./inputs/manual";
 import LabelInput from "./inputs/label";
 import PreviewTable from "../ui/preview-table";
-import Form from "../ui/form";
+import Form from "../ui/temp-form";
 import { Dict } from "@/const/dict";
 
 export default function AddForm({

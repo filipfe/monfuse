@@ -1,6 +1,7 @@
 "use client";
 
 import Block from "@/components/ui/block";
+import { Button } from "@/components/ui/button";
 import ConfirmationModal from "@/components/ui/confirmation-modal";
 import {
   Select,
@@ -9,19 +10,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import UniversalSelect from "@/components/ui/universal-select";
 import { CURRENCIES } from "@/const";
 import { Dict } from "@/const/dict";
 import { useLimits } from "@/lib/general/queries";
 import { deleteLimit } from "@/lib/operations/actions";
 import NumberFormat from "@/utils/formatters/currency";
-import {
-  Button,
-  CircularProgress,
-  cn,
-  Skeleton,
-  useDisclosure,
-} from "@heroui/react";
+import { CircularProgress, cn, Skeleton, useDisclosure } from "@heroui/react";
 import { Plus, SquarePen, Trash2 } from "lucide-react";
 import { useState } from "react";
 
@@ -92,13 +86,15 @@ export default function LimitRef({ dict, period, settings, onAdd }: Props) {
         <div className="grid grid-cols-2 sm:flex items-center justify-between gap-2">
           {limit && (
             <Button
-              variant="flat"
-              size="sm"
-              radius="md"
-              disableRipple
-              isIconOnly
-              className="border"
-              onPress={() => onAdd(currency, limit.amount.toString())}
+              // variant="flat"
+              variant="outline"
+              size="icon"
+              // radius="md"
+              // disableRipple
+              // isIconOnly
+              // className="border"
+              className="h-8 w-8"
+              onClick={() => onAdd(currency, limit.amount.toString())}
             >
               <SquarePen size={14} />
             </Button>
@@ -106,13 +102,15 @@ export default function LimitRef({ dict, period, settings, onAdd }: Props) {
           {limit && (
             <>
               <Button
-                variant="flat"
-                size="sm"
-                radius="md"
-                disableRipple
-                isIconOnly
-                className="border"
-                onPress={deleteDisclosure.onOpen}
+                // variant="flat"
+                variant="outline"
+                size="icon"
+                // radius="md"
+                // disableRipple
+                // isIconOnly
+                // onPress={deleteDisclosure.onOpen}
+                className="h-8 w-8"
+                onClick={deleteDisclosure.onOpen}
               >
                 <Trash2 size={14} />
               </Button>
@@ -143,7 +141,7 @@ export default function LimitRef({ dict, period, settings, onAdd }: Props) {
             <SelectTrigger size="sm" className="w-20 col-span-2 row-start-1">
               <SelectValue />
             </SelectTrigger>
-            <SelectContent className="w-20">
+            <SelectContent className="w-20 min-w-0" align="end">
               {CURRENCIES.map((curr) => (
                 <SelectItem value={curr} key={curr}>
                   {curr}
@@ -156,14 +154,15 @@ export default function LimitRef({ dict, period, settings, onAdd }: Props) {
       {!isLoading && !limit && (
         <div className="grid place-content-center sm:absolute sm:left-1/2 sm:-translate-x-1/2 sm:top-1/2 sm:-translate-y-1/2">
           <Button
-            variant="flat"
-            radius="md"
+            // variant="flat"
+            variant="outline"
+            // radius="md"
             size="sm"
-            disableRipple
-            startContent={<Plus size={14} />}
-            className="bg-light border max-w-max text-font"
-            onPress={() => onAdd(currency)}
+            // disableRipple
+            // className="bg-light border max-w-max text-font"
+            onClick={() => onAdd(currency)}
           >
+            <Plus size={14} />
             {dict._empty.label}
           </Button>
         </div>

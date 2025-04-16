@@ -1,6 +1,6 @@
 "use client";
 
-import Form from "@/components/ui/form";
+import Form from "@/components/ui/temp-form";
 import { Dict } from "@/const/dict";
 import { resetPassword } from "@/lib/auth/actions";
 import { Input } from "@heroui/react";

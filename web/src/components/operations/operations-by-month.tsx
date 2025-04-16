@@ -3,22 +3,20 @@
 import Block from "@/components/ui/block";
 import Empty from "@/components/ui/empty";
 import { useOperationsAmountsHistory } from "@/lib/operations/queries";
-import { useState } from "react";
-import UniversalSelect from "../ui/universal-select";
+import { useRef, useState } from "react";
 import { CURRENCIES } from "@/const";
-import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
+import { Bar, BarChart, CartesianGrid, Tooltip, XAxis, YAxis } from "recharts";
 import ChartLoader from "../ui/charts/loader";
-import useYAxisWidth from "@/hooks/useYAxisWidth";
 import ChartTooltip from "../ui/charts/tooltip";
 import { Dict } from "@/const/dict";
+import { ChartContainer } from "../ui/chart";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 
 type Props = {
   type: "income" | "expense";
@@ -33,6 +31,7 @@ export default function OperationsByMonth({
   title,
   dict,
 }: Props) {
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const [currency, setCurrency] = useState<string>(settings.currency);
   const { data: results, isLoading } = useOperationsAmountsHistory(
     type,
@@ -41,34 +40,38 @@ export default function OperationsByMonth({
       currency,
     }
   );
-  // const { width, tickFormatter } = useYAxisWidth(currency, settings.language);
 
   return (
     <Block
       className="xl:col-span-3 flex-1"
       title={title}
       cta={
-        <UniversalSelect
-          className="w-20"
-          name="currency"
-          size="sm"
-          radius="md"
-          aria-label="Waluta"
-          isDisabled={isLoading}
-          selectedKeys={currency ? [currency] : []}
-          elements={CURRENCIES}
-          onChange={(e) => setCurrency(e.target.value)}
-        />
+        <Select value={currency} onValueChange={(value) => setCurrency(value)}>
+          <SelectTrigger size="sm" className="w-20 col-span-2 row-start-1">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent className="w-20 min-w-0" align="end">
+            {CURRENCIES.map((curr) => (
+              <SelectItem value={curr} key={curr}>
+                {curr}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       }
     >
       {isLoading ? (
         <ChartLoader className="!p-0" hideTitle />
       ) : results && results.length > 0 ? (
-        <ResponsiveContainer width="100%" height="100%" minHeight={240}>
+        <ChartContainer
+          ref={containerRef}
+          config={{}}
+          className="w-full h-full"
+          style={{ minHeight: 240 }}
+        >
           <BarChart data={results}>
-            <CartesianGrid vertical={false} opacity={0.5} />
+            {/* <CartesianGrid vertical={false} opacity={0.5} /> */}
             <YAxis
-              // width={width}
               tick={{ fontSize: 12 }}
               dataKey="total_amount"
               axisLine={false}
@@ -98,12 +101,7 @@ export default function OperationsByMonth({
               tickLine={false}
               type="category"
             />
-            <CartesianGrid
-              opacity={0.6}
-              strokeWidth={1}
-              vertical={false}
-              className="stroke-content4"
-            />
+            <CartesianGrid strokeWidth={1} vertical={false} />
             <Tooltip
               cursor={{ fill: "#177981", fillOpacity: 0.1 }}
               isAnimationActive={false}
@@ -125,7 +123,7 @@ export default function OperationsByMonth({
             />
             <Bar dataKey="total_amount" fill="#177981" />
           </BarChart>
-        </ResponsiveContainer>
+        </ChartContainer>
       ) : (
         <Empty
           title={dict._empty.title}

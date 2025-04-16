@@ -1,5 +1,5 @@
 import Logo from "@/assets/icons/logo";
-import Form from "@/components/ui/form";
+import Form from "@/components/ui/temp-form";
 import getDictionary from "@/const/dict";
 import { LOCALES } from "@/const/locales";
 import { requestPasswordChange } from "@/lib/auth/actions";

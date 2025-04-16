@@ -14,13 +14,13 @@ const SelectGroup = SelectPrimitive.Group;
 const SelectValue = SelectPrimitive.Value;
 
 const selectVariants = cva(
-  "flex w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-light text-sm ring-offset-background data-[placeholder]:text-muted-foreground focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
+  "flex w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-light text-sm ring-offset-background data-[placeholder]:text-muted-foreground focus:outline-none disabled:cursor-not-allowed disabled:opacity-60 [&>span]:line-clamp-1",
   {
     variants: {
       size: {
-        default: "h-9 px-3 py-2",
-        sm: "h-8 p-2 text-sm",
-        lg: "h-10",
+        default: "px-3 py-1.5",
+        sm: "p-2 text-sm",
+        lg: "py-2.5 px-5",
       },
     },
     defaultVariants: {
@@ -32,14 +32,23 @@ const selectVariants = cva(
 const SelectTrigger = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger> &
-    VariantProps<typeof selectVariants>
->(({ className, children, size, ...props }, ref) => (
+    VariantProps<typeof selectVariants> & {
+      label?: string;
+    }
+>(({ className, children, size, label, ...props }, ref) => (
   <SelectPrimitive.Trigger
     ref={ref}
     className={cn(selectVariants({ size }), className)}
     {...props}
   >
-    {children}
+    <div className="flex flex-col items-start">
+      {label && (
+        <span className="text-xs text-foreground/75 select-none pointer-events-none">
+          {label}
+        </span>
+      )}
+      {children}
+    </div>
     <SelectPrimitive.Icon asChild>
       <ChevronDown className="h-4 w-4" strokeWidth={1} />
     </SelectPrimitive.Icon>

@@ -60,8 +60,8 @@ type Budget = {
   difference_indicator: "positive" | "negative" | "no_change";
 };
 
-interface NewLimit {
-  amount: string;
-  period: string;
-  currency: string;
-}
+// interface NewLimit {
+//   amount: string;
+//   period: string;
+//   currency: string;
+// }

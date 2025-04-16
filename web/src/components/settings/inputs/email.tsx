@@ -1,6 +1,6 @@
 "use client";
 
-import Form from "@/components/ui/form";
+import Form from "@/components/ui/temp-form";
 import { Dict } from "@/const/dict";
 import { cn, Input } from "@heroui/react";
 import { useState } from "react";

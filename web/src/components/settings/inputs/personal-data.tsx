@@ -1,6 +1,6 @@
 "use client";
 
-import Form from "@/components/ui/form";
+import Form from "@/components/ui/temp-form";
 import Toast from "@/components/ui/toast";
 import { Dict } from "@/const/dict";
 import { updateName } from "@/lib/settings/actions";

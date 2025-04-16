@@ -11,7 +11,7 @@ import { Dispatch, FormEvent, SetStateAction, useEffect } from "react";
 import Manual from "../inputs/manual";
 import { updateOperation } from "@/lib/operations/actions";
 import formDataToOperation from "@/utils/operations/form-data-to-operation";
-import Form from "@/components/ui/form";
+import Form from "@/components/ui/temp-form";
 import { Dict } from "@/const/dict";
 import { useSettings } from "@/lib/general/queries";
 import dateFormat from "@/utils/formatters/dateFormat";

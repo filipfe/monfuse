@@ -2,7 +2,7 @@
 
 import LimitRef from "./limits/ref";
 import { useState } from "react";
-import { useDisclosure } from "@heroui/react";
+// import { useDisclosure } from "@heroui/react";
 import LimitForm from "./limits/form";
 import { Dict } from "@/const/dict";
 
@@ -13,10 +13,11 @@ export default function Limits({
   settings: Settings;
   dict: Dict["private"]["operations"]["expenses"]["limits"];
 }) {
-  const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
-  const [defaultLimit, setDefaultLimit] = useState<NewLimit>({
+  const [isOpen, setIsOpen] = useState(false);
+  // const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
+  const [defaultLimit, setDefaultLimit] = useState({
     currency: settings.currency,
-    period: "daily",
+    period: "daily" as "daily" | "weekly" | "monthly",
     amount: "",
   });
 
@@ -33,7 +34,7 @@ export default function Limits({
               period: "daily",
               amount: amount || "",
             });
-            onOpen();
+            setIsOpen(true);
           }}
         />
         <LimitRef
@@ -46,7 +47,7 @@ export default function Limits({
               period: "weekly",
               amount: amount || "",
             });
-            onOpen();
+            setIsOpen(true);
           }}
         />
         <LimitRef
@@ -59,14 +60,13 @@ export default function Limits({
               period: "monthly",
               amount: amount || "",
             });
-            onOpen();
+            setIsOpen(true);
           }}
         />
       </div>
       <LimitForm
-        isOpen={isOpen}
-        onOpenChange={onOpenChange}
-        onClose={onClose}
+        open={isOpen}
+        onOpenChange={setIsOpen}
         defaultLimit={defaultLimit}
         timezone={settings.timezone}
         dict={dict["modal"]}
