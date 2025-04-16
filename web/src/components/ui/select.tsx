@@ -13,32 +13,22 @@ const SelectGroup = SelectPrimitive.Group;
 
 const SelectValue = SelectPrimitive.Value;
 
-const selectVariants = cva(
-  "flex w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-light text-sm ring-offset-background data-[placeholder]:text-muted-foreground focus:outline-none disabled:cursor-not-allowed disabled:opacity-60 [&>span]:line-clamp-1",
-  {
-    variants: {
-      size: {
-        default: "px-3 py-1.5",
-        sm: "p-2 text-sm",
-        lg: "py-2.5 px-5",
-      },
-    },
-    defaultVariants: {
-      size: "default",
-    },
-  }
-);
-
 const SelectTrigger = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Trigger>,
-  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger> &
-    VariantProps<typeof selectVariants> & {
-      label?: string;
-    }
->(({ className, children, size, label, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger> & {
+    label?: string;
+    size?: "default" | "sm" | "lg";
+  }
+>(({ className, children, size = "default", label, ...props }, ref) => (
   <SelectPrimitive.Trigger
     ref={ref}
-    className={cn(selectVariants({ size }), className)}
+    className={cn(
+      "flex w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-light text-sm ring-offset-background data-[placeholder]:text-muted-foreground focus:outline-none disabled:cursor-not-allowed disabled:opacity-60 [&>span]:line-clamp-1",
+      size === "sm" && (label ? "px-2 py-1" : "px-2 h-8"),
+      size === "default" && (label ? "px-3 py-1.5" : "px-3 py-2"),
+      size === "lg" && (label ? "px-3 py-2" : "px-4 py-2.5"),
+      className
+    )}
     {...props}
   >
     <div className="flex flex-col items-start">
