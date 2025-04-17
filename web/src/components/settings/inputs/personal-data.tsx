@@ -1,12 +1,11 @@
 "use client";
 
+import { Input } from "@/components/ui/input";
 import Form from "@/components/ui/temp-form";
-import Toast from "@/components/ui/toast";
 import { Dict } from "@/const/dict";
 import { updateName } from "@/lib/settings/actions";
-import { cn, Input } from "@heroui/react";
-import { FormEvent, useState } from "react";
-import toast from "react-hot-toast";
+import { cn } from "@/utils/cn";
+import { useState } from "react";
 
 interface Props extends Pick<Account, "first_name" | "last_name"> {
   dict: Dict["private"]["settings"]["account"]["personal-data"];
@@ -25,7 +24,6 @@ export default function PersonalDataInput({
       mutation={updateName}
       buttonProps={{
         size: "sm",
-        radius: "md",
         children: dict.form._submit.label,
         className: cn(
           firstName === first_name && lastName === last_name && "hidden"
@@ -33,26 +31,24 @@ export default function PersonalDataInput({
       }}
     >
       <div className="flex flex-col gap-4">
-        <div className="flex flex-col gap-2 mb-2">
+        <div className="flex flex-col gap-1 mb-2">
           <h3>{dict.title}</h3>
           <p className="text-sm text-font/60">{dict.description}</p>
         </div>
         <Input
-          classNames={{ inputWrapper: "!bg-light shadow-none border" }}
           name="first_name"
           label={dict.form["first-name"].label}
           placeholder={dict.form["first-name"].label}
           value={firstName}
-          onValueChange={(value) => setFirstName(value)}
+          onChange={(e) => setFirstName(e.target.value)}
           className="max-w-xl"
         />
         <Input
-          classNames={{ inputWrapper: "!bg-light shadow-none border" }}
           label={dict.form["last-name"].label}
           name="last_name"
           placeholder={dict.form["last-name"].label}
           value={lastName}
-          onValueChange={(value) => setLastName(value)}
+          onChange={(e) => setLastName(e.target.value)}
           className="max-w-xl"
         />
       </div>

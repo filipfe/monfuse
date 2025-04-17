@@ -10,7 +10,11 @@ import {
 } from "@/components/ui/select";
 
 interface Props extends State {
-  dict: Dict["private"]["operations"]["operation-table"]["top-content"]["filter"]["label"];
+  dict: {
+    label: string;
+    default: string;
+    description: string;
+  };
 }
 
 export default function LabelSelect({ dict, value, onChange }: Props) {

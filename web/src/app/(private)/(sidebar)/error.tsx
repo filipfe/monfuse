@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@heroui/react";
+import { Button } from "@/components/ui/button";
 
 export default function Error({
   error,
@@ -15,7 +15,7 @@ export default function Error({
         Coś poszło nie tak!
       </h1>
       <h2 className="max-w-3xl text-center">{error.message}</h2>
-      <Button color="primary" onPress={() => reset()} className="mt-4">
+      <Button onClick={() => reset()} className="mt-4">
         Spróbuj ponownie
       </Button>
     </div>

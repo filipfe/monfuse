@@ -1,9 +1,9 @@
 import Logo from "@/assets/icons/logo";
 import Form from "@/components/auth/form";
+import { Input } from "@/components/ui/input";
 import getDictionary from "@/const/dict";
 import { LOCALES } from "@/const/locales";
 import getLang from "@/utils/get-lang";
-import { Input } from "@heroui/react";
 import Link from "next/link";
 
 export async function generateMetadata({
@@ -67,26 +67,18 @@ export default async function Page({
               <p className="text-sm">{signIn.description}</p>
             </div>
             <Input
-              classNames={{
-                inputWrapper: "!bg-light border shadow-none",
-              }}
               name="email"
               label="Email"
               type="email"
               placeholder="example@mail.com"
-              isRequired
               required
               autoComplete="off"
             />
             <Input
-              classNames={{
-                inputWrapper: "!bg-light border shadow-none",
-              }}
               name="password"
               label={signIn.form.password.label}
               type="password"
               placeholder="**********"
-              isRequired
               required
             />
             <p className="text-sm">

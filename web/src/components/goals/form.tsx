@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Input, Spinner, Textarea } from "@heroui/react";
+import { Button, Input, Spinner } from "@heroui/react";
 import formatAmount from "@/utils/operations/format-amount";
 import { useState, useTransition } from "react";
 import { CheckIcon } from "lucide-react";
@@ -91,12 +91,12 @@ export default function GoalForm({
         <UniversalSelect
           name="currency"
           label="Waluta"
-          selectedKeys={[singleRecord.currency]}
+          value={singleRecord.currency}
           elements={CURRENCIES}
-          onChange={(e) => {
+          onValueChange={(value) => {
             setSingleRecord((prev) => ({
               ...prev,
-              currency: e.target.value,
+              currency: value,
             }));
           }}
         />

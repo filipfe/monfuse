@@ -2,12 +2,13 @@
 
 import { Section } from "@/components/ui/block";
 import Option from "./option";
-import { cn, Skeleton } from "@heroui/react";
+import { Skeleton } from "@heroui/react";
 import { useAIAssistant } from "@/app/(private)/(sidebar)/ai-assistant/providers";
 import Empty from "@/components/ui/empty";
 import { useLimits } from "@/lib/general/queries";
 import NumberFormat from "@/utils/formatters/currency";
 import { Dict } from "@/const/dict";
+import { cn } from "@/utils/cn";
 
 export default function LimitsContext({
   dict,

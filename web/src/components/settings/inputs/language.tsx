@@ -48,18 +48,16 @@ export default function LanguageSelect({ dict, defaultValue }: Props) {
     <form action={action} ref={formRef}>
       <UniversalSelect
         name="language"
-        aria-label="Language select"
         label={dict.label}
-        selectedKeys={[selected]}
-        isLoading={isLoading || isPending}
-        isDisabled={isLoading || isPending}
+        value={selected}
+        disabled={isLoading || isPending}
         elements={
           languages
             ? languages.map((lang) => ({ name: lang.name, value: lang.code }))
             : []
         }
         placeholder={dict.placeholder}
-        onChange={(e) => setSelected(e.target.value)}
+        onValueChange={(value) => setSelected(value)}
       />
       <input type="hidden" name="name" value="language" />
       <input type="hidden" name="value" value={selected} />

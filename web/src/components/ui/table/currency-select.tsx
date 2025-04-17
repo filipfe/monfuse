@@ -10,18 +10,31 @@ import {
   SelectValue,
 } from "../select";
 
-interface Props extends State {
-  dict: Dict["private"]["operations"]["operation-table"]["top-content"]["filter"]["currency"];
+interface Props extends Partial<State> {
+  className?: string;
+  hideAll?: boolean;
+  defaultValue?: string;
+  dict: {
+    label: string;
+    default?: string;
+  };
 }
 
-export default function CurrencySelect({ dict, onChange, value }: Props) {
+export default function CurrencySelect({
+  dict,
+  value,
+  onChange,
+  className,
+  hideAll,
+  defaultValue,
+}: Props) {
   return (
-    <Select value={value} onValueChange={onChange}>
-      <SelectTrigger label={dict.label}>
+    <Select value={value} defaultValue={defaultValue} onValueChange={onChange}>
+      <SelectTrigger label={dict.label} className={className}>
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="*">{dict.default}</SelectItem>
+        {!hideAll && <SelectItem value="*">{dict.default}</SelectItem>}
         {CURRENCIES.map((curr) => (
           <SelectItem value={curr} key={curr}>
             {curr}

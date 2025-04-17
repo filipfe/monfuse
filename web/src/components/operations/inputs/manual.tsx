@@ -1,11 +1,9 @@
-import UniversalSelect from "@/components/ui/universal-select";
-import { CURRENCIES } from "@/const";
-import { Input, Textarea } from "@heroui/react";
 import LabelInput from "./label";
 import AmountInput from "./amount";
 import { Dict } from "@/const/dict";
 import dateFormat from "@/utils/formatters/dateFormat";
-import { formatInTimeZone } from "date-fns-tz";
+import { Input } from "@/components/ui/input";
+import CurrencySelect from "@/components/ui/table/currency-select";
 
 interface Props {
   dict: Dict["private"]["operations"]["operation-table"]["dropdown"]["modal"]["edit"]["form"];
@@ -35,11 +33,9 @@ export default function Manual({
       <div className="grid grid-cols-2 gap-4">
         <Input
           className="col-span-2 md:col-span-1"
-          classNames={{ inputWrapper: "!bg-light border shadow-none" }}
           name="title"
           label={dict.title.label}
           placeholder={dict.title.placeholder}
-          isRequired
           required
           defaultValue={initialValue?.title}
         />
@@ -47,17 +43,9 @@ export default function Manual({
           label={dict.amount.label}
           defaultValue={initialValue?.amount}
         />
-        <UniversalSelect
-          name="currency"
-          label={dict.currency.label}
-          elements={CURRENCIES}
-          required
-          isRequired
-          defaultSelectedKeys={currency ? [currency] : []}
-        />
+        <CurrencySelect hideAll dict={dict.currency} defaultValue={currency} />
         <Input
           className="col-span-2 md:col-span-1"
-          classNames={{ inputWrapper: "!bg-light border shadow-none" }}
           name="issued_at"
           label={dict["issued-at"].label}
           placeholder="24.01.2024"
@@ -78,11 +66,7 @@ export default function Manual({
         /> */}
         {type === "expense" && withLabel && (
           <div className="w-full col-span-2">
-            <LabelInput
-              dict={dict.label}
-              className="border shadow-none"
-              defaultValue={initialValue?.label}
-            />
+            <LabelInput dict={dict.label} defaultValue={initialValue?.label} />
           </div>
         )}
       </div>

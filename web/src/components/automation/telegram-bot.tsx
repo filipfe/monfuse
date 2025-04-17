@@ -1,9 +1,8 @@
-import LatestOperations from "@/components/automation/latest-operations";
 import TokenInput from "@/components/automation/token-input";
 import Block from "@/components/ui/block";
 import { Dict } from "@/const/dict";
-import { Button, cn } from "@heroui/react";
-import { LinkIcon, Send } from "lucide-react";
+import { cn } from "@/utils/cn";
+import { LinkIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { ReactNode } from "react";

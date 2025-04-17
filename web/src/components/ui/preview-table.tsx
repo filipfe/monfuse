@@ -141,7 +141,6 @@ export default function PreviewTable({
               operation={item}
               // onSelect={() => onRowAction(item.id)}
               onDelete={(id) => {
-                console.log(items);
                 setItems((prev) => prev.filter((r) => r.id !== id));
                 items.length === 0 && setRows([]);
               }}

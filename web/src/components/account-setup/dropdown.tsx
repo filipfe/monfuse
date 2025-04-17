@@ -1,4 +1,4 @@
-import { cn } from "@heroui/react";
+import { cn } from "@/utils/cn";
 import { Check, ChevronRight } from "lucide-react";
 
 type Props = {

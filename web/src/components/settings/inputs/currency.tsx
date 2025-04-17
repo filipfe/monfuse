@@ -41,13 +41,11 @@ export default function CurrencySelect({ dict, defaultValue }: Props) {
     <form action={action} ref={formRef}>
       <UniversalSelect
         name="currency"
-        aria-label="Currency select"
         label={dict.label}
-        selectedKeys={[selected]}
-        isLoading={isPending}
-        isDisabled={isPending}
+        value={selected}
+        disabled={isPending}
         elements={CURRENCIES}
-        onChange={(e) => setSelected(e.target.value)}
+        onValueChange={(value) => setSelected(value)}
       />
       <input type="hidden" name="name" value="currency" />
       <input type="hidden" name="value" value={selected} />

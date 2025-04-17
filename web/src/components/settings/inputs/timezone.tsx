@@ -7,15 +7,14 @@ import { Dict } from "@/const/dict";
 import { updatePreferences } from "@/lib/settings/actions";
 import toast from "@/utils/toast";
 
-export default function TimezoneSelect({
-  dict,
-  defaultValue,
-}: {
+type Props = {
   dict: Dict["private"]["settings"]["preferences"]["location"]["timezone"] & {
     _success: string;
   };
   defaultValue: string;
-}) {
+};
+
+export default function TimezoneSelect({ dict, defaultValue }: Props) {
   const deviceTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   const [timezone, setTimezone] = useState(defaultValue || deviceTimezone);
   const { options, parseTimezone } = useTimezoneSelect({});
@@ -48,16 +47,14 @@ export default function TimezoneSelect({
     <form action={action} ref={formRef}>
       <UniversalSelect
         label={dict.label}
-        selectedKeys={timezone ? [parseTimezone(timezone).value] : []}
-        isLoading={isPending}
-        isDisabled={isPending}
+        value={timezone ? parseTimezone(timezone).value : undefined}
+        disabled={isPending}
         elements={options as Option<string>[]}
-        onChange={(e) =>
+        onValueChange={(value) =>
           setTimezone(
-            parseTimezone(e.target.value).value ===
-              parseTimezone(deviceTimezone).value
+            parseTimezone(value).value === parseTimezone(deviceTimezone).value
               ? deviceTimezone
-              : e.target.value
+              : value
           )
         }
       />

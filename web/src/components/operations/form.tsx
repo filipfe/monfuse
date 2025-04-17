@@ -1,6 +1,5 @@
 "use client";
 
-import { Tab, Tabs } from "@heroui/react";
 import { ScanTextIcon, WrenchIcon } from "lucide-react";
 import { useState } from "react";
 import { addOperations } from "@/lib/operations/actions";
@@ -11,19 +10,18 @@ import LabelInput from "./inputs/label";
 import PreviewTable from "../ui/preview-table";
 import Form from "../ui/temp-form";
 import { Dict } from "@/const/dict";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 
-export default function AddForm({
-  dict,
-  type,
-  settings,
-}: {
+type Props = {
+  type: OperationType;
+  settings: Settings;
   dict: {
     add: Dict["private"]["operations"]["add"];
     table: Dict["private"]["operations"]["operation-table"];
   };
-  type: OperationType;
-  settings: Settings;
-}) {
+};
+
+export default function AddForm({ dict, type, settings }: Props) {
   const [records, setRecords] = useState<Operation[]>([]);
 
   return records.length > 0 ? (
@@ -38,6 +36,7 @@ export default function AddForm({
       <Form
         mutation={(data) => addOperations(data, settings.timezone)}
         successMessage={dict.add.form._success}
+        buttonProps={{ children: dict.add.form._submit }}
       >
         <div className="flex flex-col justify-end h-full mt-6">
           {type === "expense" && (
@@ -53,22 +52,18 @@ export default function AddForm({
       title={dict.add.title[type as "income" | "expense"]}
       className="max-w-3xl w-full mx-auto"
     >
-      <Tabs
-        defaultSelectedKey="manual"
-        classNames={{
-          cursor: "shadow-none border rounded-md",
-          panel: "p-0",
-        }}
-      >
-        <Tab
-          key="manual"
-          title={
-            <div className="flex items-center gap-2">
-              <WrenchIcon size={16} opacity={0.8} />
-              <span>{dict.add.tab.manual.title}</span>
-            </div>
-          }
-        >
+      <Tabs defaultValue="manual">
+        <TabsList className="mb-2">
+          <TabsTrigger value="manual">
+            <WrenchIcon size={16} opacity={0.8} />
+            {dict.add.tab.manual.title}
+          </TabsTrigger>
+          <TabsTrigger value="scan">
+            <ScanTextIcon size={16} opacity={0.8} />
+            {dict.add.tab.scan.title}
+          </TabsTrigger>
+        </TabsList>
+        <TabsContent value="manual">
           <Form
             mutation={(data) => addOperations(data, settings.timezone)}
             id="add-form"
@@ -83,38 +78,31 @@ export default function AddForm({
               timezone={settings.timezone}
             />
           </Form>
-        </Tab>
-        {/* <Tab
-          key="csv"
-          title={
-            <div className="flex items-center gap-2">
-              <FileSpreadsheetIcon size={16} opacity={0.8} />
-              <span>Import CSV</span>
-            </div>
-          }
-        >
-          <CSVInput
-            type={type}
-            setRecords={setRecords}
-            formatter={operationFormatter}
-          />
-        </Tab> */}
-        <Tab
-          key="scan"
-          title={
-            <div className="flex items-center gap-2">
-              <ScanTextIcon size={16} opacity={0.8} />
-              <span>{dict.add.tab.scan.title}</span>
-            </div>
-          }
-        >
+        </TabsContent>
+        <TabsContent value="scan">
           <Scan
             description={dict.add.tab.scan.description}
             type={type}
             setRecords={setRecords}
           />
-        </Tab>
+        </TabsContent>
       </Tabs>
     </Block>
   );
 }
+
+//  <Tab
+//           key="csv"
+//           title={
+//             <div className="flex items-center gap-2">
+//               <FileSpreadsheetIcon size={16} opacity={0.8} />
+//               <span>Import CSV</span>
+//             </div>
+//           }
+//         >
+//           <CSVInput
+//             type={type}
+//             setRecords={setRecords}
+//             formatter={operationFormatter}
+//           />
+//         </Tab>

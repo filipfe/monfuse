@@ -1,8 +1,9 @@
 "use client";
 
+import { Input } from "@/components/ui/input";
 import Form from "@/components/ui/temp-form";
 import { Dict } from "@/const/dict";
-import { cn, Input } from "@heroui/react";
+import { cn } from "@/utils/cn";
 import { useState } from "react";
 
 interface Props extends Pick<Account, "email"> {
@@ -15,25 +16,23 @@ export default function EmailInput({ dict, email: initialEmail }: Props) {
     <Form
       buttonProps={{
         size: "sm",
-        radius: "md",
         children: dict.form._submit.label,
         className: cn(email === initialEmail && "hidden"),
       }}
     >
       <div className="flex flex-col gap-4">
-        <div className="flex flex-col gap-2 mb-2">
+        <div className="flex flex-col gap-1 mb-2">
           <h3>{dict.title}</h3>
           <p className="text-sm text-font/60">{dict.description}</p>
         </div>
         <Input
-          classNames={{ inputWrapper: "!bg-light shadow-none border" }}
           name="email"
           label={dict.form.email.label}
           placeholder={dict.form.email.placeholder}
           type="email"
-          isRequired
+          required
           value={email}
-          onValueChange={(value) => setEmail(value)}
+          onChange={(e) => setEmail(e.target.value)}
         />
       </div>
     </Form>

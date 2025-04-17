@@ -54,13 +54,13 @@ Props) {
         startContent={<SearchIcon size={16} />}
       />
       <div className="items-center gap-3 flex">
-        {selected && selected.length > 0 && (
+        {/* {selected && selected.length > 0 && (
           <Delete
             callback={deletionCallback}
             items={selected}
             type={type as OperationType}
           />
-        )}
+        )} */}
         {showPeriodFilter && <PeriodSelect dict={{ reset: dict.reset }} />}
         <Filter
           dict={{ reset: dict.reset, ...dict.filter }}

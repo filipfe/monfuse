@@ -47,7 +47,7 @@ export default function Scan({ description, type, setRecords }: Props) {
       id="scan-input"
       allowedTypes={["image/png", "image/jpeg"]}
       onChange={onChange}
-      className={type === "expense" ? "h-[382px]" : "h-[310px]"}
+      className={type === "expense" ? "h-[246px]" : "h-[310px]"}
     >
       {isLoading ? (
         <Hatch size="28" stroke="4" speed="3.5" color="black" />

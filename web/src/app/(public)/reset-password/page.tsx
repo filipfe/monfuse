@@ -1,9 +1,9 @@
 import Logo from "@/assets/icons/logo";
+import { Input } from "@/components/ui/input";
 import Form from "@/components/ui/temp-form";
 import getDictionary from "@/const/dict";
 import { resetPassword } from "@/lib/auth/actions";
 import { getSettings } from "@/lib/general/actions";
-import { Input } from "@heroui/react";
 
 export async function generateMetadata() {
   const settings = await getSettings();
@@ -45,25 +45,17 @@ export default async function Page() {
               </p>
             </div>
             <Input
-              classNames={{
-                inputWrapper: "!bg-light border shadow-none",
-              }}
               name="password"
               label={dict.auth["reset-password"].form.password.label}
               type="password"
               placeholder="**********"
-              isRequired
               required
             />
             <Input
-              classNames={{
-                inputWrapper: "!bg-light border shadow-none",
-              }}
               name="confirm-password"
               label={dict.auth["reset-password"].form["confirm-password"].label}
               type="password"
               placeholder="**********"
-              isRequired
               required
             />
           </div>

@@ -36,7 +36,7 @@ export default function Block({
       {title && (
         <div
           className={cn(
-            "flex items-center gap-4 justify-between mb-1 sm:mb-2 h-8",
+            "flex items-center gap-4 justify-between h-8",
             titleClassName
           )}
         >

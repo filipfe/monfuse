@@ -23,7 +23,7 @@ const SelectTrigger = React.forwardRef<
   <SelectPrimitive.Trigger
     ref={ref}
     className={cn(
-      "flex w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-light text-sm ring-offset-background data-[placeholder]:text-muted-foreground focus:outline-none disabled:cursor-not-allowed disabled:opacity-60 [&>span]:line-clamp-1",
+      "flex w-full items-center whitespace-nowrap rounded-md border border-input bg-light text-sm ring-offset-background data-[placeholder]:text-muted-foreground focus:outline-none disabled:cursor-not-allowed disabled:opacity-60 [&>span]:line-clamp-1",
       size === "sm" && (label ? "px-2 py-1" : "px-2 h-8"),
       size === "default" && (label ? "px-3 py-1.5" : "px-3 py-2"),
       size === "lg" && (label ? "px-3 py-2" : "px-4 py-2.5"),
@@ -31,7 +31,7 @@ const SelectTrigger = React.forwardRef<
     )}
     {...props}
   >
-    <div className="flex flex-col items-start">
+    <div className="flex flex-col items-start flex-1 overflow-hidden">
       {label && (
         <span className="text-xs text-foreground/75 select-none pointer-events-none">
           {label}
@@ -40,7 +40,7 @@ const SelectTrigger = React.forwardRef<
       {children}
     </div>
     <SelectPrimitive.Icon asChild>
-      <ChevronDown className="h-4 w-4" strokeWidth={1} />
+      <ChevronDown size={16} className="shrink-0" strokeWidth={1} />
     </SelectPrimitive.Icon>
   </SelectPrimitive.Trigger>
 ));
@@ -89,15 +89,16 @@ const SelectContent = React.forwardRef<
     <SelectPrimitive.Content
       ref={ref}
       className={cn(
-        "relative z-50 max-h-[--radix-select-content-available-height] min-w-[8rem] overflow-y-auto overflow-x-hidden rounded-md border bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 origin-[--radix-select-content-transform-origin]",
+        "relative z-50 min-w-[8rem] overflow-y-auto overflow-x-hidden rounded-md border bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 origin-[--radix-select-content-transform-origin]",
         position === "popper" &&
           "data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",
+        // "max-h-[--radix-select-content-available-height]",
+        "max-h-64",
         className
       )}
       position={position}
       {...props}
     >
-      <SelectScrollUpButton />
       <SelectPrimitive.Viewport
         className={cn(
           "p-1",
@@ -107,7 +108,6 @@ const SelectContent = React.forwardRef<
       >
         {children}
       </SelectPrimitive.Viewport>
-      <SelectScrollDownButton />
     </SelectPrimitive.Content>
   </SelectPrimitive.Portal>
 ));

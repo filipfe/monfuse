@@ -28,9 +28,9 @@ export default async function Preferences() {
 
   return (
     <div className="flex flex-col gap-8 lg:gap-0 lg:grid grid-cols-3">
-      <div className="lg:pr-8 grid gap-8">
+      <div className="lg:pr-8 flex flex-col gap-8">
         <div className="flex flex-col gap-4">
-          <div className="flex flex-col gap-2 mb-2">
+          <div className="flex flex-col gap-1 mb-2">
             <h3>{dict["default-currency"].title}</h3>
             <p className="text-sm text-font/60">
               {dict["default-currency"].description}

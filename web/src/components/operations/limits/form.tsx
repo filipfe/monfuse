@@ -65,7 +65,6 @@ export default function LimitForm({
 
   // console.log(form.getValues());
   const onSubmit = async (data: NewLimit) => {
-    console.log(data, form.getValues());
     setIsLoading(true);
     const { error } = await addLimit(data);
     if (error) {

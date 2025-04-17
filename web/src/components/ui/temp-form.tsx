@@ -1,16 +1,14 @@
 "use client";
 
-import { FormHTMLAttributes, useTransition } from "react";
+import React, { FormHTMLAttributes, useTransition } from "react";
 import toast from "@/utils/toast";
-import { Button, ButtonProps, cn } from "@heroui/react";
 import { Check, type LucideIcon } from "lucide-react";
 import { Hatch } from "ldrs/react";
+import { Button, ButtonProps } from "./button";
+import { cn } from "@/utils/cn";
 
 interface Props extends FormHTMLAttributes<HTMLFormElement> {
   mutation?: (formData: FormData) => Promise<SupabaseResponse<any> | undefined>;
-  buttonProps?: ButtonProps & {
-    icon?: LucideIcon;
-  };
   callback?: () => void;
   successMessage?: string;
   buttonWrapperClassName?: string;
@@ -21,6 +19,9 @@ interface Props extends FormHTMLAttributes<HTMLFormElement> {
   close?: {
     text: string;
     onClose: () => void;
+  };
+  buttonProps: ButtonProps & {
+    icon?: LucideIcon;
   };
 }
 
@@ -91,10 +92,9 @@ export default function Form({
       >
         {close && (
           <Button
-            disableRipple
-            isDisabled={isPending}
+            variant="outline"
             disabled={isPending}
-            onPress={close.onClose}
+            onClick={close.onClose}
             className="border"
           >
             {close.text}
@@ -102,11 +102,9 @@ export default function Form({
         )}
         <Button
           type="submit"
-          disableRipple
-          color="primary"
           form={id}
-          isDisabled={isLoading || isPending || buttonProps.disabled}
-          className={cn(buttonClassName)}
+          disabled={isLoading || isPending || buttonProps.disabled}
+          className={buttonClassName}
           {...buttonProps}
         >
           {isLoading || isPending ? (
