@@ -13,17 +13,19 @@ type Props = Omit<SelectProps, "children"> & {
   elements: string[] | Option<string>[];
   placeholder?: string;
   label?: string;
+  className?: string;
 };
 
 export default function UniversalSelect({
   elements,
   label,
   placeholder,
+  className,
   ...props
 }: Props) {
   return (
     <Select {...props}>
-      <SelectTrigger label={label}>
+      <SelectTrigger className={className} label={label}>
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>
