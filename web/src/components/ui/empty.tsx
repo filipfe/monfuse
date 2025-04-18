@@ -30,15 +30,23 @@ export default function Empty({ cta, icon: Icon, title, className }: Props) {
           <Button
             variant="outline"
             size="sm"
-            className={cta.className}
+            className={cn("hover:bg-light", cta.className)}
             onClick={cta.onClick}
           >
             <PlusIcon size={14} />
             {cta.title}
           </Button>
         ) : (
-          <Button variant="outline" size="sm" className={cta.className} asChild>
-            <Link href={cta.href}>{cta.title}</Link>
+          <Button
+            variant="outline"
+            size="sm"
+            className={cn("hover:bg-light", cta.className)}
+            asChild
+          >
+            <Link href={cta.href}>
+              <PlusIcon size={14} />
+              {cta.title}
+            </Link>
           </Button>
         ))}
     </div>

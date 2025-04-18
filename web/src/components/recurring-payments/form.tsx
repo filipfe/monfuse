@@ -21,6 +21,7 @@ import Link from "next/link";
 import { useTimezoneSelect } from "react-timezone-select";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { Hatch } from "ldrs/react";
 
 interface NewRecurringPayment
   extends Partial<Omit<TimelinePayment, "id" | "amount">> {
@@ -296,7 +297,7 @@ export default function RecurringPaymentForm({
         <div className="col-span-2 flex justify-end mt-4">
           <Button type="submit" disabled={isPending}>
             {isPending ? (
-              <Spinner color="white" size="sm" />
+              <Hatch size={12} stroke={1.5} color="#FFF" />
             ) : (
               <CheckIcon size={16} />
             )}

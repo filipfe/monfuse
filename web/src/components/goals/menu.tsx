@@ -2,23 +2,23 @@
 
 import { deleteRows } from "@/lib/general/actions";
 import { updateAsPriority } from "@/lib/goals/actions";
-import {
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownTrigger,
-  useDisclosure,
-} from "@heroui/react";
+
 import {
   AlertOctagonIcon,
   MoreVerticalIcon,
-  PlusIcon,
+  SquarePenIcon,
   Trash2Icon,
 } from "lucide-react";
 import { Key, useState } from "react";
 import toast from "react-hot-toast";
 import Toast from "../ui/toast";
 import { Dict } from "@/const/dict";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
 
 type Props = {
   dict: Dict["private"]["goals"]["list"]["goal"]["menu"];
@@ -26,24 +26,27 @@ type Props = {
   onAdd?: () => void;
 };
 
-export default function Menu({ dict, goal, onAdd }: Props) {
-  const { isOpen, onClose, onOpenChange } = useDisclosure();
-  const [loadingKey, setLoadingKey] = useState<string | null>(null);
+type Action = "priority" | "delete";
 
-  async function onAction(key: Key) {
-    setLoadingKey(key.toString());
-    switch (key) {
-      case "add":
-        onAdd && onAdd();
-        onClose();
-        break;
+export default function Menu({ dict, goal }: Props) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [loadingActions, setLoadingActions] = useState<Action[]>([]);
+
+  async function onAction(e: Event, action: Action) {
+    e.preventDefault();
+    setLoadingActions((prev) => [...prev, action]);
+    switch (action) {
+      // case "add":
+      //   onAdd && onAdd();
+      //   setIsOpen(false);
+      //   break;
       case "priority":
         const { error: updateError } = await updateAsPriority(goal.id);
         updateError &&
           toast.custom((t) => (
             <Toast {...t} type="error" message={updateError} />
           ));
-        onClose();
+        setIsOpen(false);
         break;
       case "delete":
         const { error: deleteError } = await deleteRows([goal.id], "goal");
@@ -51,58 +54,52 @@ export default function Menu({ dict, goal, onAdd }: Props) {
           toast.custom((t) => (
             <Toast {...t} type="error" message={deleteError} />
           ));
-        onClose();
+        setIsOpen(false);
         break;
     }
-    setLoadingKey(null);
+    setLoadingActions((prev) => prev.filter((act) => act !== action));
   }
 
-  const disabledKeys: string[] = [
-    ...(loadingKey ? [loadingKey] : []),
-    ...(goal.is_priority ? ["priority"] : []),
-  ];
-
   return (
-    <Dropdown shadow="sm" isOpen={isOpen} onOpenChange={onOpenChange}>
-      <DropdownTrigger>
+    <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
+      <DropdownMenuTrigger>
         <button className="h-6 w-6 rounded-full grid place-content-center">
           <MoreVerticalIcon size={20} className="text-white" />
         </button>
-      </DropdownTrigger>
-      <DropdownMenu
-        disabledKeys={disabledKeys}
-        variant="faded"
-        aria-label="Dropdown menu with description"
-        onAction={onAction}
-        closeOnSelect={false}
-      >
-        <DropdownItem
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        {/* <DropdownItem
           key="add"
           description={dict.add.description}
           startContent={<PlusIcon size={16} />}
         >
           {dict.add.title}
-        </DropdownItem>
-        <DropdownItem
-          key="priority"
-          description={dict.priority.description}
-          startContent={<AlertOctagonIcon size={16} />}
-          closeOnSelect={false}
-          showDivider
+        </DropdownItem> */}
+        <DropdownMenuItem
+          disabled={goal.is_priority || loadingActions.includes("priority")}
+          onSelect={(e) => onAction(e, "priority")}
         >
-          {dict.priority.title}
-        </DropdownItem>
-        <DropdownItem
-          closeOnSelect={false}
-          key="delete"
-          className="text-danger"
-          color="danger"
-          description={dict.delete.description}
-          startContent={<Trash2Icon className="text-danger" size={16} />}
+          <AlertOctagonIcon className="mx-1" size={16} />
+          <div className="flex flex-col">
+            <span>{dict.priority.title}</span>
+            <span className="text-xs text-muted-foreground transition-colors duration-100 group-hover:text-foreground">
+              {dict.priority.description}
+            </span>
+          </div>
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          disabled={loadingActions.includes("delete")}
+          onSelect={(e) => onAction(e, "delete")}
         >
-          {dict.delete.title}
-        </DropdownItem>
-      </DropdownMenu>
-    </Dropdown>
+          <Trash2Icon size={14} className="text-danger mx-1" />
+          <div className="flex flex-col">
+            <span className="text-danger">{dict.delete.title}</span>
+            <span className="text-xs text-muted-foreground transition-colors duration-100 group-hover:text-danger">
+              {dict.delete.description}
+            </span>
+          </div>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }

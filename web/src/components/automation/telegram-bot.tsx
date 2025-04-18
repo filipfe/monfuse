@@ -63,8 +63,10 @@ export default function TelegramBot({
     >
       <div className="flex-1 flex flex-col gap-6">
         <div className="flex flex-col gap-6">
-          {dict.description.map((text) => (
-            <p className="text-sm">{text}</p>
+          {dict.description.map((text, i) => (
+            <p className="text-sm" key={i}>
+              {text}
+            </p>
           ))}
           <div className="max-w-lg">
             <TokenInput token={settings.telegram_token} dict={dict.input} />

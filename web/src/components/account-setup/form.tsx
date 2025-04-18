@@ -3,7 +3,6 @@
 import { useEffect, useState, useTransition } from "react";
 import Dropdown from "./dropdown";
 import { Dict } from "@/const/dict";
-import { Progress } from "@heroui/react";
 import UniversalSelect from "../ui/universal-select";
 import TelegramBot from "../automation/telegram-bot";
 import { useTimezoneSelect } from "react-timezone-select";
@@ -16,6 +15,7 @@ import { CURRENCIES } from "@/const";
 import getLang from "@/utils/get-lang";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+import { Progress } from "../ui/progress";
 
 export default function AccountSetupForm({
   dict,
@@ -73,19 +73,14 @@ export default function AccountSetupForm({
             {dict["account-setup"].description}
           </p>
         </div>
-        <div className="max-w-32 w-full mb-1">
-          <Progress
-            size="sm"
-            value={step + 1}
-            label={dict["account-setup"].progress.label}
-            maxValue={4}
-            classNames={{
-              label: "text-xs text-font/60",
-              value: "text-xs font-medium",
-            }}
-            showValueLabel
-            valueLabel={`${step + 1} / 4`}
-          />
+        <div className="max-w-32 w-full mb-1 flex flex-col gap-2">
+          <div className="flex items-center justify-between">
+            <span className="text-xs text-font/60">
+              {dict["account-setup"].progress.label}
+            </span>
+            <span className="text-xs font-medium">{step + 1} / 4</span>
+          </div>
+          <Progress className="h-1.5" value={((step + 1) / 4) * 100} />
         </div>
       </div>
       <form action={action}>

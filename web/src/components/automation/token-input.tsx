@@ -1,8 +1,9 @@
 "use client";
 
-import { Button, Input } from "@heroui/react";
 import { CheckIcon, CopyIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 
 export default function TokenInput({
   token,
@@ -29,17 +30,13 @@ export default function TokenInput({
         autoComplete="off"
         value={token}
         readOnly
-        disableAnimation
         label={dict.label}
-        classNames={{
-          inputWrapper: "!bg-light border shadow-none select-none",
-        }}
         onClick={() => navigator.clipboard.writeText(token)}
       />
       <Button
-        isIconOnly
-        disableRipple
-        className="border absolute right-2"
+        size="icon"
+        variant="outline"
+        className="absolute right-2"
         onClick={() => {
           navigator.clipboard.writeText(token);
           setCopied(true);

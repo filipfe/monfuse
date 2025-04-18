@@ -410,7 +410,7 @@
               "description": "Add money to the goal"
             },
             "priority": {
-              "title": "Set priority",
+              "title": "Set as priority",
               "description": "Set this goal as a priority"
             },
             "delete": {
@@ -440,6 +440,26 @@
           "amount": "Amount"
         },
         "_empty": "No priority set"
+      },
+      "add": {
+        "title": "New goal",
+        "form": {
+          "title": {
+            "label": "Title",
+            "placeholder": "Guitar"
+          },
+          "amount": {
+            "label": "Amount"
+          },
+          "currency": {
+            "label": "Currency"
+          },
+          "deadline": {
+            "label": "Deadline"
+          },
+          "_submit": "Save",
+          "_error": "An error occurred while adding the goal, please try again!"
+        }
       }
     },
     "ai-assistant": {
