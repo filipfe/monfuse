@@ -55,7 +55,7 @@ export default function Block({
         </div>
       )}
       {description && (
-        <p className="-mt-3 text-sm text-font/60 mb-1 sm:mb-2">{description}</p>
+        <p className="-mt-3 text-sm text-font/60">{description}</p>
       )}
       {children}
     </div>

@@ -201,6 +201,10 @@
           "income": "New income",
           "expense": "New expense"
         },
+        "description": {
+          "income": "Add new income manually or by scanning an image.",
+          "expense": "Add new expense manually or by scanning an image."
+        },
         "tab": {
           "manual": {
             "title": "Manually"

@@ -200,6 +200,10 @@
           "income": "Nowy przychód",
           "expense": "Nowy wydatek"
         },
+        "description": {
+          "income": "Dodaj nowy przychód za pomocą formularza, lub skanując zdjęcie.",
+          "expense": "Dodaj nowy wydatek za pomocą formularza, lub skanując zdjęcie."
+        },
         "tab": {
           "manual": {
             "title": "Ręcznie"

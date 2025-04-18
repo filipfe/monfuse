@@ -104,13 +104,8 @@ export default function LimitRef({ dict, period, settings, onAdd }: Props) {
         <div className="grid grid-cols-2 sm:flex items-center justify-between gap-2">
           {limit && (
             <Button
-              // variant="flat"
               variant="outline"
               size="icon"
-              // radius="md"
-              // disableRipple
-              // isIconOnly
-              // className="border"
               className="h-8 w-8"
               onClick={() => onAdd(currency, limit.amount.toString())}
             >
@@ -118,14 +113,6 @@ export default function LimitRef({ dict, period, settings, onAdd }: Props) {
             </Button>
           )}
           {limit && (
-            //  <ConfirmationModal
-            //   onSuccess={mutate}
-            //   disclosure={deleteDisclosure}
-            //   mutation={deleteLimit}
-            //   dict={dict.delete.modal}
-            // >
-            //   <input type="hidden" name="period" value={limit.period} />
-            // </ConfirmationModal>
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <Button variant="outline" size="icon" className="h-8 w-8">

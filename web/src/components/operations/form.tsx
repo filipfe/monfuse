@@ -49,6 +49,7 @@ export default function AddForm({ dict, type, settings }: Props) {
   ) : (
     <Block
       title={dict.add.title[type as "income" | "expense"]}
+      description={dict.add.description[type as "income" | "expense"]}
       className="max-w-3xl w-full mx-auto"
     >
       <Tabs defaultValue="manual">

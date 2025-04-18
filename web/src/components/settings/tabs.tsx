@@ -1,64 +1,52 @@
 "use client";
 
-import { Tab, Tabs } from "@heroui/react";
 import {
   BellRingIcon,
   LayersIcon,
   SlidersIcon,
   UserCogIcon,
 } from "lucide-react";
-import TabTitle from "../ui/tab-title";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 import { Dict } from "@/const/dict";
+import { Tabs, TabsList, TabsTrigger } from "../ui/tabs";
+import Link from "next/link";
 
 export default function SettingsTabs({
   dict,
 }: {
   dict: Dict["private"]["_navigation"];
 }) {
+  const router = useRouter();
   const pathname = usePathname();
   return (
-    <Tabs
-      radius="lg"
-      variant="underlined"
-      classNames={{
-        tab: "h-10 max-sm:px-0 max-sm:justify-start",
-        tabList: "py-0 sm:border-b max-sm:flex-col max-sm:items-start",
-        panel: "flex-1 relative",
-        base: "mb-4",
-      }}
-      selectedKey={pathname.split("/").pop()}
-    >
-      <Tab
-        key="account"
-        href="/settings/account"
-        title={<TabTitle title={dict["settings/account"]} Icon={UserCogIcon} />}
-      />
-      <Tab
-        key="preferences"
-        href="/settings/preferences"
-        title={
-          <TabTitle title={dict["settings/preferences"]} Icon={SlidersIcon} />
-        }
-      />
-      <Tab
-        key="subscription"
-        href="/settings/subscription"
-        title={
-          <TabTitle title={dict["settings/subscription"]} Icon={LayersIcon} />
-        }
-      />
-      <Tab
-        key="notifications"
-        href="/settings/notifications"
-        title={
-          <TabTitle
-            title={dict["settings/notifications"]}
-            Icon={BellRingIcon}
-          />
-        }
-      />
+    <Tabs className="mb-4" value={pathname}>
+      <TabsList>
+        <TabsTrigger value="/settings/account" asChild>
+          <Link href="/settings/account">
+            <UserCogIcon size={16} />
+            {dict["settings/account"]}
+          </Link>
+        </TabsTrigger>
+        <TabsTrigger value="/settings/preferences" asChild>
+          <Link href="/settings/preferences">
+            <SlidersIcon size={16} />
+            {dict["settings/preferences"]}
+          </Link>
+        </TabsTrigger>
+        <TabsTrigger value="/settings/subscription" asChild>
+          <Link href="/settings/subscription">
+            <LayersIcon size={16} />
+            {dict["settings/subscription"]}
+          </Link>
+        </TabsTrigger>
+        <TabsTrigger value="/settings/notifications" asChild>
+          <Link href="/settings/notifications">
+            <BellRingIcon size={16} />
+            {dict["settings/notifications"]}
+          </Link>
+        </TabsTrigger>
+      </TabsList>
     </Tabs>
   );
 }
