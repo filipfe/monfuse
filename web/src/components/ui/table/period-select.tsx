@@ -56,6 +56,7 @@ export default function PeriodSelect({ dict }: Props) {
             base: "!bg-white !shadow-none border min-w-max",
             gridHeader: "!shadow-none",
             title: "select-none",
+            cell: "text-sm",
           }}
           maxValue={today(getLocalTimeZone())}
           bottomContent={

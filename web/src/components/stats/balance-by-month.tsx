@@ -126,7 +126,7 @@ export default function BalanceByMonth({ dict }: Props) {
     month + 1,
     year
   );
-  const { width, setChartRef } = useYAxisWidth();
+  const yAxisProps = useYAxisWidth(currency, settings.language);
 
   const maxValue = results
     ? Math.max(
@@ -160,26 +160,16 @@ export default function BalanceByMonth({ dict }: Props) {
             style={{ minHeight: 240 }}
             className="h-full w-full"
           >
-            <BarChart
-              data={results}
-              stackOffset="sign"
-              reverseStackOrder
-              ref={setChartRef}
-            >
+            <BarChart data={results} stackOffset="sign" reverseStackOrder>
               {/* <CartesianGrid vertical={false} opacity={0.5} /> */}
               <YAxis
-                width={width}
                 tick={{ fontSize: 12 }}
                 axisLine={false}
                 tickLine={false}
-                tickFormatter={(value) =>
-                  new Intl.NumberFormat(settings.language, {
-                    style: "currency",
-                    currency,
-                  }).format(value)
-                }
                 domain={[-yAxisMaxValue, yAxisMaxValue]}
                 ticks={ticks}
+                // {...yAxisProps}
+                tickFormatter={yAxisProps.tickFormatter}
               />
               <XAxis
                 tickMargin={8}
