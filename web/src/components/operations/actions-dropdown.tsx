@@ -37,7 +37,7 @@ type Props = {
   dict: Dict["private"]["operations"]["operation-table"]["dropdown"];
   operation: Operation;
   // onSelect?: () => void;
-  onMutation: () => void;
+  mutate: () => Promise<void>;
   type: OperationType;
   timezone: Settings["timezone"];
 };
@@ -47,7 +47,7 @@ export default function ActionsDropdown({
   operation,
   type,
   timezone,
-  onMutation,
+  mutate,
 }: Props) {
   const [isUpdatePending, startUpdate] = useTransition();
 
@@ -56,7 +56,7 @@ export default function ActionsDropdown({
     if (error) {
       // toast
     } else {
-      onMutation?.();
+      await mutate();
     }
   }
 
@@ -73,11 +73,11 @@ export default function ActionsDropdown({
           message: dict.modal.edit.form._error,
         });
       } else {
+        await mutate();
         toast({
           type: "success",
           message: dict.modal.edit.form._success,
         });
-        onMutation();
       }
     });
   }

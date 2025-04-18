@@ -129,17 +129,22 @@ export default function OperationTable({
             type={type}
             timezone={settings.timezone}
             operation={row.original}
-            onMutation={() => {
-              mutateOperations();
-              mutate([
-                "history",
-                type,
-                settings.timezone,
-                row.original.currency,
-              ]);
+            mutate={async () => {
+              const promises = [
+                mutateOperations(),
+                mutate([
+                  "history",
+                  type,
+                  settings.timezone,
+                  row.original.currency,
+                ]),
+              ];
               if (type === "expense") {
-                mutate(["limits", settings.timezone, row.original.currency]);
+                promises.push(
+                  mutate(["limits", settings.timezone, row.original.currency])
+                );
               }
+              await Promise.all(promises);
             }}
           />
         ),
