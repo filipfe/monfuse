@@ -59,7 +59,8 @@ export default async function Page({
           buttonWrapperClassName="max-w-none"
           buttonProps={{
             children: dict.form._submit.label,
-            className: "w-full",
+            className: "w-full font-medium",
+            size: "lg",
           }}
           successMessage={dict.form._toast.success}
         >

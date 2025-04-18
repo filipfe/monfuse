@@ -43,10 +43,16 @@ export default function Manual({
           label={dict.amount.label}
           defaultValue={initialValue?.amount}
         />
-        <CurrencySelect hideAll dict={dict.currency} defaultValue={currency} />
+        <CurrencySelect
+          dict={dict.currency}
+          defaultValue={currency}
+          required
+          hideAll
+        />
         <Input
           className="col-span-2 md:col-span-1"
           name="issued_at"
+          required
           label={dict["issued-at"].label}
           placeholder="24.01.2024"
           type="date"

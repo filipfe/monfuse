@@ -18,32 +18,43 @@ const SelectTrigger = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger> & {
     label?: string;
     size?: "default" | "sm" | "lg";
+    required?: boolean;
   }
->(({ className, children, size = "default", label, ...props }, ref) => (
-  <SelectPrimitive.Trigger
-    ref={ref}
-    className={cn(
-      "flex w-full items-center whitespace-nowrap rounded-md border border-input bg-light text-sm ring-offset-background data-[placeholder]:text-muted-foreground focus:outline-none disabled:cursor-not-allowed disabled:opacity-60 [&>span]:line-clamp-1",
-      size === "sm" && (label ? "px-2 py-1" : "px-2 h-8"),
-      size === "default" && (label ? "px-3 py-1.5" : "px-3 py-2"),
-      size === "lg" && (label ? "px-3 py-2" : "px-4 py-2.5"),
-      className
-    )}
-    {...props}
-  >
-    <div className="flex flex-col items-start flex-1 overflow-hidden">
-      {label && (
-        <span className="text-xs text-foreground/75 select-none pointer-events-none">
-          {label}
-        </span>
+>(
+  (
+    { className, children, size = "default", label, required, ...props },
+    ref
+  ) => (
+    <SelectPrimitive.Trigger
+      ref={ref}
+      className={cn(
+        "flex w-full items-center whitespace-nowrap rounded-md border border-input bg-light text-sm ring-offset-background data-[placeholder]:text-muted-foreground focus:outline-none disabled:cursor-not-allowed disabled:opacity-60 [&>span]:line-clamp-1",
+        size === "sm" && (label ? "px-2 py-1" : "px-2 h-8"),
+        size === "default" && (label ? "px-3 py-1.5" : "px-3 py-2"),
+        size === "lg" && (label ? "px-3 py-2" : "px-4 py-2.5"),
+        className
       )}
-      {children}
-    </div>
-    <SelectPrimitive.Icon asChild>
-      <ChevronDown size={16} className="shrink-0" strokeWidth={1} />
-    </SelectPrimitive.Icon>
-  </SelectPrimitive.Trigger>
-));
+      {...props}
+    >
+      <div className="flex flex-col items-start flex-1 overflow-hidden">
+        {label && (
+          <span className="text-xs text-foreground/75 select-none pointer-events-none">
+            {label}
+            {required && (
+              <span className="text-danger font-bold inline-block ml-0.5">
+                *
+              </span>
+            )}
+          </span>
+        )}
+        {children}
+      </div>
+      <SelectPrimitive.Icon asChild>
+        <ChevronDown size={16} className="shrink-0" strokeWidth={1} />
+      </SelectPrimitive.Icon>
+    </SelectPrimitive.Trigger>
+  )
+);
 SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;
 
 const SelectScrollUpButton = React.forwardRef<

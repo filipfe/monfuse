@@ -175,10 +175,9 @@ export default function RecurringPaymentForm({
             placeholder={dict.data.form.type.placeholder}
             required
             value={singleRecord.type}
-            elements={[
-              { name: "Przychód", value: "income" },
-              { name: "Wydatek", value: "expense" },
-            ]}
+            elements={Object.entries(dict.data.form.type.options).map(
+              ([type, label]) => ({ value: type, name: label })
+            )}
             onValueChange={(value) =>
               setSingleRecord((prev) => ({
                 ...prev,
@@ -263,6 +262,7 @@ export default function RecurringPaymentForm({
             }}
           />
           <TimeInput
+            isRequired
             label={dict.interval.form.hour.label}
             value={parseTime(`${hour < 10 ? "0" + hour : hour}:00`)}
             hourCycle={24}

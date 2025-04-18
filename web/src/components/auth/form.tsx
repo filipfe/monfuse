@@ -83,7 +83,12 @@ export default function Form({
         {children}
         <div className="flex flex-col gap-6 mt-6">
           <div>
-            <Button disabled={isPending} type="submit" className="font-medium">
+            <Button
+              disabled={isPending}
+              type="submit"
+              size="lg"
+              className="font-medium w-full"
+            >
               {dict.form._submit.label}
             </Button>
             <p className="text-sm mt-4">

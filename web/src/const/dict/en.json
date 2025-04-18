@@ -358,8 +358,8 @@
                 "label": "Transaction type",
                 "placeholder": "Select transaction type",
                 "options": {
-                  "incomes": "Income",
-                  "expenses": "Expense"
+                  "income": "Income",
+                  "expense": "Expense"
                 }
               }
             }

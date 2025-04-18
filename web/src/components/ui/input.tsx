@@ -21,7 +21,11 @@ const Input = React.forwardRef<HTMLInputElement, Props>(
         {label && (
           <span className="text-xs text-foreground/75 select-none pointer-events-none">
             {label}
-            {required && <span className="text-danger">*</span>}
+            {required && (
+              <span className="text-danger font-bold inline-block ml-0.5">
+                *
+              </span>
+            )}
           </span>
         )}
         <div className="flex items-center gap-2">

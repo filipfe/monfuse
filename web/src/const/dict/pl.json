@@ -357,8 +357,8 @@
                 "label": "Typ transakcji",
                 "placeholder": "Wybierz typ transakcji",
                 "options": {
-                  "incomes": "Przychód",
-                  "expenses": "Wydatki"
+                  "income": "Przychód",
+                  "expense": "Wydatki"
                 }
               }
             }

@@ -15,6 +15,7 @@ type Props = Omit<SelectProps, "children"> & {
   label?: string;
   className?: string;
   size?: "default" | "sm" | "lg";
+  required?: boolean;
 };
 
 export default function UniversalSelect({
@@ -23,11 +24,17 @@ export default function UniversalSelect({
   placeholder,
   className,
   size,
+  required,
   ...props
 }: Props) {
   return (
     <Select {...props}>
-      <SelectTrigger className={className} label={label} size={size}>
+      <SelectTrigger
+        className={className}
+        label={label}
+        size={size}
+        required={required}
+      >
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>

@@ -88,6 +88,7 @@ export default function GoalForm({ defaultCurrency, dict }: Props) {
         />
         <UniversalSelect
           name="currency"
+          required
           label={dict.form.currency.label}
           value={singleRecord.currency}
           elements={CURRENCIES}

@@ -24,7 +24,6 @@ export default function TransactionSelect({ onChange, value, dict }: Props) {
       </SelectTrigger>
       <SelectContent>
         <SelectItem value="*">{dict.default}</SelectItem>
-
         {TRANSACTION_TYPES.map((type) => (
           <SelectItem value={type.value} key={type.value}>
             {type.name}

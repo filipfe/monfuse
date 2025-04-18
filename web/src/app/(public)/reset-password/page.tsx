@@ -28,7 +28,8 @@ export default async function Page() {
           buttonWrapperClassName="max-w-none"
           buttonProps={{
             children: dict.auth["reset-password"].form._submit.label,
-            className: "w-full",
+            className: "w-full font-medium",
+            size: "lg",
           }}
           successMessage={dict.auth["reset-password"].form._toast.success}
         >
