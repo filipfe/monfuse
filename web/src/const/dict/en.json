@@ -428,7 +428,14 @@
           "date": "Date"
         },
         "today": "Today",
-        "sum": "Sum"
+        "sum": "Sum",
+        "form": {
+          "amount": {
+            "label": "Kwota"
+          },
+          "_success": "Pomyślnie dodano płatność!",
+          "_error": "Wystąpił błąd przy dodawaniu płatności, spróbuj ponownie!"
+        }
       },
       "priority": {
         "title": "Priority",

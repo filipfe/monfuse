@@ -17,6 +17,8 @@ export default function Dropdown(payment: Payment) {
     }
   };
 
+  return <></>;
+
   return (
     <DropdownWrapper placement="left-start">
       <DropdownTrigger>

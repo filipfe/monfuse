@@ -62,10 +62,8 @@ export default function Menu({ dict, goal }: Props) {
 
   return (
     <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
-      <DropdownMenuTrigger>
-        <button className="h-6 w-6 rounded-full grid place-content-center">
-          <MoreVerticalIcon size={20} className="text-white" />
-        </button>
+      <DropdownMenuTrigger className="h-6 w-6 rounded-full grid place-content-center">
+        <MoreVerticalIcon size={20} className="text-white" />
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         {/* <DropdownItem

@@ -8,7 +8,7 @@ interface Props extends React.ComponentProps<"input"> {
 }
 
 const Input = React.forwardRef<HTMLInputElement, Props>(
-  ({ className, type, label, startContent, ...props }, ref) => {
+  ({ className, type, label, startContent, required, ...props }, ref) => {
     return (
       <label
         className={cn(
@@ -21,6 +21,7 @@ const Input = React.forwardRef<HTMLInputElement, Props>(
         {label && (
           <span className="text-xs text-foreground/75 select-none pointer-events-none">
             {label}
+            {required && <span className="text-danger">*</span>}
           </span>
         )}
         <div className="flex items-center gap-2">

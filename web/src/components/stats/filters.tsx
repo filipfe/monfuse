@@ -65,6 +65,7 @@ export default function Filters() {
         name="currency"
         value={currency}
         elements={CURRENCIES}
+        size="sm"
         onValueChange={(value) => setCurrency(value)}
       />
       <div className="flex gap-1">

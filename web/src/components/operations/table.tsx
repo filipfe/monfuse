@@ -1,6 +1,6 @@
 "use client";
 
-import { MouseEvent, useCallback, useContext, useMemo, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 import useTableQuery from "@/hooks/useTableQuery";
 import TopContent from "../ui/table/top-content";
 import Block from "../ui/block";
@@ -116,6 +116,7 @@ export default function OperationTable({
                 ) : (
                   <></>
                 ),
+              size: 32,
             } as ColumnDef<Operation>,
           ]
         : []),
@@ -141,6 +142,7 @@ export default function OperationTable({
             }}
           />
         ),
+        size: 32,
       },
     ],
     [dict, settings, type, hasLabel, hasDoc]

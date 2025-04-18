@@ -1,9 +1,8 @@
 import Dropzone from "@/components/ui/dropzone";
 import parseCSV from "@/utils/operations/parse-csv";
-import { Button } from "@heroui/react";
 import { Hatch } from "ldrs/react";
-import { FileSpreadsheet, PaperclipIcon } from "lucide-react";
-import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
+import { FileSpreadsheet } from "lucide-react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 type Props<T> = {
   type: OperationType;
