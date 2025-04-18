@@ -24,7 +24,7 @@ export default function LabelInput({
   onChange,
   disabled,
 }: Props) {
-  const [label, setLabel] = useState(defaultValue || "");
+  const [label, setLabel] = useState(defaultValue || value || "");
   const { data: labels } = useLabels();
 
   useEffect(() => {
@@ -51,6 +51,7 @@ export default function LabelInput({
           })) || []
         }
       />
+      <input type="hidden" name="label" value={label} />
     </div>
   );
 }

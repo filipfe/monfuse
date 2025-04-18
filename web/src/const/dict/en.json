@@ -173,7 +173,8 @@
                 "_submit": {
                   "label": "Save"
                 },
-                "_success": "Operation successfully modified!"
+                "_success": "Operation successfully modified!",
+                "_error": "An error occurred while editing operation, please try again!"
               }
             },
             "delete": {

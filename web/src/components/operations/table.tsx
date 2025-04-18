@@ -127,8 +127,9 @@ export default function OperationTable({
           <ActionsDropdown
             dict={dict.dropdown}
             type={type}
+            timezone={settings.timezone}
             operation={row.original}
-            onDelete={() => {
+            onMutation={() => {
               mutateOperations();
               mutate([
                 "history",

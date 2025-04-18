@@ -229,6 +229,11 @@ export async function updateOperation(
 
     revalidatePath(`/${type}s`);
     revalidatePath("/");
+
+    return {
+      error: null,
+      results: [],
+    };
   } catch (err) {
     console.error("Edit error: Couldn't update operation", err);
     return {

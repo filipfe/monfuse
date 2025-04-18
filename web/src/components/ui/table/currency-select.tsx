@@ -9,6 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../select";
+import { useEffect, useState } from "react";
 
 interface Props extends Partial<State> {
   className?: string;
@@ -23,30 +24,49 @@ interface Props extends Partial<State> {
 
 export default function CurrencySelect({
   dict,
-  value,
+  value: forcedValue,
   onChange,
   className,
   hideAll,
   required,
   defaultValue,
 }: Props) {
+  const [value, setValue] = useState(defaultValue || forcedValue);
+
+  useEffect(() => {
+    if (!forcedValue) return;
+    setValue(forcedValue);
+  }, [forcedValue]);
+
+  const onValueChange = (newValue: string) => {
+    setValue(newValue);
+    onChange?.(newValue);
+  };
+
   return (
-    <Select value={value} defaultValue={defaultValue} onValueChange={onChange}>
-      <SelectTrigger
-        required={required}
-        label={dict.label}
-        className={className}
+    <>
+      <Select
+        value={value}
+        defaultValue={defaultValue}
+        onValueChange={onValueChange}
       >
-        <SelectValue />
-      </SelectTrigger>
-      <SelectContent>
-        {!hideAll && <SelectItem value="*">{dict.default}</SelectItem>}
-        {CURRENCIES.map((curr) => (
-          <SelectItem value={curr} key={curr}>
-            {curr}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
+        <SelectTrigger
+          required={required}
+          label={dict.label}
+          className={className}
+        >
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent>
+          {!hideAll && <SelectItem value="*">{dict.default}</SelectItem>}
+          {CURRENCIES.map((curr) => (
+            <SelectItem value={curr} key={curr}>
+              {curr}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+      <input type="hidden" name="currency" value={value} />
+    </>
   );
 }

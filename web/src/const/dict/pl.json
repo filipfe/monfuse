@@ -172,7 +172,8 @@
                 "_submit": {
                   "label": "Zapisz"
                 },
-                "_success": "Pomyślnie zmodyfikowano operację!"
+                "_success": "Pomyślnie zmodyfikowano operację!",
+                "_error": "Wystąpił błąd przy edytowaniu płatności, spróbuj ponownie!"
               }
             },
             "delete": {

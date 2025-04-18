@@ -62,14 +62,6 @@ export default function Manual({
             "yyyy-MM-dd"
           )}
         />
-        {/* <Textarea
-          className="col-span-2"
-          classNames={{ inputWrapper: "!bg-light border shadow-none" }}
-          name="description"
-          label="Opis"
-          placeholder="Wynagrodzenie za luty"
-          defaultValue={initialValue?.description}
-        /> */}
         {type === "expense" && withLabel && (
           <div className="w-full col-span-2">
             <LabelInput dict={dict.label} defaultValue={initialValue?.label} />
