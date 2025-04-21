@@ -1,8 +1,9 @@
 "use client";
 
+import { cn } from "@/utils/cn";
 import NumberFormat from "@/utils/formatters/currency";
-import { Skeleton, cn } from "@heroui/react";
-import { ArrowDownIcon, ArrowUpIcon, ArrowUpRight, Minus } from "lucide-react";
+import { Skeleton } from "@heroui/skeleton";
+import { ArrowDownIcon, ArrowUpIcon, Minus } from "lucide-react";
 
 type Props = {
   title: string;

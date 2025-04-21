@@ -1,62 +1,42 @@
-import { Select, SelectItem } from "@heroui/react";
 import { useLabels } from "@/lib/operations/queries";
 import { Dict } from "@/const/dict";
+import { CURRENCIES } from "@/const";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
 
-export default function LabelSelect({
-  dict,
-  value,
-  onChange,
-}: State & {
-  dict: Dict["private"]["operations"]["operation-table"]["top-content"]["filter"]["label"];
-}) {
+interface Props extends State {
+  dict: {
+    label: string;
+    default: string;
+    description: string;
+  };
+}
+
+export default function LabelSelect({ dict, value, onChange }: Props) {
   const { data: labels, isLoading } = useLabels();
 
   return (
-    <Select
-      name="label"
-      aria-label="Label filter"
-      label={dict.label}
-      size="sm"
-      isLoading={isLoading}
-      isDisabled={isLoading}
-      selectedKeys={[value || "all"]}
-      onSelectionChange={(keys) => {
-        const selectedKey = Array.from(keys)[0]?.toString();
-        onChange(selectedKey === "all" ? "" : selectedKey);
-      }}
-      classNames={{
-        trigger: "bg-light",
-      }}
-    >
-      {
-        (
-          <SelectItem
-            // value={dict.default}
-            className={`${
-              value === "" ? "!bg-light" : "!bg-white hover:!bg-light"
-            }`}
-            key="all"
-          >
-            {dict.default}
-          </SelectItem>
-        ) as any
-      }
-      {labels
-        ? labels.map(({ name, count }) => (
-            <SelectItem
-              // value={name}
-              description={`${count} ${dict.description}`}
-              classNames={{
-                base: `${
-                  value === name ? "!bg-light" : "!bg-white hover:!bg-light"
-                }`,
-              }}
-              key={name}
-            >
-              {name}
+    <Select disabled={isLoading} value={value} onValueChange={onChange}>
+      <SelectTrigger label={dict.label}>
+        {labels?.find((label) => label.name === value)?.name || dict.default}
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value="*">{dict.default}</SelectItem>
+        {labels &&
+          labels.map((label) => (
+            <SelectItem value={label.name} key={label.name}>
+              {label.name}
+              <p className="text-xs text-muted-foreground">
+                {label.count} {dict.description}
+              </p>
             </SelectItem>
-          ))
-        : []}
+          ))}
+      </SelectContent>
     </Select>
   );
 }

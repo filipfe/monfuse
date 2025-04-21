@@ -1,5 +1,5 @@
+import { cn } from "@/utils/cn";
 import toast from "@/utils/toast";
-import { cn } from "@heroui/react";
 import { DragEvent } from "react";
 
 type Props = {

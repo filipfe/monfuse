@@ -1,6 +1,6 @@
+import { Button } from "@/components/ui/button";
 import { Dict } from "@/const/dict";
 import toast from "@/utils/toast";
-import { Button } from "@heroui/react";
 import {
   PaymentElement,
   useElements,
@@ -65,13 +65,10 @@ export default function Checkout({
     <form id="payment-form" onSubmit={handleSubmit}>
       <PaymentElement id="payment-element" options={{ layout: "tabs" }} />
       <Button
-        color="primary"
         type="submit"
-        isDisabled={isDisabled}
-        disabled={isLoading || !stripe || !elements}
+        disabled={isDisabled}
         id="submit"
-        className="w-full mt-6 font-medium"
-        disableRipple
+        className="w-full mt-4 font-medium"
       >
         {isLoading && <Hatch stroke={1.5} size={14} color="white" />}
         {dict}

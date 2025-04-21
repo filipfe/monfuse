@@ -2,18 +2,18 @@
 
 import getStripe from "@/utils/stripe/client";
 import Stripe from "stripe";
-import {
-  Button,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-} from "@heroui/react";
 import { useSearchParams } from "next/navigation";
 import { Fragment, useEffect, useState } from "react";
 import Link from "next/link";
 import { Hatch } from "ldrs/react";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "../ui/dialog";
+import { Button } from "../ui/button";
 
 const getTitle = (status: Stripe.PaymentIntent.Status) => {
   switch (status) {
@@ -61,30 +61,35 @@ export default function SubscriptionModal() {
   }, []);
 
   return (
-    <Modal isOpen>
-      <ModalContent>
+    <Dialog open>
+      <DialogContent>
         {isLoading ? (
-          <div className="flex-1 grid place-content-center min-h-48">
-            <Hatch size={32} />
-          </div>
+          <>
+            <DialogTitle className="sr-only" />
+            <div className="flex-1 grid place-content-center min-h-48">
+              <Hatch size={32} />
+            </div>
+          </>
         ) : (
           <Fragment>
-            <ModalHeader>{getTitle(status)}</ModalHeader>
-            <ModalBody>
+            <DialogHeader>
+              <DialogTitle>{getTitle(status)}</DialogTitle>
+            </DialogHeader>
+            <div>
               <p className="text-sm opacity-80">{getDescription(status)}</p>
-            </ModalBody>
-            <ModalFooter>
-              <Link
-                href={status === "succeeded" ? "/" : "/settings/subscription"}
-              >
-                <Button disableRipple color="primary" as="div">
+            </div>
+            <DialogFooter>
+              <Button asChild>
+                <Link
+                  href={status === "succeeded" ? "/" : "/settings/subscription"}
+                >
                   {status === "succeeded" ? "Rozpocznij" : "Spróbuj ponownie"}
-                </Button>
-              </Link>
-            </ModalFooter>
+                </Link>
+              </Button>
+            </DialogFooter>
           </Fragment>
         )}
-      </ModalContent>
-    </Modal>
+      </DialogContent>
+    </Dialog>
   );
 }

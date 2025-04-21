@@ -1,10 +1,17 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { Dict } from "@/const/dict";
 import { useSettings } from "@/lib/general/queries";
 import { updateSettings } from "@/lib/settings/queries";
 import toast from "@/utils/toast";
-import { Button, Switch, Tooltip } from "@heroui/react";
 import Link from "next/link";
 
 type Props = {
@@ -35,45 +42,36 @@ export default function NotificationSwitch({ dict, field }: Props) {
 
   return (
     <div className="flex items-center justify-between gap-4">
-      <div className="flex flex-col gap-2 mb-2">
+      <div className="flex flex-col gap-1 mb-2">
         <h3>{dict[field].title}</h3>
         <p className="text-sm text-font/60">{dict[field].description}</p>
       </div>
       {isDisabled ? (
-        <Tooltip
-          size="sm"
-          radius="md"
-          content={
-            <div className="flex flex-col items-center gap-2 py-2 px-2">
+        <TooltipProvider>
+          <Tooltip delayDuration={0}>
+            <TooltipTrigger asChild>
+              <div>
+                <Switch disabled />
+              </div>
+            </TooltipTrigger>
+            <TooltipContent className="flex flex-col items-center gap-2 py-2 px-2">
               <p className="text-sm">{dict.telegram.tooltip.title}</p>
-              <Link href="/automation">
-                <Button
-                  color="primary"
-                  size="sm"
-                  radius="md"
-                  disableRipple
-                  as="div"
-                >
-                  {dict.telegram.tooltip.button}
-                </Button>
-              </Link>
-            </div>
-          }
-        >
-          <div>
-            <Switch isDisabled />
-          </div>
-        </Tooltip>
+              <Button size="sm" asChild>
+                <Link href="/automation">{dict.telegram.tooltip.button}</Link>
+              </Button>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       ) : (
         settings && (
           <Switch
-            isDisabled={isLoading}
-            isSelected={
+            disabled={isLoading}
+            checked={
               settings.notifications[
                 field as keyof Settings["notifications"]
               ] as boolean
             }
-            onValueChange={onValueChange}
+            onCheckedChange={onValueChange}
           />
         )
       )}

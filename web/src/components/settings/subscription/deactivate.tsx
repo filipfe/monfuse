@@ -1,9 +1,19 @@
 "use client";
 
-import ConfirmationModal from "@/components/ui/confirmation-modal";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
 import { Dict } from "@/const/dict";
 import { cancelOrReactivateSubscription } from "@/lib/subscription/actions";
-import { Button, useDisclosure } from "@heroui/react";
 import { useTransition } from "react";
 
 export default function Deactivate({
@@ -14,7 +24,6 @@ export default function Deactivate({
   subscription: Pick<Stripe.Subscription, "id" | "cancel_at_period_end">;
 }) {
   const [isPending, startTransition] = useTransition();
-  const disclosure = useDisclosure();
   return (
     <>
       {subscription.cancel_at_period_end ? (
@@ -27,33 +36,47 @@ export default function Deactivate({
         >
           <input type="hidden" name="subscription_id" value={subscription.id} />
           <input type="hidden" name="should_cancel" value="false" />
-          <Button
-            type="submit"
-            isDisabled={isPending}
-            disabled={isPending}
-            className="border bg-white"
-            disableRipple
-          >
+          <Button type="submit" disabled={isPending} variant="outline">
             {dict.reactivate.label}
           </Button>
         </form>
       ) : (
-        <Button
-          className="border bg-white"
-          disableRipple
-          onClick={disclosure.onOpen}
-        >
-          {dict.label}
-        </Button>
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button variant="outline">{dict.label}</Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>{dict.modal.title}</AlertDialogTitle>
+              <AlertDialogDescription>
+                {dict.modal.description}
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel asChild>
+                <Button variant="outline">{dict.modal.cancel}</Button>
+              </AlertDialogCancel>
+              <form
+                action={(formData) =>
+                  startTransition(async () => {
+                    await cancelOrReactivateSubscription(formData);
+                  })
+                }
+              >
+                <AlertDialogAction asChild>
+                  <Button type="submit">{dict.modal.proceed}</Button>
+                </AlertDialogAction>
+                <input
+                  type="hidden"
+                  name="subscription_id"
+                  value={subscription.id}
+                />
+                <input type="hidden" name="should_cancel" value="true" />
+              </form>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       )}
-      <ConfirmationModal
-        disclosure={disclosure}
-        dict={dict.modal}
-        mutation={cancelOrReactivateSubscription}
-      >
-        <input type="hidden" name="subscription_id" value={subscription.id} />
-        <input type="hidden" name="should_cancel" value="true" />
-      </ConfirmationModal>
     </>
   );
 }

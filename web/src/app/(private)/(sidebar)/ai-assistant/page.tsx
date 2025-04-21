@@ -10,6 +10,7 @@ import CurrencyPicker from "@/components/ai-assistant/context/currency";
 import getDictionary from "@/const/dict";
 import ContextDropdown from "@/components/ai-assistant/context-dropdown";
 import { Metadata } from "next";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSettings();
@@ -70,31 +71,36 @@ export default async function Page() {
           description={dict.context.description}
           className="my-4 sm:my-8 hidden xl:flex"
         >
-          <ScrollShadow
-            className="max-h-[calc(100vh-298px)] flex-1"
-            hideScrollBar
-          >
-            <div>
-              <CurrencyPicker dict={dict.context.form.currency} />
-              <OperationsContext
-                dict={{ ...dict.context.form.operations, incomes, expenses }}
-              />
-              <LimitsContext
-                dict={{
-                  ...dict.context.form.limits,
-                  _error: dict.context.form._error,
-                  periodValues: periodValues,
-                }}
-                timezone={settings.timezone}
-              />
-              <GoalsContext
-                dict={{
-                  ...dict.context.form.goals,
-                  _error: dict.context.form._error,
-                }}
-              />
+          <div className="relative flex-1">
+            <div className="absolute inset-0 w-full h-full">
+              <ScrollShadow className="h-full" hideScrollBar>
+                <div>
+                  <CurrencyPicker dict={dict.context.form.currency} />
+                  <OperationsContext
+                    dict={{
+                      ...dict.context.form.operations,
+                      incomes,
+                      expenses,
+                    }}
+                  />
+                  <LimitsContext
+                    dict={{
+                      ...dict.context.form.limits,
+                      _error: dict.context.form._error,
+                      periodValues: periodValues,
+                    }}
+                    timezone={settings.timezone}
+                  />
+                  <GoalsContext
+                    dict={{
+                      ...dict.context.form.goals,
+                      _error: dict.context.form._error,
+                    }}
+                  />
+                </div>
+              </ScrollShadow>
             </div>
-          </ScrollShadow>
+          </div>
         </Block>
       </AIAssistantProvider>
     </div>

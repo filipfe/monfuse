@@ -173,7 +173,8 @@
                 "_submit": {
                   "label": "Save"
                 },
-                "_success": "Operation successfully modified!"
+                "_success": "Operation successfully modified!",
+                "_error": "An error occurred while editing operation, please try again!"
               }
             },
             "delete": {
@@ -199,6 +200,10 @@
         "title": {
           "income": "New income",
           "expense": "New expense"
+        },
+        "description": {
+          "income": "Add new income manually or by scanning an image.",
+          "expense": "Add new expense manually or by scanning an image."
         },
         "tab": {
           "manual": {
@@ -358,8 +363,8 @@
                 "label": "Transaction type",
                 "placeholder": "Select transaction type",
                 "options": {
-                  "incomes": "Income",
-                  "expenses": "Expense"
+                  "income": "Income",
+                  "expense": "Expense"
                 }
               }
             }
@@ -410,7 +415,7 @@
               "description": "Add money to the goal"
             },
             "priority": {
-              "title": "Set priority",
+              "title": "Set as priority",
               "description": "Set this goal as a priority"
             },
             "delete": {
@@ -428,7 +433,14 @@
           "date": "Date"
         },
         "today": "Today",
-        "sum": "Sum"
+        "sum": "Sum",
+        "form": {
+          "amount": {
+            "label": "Kwota"
+          },
+          "_success": "Pomyślnie dodano płatność!",
+          "_error": "Wystąpił błąd przy dodawaniu płatności, spróbuj ponownie!"
+        }
       },
       "priority": {
         "title": "Priority",
@@ -440,6 +452,26 @@
           "amount": "Amount"
         },
         "_empty": "No priority set"
+      },
+      "add": {
+        "title": "New goal",
+        "form": {
+          "title": {
+            "label": "Title",
+            "placeholder": "Guitar"
+          },
+          "amount": {
+            "label": "Amount"
+          },
+          "currency": {
+            "label": "Currency"
+          },
+          "deadline": {
+            "label": "Deadline"
+          },
+          "_submit": "Save",
+          "_error": "An error occurred while adding the goal, please try again!"
+        }
       }
     },
     "ai-assistant": {

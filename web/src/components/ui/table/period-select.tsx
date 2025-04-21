@@ -1,27 +1,19 @@
 import { PeriodContext } from "@/app/(private)/(sidebar)/(operations)/providers";
 import { Dict } from "@/const/dict";
 import { getLocalTimeZone, parseDate, today } from "@internationalized/date";
-import {
-  Badge,
-  Button,
-  DateValue,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-  RangeCalendar,
-  RangeValue,
-} from "@heroui/react";
+import { Badge, DateValue, RangeCalendar, RangeValue } from "@heroui/react";
 import { CalendarDaysIcon, ListRestartIcon } from "lucide-react";
 import { useContext, useRef, useState } from "react";
+import { Button } from "../button";
+import { Popover, PopoverContent, PopoverTrigger } from "../popover";
 
-export default function PeriodSelect({
-  dict,
-}: {
+type Props = {
   dict: {
     reset: string;
   };
-}) {
-  const ref = useRef<HTMLDivElement | null>(null);
+};
+
+export default function PeriodSelect({ dict }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const { period, setPeriod } = useContext(PeriodContext);
   const numberOfParams = Object.values(period).filter(Boolean).length;
@@ -39,36 +31,18 @@ export default function PeriodSelect({
   };
 
   return (
-    <Popover
-      ref={ref}
-      isOpen={isOpen}
-      onOpenChange={setIsOpen}
-      placement="bottom"
-      shouldCloseOnInteractOutside={(element) => !element.contains(ref.current)}
-      classNames={{
-        content: "p-0 border-0 shadow-none",
-      }}
-    >
-      <PopoverTrigger>
-        <div>
-          <Badge
-            content={numberOfParams === 2 ? 1 : 0}
-            isInvisible={numberOfParams === 0}
-            color="primary"
-            size="lg"
-          >
-            <Button
-              isIconOnly
-              disableRipple
-              className="border"
-              onClick={() => setIsOpen((prev) => !prev)}
-            >
-              <CalendarDaysIcon size={16} />
-            </Button>
-          </Badge>
-        </div>
+    <Popover open={isOpen} onOpenChange={setIsOpen}>
+      <PopoverTrigger asChild>
+        <Button size="icon" variant="outline" className="relative h-10 w-10">
+          <CalendarDaysIcon size={16} />
+          {numberOfParams > 0 && (
+            <div className="absolute w-6 h-6 text-sm border-2 border-white bg-primary flex items-center justify-center text-primary-foreground rounded-full -right-2 -top-2">
+              1
+            </div>
+          )}
+        </Button>
       </PopoverTrigger>
-      <PopoverContent>
+      <PopoverContent className="p-0 border-0 min-w-max">
         <RangeCalendar
           showShadow={false}
           // @ts-ignore
@@ -79,28 +53,42 @@ export default function PeriodSelect({
           }
           onChange={onChange}
           classNames={{
-            base: "!bg-white",
+            base: "!bg-white !shadow-none border min-w-max",
             gridHeader: "!shadow-none",
             title: "select-none",
+            cell: "text-sm",
           }}
           maxValue={today(getLocalTimeZone())}
           bottomContent={
-            <div className="grid grid-cols-1 pb-2 px-2">
-              <Button
-                disabled={period.from === "" || period.to === ""}
-                disableRipple
-                size="sm"
-                onPress={() => {
-                  setIsOpen(false);
-                  setPeriod({ from: "", to: "" });
-                }}
-              >
-                <ListRestartIcon size={15} strokeWidth={2} /> {dict.reset}
-              </Button>
-            </div>
+            (period.from || period.to) && (
+              <div className="grid grid-cols-1 pb-2 px-2">
+                <Button
+                  variant="outline"
+                  disabled={period.from === "" || period.to === ""}
+                  size="sm"
+                  onClick={() => {
+                    setIsOpen(false);
+                    setPeriod({ from: "", to: "" });
+                  }}
+                >
+                  <ListRestartIcon size={15} strokeWidth={2} /> {dict.reset}
+                </Button>
+              </div>
+            )
           }
         />
       </PopoverContent>
     </Popover>
   );
 }
+
+// const onChange = (range?: DateRange) => {
+//   if (!range) return;
+//   const { from, to } = range;
+//   if (!from || !to) return;
+//   setIsOpen(false);
+//   setPeriod({
+//     from: format(from, "yyyy-MM-dd"),
+//     to: format(to, "yyyy-MM-dd"),
+//   });
+// };

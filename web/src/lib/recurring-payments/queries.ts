@@ -2,7 +2,7 @@ import { createClient } from "@/utils/supabase/client";
 import useSWR, { SWRConfiguration } from "swr";
 
 export async function getPastRecurringPayments(
-  params: SearchParams
+  params: SearchParams,
 ): Promise<Payment[]> {
   const supabase = createClient();
   let query = supabase
@@ -29,13 +29,13 @@ export async function getPastRecurringPayments(
 }
 
 async function getActivePayments(
-  page: number
+  page: number,
 ): Promise<{ count: number; results: RecurringPayment[] }> {
   const supabase = createClient();
 
   const { data: results, error } = await supabase.rpc(
     "get_recurring_payments_active_payments",
-    { p_page: page }
+    { p_page: page },
   );
 
   if (error) throw new Error(error.message);
@@ -43,13 +43,20 @@ async function getActivePayments(
   return results;
 }
 
-export const useActivePayments = (page: number) =>
-  useSWR(["active-payments", page], ([_, page]) => getActivePayments(page));
+export const useActivePayments = (
+  page: number,
+  config?: SWRConfiguration<{ count: number; results: RecurringPayment[] }>,
+) =>
+  useSWR(
+    ["active-payments", page],
+    ([_, page]) => getActivePayments(page),
+    config,
+  );
 
 async function getCalendarRecords(
   timezone: string,
   month: number,
-  year: number
+  year: number,
 ): Promise<TimelineEntry[]> {
   const supabase = createClient();
 
@@ -59,7 +66,7 @@ async function getCalendarRecords(
       p_timezone: timezone,
       p_month: month + 1,
       p_year: year,
-    }
+    },
   );
 
   if (error) throw new Error(error.message);
@@ -70,7 +77,7 @@ async function getCalendarRecords(
 export const useCalendarRecords = (
   timezone: string,
   month: number,
-  year: number
+  year: number,
 ) =>
   useSWR(
     ["recurring-payments", "calendar", { timezone, month, year }],
@@ -78,18 +85,18 @@ export const useCalendarRecords = (
       getCalendarRecords(timezone, month, year),
     {
       revalidateOnFocus: false,
-    }
+    },
   );
 
 async function getUpcomingPayments(
-  timezone: string
+  timezone: string,
 ): Promise<UpcomingPayment[]> {
   const supabase = createClient();
   const { data, error } = await supabase.rpc(
     "get_recurring_payments_upcoming_payments",
     {
       p_timezone: timezone,
-    }
+    },
   );
 
   if (error) {
@@ -101,12 +108,12 @@ async function getUpcomingPayments(
 
 export const useUpcomingPayments = (
   timezone: string,
-  config?: SWRConfiguration<UpcomingPayment[]>
+  config?: SWRConfiguration<UpcomingPayment[]>,
 ) =>
   useSWR(
     ["recurring-payments", "upcoming", timezone],
     ([, , timezone]) => getUpcomingPayments(timezone),
-    config
+    config,
   );
 
 export async function deleteRecurringPayment(id: string) {

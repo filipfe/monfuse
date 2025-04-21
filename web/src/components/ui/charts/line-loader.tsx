@@ -1,5 +1,6 @@
-import { Skeleton, cn } from "@heroui/react";
+import { Skeleton } from "@heroui/react";
 import Block from "../block";
+import { cn } from "@/utils/cn";
 type Props = { className?: string; hideTitle?: boolean };
 
 export default function LineChartLoader({ className, hideTitle }: Props) {

@@ -229,6 +229,11 @@ export async function updateOperation(
 
     revalidatePath(`/${type}s`);
     revalidatePath("/");
+
+    return {
+      error: null,
+      results: [],
+    };
   } catch (err) {
     console.error("Edit error: Couldn't update operation", err);
     return {
@@ -238,21 +243,34 @@ export async function updateOperation(
   }
 }
 
-export async function deleteLimit(formData: FormData) {
-  const period = formData.get("period") as string;
-
-  const supabase = await createClient();
-
-  const { error } = await supabase.from("limits").delete().eq("period", period);
-
-  if (error) {
+export async function deleteOperations(formData: FormData) {
+  const type = formData.get("type") as string;
+  if (!type) {
     return {
-      error: error.message,
+      error: "field:type",
     };
   }
+  try {
+    const ids = JSON.parse(formData.get("ids") as string);
+    const supabase = await createClient();
+    const { error } = await supabase.from(`${type}s`)
+      .delete()
+      .in("id", ids);
 
-  revalidatePath("/");
-  revalidatePath("/expenses");
+    if (error) {
+      return {
+        error: "query",
+      };
+    }
 
-  return {};
+    revalidatePath(`/${type}s`);
+
+    return {
+      error: null,
+    };
+  } catch (err) {
+    return {
+      error: "field:ids",
+    };
+  }
 }

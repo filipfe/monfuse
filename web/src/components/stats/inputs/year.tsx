@@ -1,6 +1,12 @@
 import { StatsFilterContext } from "@/app/(private)/(sidebar)/stats/providers";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { now } from "@internationalized/date";
-import { Select, SelectItem } from "@heroui/react";
 import { useContext } from "react";
 
 type Props = {
@@ -16,29 +22,19 @@ export default function YearInput({ value, onChange }: Props) {
   return (
     <Select
       name="year"
-      aria-label="Year filter"
-      placeholder="Rok"
-      size="sm"
-      radius="md"
-      selectedKeys={value ? [value.toString()] : []}
-      onChange={(e) => onChange(parseInt(e.target.value))}
-      classNames={{
-        trigger: "!bg-light shadow-none border min-w-20 sm:min-w-24",
-      }}
-      disallowEmptySelection
+      value={value?.toString()}
+      onValueChange={(value) => onChange(parseInt(value))}
     >
-      {Array.from(Array(year - 2023 + 1)).map((_, k) => (
-        <SelectItem
-          classNames={{
-            base: `${
-              value === k + 2023 ? "!bg-light" : "!bg-white hover:!bg-light"
-            }`,
-          }}
-          key={(k + 2023).toString()}
-        >
-          {(k + 2023).toString()}
-        </SelectItem>
-      ))}
+      <SelectTrigger size="sm" className="min-w-20 sm:min-w-24">
+        <SelectValue />
+      </SelectTrigger>
+      <SelectContent>
+        {Array.from(Array(year - 2023 + 1)).map((_, k) => (
+          <SelectItem value={(k + 2023).toString()} key={(k + 2023).toString()}>
+            {(k + 2023).toString()}
+          </SelectItem>
+        ))}
+      </SelectContent>
     </Select>
   );
 }

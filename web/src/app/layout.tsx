@@ -6,6 +6,7 @@ import { Toaster } from "react-hot-toast";
 import Script from "next/script";
 import { LOCALES } from "@/const/locales";
 import "ldrs/react/Hatch.css";
+import "ldrs/react/Ring.css";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {

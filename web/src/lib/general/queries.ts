@@ -56,3 +56,33 @@ export const useLimits = (timezone: string, currency: string) =>
     ["limits", timezone, currency],
     ([_k, tz, curr]) => getLimits(tz, curr),
   );
+
+export async function deleteRows(
+  data: "all" | string[],
+  type: string,
+) {
+  const supabase = createClient();
+
+  let query = supabase.from(`${type}s`).delete();
+
+  if (data === "all") {
+    const {
+      data: { user },
+      error: authError,
+    } = await supabase.auth.getUser();
+
+    if (!user || authError) {
+      return { error: authError };
+    }
+
+    query = query.eq("user_id", user.id);
+  } else {
+    query = query.in("id", data);
+  }
+
+  const { error } = await query;
+
+  return {
+    error,
+  };
+}

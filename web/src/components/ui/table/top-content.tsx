@@ -1,12 +1,13 @@
-import { Input } from "@heroui/react";
-import { SearchIcon } from "lucide-react";
-import Add from "../cta/add";
+import { PlusIcon, SearchIcon } from "lucide-react";
 
 import Filter from "./filter";
 import { DebouncedState } from "use-debounce";
 import PeriodSelect from "./period-select";
 import Delete from "../cta/delete";
 import { Dict } from "@/const/dict";
+import Link from "next/link";
+import { Button } from "../button";
+import { Input } from "../input";
 
 interface Props extends FilterProps {
   dict: Dict["private"]["operations"]["operation-table"]["top-content"];
@@ -34,7 +35,7 @@ export default function TopContent({
 Props) {
   return (
     <div className="flex-1 flex items-center justify-between gap-4 sm:gap-8">
-      <Input
+      {/* <Input
         isClearable
         size="sm"
         className="max-w-[24rem]"
@@ -46,15 +47,20 @@ Props) {
         startContent={<SearchIcon size={16} className="mx-1" />}
         defaultValue={search}
         onValueChange={handleSearch}
+      /> */}
+      <Input
+        placeholder={dict.search.placeholder}
+        className="h-9"
+        startContent={<SearchIcon size={16} />}
       />
       <div className="items-center gap-3 flex">
-        {selected && selected.length > 0 && (
+        {/* {selected && selected.length > 0 && (
           <Delete
             callback={deletionCallback}
             items={selected}
             type={type as OperationType}
           />
-        )}
+        )} */}
         {showPeriodFilter && <PeriodSelect dict={{ reset: dict.reset }} />}
         <Filter
           dict={{ reset: dict.reset, ...dict.filter }}
@@ -66,9 +72,16 @@ Props) {
           state={state}
         />
         {addHref && (
-          <div className="hidden sm:block">
-            <Add title={dict.add} size="sm" href={addHref} className="!h-10" />
-          </div>
+          <Button
+            variant="outline"
+            size="sm"
+            className="h-10 hidden sm:flex"
+            asChild
+          >
+            <Link href={addHref}>
+              <PlusIcon size={16} /> {dict.add}
+            </Link>
+          </Button>
         )}
       </div>
     </div>

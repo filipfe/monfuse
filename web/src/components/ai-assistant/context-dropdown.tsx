@@ -2,7 +2,7 @@
 
 import { useAIAssistant } from "@/app/(private)/(sidebar)/ai-assistant/providers";
 import { Dict } from "@/const/dict";
-import { cn } from "@heroui/react";
+import { cn } from "@/utils/cn";
 import { ChevronRight } from "lucide-react";
 import React, { useState } from "react";
 

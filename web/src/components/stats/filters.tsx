@@ -63,12 +63,10 @@ export default function Filters() {
       <UniversalSelect
         className="w-20 sm:w-28"
         name="currency"
-        size="sm"
-        radius="md"
-        aria-label="Waluta"
-        selectedKeys={[currency]}
+        value={currency}
         elements={CURRENCIES}
-        onChange={(e) => setCurrency(e.target.value)}
+        size="sm"
+        onValueChange={(value) => setCurrency(value)}
       />
       <div className="flex gap-1">
         <button

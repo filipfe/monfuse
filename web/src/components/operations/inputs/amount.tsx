@@ -1,5 +1,5 @@
+import { Input } from "@/components/ui/input";
 import formatAmount from "@/utils/operations/format-amount";
-import { Input } from "@heroui/react";
 import { useState } from "react";
 
 type Props = {
@@ -12,17 +12,16 @@ export default function AmountInput({ label, defaultValue }: Props) {
 
   return (
     <Input
-      classNames={{ inputWrapper: "!bg-light shadow-none border" }}
       name="amount"
       label={label}
       placeholder="0.00"
       required
-      isRequired
       value={amount}
       onBlur={(e) => {
         const float = parseFloat(amount);
-
-        !isNaN(float) && setAmount(float == 0 ? "" : float.toString());
+        if (!isNaN(float)) {
+          setAmount(float == 0 ? "" : float.toString());
+        }
       }}
       onChange={(e) => setAmount(formatAmount(e.target.value))}
     />

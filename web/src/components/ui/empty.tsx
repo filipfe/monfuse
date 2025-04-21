@@ -1,7 +1,8 @@
-import { Button, cn } from "@heroui/react";
 import { LucideIcon, PlusIcon } from "lucide-react";
 import Link from "next/link";
 import { HTMLAttributes } from "react";
+import { Button } from "./button";
+import { cn } from "@/utils/cn";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   title?: string;
@@ -27,30 +28,26 @@ export default function Empty({ cta, icon: Icon, title, className }: Props) {
       {cta &&
         (cta.onClick ? (
           <Button
-            variant="flat"
-            radius="md"
+            variant="outline"
             size="sm"
-            disableRipple
-            startContent={<PlusIcon size={14} />}
-            className={cn("bg-light border text-font", cta.className)}
-            onPress={cta.onClick}
+            className={cn("hover:bg-light", cta.className)}
+            onClick={cta.onClick}
           >
+            <PlusIcon size={14} />
             {cta.title}
           </Button>
         ) : (
-          <Link href={cta.href}>
-            <Button
-              as="div"
-              variant="flat"
-              radius="md"
-              size="sm"
-              disableRipple
-              startContent={<PlusIcon size={14} />}
-              className={cn("bg-light border text-font", cta.className)}
-            >
+          <Button
+            variant="outline"
+            size="sm"
+            className={cn("hover:bg-light", cta.className)}
+            asChild
+          >
+            <Link href={cta.href}>
+              <PlusIcon size={14} />
               {cta.title}
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         ))}
     </div>
   );

@@ -1,18 +1,18 @@
 "use client";
 
-import { Button } from "@heroui/react";
 import { ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { Button } from "../ui/button";
 
 export default function GoBackLink() {
   const router = useRouter();
   return (
     <Button
-      startContent={<ChevronLeft size={14} />}
-      disableRipple
-      className="bg-white border"
-      onPress={() => router.back()}
+      variant="outline"
+      className="bg-white"
+      onClick={() => router.back()}
     >
+      <ChevronLeft size={14} />
       Go Back
     </Button>
   );

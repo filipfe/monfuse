@@ -1,10 +1,10 @@
 import Logo from "@/assets/icons/logo";
-import Form from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import Form from "@/components/ui/temp-form";
 import getDictionary from "@/const/dict";
 import { LOCALES } from "@/const/locales";
 import { requestPasswordChange } from "@/lib/auth/actions";
 import getLang from "@/utils/get-lang";
-import { Input } from "@heroui/react";
 
 export async function generateMetadata({
   params,
@@ -59,7 +59,8 @@ export default async function Page({
           buttonWrapperClassName="max-w-none"
           buttonProps={{
             children: dict.form._submit.label,
-            className: "w-full",
+            className: "w-full font-medium",
+            size: "lg",
           }}
           successMessage={dict.form._toast.success}
         >
@@ -72,14 +73,10 @@ export default async function Page({
               <p className="text-sm">{dict.description}</p>
             </div>
             <Input
-              classNames={{
-                inputWrapper: "!bg-light border shadow-none",
-              }}
               name="email"
               label="Email"
               type="email"
               placeholder="example@mail.com"
-              isRequired
               required
               autoComplete="off"
             />

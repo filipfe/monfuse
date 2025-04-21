@@ -172,7 +172,8 @@
                 "_submit": {
                   "label": "Zapisz"
                 },
-                "_success": "Pomyślnie zmodyfikowano operację!"
+                "_success": "Pomyślnie zmodyfikowano operację!",
+                "_error": "Wystąpił błąd przy edytowaniu płatności, spróbuj ponownie!"
               }
             },
             "delete": {
@@ -198,6 +199,10 @@
         "title": {
           "income": "Nowy przychód",
           "expense": "Nowy wydatek"
+        },
+        "description": {
+          "income": "Dodaj nowy przychód za pomocą formularza, lub skanując zdjęcie.",
+          "expense": "Dodaj nowy wydatek za pomocą formularza, lub skanując zdjęcie."
         },
         "tab": {
           "manual": {
@@ -266,7 +271,7 @@
           "delete": {
             "modal": {
               "title": "Czy na pewno chcesz usunąć limit?",
-              "description": "Limit zostanie usunięty od razu, ale możliwe będzie dodanie następnego limitu",
+              "description": "Limit zostanie usunięty od razu, ale możliwe będzie dodanie następnego limitu.",
               "proceed": "Usuń",
               "cancel": "Anuluj"
             }
@@ -357,8 +362,8 @@
                 "label": "Typ transakcji",
                 "placeholder": "Wybierz typ transakcji",
                 "options": {
-                  "incomes": "Przychód",
-                  "expenses": "Wydatki"
+                  "income": "Przychód",
+                  "expense": "Wydatki"
                 }
               }
             }
@@ -427,7 +432,14 @@
           "date": "Data"
         },
         "today": "Dzisiaj",
-        "sum": "Suma"
+        "sum": "Suma",
+        "form": {
+          "amount": {
+            "label": "Kwota"
+          },
+          "_success": "Pomyślnie dodano płatność!",
+          "_error": "Wystąpił błąd przy dodawaniu płatności, spróbuj ponownie!"
+        }
       },
       "priority": {
         "title": "Priorytet",
@@ -439,6 +451,26 @@
           "amount": "Kwota"
         },
         "_empty": "Brak priorytetu"
+      },
+      "add": {
+        "title": "Nowy cel",
+        "form": {
+          "title": {
+            "label": "Tytuł",
+            "placeholder": "Mieszkanie"
+          },
+          "amount": {
+            "label": "Kwota"
+          },
+          "currency": {
+            "label": "Waluta"
+          },
+          "deadline": {
+            "label": "Termin ostateczny"
+          },
+          "_submit": "Zapisz",
+          "_error": "Wystąpił błąd przy dodawaniu celu, spróbuj ponownie!"
+        }
       }
     },
     "ai-assistant": {

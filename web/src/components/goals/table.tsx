@@ -67,137 +67,146 @@ export default function GoalsTable({
   return (
     <Block title={dict.title} className="row-span-2">
       {goals.length > 0 ? (
-        <ScrollShadow
-          orientation="horizontal"
-          hideScrollBar
-          className="relative max-w-[calc(100vw-48px)]"
-        >
-          {scrollButtonVisible && (
-            <div className="absolute bottom-24 left-[calc(50%-41px)] z-20">
-              <Button
-                size="sm"
-                radius="md"
-                disableRipple
-                variant="shadow"
-                className="fixed border"
-                onClick={() => {
-                  tbodyRef.current?.scrollTo({
-                    top: tbodyRef.current.scrollHeight,
-                    behavior: "smooth",
-                  });
-                }}
-              >
-                <ChevronDown size={16} /> {dict.today}
-              </Button>
-            </div>
-          )}
-          <Table
-            color="primary"
-            aria-label="Goals table"
-            radius="md"
-            isHeaderSticky
-            removeWrapper
-            classNames={{
-              base: "max-h-[400px] sm:max-h-[calc(100vh-266px)] scrollbar-hide py-px px-px overflow-y-scroll overflow-x-hidden min-w-max relative",
-              table: "min-h-[400px]",
-              thead: "[&>tr]:first:!shadow-none",
-            }}
-            baseRef={tbodyRef}
-            shadow="none"
-          >
-            <TableHeader>
-              <TableColumn className="font-medium text-sm text-foreground-700 shadow-[0_0_0_1px_rgba(23,121,129,0.1)]">
-                {dict.columns.date}
-              </TableColumn>
-              {goals.length > 0 &&
-                (goals.map((goal) => (
-                  <TableColumn
-                    minWidth={288}
-                    align="center"
-                    className="font-medium text-sm text-foreground-700 shadow-[0_-1px_0_0_rgba(23,121,129,0.1),0_1px_0_0_rgba(23,121,129,0.1)] last:shadow-[1px_0_0_0_rgba(23,121,129,0.1),0_-1px_0_0_rgba(23,121,129,0.1),0_1px_0_0_rgba(23,121,129,0.1)]"
-                    key={goal.id}
+        <div className="flex-1 relative min-h-80">
+          <div className="absolute inset-0 w-full h-full">
+            <ScrollShadow
+              orientation="horizontal"
+              hideScrollBar
+              className="relative h-full"
+            >
+              {scrollButtonVisible && (
+                <div className="absolute bottom-24 left-[calc(50%-41px)] z-20">
+                  <Button
+                    size="sm"
+                    radius="md"
+                    disableRipple
+                    variant="shadow"
+                    className="fixed border"
+                    onClick={() => {
+                      tbodyRef.current?.scrollTo({
+                        top: tbodyRef.current.scrollHeight,
+                        behavior: "smooth",
+                      });
+                    }}
                   >
-                    {goal.title}
+                    <ChevronDown size={16} /> {dict.today}
+                  </Button>
+                </div>
+              )}
+              <Table
+                color="primary"
+                aria-label="Goals table"
+                radius="md"
+                isHeaderSticky
+                removeWrapper
+                classNames={{
+                  base: "h-full scrollbar-hide py-px px-px overflow-y-scroll overflow-x-hidden min-w-max relative",
+                  table: "min-h-[400px]",
+                  thead: "[&>tr]:first:!shadow-none",
+                }}
+                baseRef={tbodyRef}
+                shadow="none"
+              >
+                <TableHeader>
+                  <TableColumn className="font-medium text-sm text-foreground-700 shadow-[0_0_0_1px_rgba(23,121,129,0.1)]">
+                    {dict.columns.date}
                   </TableColumn>
-                )) as any)}
-            </TableHeader>
-            <TableBody className="py-px">
-              {
-                tableData.map(({ date, payments }) => {
-                  const isToday = tableData[tableData.length - 1].date === date;
-                  return (
-                    <TableRow
-                      className={cn(!isToday && "hover:bg-light")}
-                      key={date}
-                    >
-                      <TableCell
-                        className={cn(
-                          "min-w-max",
-                          isToday ? "font-medium" : "font-normal"
-                        )}
+                  {goals.length > 0 &&
+                    (goals.map((goal) => (
+                      <TableColumn
+                        minWidth={288}
+                        align="center"
+                        className="font-medium text-sm text-foreground-700 shadow-[0_-1px_0_0_rgba(23,121,129,0.1),0_1px_0_0_rgba(23,121,129,0.1)] last:shadow-[1px_0_0_0_rgba(23,121,129,0.1),0_-1px_0_0_rgba(23,121,129,0.1),0_1px_0_0_rgba(23,121,129,0.1)]"
+                        key={goal.id}
                       >
-                        {isToday
-                          ? dict.today
-                          : new Intl.DateTimeFormat(language, {
-                              dateStyle: "long",
-                            }).format(new Date(date))}
-                      </TableCell>
-                      {
-                        goals.map((goal) => {
-                          const payment = payments.find(
-                            (p) => p.goal_id === goal.id
-                          )!;
+                        {goal.title}
+                      </TableColumn>
+                    )) as any)}
+                </TableHeader>
+                <TableBody className="py-px">
+                  {
+                    tableData.map(({ date, payments }) => {
+                      const isToday =
+                        tableData[tableData.length - 1].date === date;
+                      return (
+                        <TableRow
+                          className={cn(!isToday && "hover:bg-light")}
+                          key={date}
+                        >
+                          <TableCell
+                            className={cn(
+                              "min-w-max",
+                              isToday ? "font-medium" : "font-normal"
+                            )}
+                          >
+                            {isToday
+                              ? dict.today
+                              : new Intl.DateTimeFormat(language, {
+                                  dateStyle: "long",
+                                }).format(new Date(date))}
+                          </TableCell>
+                          {
+                            goals.map((goal) => {
+                              const payment = payments.find(
+                                (p) => p.goal_id === goal.id
+                              )!;
 
-                          return (
-                            <TableCell key={goal.id}>
-                              {isToday ? (
-                                <PaymentPopover
-                                  goal={goal}
-                                  paid={payment.amount}
-                                />
-                              ) : (
-                                <NumberFormat
-                                  currency={goal.currency}
-                                  amount={payment.amount}
-                                />
-                              )}
-                            </TableCell>
-                          );
-                        }) as any
-                      }
-                    </TableRow>
-                  );
-                }) as any
-              }
-              <TableRow className="sticky z-10" style={{ insetBlockEnd: 0 }}>
-                <TableCell className="text-sm font-medium rounded-l-md shadow-[0_0_0_1px_rgba(23,121,129,0.1)] bg-light">
-                  {dict.sum}
-                </TableCell>
-                {
-                  goals.map((goal) => (
-                    <TableCell className="text-foreground-700 bg-light shadow-[0_-1px_0_0_rgba(23,121,129,0.1),0_1px_0_0_rgba(23,121,129,0.1)] last:shadow-[1px_0_0_0_rgba(23,121,129,0.1),0_-1px_0_0_rgba(23,121,129,0.1),0_1px_0_0_rgba(23,121,129,0.1)] last:rounded-r-md">
-                      <span className="font-semibold text-sm">
-                        <NumberFormat
-                          currency={goal.currency}
-                          amount={goal.total_paid}
-                          language_code={language}
-                        />
-                      </span>{" "}
-                      <span className="font-medium text-tiny">
-                        /{" "}
-                        <NumberFormat
-                          currency={goal.currency}
-                          language_code={language}
-                          amount={goal.price}
-                        />
-                      </span>
+                              return (
+                                <TableCell key={goal.id}>
+                                  {isToday ? (
+                                    <PaymentPopover
+                                      dict={dict.form}
+                                      goal={goal}
+                                      paid={payment.amount}
+                                    />
+                                  ) : (
+                                    <NumberFormat
+                                      currency={goal.currency}
+                                      amount={payment.amount}
+                                    />
+                                  )}
+                                </TableCell>
+                              );
+                            }) as any
+                          }
+                        </TableRow>
+                      );
+                    }) as any
+                  }
+                  <TableRow
+                    className="sticky z-10"
+                    style={{ insetBlockEnd: 0 }}
+                  >
+                    <TableCell className="text-sm font-medium rounded-l-md shadow-[0_0_0_1px_rgba(23,121,129,0.1)] bg-light">
+                      {dict.sum}
                     </TableCell>
-                  )) as any
-                }
-              </TableRow>
-            </TableBody>
-          </Table>
-        </ScrollShadow>
+                    {
+                      goals.map((goal) => (
+                        <TableCell className="text-foreground-700 bg-light shadow-[0_-1px_0_0_rgba(23,121,129,0.1),0_1px_0_0_rgba(23,121,129,0.1)] last:shadow-[1px_0_0_0_rgba(23,121,129,0.1),0_-1px_0_0_rgba(23,121,129,0.1),0_1px_0_0_rgba(23,121,129,0.1)] last:rounded-r-md">
+                          <span className="font-semibold text-sm">
+                            <NumberFormat
+                              currency={goal.currency}
+                              amount={goal.total_paid}
+                              language_code={language}
+                            />
+                          </span>{" "}
+                          <span className="font-medium text-tiny">
+                            /{" "}
+                            <NumberFormat
+                              currency={goal.currency}
+                              language_code={language}
+                              amount={goal.price}
+                            />
+                          </span>
+                        </TableCell>
+                      )) as any
+                    }
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </ScrollShadow>
+          </div>
+        </div>
       ) : (
         <Empty
           title={dict._empty}

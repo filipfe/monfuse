@@ -13,7 +13,7 @@ export default function LocationInput({
 }) {
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-col gap-2 mb-2">
+      <div className="flex flex-col gap-1 mb-2">
         <h3>{dict.title}</h3>
         <p className="text-sm text-font/60">{dict.description}</p>
       </div>

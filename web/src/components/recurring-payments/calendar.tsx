@@ -1,6 +1,5 @@
 "use client";
 
-import { cn, Popover, PopoverContent, PopoverTrigger } from "@heroui/react";
 import {
   CustomComponents,
   DayPicker,
@@ -19,6 +18,8 @@ import Link from "next/link";
 import NumberFormat from "@/utils/formatters/currency";
 import { Dict } from "@/const/dict";
 import { Hatch } from "ldrs/react";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { cn } from "@/utils/cn";
 
 type Props = {
   settings: Settings;
@@ -66,14 +67,15 @@ export default function Calendar({ settings, dict, page }: Props) {
           }).format(monthDate)}
         </span>
       ),
-      DayButton: ({ day, modifiers, children, ...props }) => {
+      DayButton: ({ day, modifiers, children, disabled, ...props }) => {
         const result = results?.find(
           (record) => record.date === format(day.date, "yyyy-MM-dd")
         );
         return (
-          <Popover offset={-2}>
+          <Popover>
             <PopoverTrigger
-              {...props}
+              // {...props}
+              disabled={disabled}
               className={cn(
                 props.className,
                 classNames.day_button,
@@ -81,9 +83,9 @@ export default function Calendar({ settings, dict, page }: Props) {
                 format(currentDate, "yyyy-MM-dd") ===
                   format(day.date, "yyyy-MM-dd") && "bg-light border"
               )}
-              role="button"
+              asChild
             >
-              <div className="flex flex-col items-center gap-1">
+              <button className="w-full flex flex-col items-center gap-1">
                 {children}
                 {result && (
                   <div className="flex items-center gap-1">
@@ -95,56 +97,53 @@ export default function Calendar({ settings, dict, page }: Props) {
                     )}
                   </div>
                 )}
-              </div>
+              </button>
             </PopoverTrigger>
-            <PopoverContent>
-              <div className="px-1 py-2 flex flex-col gap-1">
-                <h4 className="text-sm font-medium text-center">
-                  {new Intl.DateTimeFormat(settings.language, {
-                    day: "numeric",
-                    weekday: "long",
-                    month: "long",
-                    year: "numeric",
-                  }).format(day.date)}
-                </h4>
-                <div>
-                  {result &&
-                    (result.incomes.length > 0 ||
-                      result.expenses.length > 0) && (
-                      <div className="flex flex-col gap-2 my-2">
-                        {result.incomes.map((income) => (
-                          <PopoverPayment
-                            payment={income as Payment}
-                            type="income"
-                            key={income.id}
-                          />
-                        ))}
-                        {result.expenses.map((expense) => (
-                          <PopoverPayment
-                            payment={expense as Payment}
-                            type="expense"
-                            key={expense.id}
-                          />
-                        ))}
-                      </div>
-                    )}
-                </div>
-                {day.date.getTime() > currentDate.getTime() && (
-                  <Link
-                    href={`/recurring-payments/add?date=${format(
-                      day.date,
-                      "yyyy-MM-dd"
-                    )}`}
-                    className="flex items-center gap-2 px-4 py-2 border bg-light rounded-md w-full"
-                  >
-                    <Plus className="shrink-0" size={16} />
-                    <div className="flex flex-col items-start">
-                      <h4 className="text-small">{dict.popup.add.title}</h4>
-                      <p className="text-tiny">{dict.popup.add.description}</p>
+            <PopoverContent className="px-3 py-2 flex flex-col gap-1 w-max -translate-y-2">
+              <h4 className="text-sm font-medium text-center">
+                {new Intl.DateTimeFormat(settings.language, {
+                  day: "numeric",
+                  weekday: "long",
+                  month: "long",
+                  year: "numeric",
+                }).format(day.date)}
+              </h4>
+              <div>
+                {result &&
+                  (result.incomes.length > 0 || result.expenses.length > 0) && (
+                    <div className="flex flex-col gap-2 my-2">
+                      {result.incomes.map((income) => (
+                        <PopoverPayment
+                          payment={income as Payment}
+                          type="income"
+                          key={income.id}
+                        />
+                      ))}
+                      {result.expenses.map((expense) => (
+                        <PopoverPayment
+                          payment={expense as Payment}
+                          type="expense"
+                          key={expense.id}
+                        />
+                      ))}
                     </div>
-                  </Link>
-                )}
+                  )}
               </div>
+              {day.date.getTime() > currentDate.getTime() && (
+                <Link
+                  href={`/recurring-payments/add?date=${format(
+                    day.date,
+                    "yyyy-MM-dd"
+                  )}`}
+                  className="flex items-center gap-2 px-4 py-2 border bg-light rounded-md w-full"
+                >
+                  <Plus className="shrink-0" size={16} />
+                  <div className="flex flex-col items-start">
+                    <h4 className="text-small">{dict.popup.add.title}</h4>
+                    <p className="text-tiny">{dict.popup.add.description}</p>
+                  </div>
+                </Link>
+              )}
             </PopoverContent>
           </Popover>
         );
@@ -246,7 +245,7 @@ const PopoverPayment = ({
         {payment.title}
       </h5>
     </div>
-    <h6 className="font-medium">
+    <h6 className="font-medium text-sm">
       <NumberFormat
         amount={type === "income" ? payment.amount : -1 * payment.amount}
         currency={payment.currency}

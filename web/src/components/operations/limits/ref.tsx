@@ -1,20 +1,32 @@
 "use client";
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import Block from "@/components/ui/block";
-import ConfirmationModal from "@/components/ui/confirmation-modal";
-import UniversalSelect from "@/components/ui/universal-select";
+import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { CURRENCIES } from "@/const";
 import { Dict } from "@/const/dict";
 import { useLimits } from "@/lib/general/queries";
-import { deleteLimit } from "@/lib/operations/actions";
+import { deleteLimit } from "@/lib/operations/queries";
+import { cn } from "@/utils/cn";
 import NumberFormat from "@/utils/formatters/currency";
-import {
-  Button,
-  CircularProgress,
-  cn,
-  Skeleton,
-  useDisclosure,
-} from "@heroui/react";
+import { CircularProgress, Skeleton } from "@heroui/react";
 import { Plus, SquarePen, Trash2 } from "lucide-react";
 import { useState } from "react";
 
@@ -25,7 +37,6 @@ interface Props extends Pick<Limit, "period"> {
 }
 
 export default function LimitRef({ dict, period, settings, onAdd }: Props) {
-  const deleteDisclosure = useDisclosure();
   const [currency, setCurrency] = useState(settings.currency);
   const {
     data: limits,
@@ -36,6 +47,14 @@ export default function LimitRef({ dict, period, settings, onAdd }: Props) {
   const limit = limits?.find((limit: Limit) => limit.period === period);
 
   const percentage = limit ? (limit.total / limit.amount) * 100 : 0;
+
+  async function onDelete() {
+    if (!limit) return;
+    try {
+      await deleteLimit(limit.period);
+      mutate();
+    } catch (err) {}
+  }
 
   return (
     <Block
@@ -82,66 +101,67 @@ export default function LimitRef({ dict, period, settings, onAdd }: Props) {
         ) : (
           <h4 className="text-sm">{dict._empty.title[period]}</h4>
         )}
-        <div className="grid grid-cols-2 sm:flex items-center justify-between gap-3">
+        <div className="grid grid-cols-2 sm:flex items-center justify-between gap-2">
           {limit && (
             <Button
-              variant="flat"
-              size="sm"
-              radius="md"
-              disableRipple
-              isIconOnly
-              className="border"
-              onPress={() => onAdd(currency, limit.amount.toString())}
+              variant="outline"
+              size="icon"
+              className="h-8 w-8"
+              onClick={() => onAdd(currency, limit.amount.toString())}
             >
               <SquarePen size={14} />
             </Button>
           )}
           {limit && (
-            <>
-              <Button
-                variant="flat"
-                size="sm"
-                radius="md"
-                disableRipple
-                isIconOnly
-                className="border"
-                onPress={deleteDisclosure.onOpen}
-              >
-                <Trash2 size={14} />
-              </Button>
-              <ConfirmationModal
-                onSuccess={mutate}
-                disclosure={deleteDisclosure}
-                mutation={deleteLimit}
-                dict={dict.delete.modal}
-              >
-                <input type="hidden" name="period" value={limit.period} />
-              </ConfirmationModal>
-            </>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button variant="outline" size="icon" className="h-8 w-8">
+                  <Trash2 size={14} />
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>{dict.delete.modal.title}</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    {dict.delete.modal.description}
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel asChild>
+                    <Button variant="outline">
+                      {dict.delete.modal.cancel}
+                    </Button>
+                  </AlertDialogCancel>
+                  <AlertDialogAction asChild>
+                    <Button onClick={onDelete}>
+                      {dict.delete.modal.proceed}
+                    </Button>
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           )}
-          <UniversalSelect
-            className="w-20 col-span-2 row-start-1"
-            name="currency"
-            size="sm"
-            radius="md"
-            aria-label="Waluta"
-            selectedKeys={[currency]}
-            elements={CURRENCIES}
-            onChange={(e) => setCurrency(e.target.value)}
-          />
+          <Select
+            value={currency}
+            onValueChange={(value) => setCurrency(value)}
+          >
+            <SelectTrigger size="sm" className="w-20 col-span-2 row-start-1">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent className="w-20 min-w-0" align="end">
+              {CURRENCIES.map((curr) => (
+                <SelectItem value={curr} key={curr}>
+                  {curr}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
       </div>
       {!isLoading && !limit && (
         <div className="grid place-content-center sm:absolute sm:left-1/2 sm:-translate-x-1/2 sm:top-1/2 sm:-translate-y-1/2">
-          <Button
-            variant="flat"
-            radius="md"
-            size="sm"
-            disableRipple
-            startContent={<Plus size={14} />}
-            className="bg-light border max-w-max text-font"
-            onPress={() => onAdd(currency)}
-          >
+          <Button variant="outline" size="sm" onClick={() => onAdd(currency)}>
+            <Plus size={14} />
             {dict._empty.label}
           </Button>
         </div>

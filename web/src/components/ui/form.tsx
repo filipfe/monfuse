@@ -1,126 +1,183 @@
 "use client";
 
-import { FormHTMLAttributes, useTransition } from "react";
-import toast from "@/utils/toast";
-import { Button, ButtonProps, cn } from "@heroui/react";
-import { Check, type LucideIcon } from "lucide-react";
-import { Hatch } from "ldrs/react";
+import * as React from "react";
+import * as LabelPrimitive from "@radix-ui/react-label";
+import { Slot } from "@radix-ui/react-slot";
+import {
+  Controller,
+  FormProvider,
+  useFormContext,
+  type ControllerProps,
+  type FieldPath,
+  type FieldValues,
+} from "react-hook-form";
 
-interface Props extends FormHTMLAttributes<HTMLFormElement> {
-  mutation?: (formData: FormData) => Promise<SupabaseResponse<any> | undefined>;
-  buttonProps?: ButtonProps & {
-    icon?: LucideIcon;
-  };
-  callback?: () => void;
-  successMessage?: string;
-  buttonWrapperClassName?: string;
-  isLoading?: boolean;
-  passwordReset?: {
-    _error: string;
-  };
-  close?: {
-    text: string;
-    onClose: () => void;
-  };
-}
+import { cn } from "@/utils/cn";
+import { Label } from "@/components/ui/label";
 
-export default function Form({
-  children,
-  mutation,
-  callback,
-  id,
-  close,
-  className,
-  passwordReset,
-  buttonWrapperClassName,
-  isLoading,
-  successMessage,
-  buttonProps: {
-    children: buttonChildren,
-    icon: ButtonIcon,
-    className: buttonClassName,
-    ...buttonProps
-  } = { children: "Zapisz" },
+const Form = FormProvider;
+
+type FormFieldContextValue<
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+> = {
+  name: TName;
+};
+
+const FormFieldContext = React.createContext<FormFieldContextValue>(
+  {} as FormFieldContextValue
+);
+
+const FormField = <
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+>({
   ...props
-}: Props) {
-  const [isPending, startTransition] = useTransition();
+}: ControllerProps<TFieldValues, TName>) => {
+  return (
+    <FormFieldContext.Provider value={{ name: props.name }}>
+      <Controller {...props} />
+    </FormFieldContext.Provider>
+  );
+};
 
-  const action = (formData: FormData) => {
-    if (
-      !!passwordReset &&
-      formData.get("password")?.toString() !==
-        formData.get("confirm-password")?.toString()
-    ) {
-      toast({
-        type: "error",
-        message: passwordReset._error,
-      });
-      return;
-    }
-    startTransition(async () => {
-      const res = await mutation!(formData);
-      if (res?.error) {
-        toast({
-          type: "error",
-          message: res.error,
-        });
-      } else {
-        callback && callback();
-        successMessage &&
-          toast({
-            type: "success",
-            message: successMessage,
-          });
-      }
-    });
+const useFormField = () => {
+  const fieldContext = React.useContext(FormFieldContext);
+  const itemContext = React.useContext(FormItemContext);
+  const { getFieldState, formState } = useFormContext();
+
+  const fieldState = getFieldState(fieldContext.name, formState);
+
+  if (!fieldContext) {
+    throw new Error("useFormField should be used within <FormField>");
+  }
+
+  const { id } = itemContext;
+
+  return {
+    id,
+    name: fieldContext.name,
+    formItemId: `${id}-form-item`,
+    formDescriptionId: `${id}-form-item-description`,
+    formMessageId: `${id}-form-item-message`,
+    ...fieldState,
   };
+};
+
+type FormItemContextValue = {
+  id: string;
+};
+
+const FormItemContext = React.createContext<FormItemContextValue>(
+  {} as FormItemContextValue
+);
+
+const FormItem = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => {
+  const id = React.useId();
 
   return (
-    <form
-      id={id}
-      action={mutation ? action : undefined}
-      className={className}
+    <FormItemContext.Provider value={{ id }}>
+      <div ref={ref} className={cn("space-y-1", className)} {...props} />
+    </FormItemContext.Provider>
+  );
+});
+FormItem.displayName = "FormItem";
+
+const FormLabel = React.forwardRef<
+  React.ElementRef<typeof LabelPrimitive.Root>,
+  React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root>
+>(({ className, ...props }, ref) => {
+  const { error, formItemId } = useFormField();
+
+  return (
+    <Label
+      ref={ref}
+      className={cn(
+        "text-xs text-foreground/75",
+        error && "text-destructive",
+        className
+      )}
+      htmlFor={formItemId}
+      {...props}
+    />
+  );
+});
+FormLabel.displayName = "FormLabel";
+
+const FormControl = React.forwardRef<
+  React.ElementRef<typeof Slot>,
+  React.ComponentPropsWithoutRef<typeof Slot>
+>(({ ...props }, ref) => {
+  const { error, formItemId, formDescriptionId, formMessageId } =
+    useFormField();
+
+  return (
+    <Slot
+      ref={ref}
+      id={formItemId}
+      aria-describedby={
+        !error
+          ? `${formDescriptionId}`
+          : `${formDescriptionId} ${formMessageId}`
+      }
+      aria-invalid={!!error}
+      {...props}
+    />
+  );
+});
+FormControl.displayName = "FormControl";
+
+const FormDescription = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLParagraphElement>
+>(({ className, ...props }, ref) => {
+  const { formDescriptionId } = useFormField();
+
+  return (
+    <p
+      ref={ref}
+      id={formDescriptionId}
+      className={cn("text-[0.8rem] text-muted-foreground", className)}
+      {...props}
+    />
+  );
+});
+FormDescription.displayName = "FormDescription";
+
+const FormMessage = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLParagraphElement>
+>(({ className, children, ...props }, ref) => {
+  const { error, formMessageId } = useFormField();
+  const body = error ? String(error?.message ?? "") : children;
+
+  if (!body) {
+    return null;
+  }
+
+  return (
+    <p
+      ref={ref}
+      id={formMessageId}
+      className={cn("text-[0.8rem] font-medium text-destructive", className)}
       {...props}
     >
-      {children}
-      <div
-        className={cn(
-          "max-w-max ml-auto flex items-center gap-3 mt-6",
-          buttonWrapperClassName
-        )}
-      >
-        {close && (
-          <Button
-            disableRipple
-            isDisabled={isPending}
-            disabled={isPending}
-            onPress={close.onClose}
-            className="border"
-          >
-            {close.text}
-          </Button>
-        )}
-        <Button
-          type="submit"
-          disableRipple
-          color="primary"
-          form={id}
-          isDisabled={isLoading || isPending || buttonProps.disabled}
-          className={cn(buttonClassName)}
-          {...buttonProps}
-        >
-          {isLoading || isPending ? (
-            <div className="w-4 grid place-content-center">
-              <Hatch size={14} color="#FFF" stroke={2} />
-            </div>
-          ) : ButtonIcon ? (
-            <ButtonIcon size={16} />
-          ) : (
-            <Check size={16} />
-          )}
-          {buttonChildren}
-        </Button>
-      </div>
-    </form>
+      {body}
+    </p>
   );
-}
+});
+FormMessage.displayName = "FormMessage";
+
+export {
+  useFormField,
+  Form,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormDescription,
+  FormMessage,
+  FormField,
+};

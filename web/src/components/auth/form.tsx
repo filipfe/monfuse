@@ -3,11 +3,11 @@
 import { Dict } from "@/const/dict";
 import { signIn, signInWithGoogle, signUp } from "@/lib/auth/actions";
 import toast from "@/utils/toast";
-import { Button } from "@heroui/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useState, useTransition } from "react";
+import { Button } from "../ui/button";
 
 export default function Form({
   children,
@@ -84,12 +84,10 @@ export default function Form({
         <div className="flex flex-col gap-6 mt-6">
           <div>
             <Button
-              color="primary"
-              isDisabled={isPending}
-              isLoading={isPending}
-              disableRipple
+              disabled={isPending}
               type="submit"
-              className="text-white font-medium w-full"
+              size="lg"
+              className="font-medium w-full"
             >
               {dict.form._submit.label}
             </Button>

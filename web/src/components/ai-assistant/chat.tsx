@@ -65,8 +65,8 @@ export default function Chat({
       <div className="flex-1 flex flex-col justify-center">
         {messages.length === 0 ? (
           <div className="grid-cols-2 grid lg:grid-cols-3 gap-4 md:mx-6">
-            {dict.recomendation.map((r) => (
-              <RecommendationRef {...r} onSubmit={onSubmit} />
+            {dict.recomendation.map((r, i) => (
+              <RecommendationRef {...r} onSubmit={onSubmit} key={i} />
             ))}
           </div>
         ) : (

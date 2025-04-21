@@ -66,13 +66,8 @@ export default async function Subscription() {
       <div className="px-10 py-8 border bg-light rounded-md flex flex-col gap-6 self-start">
         <h3 className="font-medium">{dict.benefits.title}</h3>
         <ul className="grid gap-3">
-          {dict.benefits.list.map((benefit) => (
-            <li className="flex items-start gap-3 text-sm sm:text-base">
-              <div className="bg-primary rounded-full h-4 w-4 min-w-4 mt-1 grid place-content-center">
-                <Check color="white" size={12} strokeWidth={3} />
-              </div>
-              {benefit}
-            </li>
+          {dict.benefits.list.map((benefit, i) => (
+            <BenefitRef content={benefit} key={i} />
           ))}
         </ul>
         <div className="flex-1 flex flex-col justify-end">
@@ -88,3 +83,12 @@ export default async function Subscription() {
     </div>
   );
 }
+
+const BenefitRef = ({ content }: { content: string }) => (
+  <li className="flex items-start gap-3 text-sm sm:text-base">
+    <div className="bg-primary rounded-full h-4 w-4 min-w-4 mt-1 grid place-content-center">
+      <Check color="white" size={12} strokeWidth={3} />
+    </div>
+    {content}
+  </li>
+);

@@ -1,7 +1,8 @@
-import { Progress, ScrollShadow } from "@heroui/react";
+import { ScrollShadow } from "@heroui/react";
 import NumberFormat from "@/utils/formatters/currency";
 import { Dict } from "@/const/dict";
 import { PaymentRef } from "./ref";
+import { Progress } from "@/components/ui/progress";
 
 interface Props extends Pick<Settings, "language"> {
   dict: Dict["private"]["goals"]["priority"];
@@ -12,7 +13,7 @@ export default async function Priority({ dict, goal, language }: Props) {
   const percentage = (goal.total_paid / goal.price) * 100;
 
   return (
-    <div className="grid gap-6">
+    <div className="flex flex-col h-full gap-6">
       {/* <h3 className="text-3xl font-bold text-center">{goal.title}</h3> */}
       <div className="grid gap-3">
         <div className="flex items-start gap-4 justify-between relative pt-8">
@@ -58,16 +59,14 @@ export default async function Priority({ dict, goal, language }: Props) {
           </div>
         </div>
         <Progress
-          classNames={{
-            track: "border bg-light",
-          }}
+          className="border bg-light h-3"
           value={percentage}
           // valueLabel={percentage.toFixed(2) + "%"}
           // showValueLabel
           // label="Zebrano"
         />
       </div>
-      <div>
+      <div className="flex-1 flex flex-col">
         <div className="flex items-center justify-between gap-2 pb-2">
           <span className="text-sm font-medium uppercase">
             {dict.payments.date}
@@ -77,21 +76,22 @@ export default async function Priority({ dict, goal, language }: Props) {
             {dict.payments.amount}
           </span>
         </div>
-        <ScrollShadow
-          className="max-h-48 sm:max-h-[calc(100vh-684px)]"
-          hideScrollBar
-        >
-          <ul>
-            {goal.payments.map((payment) => (
-              <PaymentRef
-                {...payment}
-                language={language}
-                currency={goal.currency}
-                key={payment.date}
-              />
-            ))}
-          </ul>
-        </ScrollShadow>
+        <div className="flex-1 relative min-h-48">
+          <div className="absolute inset-0 w-full h-full">
+            <ScrollShadow className="h-full" hideScrollBar>
+              <ul>
+                {goal.payments.map((payment) => (
+                  <PaymentRef
+                    {...payment}
+                    language={language}
+                    currency={goal.currency}
+                    key={payment.date}
+                  />
+                ))}
+              </ul>
+            </ScrollShadow>
+          </div>
+        </div>
       </div>
     </div>
   );

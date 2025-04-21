@@ -1,3 +1,4 @@
+import { NewLimit } from "@/components/operations/limits/form";
 import { createClient } from "@/utils/supabase/client";
 import useSWR, { SWRConfiguration } from "swr";
 
@@ -55,14 +56,14 @@ export async function getDailyTotalAmounts(
 async function getOperationsAmountsHistory(
   type: "income" | "expense",
   timezone: string,
-  params: SearchParams,
+  currency: string,
 ): Promise<DailyAmount[]> {
   const supabase = createClient();
 
   const { data, error } = await supabase.rpc("get_operations_daily_totals", {
     p_type: type,
     p_timezone: timezone,
-    p_currency: params.currency,
+    p_currency: currency,
   });
 
   if (error) {
@@ -76,12 +77,12 @@ async function getOperationsAmountsHistory(
 export const useOperationsAmountsHistory = (
   type: "income" | "expense",
   timezone: string,
-  params: SearchParams,
+  currency: string,
 ) =>
   useSWR(
-    ["history", type, timezone, params],
-    ([_, type, timezone, params]) =>
-      getOperationsAmountsHistory(type, timezone, params),
+    ["history", type, timezone, currency],
+    ([_, type, timezone, currency]) =>
+      getOperationsAmountsHistory(type, timezone, currency),
   );
 
 export async function addLimit(limit: NewLimit) {
@@ -138,4 +139,9 @@ export async function getLatestOperations(from?: string): Promise<Payment[]> {
     throw new Error(error.message);
   }
   return data;
+}
+
+export async function deleteLimit(period: Limit["period"]) {
+  const supabase = createClient();
+  await supabase.from("limits").delete().eq("period", period).throwOnError();
 }
