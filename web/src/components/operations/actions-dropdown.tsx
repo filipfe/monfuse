@@ -1,5 +1,5 @@
 import { MoreVerticalIcon, SquarePenIcon, Trash2Icon } from "lucide-react";
-import { Fragment, useTransition } from "react";
+import { Fragment, useState, useTransition } from "react";
 import { Dict } from "@/const/dict";
 import {
   DropdownMenu,
@@ -19,7 +19,6 @@ import {
   AlertDialogTrigger,
 } from "../ui/alert-dialog";
 import { Button } from "../ui/button";
-import { deleteRows } from "@/lib/general/queries";
 import {
   Dialog,
   DialogContent,
@@ -28,7 +27,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
-import { updateOperation } from "@/lib/operations/actions";
+import { deleteOperations, updateOperation } from "@/lib/operations/actions";
 import dateFormat from "@/utils/formatters/dateFormat";
 import Manual from "./inputs/manual";
 import toast from "@/utils/toast";
@@ -50,14 +49,19 @@ export default function ActionsDropdown({
   mutate,
 }: Props) {
   const [isUpdatePending, startUpdate] = useTransition();
+  const [isDeletePending, startDeletion] = useTransition();
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
-  async function handleDelete() {
-    const { error } = await deleteRows([operation.id], type);
-    if (error) {
-      // toast
-    } else {
-      await mutate();
-    }
+  function deleteAction(formData: FormData) {
+    startDeletion(async () => {
+      const { error } = await deleteOperations(formData);
+      if (error) {
+        // toast
+      } else {
+        await mutate();
+        setIsDeleteOpen(false);
+      }
+    });
   }
 
   function updateAction(formData: FormData) {
@@ -131,7 +135,7 @@ export default function ActionsDropdown({
               </form>
             </DialogContent>
           </Dialog>
-          <AlertDialog>
+          <AlertDialog open={isDeleteOpen} onOpenChange={setIsDeleteOpen}>
             <AlertDialogTrigger asChild>
               <DropdownMenuItem
                 className="group pr-4"
@@ -162,11 +166,21 @@ export default function ActionsDropdown({
                     {dict.modal.delete.button._close}
                   </Button>
                 </AlertDialogCancel>
-                <AlertDialogAction asChild>
-                  <Button variant="destructive" onClick={handleDelete}>
+                <form action={deleteAction}>
+                  <Button
+                    variant="destructive"
+                    type="submit"
+                    loading={isDeletePending}
+                  >
                     {dict.modal.delete.button._submit}
                   </Button>
-                </AlertDialogAction>
+                  <input
+                    type="hidden"
+                    name="ids"
+                    value={JSON.stringify([operation.id])}
+                  />
+                  <input type="hidden" name="type" value={type} />
+                </form>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>

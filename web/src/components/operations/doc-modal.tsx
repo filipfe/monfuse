@@ -5,7 +5,7 @@ import { createClient } from "@/utils/supabase/client";
 import Image from "next/image";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import Toast from "../../ui/toast";
+import Toast from "../ui/toast";
 import { DownloadIcon } from "lucide-react";
 import Link from "next/link";
 import { Dict } from "@/const/dict";
@@ -13,7 +13,6 @@ import { Hatch } from "ldrs/react";
 import {
   Dialog,
   DialogContent,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";

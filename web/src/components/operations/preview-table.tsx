@@ -11,26 +11,25 @@ import {
 import { Pagination } from "@heroui/react";
 import useTableQuery from "@/hooks/useTableQuery";
 import { PaperclipIcon } from "lucide-react";
-import Block from "./block";
-import DocModal from "../operations/modals/doc-modal";
-import Empty from "./empty";
-import { TRANSACTION_TYPES } from "@/const";
-import ActionsDropdown from "../operations/actions-dropdown";
+import Block from "../ui/block";
+import DocModal from "./doc-modal";
 import { useSettings } from "@/lib/general/queries";
 import { Dict } from "@/const/dict";
-import DataTable from "./data-table";
+import DataTable from "../ui/data-table";
 import { ColumnDef } from "@tanstack/react-table";
 import { formatPrice } from "@/utils/format";
-import { Button } from "./button";
+import { Button } from "../ui/button";
+import PreviewActionsDropdown from "./preview-actions-dropdown";
 
-type Props<T> = {
+type Props = {
   title: string;
   dict: Dict["private"]["operations"]["operation-table"];
   count: number;
   children?: ReactNode;
-  rows: T[];
+  rows: Operation[];
   topContent?: ReactNode;
-  setRows: Dispatch<SetStateAction<T[]>>;
+  setRows: Dispatch<SetStateAction<Operation[]>>;
+  settings: Settings;
 };
 
 export default function PreviewTable({
@@ -40,12 +39,13 @@ export default function PreviewTable({
   children,
   rows,
   setRows,
-}: Props<Operation>) {
-  const { data: settings } = useSettings();
+  settings,
+}: Props) {
   const [docPath, setDocPath] = useState<string | null>(null);
   const pages = Math.ceil(count / 10);
   const { items, setItems, searchQuery, changeFilter, handleSearch } =
     useTableQuery<Operation>();
+
   const { page } = searchQuery;
 
   useEffect(() => {
@@ -104,6 +104,7 @@ export default function PreviewTable({
             {
               accessorKey: "doc_path",
               header: "",
+              size: 32,
               cell: ({ row }) =>
                 row.original.doc_path ? (
                   <Button
@@ -127,28 +128,32 @@ export default function PreviewTable({
       {
         id: "actions",
         header: "",
-        // cell: ({ row }) => <ActionsDropdown
-        //             dict={dict.dropdown}
-        //             operation={item}
-        //             // onSelect={() => onRowAction(item.id)}
-        //             // onDelete={(id) => {
-        //             //   setItems((prev) => prev.filter((r) => r.id !== id));
-        //             //   items.length === 0 && setRows([]);
-        //             // }}
-        //             onEdit={(updated) =>
-        //               setItems((prev) => {
-        //                 const newArr = [...prev];
-        //                 const index = newArr.findIndex((row) => row.id === item.id);
-        //                 if (index === -1) return prev;
-        //                 const newObj = { ...newArr[index], ...updated };
-        //                 newArr[index] = newObj;
-        //                 return newArr;
-        //               })
-        //             }
-        //           />
+        size: 32,
+        cell: ({ row }) => (
+          <PreviewActionsDropdown
+            dict={dict.dropdown}
+            operation={row.original}
+            timezone={settings.timezone}
+            onEdit={(updated) =>
+              setRows((prev) => {
+                const newArr = [...prev];
+                const index = newArr.findIndex((row) => row.id === updated.id);
+                if (index === -1) return prev;
+                const newObj = { ...newArr[index], ...updated };
+                newArr[index] = newObj;
+                return newArr;
+              })
+            }
+            onDelete={() =>
+              setRows((prev) =>
+                prev.filter((item) => item.id !== row.original.id)
+              )
+            }
+          />
+        ),
       },
     ],
-    [dict.columns, hasDoc]
+    [dict.columns, hasDoc, settings.timezone]
   );
 
   return (
@@ -183,6 +188,7 @@ export default function PreviewTable({
         data={items}
         columns={columns}
         dict={{ _empty: dict._empty.title }}
+        className="[&_td]:h-11 [&_td]:py-0 [&_td]:whitespace-nowrap [&_td]:max-w-24 [&_td]:text-ellipsis [&_td]:overflow-hidden"
       />
       {pages > 0 && (
         <div className="mt-2 flex-1 flex items-end justify-end">

@@ -7,7 +7,7 @@ import Block from "../ui/block";
 import Scan from "./inputs/scan";
 import Manual from "./inputs/manual";
 import LabelInput from "./inputs/label";
-import PreviewTable from "../ui/preview-table";
+import PreviewTable from "./preview-table";
 import Form from "../ui/temp-form";
 import { Dict } from "@/const/dict";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
@@ -31,6 +31,7 @@ export default function AddForm({ dict, type, settings }: Props) {
       rows={records}
       count={records.length}
       setRows={setRecords as any}
+      settings={settings}
     >
       <Form
         mutation={(data) => addOperations(data, settings.timezone)}

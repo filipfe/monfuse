@@ -30,15 +30,14 @@ export default function Scan({ description, type, setRecords }: Props) {
       formData.append(v4(), file);
     });
     const supabase = createClient();
-    const { data } = await supabase.functions.invoke("process-receipt", {
+    const { data, error } = await supabase.functions.invoke("process-receipt", {
       body: formData,
     });
-    const operations = data.operations.map((operation: Operation) => {
-      const { type, ...rest } = operation;
-      return rest;
-    });
-    console.log({ operations });
-    data && setRecords((prev) => [...prev, ...operations]);
+    if (error) {
+      // toast
+    } else if (data) {
+      setRecords((prev) => [...prev, ...data.operations]);
+    }
     setIsLoading(false);
   };
 

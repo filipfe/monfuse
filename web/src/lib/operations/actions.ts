@@ -242,3 +242,35 @@ export async function updateOperation(
     };
   }
 }
+
+export async function deleteOperations(formData: FormData) {
+  const type = formData.get("type") as string;
+  if (!type) {
+    return {
+      error: "field:type",
+    };
+  }
+  try {
+    const ids = JSON.parse(formData.get("ids") as string);
+    const supabase = await createClient();
+    const { error } = await supabase.from(`${type}s`)
+      .delete()
+      .in("id", ids);
+
+    if (error) {
+      return {
+        error: "query",
+      };
+    }
+
+    revalidatePath(`/${type}s`);
+
+    return {
+      error: null,
+    };
+  } catch (err) {
+    return {
+      error: "field:ids",
+    };
+  }
+}
