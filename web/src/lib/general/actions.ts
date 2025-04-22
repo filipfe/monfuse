@@ -9,7 +9,7 @@ export async function getSettings(): Promise<Settings> {
   const { data, error } = await supabase
     .from("profiles")
     .select(
-      "telegram_token, telegram_id, first_name, last_name, ...settings(timezone, currency, language)",
+      "id, telegram_token, telegram_id, first_name, last_name, has_used_trial, ...settings(timezone, currency, language)",
     )
     .returns<Settings[]>()
     .single();

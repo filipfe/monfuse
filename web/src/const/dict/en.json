@@ -675,6 +675,26 @@
             }
           }
         },
+        "paused": {
+          "title": "Subscription is paused",
+          "description": "Your subscription has been paused. You can activate it back down below.",
+          "resume": {
+            "label": "Resume"
+          }
+        },
+        "create": {
+          "trial": {
+            "title": "Trial period",
+            "description": "Start using Monfuse today with our free trial period!"
+          },
+          "canceled": {
+            "title": "Start your subscription",
+            "description": "Start using Monfuse today with our affordable pricing!"
+          },
+          "start": {
+            "label": "Start now"
+          }
+        },
         "benefits": {
           "title": "What do you get?",
           "list": [

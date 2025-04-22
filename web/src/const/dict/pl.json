@@ -674,6 +674,26 @@
             }
           }
         },
+        "paused": {
+          "title": "Subskrypcja została przerwana",
+          "description": "Twoja subskrypcja Monfuse została przerwana. Możesz aktywować ją ponownie poniżej.",
+          "resume": {
+            "label": "Wznów"
+          }
+        },
+        "create": {
+          "trial": {
+            "title": "Okres próbny",
+            "description": "Zacznij korzystać z Monfuse za darmo przez okres próbny!"
+          },
+          "canceled": {
+            "title": "Rozpocznij subskrypcję",
+            "description": "Zacznij korzystać z Monfuse już teraz w dogodnej cenie za miesiąc."
+          },
+          "start": {
+            "label": "Rozpocznij"
+          }
+        },
         "benefits": {
           "title": "Co zyskujesz?",
           "list": [
