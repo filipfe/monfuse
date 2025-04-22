@@ -684,7 +684,8 @@
         "create": {
           "trial": {
             "title": "Okres próbny",
-            "description": "Zacznij korzystać z Monfuse za darmo przez okres próbny!"
+            "description": "Zacznij korzystać z Monfuse za darmo przez okres próbny!",
+            "days": "7 dni"
           },
           "canceled": {
             "title": "Rozpocznij subskrypcję",

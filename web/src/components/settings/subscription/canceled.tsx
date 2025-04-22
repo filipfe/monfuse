@@ -1,6 +1,4 @@
-import { Button } from "@/components/ui/button";
 import { Dict } from "@/const/dict";
-import { createSubscription } from "@/lib/subscription/actions";
 import stripe from "@/utils/stripe/server";
 import Create from "./create";
 import Stripe from "stripe";
@@ -56,7 +54,9 @@ export default async function Canceled({ dict, settings }: Props) {
               : "USD",
           }).format(price)}
         </strong>
-        <sub className="text-sm mb-1 ml-2 opacity-80">/ {dict.month}</sub>
+        <sub className="text-sm mb-1 ml-2 opacity-80">
+          / {settings.has_used_trial ? dict.month : dict.trial.days}
+        </sub>
       </p>
       <Create dict={dict.start} settings={settings} />
     </div>

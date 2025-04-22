@@ -685,7 +685,8 @@
         "create": {
           "trial": {
             "title": "Trial period",
-            "description": "Start using Monfuse today with our free trial period!"
+            "description": "Start using Monfuse today with our free trial period!",
+            "days": "7 days"
           },
           "canceled": {
             "title": "Start your subscription",

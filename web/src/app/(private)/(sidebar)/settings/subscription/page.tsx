@@ -1,13 +1,12 @@
 import ActiveOrPaused from "@/components/settings/subscription/active-or-paused";
 import Form from "@/components/settings/subscription/form";
-import StartTrial from "@/components/settings/subscription/canceled";
 import getDictionary from "@/const/dict";
 import { getSettings } from "@/lib/general/actions";
 import { getSubscription } from "@/lib/subscription/actions";
 import { Check, ChevronRight } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
-import Create from "@/components/settings/subscription/canceled";
+import Canceled from "@/components/settings/subscription/canceled";
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSettings();
@@ -50,7 +49,7 @@ export default async function Subscription() {
   return (
     <div className="flex-1 w-full flex flex-col gap-6 2xl:grid grid-cols-[2fr_1fr]">
       {!subscription ? (
-        <Create
+        <Canceled
           dict={{ ...dict.create, month: dict.active.month }}
           settings={settings}
         />
