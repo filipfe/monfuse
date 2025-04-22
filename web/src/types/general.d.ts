@@ -93,8 +93,10 @@ type PageProps = {
 };
 
 type Settings = {
+  id: string;
   first_name: string;
   last_name: string;
+  has_used_trial: boolean;
   currency: string;
   timezone: string;
   language: Lang;

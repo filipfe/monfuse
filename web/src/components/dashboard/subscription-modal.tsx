@@ -14,32 +14,13 @@ import {
   DialogTitle,
 } from "../ui/dialog";
 import { Button } from "../ui/button";
+import { Dict } from "@/const/dict";
 
-const getTitle = (status: Stripe.PaymentIntent.Status) => {
-  switch (status) {
-    case "succeeded":
-      return "Dziękujemy za aktywowanie subskrypcji!";
-    case "canceled":
-      return "Płatność anulowana";
-    case "requires_payment_method":
-      return "Wymagana metoda płatności";
-    case "requires_confirmation":
-      return "Wymagane potwierdzenie";
-    default:
-      return "";
-  }
+type Props = {
+  dict: Dict["private"]["settings"]["subscription"]["status"];
 };
 
-const getDescription = (status: Stripe.PaymentIntent.Status) => {
-  switch (status) {
-    case "succeeded":
-      return "Możesz teraz wygodnie zarządzać swoimi przychodami, wydatkami i celami z jednego miejsca!";
-    default:
-      return "Płatność nie przebiegła pomyślnie";
-  }
-};
-
-export default function SubscriptionModal() {
+export default function SubscriptionModal({ dict }: Props) {
   const [isLoading, setIsLoading] = useState(true);
   const [status, setStatus] =
     useState<Stripe.PaymentIntent.Status>("processing");
@@ -73,10 +54,18 @@ export default function SubscriptionModal() {
         ) : (
           <Fragment>
             <DialogHeader>
-              <DialogTitle>{getTitle(status)}</DialogTitle>
+              <DialogTitle>
+                {status in dict.title
+                  ? dict.title[status as keyof typeof dict.title]
+                  : dict.description.default}
+              </DialogTitle>
             </DialogHeader>
             <div>
-              <p className="text-sm opacity-80">{getDescription(status)}</p>
+              <p className="text-sm opacity-80">
+                {status === "succeeded"
+                  ? dict.description.succeeded
+                  : dict.description.default}
+              </p>
             </div>
             <DialogFooter>
               <Button asChild>

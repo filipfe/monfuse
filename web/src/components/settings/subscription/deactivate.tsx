@@ -36,7 +36,7 @@ export default function Deactivate({
         >
           <input type="hidden" name="subscription_id" value={subscription.id} />
           <input type="hidden" name="should_cancel" value="false" />
-          <Button type="submit" disabled={isPending} variant="outline">
+          <Button type="submit" loading={isPending} variant="outline">
             {dict.reactivate.label}
           </Button>
         </form>
@@ -64,7 +64,9 @@ export default function Deactivate({
                 }
               >
                 <AlertDialogAction asChild>
-                  <Button type="submit">{dict.modal.proceed}</Button>
+                  <Button loading={isPending} type="submit">
+                    {dict.modal.proceed}
+                  </Button>
                 </AlertDialogAction>
                 <input
                   type="hidden"
