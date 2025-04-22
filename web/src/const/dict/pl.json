@@ -684,6 +684,18 @@
             "Płatności cykliczne"
           ],
           "button": "Dowiedz się więcej"
+        },
+        "status": {
+          "title": {
+            "succeeded": "Dziękujemy za aktywowanie subskrypcji!",
+            "canceled": "Płatność anulowana",
+            "requires_payment_method": "Wymagana metoda płatności",
+            "requires_confirmation": "Wymagane potwierdzenie"
+          },
+          "description": {
+            "succeeded": "Możesz teraz wygodnie zarządzać swoimi przychodami, wydatkami i celami z jednego miejsca!",
+            "default": "Płatność nie przebiegła pomyślnie."
+          }
         }
       },
       "notifications": {
