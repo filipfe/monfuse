@@ -1,11 +1,11 @@
 import Link from "next/link";
 import Block from "../ui/block";
-import { Button } from "@nextui-org/react";
 import { CheckCircle, PlusIcon } from "lucide-react";
 import HorizontalScroll from "../ui/horizontal-scroll";
 import GoalRef from "./ref";
 import { Dict } from "@/const/dict";
 import Empty from "../ui/empty";
+import { Button } from "../ui/button";
 
 interface Props extends Pick<Settings, "language"> {
   dict: Dict["private"]["goals"]["list"];
@@ -18,19 +18,12 @@ export default async function GoalsList({ dict, language, goals }: Props) {
       title={dict.title}
       cta={
         goals.length > 0 && (
-          <Link href="/goals/add">
-            <Button
-              as="div"
-              variant="light"
-              disableRipple
-              startContent={<PlusIcon size={14} />}
-              className="h-8 bg-light border"
-              size="sm"
-              radius="md"
-            >
+          <Button variant="outline" size="sm" asChild>
+            <Link href="/goals/add">
+              <PlusIcon size={14} />
               {dict.button}
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         )
       }
     >

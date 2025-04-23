@@ -1,125 +1,191 @@
-import {
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownTrigger,
-  useDisclosure,
-} from "@nextui-org/react";
-import {
-  MoreVerticalIcon,
-  MousePointerSquareIcon,
-  SquarePenIcon,
-  Trash2Icon,
-} from "lucide-react";
-import { Fragment, Key, useState } from "react";
-import EditModal from "./modals/edit-modal";
-import DeleteModal from "./modals/delete-modal";
+import { MoreVerticalIcon, SquarePenIcon, Trash2Icon } from "lucide-react";
+import { Fragment, useState, useTransition } from "react";
 import { Dict } from "@/const/dict";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "../ui/alert-dialog";
+import { Button } from "../ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../ui/dialog";
+import { deleteOperations, updateOperation } from "@/lib/operations/actions";
+import dateFormat from "@/utils/formatters/dateFormat";
+import Manual from "./inputs/manual";
+import toast from "@/utils/toast";
 
 type Props = {
   dict: Dict["private"]["operations"]["operation-table"]["dropdown"];
   operation: Operation;
   // onSelect?: () => void;
-  onEdit?: (updated: Operation) => void;
-  onDelete?: (id: string) => void;
+  mutate: () => Promise<void>;
   type: OperationType;
+  timezone: Settings["timezone"];
 };
 
 export default function ActionsDropdown({
   dict,
   operation,
   type,
-  onEdit,
-  // onSelect,
-  onDelete,
+  timezone,
+  mutate,
 }: Props) {
-  const { isOpen, onClose, onOpenChange } = useDisclosure();
-  const disclosure = useDisclosure();
-  const [edited, setEdited] = useState<Operation | null>(null);
-  const [deleted, setDeleted] = useState<Operation | null>(null);
+  const [isUpdatePending, startUpdate] = useTransition();
+  const [isDeletePending, startDeletion] = useTransition();
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
-  const onAction = (key: Key) => {
-    switch (key) {
-      // case "select":
-      //   onSelect && onSelect();
-      //   return;
-      case "edit":
-        setEdited(operation);
-        onClose();
-        disclosure.onOpen();
-        return;
-      case "delete":
-        onDelete ? onDelete(operation.id) : setDeleted(operation);
-        onClose();
-        return;
-      default:
-        return;
-    }
-  };
+  function deleteAction(formData: FormData) {
+    startDeletion(async () => {
+      const { error } = await deleteOperations(formData);
+      if (error) {
+        // toast
+      } else {
+        await mutate();
+        setIsDeleteOpen(false);
+      }
+    });
+  }
+
+  function updateAction(formData: FormData) {
+    startUpdate(async () => {
+      const { error } = await updateOperation(
+        formData,
+        timezone,
+        dateFormat(operation.issued_at, timezone, "yyyy-MM-dd")
+      );
+      if (error) {
+        toast({
+          type: "error",
+          message: dict.modal.edit.form._error,
+        });
+      } else {
+        await mutate();
+        toast({
+          type: "success",
+          message: dict.modal.edit.form._success,
+        });
+      }
+    });
+  }
 
   return (
     <Fragment>
-      <Dropdown
-        shadow="sm"
-        placement="left"
-        isOpen={isOpen}
-        onOpenChange={onOpenChange}
-      >
-        <DropdownTrigger>
-          <button className="h-6 w-6 -my-2 rounded-full grid place-content-center">
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <button className="h-6 w-6 rounded-full grid place-content-center ml-auto">
             <MoreVerticalIcon size={20} />
           </button>
-        </DropdownTrigger>
-        <DropdownMenu
-          disabledKeys={[]}
-          variant="faded"
-          aria-label="Dropdown menu with description"
-          onAction={onAction}
-        >
-          {/* <DropdownItem
-            key="select"
-            description="Zaznacz operację"
-            startContent={<MousePointerSquareIcon size={16} />}
-          >
-            Zaznacz
-          </DropdownItem> */}
-          <DropdownItem
-            key="edit"
-            description={dict.menu.edit.description}
-            startContent={<SquarePenIcon size={16} />}
-            closeOnSelect={false}
-            showDivider
-          >
-            {dict.menu.edit.title}
-          </DropdownItem>
-          <DropdownItem
-            closeOnSelect={false}
-            key="delete"
-            className="text-danger"
-            color="danger"
-            description={dict.menu.delete.description}
-            startContent={<Trash2Icon className="text-danger" size={16} />}
-          >
-            {dict.menu.delete.title}
-          </DropdownItem>
-        </DropdownMenu>
-      </Dropdown>
-      <EditModal
-        dict={dict.modal.edit}
-        edited={edited}
-        setEdited={setEdited}
-        type={type}
-        onEdit={onEdit}
-        {...disclosure}
-      />
-      {!onDelete && (
-        <DeleteModal
-          dict={dict.modal.delete}
-          type={type}
-          deleted={deleted ? [deleted] : []}
-          onClose={() => setDeleted(null)}
-        />
-      )}
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <Dialog>
+            <DialogTrigger asChild>
+              <DropdownMenuItem
+                className="group pr-4"
+                onSelect={(e) => e.preventDefault()}
+              >
+                <SquarePenIcon size={14} className="mx-1" />
+                <div className="flex flex-col">
+                  <span>{dict.menu.edit.title}</span>
+                  <span className="text-xs text-muted-foreground transition-colors duration-100 group-hover:text-foreground">
+                    {dict.menu.edit.description}
+                  </span>
+                </div>
+              </DropdownMenuItem>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>
+                  {dict.modal.edit.title[type as "income" | "expense"]}{" "}
+                  <span className="font-bold">{operation.title}</span>
+                </DialogTitle>
+              </DialogHeader>
+              <form action={updateAction}>
+                <div>
+                  <Manual
+                    dict={dict.modal.edit.form}
+                    timezone={timezone}
+                    withLabel={type === "expense"}
+                    initialValue={operation}
+                    type={type}
+                  />
+                </div>
+                <DialogFooter>
+                  <Button loading={isUpdatePending}>
+                    {dict.modal.edit.form._submit.label}
+                  </Button>
+                </DialogFooter>
+              </form>
+            </DialogContent>
+          </Dialog>
+          <AlertDialog open={isDeleteOpen} onOpenChange={setIsDeleteOpen}>
+            <AlertDialogTrigger asChild>
+              <DropdownMenuItem
+                className="group pr-4"
+                onSelect={(e) => e.preventDefault()}
+              >
+                <Trash2Icon size={14} className="text-danger mx-1" />
+                <div className="flex flex-col">
+                  <span className="text-danger">{dict.menu.delete.title}</span>
+                  <span className="text-xs text-muted-foreground transition-colors duration-100 group-hover:text-danger">
+                    {dict.menu.delete.description}
+                  </span>
+                </div>
+              </DropdownMenuItem>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle className="font-normal">
+                  {dict.modal.delete.title}{" "}
+                  <span className="font-bold">{operation.title}</span>?
+                </AlertDialogTitle>
+                <AlertDialogDescription>
+                  {dict.modal.delete.description}
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel asChild>
+                  <Button variant="outline">
+                    {dict.modal.delete.button._close}
+                  </Button>
+                </AlertDialogCancel>
+                <form action={deleteAction}>
+                  <Button
+                    variant="destructive"
+                    type="submit"
+                    loading={isDeletePending}
+                  >
+                    {dict.modal.delete.button._submit}
+                  </Button>
+                  <input
+                    type="hidden"
+                    name="ids"
+                    value={JSON.stringify([operation.id])}
+                  />
+                  <input type="hidden" name="type" value={type} />
+                </form>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </Fragment>
   );
 }

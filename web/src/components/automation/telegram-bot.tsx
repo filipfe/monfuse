@@ -1,9 +1,8 @@
-import LatestOperations from "@/components/automation/latest-operations";
 import TokenInput from "@/components/automation/token-input";
 import Block from "@/components/ui/block";
 import { Dict } from "@/const/dict";
-import { Button, cn } from "@nextui-org/react";
-import { LinkIcon, Send } from "lucide-react";
+import { cn } from "@/utils/cn";
+import { LinkIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { ReactNode } from "react";
@@ -64,8 +63,10 @@ export default function TelegramBot({
     >
       <div className="flex-1 flex flex-col gap-6">
         <div className="flex flex-col gap-6">
-          {dict.description.map((text) => (
-            <p className="text-sm">{text}</p>
+          {dict.description.map((text, i) => (
+            <p className="text-sm" key={i}>
+              {text}
+            </p>
           ))}
           <div className="max-w-lg">
             <TokenInput token={settings.telegram_token} dict={dict.input} />

@@ -1,5 +1,5 @@
 import GoBackLink from "@/components/404/go-back";
-import { Button } from "@nextui-org/react";
+import { Button } from "@/components/ui/button";
 import { ChevronRight, X } from "lucide-react";
 import Link from "next/link";
 
@@ -17,17 +17,12 @@ export default function NotFound() {
       </p>
       <div className="flex items-center gap-3 mt-4">
         <GoBackLink />
-        <Link href="/">
-          <Button
-            type="submit"
-            disableRipple
-            color="primary"
-            endContent={<ChevronRight size={14} />}
-            as="div"
-          >
+        <Button asChild>
+          <Link href="/">
             Go Home
-          </Button>
-        </Link>
+            <ChevronRight size={14} />
+          </Link>
+        </Button>
       </div>
     </div>
   );

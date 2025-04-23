@@ -4,8 +4,9 @@ import { satoshi } from "@/assets/font/satoshi";
 import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "react-hot-toast";
 import Script from "next/script";
-import type {} from "ldrs";
 import { LOCALES } from "@/const/locales";
+import "ldrs/react/Hatch.css";
+import "ldrs/react/Ring.css";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {

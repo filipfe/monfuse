@@ -1,4 +1,4 @@
-User-agent: *
-Disallow: /$
+User-Agent: *
+Allow: /
 
 Sitemap: https://www.monfuse.com/sitemap.xml

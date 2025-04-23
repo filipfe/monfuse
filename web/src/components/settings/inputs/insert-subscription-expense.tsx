@@ -1,23 +1,15 @@
 "use client";
 
 import LabelInput from "@/components/operations/inputs/label";
+import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
 import { Dict } from "@/const/dict";
 import { useSettings } from "@/lib/general/queries";
-import { useLabels } from "@/lib/operations/queries";
-import { updatePreferences } from "@/lib/settings/actions";
 import { updateSettings } from "@/lib/settings/queries";
 import toast from "@/utils/toast";
-import {
-  Autocomplete,
-  AutocompleteItem,
-  Button,
-  Input,
-  Switch,
-  Tooltip,
-} from "@nextui-org/react";
+
 import { Check } from "lucide-react";
-import Link from "next/link";
-import { useEffect, useState, useTransition } from "react";
+import { useEffect, useState } from "react";
 
 type Props = {
   dict: Dict["private"]["settings"]["preferences"]["insert-subscription-expense"];
@@ -25,16 +17,17 @@ type Props = {
 
 export default function InsertSubscriptionExpenseSwitch({ dict }: Props) {
   const [label, setLabel] = useState("");
-  const { data: labels, isLoading: areLabelsLoading } = useLabels();
-  const { data: settings, mutate, isLoading, error } = useSettings();
-  const [isPending, startTransition] = useTransition();
+  const { data: settings, mutate, isLoading } = useSettings();
 
-  const onValueChange = async (isSelected: boolean) => {
+  const onValueChange = async <K extends keyof Settings>(
+    key: K,
+    value: Settings[K]
+  ) => {
     try {
-      await mutate(updateSettings("insert_subscription_expense", isSelected), {
+      await mutate(updateSettings(key, value), {
         optimisticData: (prev: any) => ({
           ...prev,
-          insert_subscription_expense: isSelected,
+          [key]: value,
         }),
         revalidate: false,
         populateCache: true,
@@ -48,19 +41,6 @@ export default function InsertSubscriptionExpenseSwitch({ dict }: Props) {
     }
   };
 
-  const action = (formData: FormData) =>
-    startTransition(async () => {
-      const res = await updatePreferences(formData);
-      if (res?.error) {
-        toast({
-          type: "error",
-          message: dict._error,
-        });
-      } else {
-        mutate();
-      }
-    });
-
   useEffect(() => {
     if (!settings?.subscription_expense_label) return;
     setLabel(settings.subscription_expense_label);
@@ -69,81 +49,40 @@ export default function InsertSubscriptionExpenseSwitch({ dict }: Props) {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between gap-4">
-        <div className="flex flex-col gap-2 mb-2">
+        <div className="flex flex-col gap-1 mb-2">
           <h3>{dict.title}</h3>
           <p className="text-sm text-font/60">{dict.description}</p>
         </div>
         {settings && (
           <Switch
-            isDisabled={isLoading}
-            isSelected={settings.insert_subscription_expense}
-            onValueChange={onValueChange}
+            disabled={isLoading}
+            checked={settings.insert_subscription_expense}
+            onCheckedChange={(checked) =>
+              onValueChange("insert_subscription_expense", checked)
+            }
           />
         )}
       </div>
-      <form action={action}>
-        <div className="flex flex-col">
-          <Autocomplete
-            name="value"
-            label={dict.label.label}
-            placeholder={dict.label.placeholder}
-            isClearable={false}
-            multiple
-            allowsCustomValue
-            isLoading={isLoading}
-            isDisabled={!settings?.insert_subscription_expense}
-            inputProps={{
-              classNames: {
-                inputWrapper: "bg-light border shadow-none",
-              },
-            }}
-            value={label}
-            onSelectionChange={(key) => key && setLabel(key as string)}
-            onValueChange={(value) => setLabel(value)}
-            maxLength={48}
-            showScrollIndicators
-          >
-            {labels
-              ? labels.map((label) => (
-                  <AutocompleteItem
-                    value={label.name}
-                    textValue={label.name}
-                    description={`${label.count} ${dict.label.description}`}
-                    classNames={{
-                      base: "!bg-white hover:!bg-light",
-                    }}
-                    key={label.name}
-                  >
-                    {label.name}
-                  </AutocompleteItem>
-                ))
-              : []}
-          </Autocomplete>
-          <input type="hidden" name="name" value="subscription_expense_label" />
-          {settings &&
-            label &&
-            settings?.subscription_expense_label != label && (
-              <Button
-                type="submit"
-                color="primary"
-                size="sm"
-                radius="md"
-                startContent={
-                  isPending ? (
-                    <l-hatch size={10} stroke={1} color="#FFF" />
-                  ) : (
-                    <Check size={14} />
-                  )
-                }
-                className="mt-6 self-end"
-                disableRipple
-                isDisabled={isPending}
-              >
-                {dict.label.save}
-              </Button>
-            )}
-        </div>
-      </form>
+      <div className="flex flex-col">
+        <LabelInput
+          disabled={!settings?.insert_subscription_expense}
+          dict={dict.label}
+          value={label}
+          onChange={(value) => setLabel(value)}
+        />
+        {settings &&
+          label &&
+          settings?.subscription_expense_label !== label && (
+            <Button
+              size="sm"
+              className="mt-4 self-end"
+              onClick={() => onValueChange("subscription_expense_label", label)}
+            >
+              <Check size={14} />
+              {dict.label.save}
+            </Button>
+          )}
+      </div>
     </div>
   );
 }

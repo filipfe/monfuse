@@ -1,62 +1,159 @@
 "use client";
 
-import {
-  MouseEvent,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
-import {
-  Table,
-  TableHeader,
-  TableColumn,
-  TableBody,
-  TableRow,
-  TableCell,
-  Spinner,
-  Pagination,
-  ScrollShadow,
-  Button,
-} from "@nextui-org/react";
+import { useContext, useMemo, useState } from "react";
 import useTableQuery from "@/hooks/useTableQuery";
 import TopContent from "../ui/table/top-content";
 import Block from "../ui/block";
 import Empty from "../ui/empty";
 import { PaperclipIcon } from "lucide-react";
-import DocModal from "./modals/doc-modal";
+import DocModal from "./doc-modal";
 import ActionsDropdown from "./actions-dropdown";
 import { PeriodContext } from "@/app/(private)/(sidebar)/(operations)/providers";
 import { Dict } from "@/const/dict";
+import { useOperations } from "@/lib/operations/queries";
+import DataTable from "../ui/data-table";
+import { ColumnDef } from "@tanstack/react-table";
+import { formatNumber, formatPrice } from "@/utils/format";
+import { Button } from "../ui/button";
+import { Pagination } from "@heroui/react";
+import { useSWRConfig } from "swr";
+
+interface Props extends TableProps {
+  settings: Settings;
+  dict: Dict["private"]["operations"]["operation-table"];
+  title: string;
+}
 
 export default function OperationTable({
   title,
   dict,
-  rows,
-  count,
   children,
-  viewOnly,
+  type,
   settings,
-  ...props
-}: TableProps<Operation> & {
-  settings: Settings;
-  dict: Dict["private"]["operations"]["operation-table"];
-  title: string;
-}) {
+}: Props) {
+  const { mutate } = useSWRConfig();
+  const [pages, setPages] = useState(0);
   const [docPath, setDocPath] = useState<string | null>(null);
-  const pages = Math.ceil(count / 10);
+  const { searchQuery, handleSearch, changeFilter } = useTableQuery();
   const { period } = useContext(PeriodContext);
   const {
-    items,
+    data,
+    mutate: mutateOperations,
     isLoading,
-    setIsLoading,
-    searchQuery,
-    handleSearch,
-    handleSort,
-    handlePageChange,
-    handleLabelChange,
-    handleCurrencyChange,
-  } = useTableQuery(rows, { viewOnly: !!viewOnly, period });
+  } = useOperations(
+    type,
+    {
+      ...searchQuery,
+      from: period.from || undefined,
+      to: period.to || undefined,
+    },
+    settings.timezone,
+    {
+      onSuccess: (data) => setPages(Math.ceil(data.count / 10)),
+    }
+  );
+
+  const operations = data?.results || [];
+
+  const { hasDoc, hasLabel } = useMemo(
+    () => ({
+      hasDoc: operations.some((item) => item.doc_path),
+      hasLabel: operations.some((item) => item.label),
+    }),
+    [data]
+  );
+
+  const columns: ColumnDef<Operation>[] = useMemo(
+    () => [
+      {
+        accessorFn: ({ issued_at }) =>
+          new Intl.DateTimeFormat(settings.language, {
+            dateStyle: "short",
+            timeZone: settings.timezone,
+          }).format(new Date(issued_at)),
+        header: dict.columns.issued_at,
+      },
+      {
+        accessorKey: "title",
+        header: dict.columns.title,
+      },
+      {
+        accessorFn: ({ amount, currency }) =>
+          formatPrice(amount, currency, settings.language),
+        header: dict.columns.amount,
+      },
+      // {
+      //   accessorKey: "currency",
+      //   header: dict.columns.currency
+      // }
+      ...(hasLabel
+        ? [
+            {
+              accessorFn: ({ label }) => label || "-",
+              header: dict.columns.label,
+            } as ColumnDef<Operation>,
+          ]
+        : []),
+      ...(hasDoc
+        ? [
+            {
+              accessorKey: "doc_path",
+              header: "",
+              cell: ({ row }) =>
+                row.original.doc_path ? (
+                  <Button
+                    size="icon"
+                    variant="outline"
+                    className="w-8 h-8"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setDocPath(row.original.doc_path);
+                    }}
+                  >
+                    <PaperclipIcon size={18} />
+                  </Button>
+                ) : (
+                  <></>
+                ),
+              size: 32,
+            } as ColumnDef<Operation>,
+          ]
+        : []),
+      {
+        id: "actions",
+        header: "",
+        cell: ({ row }) => (
+          <ActionsDropdown
+            dict={dict.dropdown}
+            type={type}
+            timezone={settings.timezone}
+            operation={row.original}
+            mutate={async () => {
+              const promises = [
+                mutateOperations(),
+                mutate([
+                  "history",
+                  type,
+                  settings.timezone,
+                  row.original.currency,
+                ]),
+              ];
+              if (type === "expense") {
+                promises.push(
+                  mutate(["limits", settings.timezone, row.original.currency])
+                );
+              }
+              await Promise.all(promises);
+            }}
+          />
+        ),
+        size: 32,
+      },
+    ],
+    [dict, settings, type, hasLabel, hasDoc]
+  );
+
   // const {
   //   selectionMode,
   //   selectedKeys,
@@ -66,92 +163,6 @@ export default function OperationTable({
   // } = useSelection((viewOnly ? items : rows).map((item) => item.id));
   const { page, sort, search, label: _label } = searchQuery;
 
-  useEffect(() => {
-    setIsLoading(false);
-  }, [rows]);
-
-  const columns = useCallback(
-    (hasLabel: boolean, hasDoc: boolean) => [
-      { key: "issued_at", label: dict.columns.issued_at },
-      { key: "title", label: dict.columns.title },
-      { key: "amount", label: dict.columns.amount },
-      { key: "currency", label: dict.columns.currency },
-      ...(hasLabel ? [{ key: "label", label: dict.columns.label }] : []),
-      ...(hasDoc ? [{ key: "doc_path", label: "" }] : []),
-      { key: "actions", label: "" },
-    ],
-    [page]
-  );
-
-  const renderCell = useCallback(
-    (item: any, columnKey: any) => {
-      const cellValue = item[columnKey];
-
-      switch (columnKey) {
-        case "title":
-          return <span className="line-clamp-1 break-all">{cellValue}</span>;
-        case "label":
-          return (
-            <span className="line-clamp-1 break-all">{cellValue || "-"}</span>
-          );
-        case "issued_at":
-          return (
-            <span className="line-clamp-1 break-all w-[10ch]">
-              {new Intl.DateTimeFormat(settings.language, {
-                dateStyle: "short",
-                timeZone: settings.timezone,
-              }).format(new Date(cellValue))}
-            </span>
-          );
-        case "doc_path":
-          const handleChange = (e: MouseEvent<HTMLButtonElement>) => {
-            e.preventDefault();
-            e.stopPropagation();
-            setDocPath(cellValue);
-          };
-          return cellValue ? (
-            <Button
-              size="sm"
-              isIconOnly
-              onClick={handleChange}
-              radius="md"
-              disableRipple
-              className="flex items-center ml-auto relative z-40 -my-2 border"
-            >
-              <PaperclipIcon size={18} />
-            </Button>
-          ) : (
-            <></>
-          );
-        // case "actions":
-        //   return selectedKeys.length === 0 ? (
-        //     <ActionsDropdown
-        //       type={props.type}
-        //       operation={item}
-        //       onSelect={() => onRowAction(item.id)}
-        //     />
-        //   ) : (
-        //     <></>
-        //   );
-        case "actions":
-          return (
-            <ActionsDropdown
-              dict={dict.dropdown}
-              type={props.type}
-              operation={item}
-            />
-          );
-        default:
-          return <span className="line-clamp-1 break-all">{cellValue}</span>;
-      }
-    },
-    [
-      // selectedKeys,
-      props.type,
-      //  onRowAction
-    ]
-  );
-
   return (
     <Block
       title={title}
@@ -159,22 +170,22 @@ export default function OperationTable({
       hideTitleMobile
       cta={
         <TopContent
-          {...props}
+          type={type}
           dict={dict["top-content"]}
           viewOnly={false}
           // selected={selectedKeys}
           handleSearch={handleSearch}
           // deletionCallback={() => setSelectedKeys([])}
           search={search}
-          addHref={`/${props.type}s/add`}
+          addHref={`/${type}s/add`}
           state={{
             label: {
-              value: searchQuery.label,
-              onChange: handleLabelChange,
+              value: searchQuery.label || "*",
+              onChange: (value) => changeFilter("label", value),
             },
             currency: {
-              value: searchQuery.currency,
-              onChange: handleCurrencyChange,
+              value: searchQuery.currency || "*",
+              onChange: (value) => changeFilter("currency", value),
             },
           }}
           showPeriodFilter
@@ -182,66 +193,15 @@ export default function OperationTable({
       }
     >
       <DocModal dict={dict.modal} docPath={docPath} setDocPath={setDocPath} />
-      <ScrollShadow orientation="horizontal" hideScrollBar>
-        <Table
-          removeWrapper
-          shadow="none"
-          color="primary"
-          sortDescriptor={{
-            column: sort?.includes("-")
-              ? sort?.split("-")[1]
-              : sort?.toString(),
-            direction: sort?.includes("-") ? "descending" : "ascending",
-          }}
-          onSortChange={handleSort}
-          topContentPlacement="outside"
-          bottomContentPlacement="outside"
-          aria-label="operations-table"
-          className="max-w-full w-full flex-1"
-          classNames={{
-            td: "[&_span:last-child]:before:!border-neutral-200",
-          }}
-        >
-          <TableHeader>
-            {columns(
-              rows.some((item) => item.label),
-              rows.some((item) => item.doc_path)
-            ).map((column) => (
-              <TableColumn
-                key={column.key}
-                allowsSorting={
-                  column.key !== "actions" && column.key !== "doc_path"
-                }
-              >
-                {column.label}
-              </TableColumn>
-            ))}
-          </TableHeader>
-          <TableBody
-            items={rows}
-            isLoading={isLoading}
-            emptyContent={
-              <Empty
-                title={dict._empty.title}
-                cta={{
-                  title: dict._empty.button[props.type as "expense" | "income"],
-                  href: `/${props.type}s/add`,
-                }}
-              />
-            }
-            loadingContent={<Spinner />}
-          >
-            {(operation) => (
-              <TableRow className="hover:bg-light" key={operation.id}>
-                {(columnKey) => (
-                  <TableCell>{renderCell(operation, columnKey)}</TableCell>
-                )}
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </ScrollShadow>
-      {count > 0 && (
+      <DataTable
+        data={operations}
+        columns={columns}
+        isLoading={isLoading}
+        enableSorting
+        className="[&_td]:h-11 [&_td]:py-0 [&_td]:whitespace-nowrap [&_td]:max-w-24 [&_td]:text-ellipsis [&_td]:overflow-hidden"
+        dict={{ _empty: dict._empty.title }}
+      />
+      {pages > 0 && (
         <div className="mt-2 flex-1 flex items-end justify-end">
           <Pagination
             size="sm"
@@ -256,7 +216,7 @@ export default function OperationTable({
             page={page}
             isDisabled={isLoading}
             total={pages}
-            onChange={handlePageChange}
+            onChange={(value) => changeFilter("page", value)}
           />
         </div>
       )}

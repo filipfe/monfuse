@@ -72,7 +72,7 @@ export default async function Pricing({
                         )
                         ? (price?.unit_amount as number)
                         : (price?.unit_amount as number) / 100
-                      : 10
+                      : 12
                   )}
                 </strong>
                 <sub className="text-font/75 mb-3">

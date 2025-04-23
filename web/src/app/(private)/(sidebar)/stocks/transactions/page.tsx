@@ -2,10 +2,11 @@
 import { getOwnStocks } from "@/lib/stocks/actions";
 
 export default async function Page({
-  searchParams,
+  searchParams: searchParamsPromise,
 }: {
-  searchParams: SearchParams;
+  searchParams: Promise<SearchParams>;
 }) {
+  const searchParams = await searchParamsPromise;
   const { results: ownStocks, count } = await getOwnStocks(searchParams);
   return (
     <div className="sm:px-10 py-4 sm:py-8 flex flex-col h-full gap-4 sm:gap-6">

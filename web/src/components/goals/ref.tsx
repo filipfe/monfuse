@@ -1,12 +1,11 @@
 "use client";
 
-import { Progress } from "@nextui-org/react";
 import { useRef } from "react";
 import useOutsideObserver from "@/hooks/useOutsideObserver";
 import Menu from "./menu";
 import NumberFormat from "@/utils/formatters/currency";
-import { useSettings } from "@/lib/general/queries";
 import { Dict } from "@/const/dict";
+import { Progress } from "../ui/progress";
 
 interface Props extends Pick<Settings, "language"> {
   dict: Dict["private"]["goals"]["list"]["goal"];
@@ -58,20 +57,19 @@ export default function GoalRef({ dict, goal, language }: Props) {
             />
           </sub>
         </div>
-        <Progress
-          color="secondary"
-          value={total_paid}
-          maxValue={price}
-          aria-label={title}
-          label={dict.collected}
-          showValueLabel
-          size="sm"
-          className="my-2"
-          classNames={{
-            label: "text-[80%] text-white/60",
-            value: "text-[80%] text-white/80",
-          }}
-        />
+        <div className="my-2 flex flex-col gap-2">
+          <div className="flex items-center justify-between">
+            <span className="text-[80%] text-white/60">{dict.collected}</span>
+            <span className="text-[80%] text-white/80">
+              {Math.floor((total_paid / price) * 100)}%
+            </span>
+          </div>
+          <Progress
+            variant="secondary"
+            value={(total_paid / price) * 100}
+            className="h-1 bg-white/40"
+          />
+        </div>
       </div>
     </div>
   );

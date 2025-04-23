@@ -1,16 +1,17 @@
 import Logo from "@/assets/icons/logo";
 import Form from "@/components/auth/form";
+import { Input } from "@/components/ui/input";
 import getDictionary from "@/const/dict";
 import { LOCALES } from "@/const/locales";
 import getLang from "@/utils/get-lang";
-import { Input } from "@nextui-org/react";
 import Link from "next/link";
 
 export async function generateMetadata({
-  params: { locale },
+  params,
 }: {
-  params: { locale: Locale };
+  params: Promise<{ locale: Locale }>;
 }) {
+  const { locale } = await params;
   const lang = getLang(locale);
   const {
     public: { auth },
@@ -39,8 +40,13 @@ export async function generateMetadata({
   };
 }
 
-export default async function Page({ params }: { params: { locale: Locale } }) {
-  const lang = getLang(params.locale);
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}) {
+  const { locale } = await params;
+  const lang = getLang(locale);
   const {
     private: { general },
     public: {
@@ -61,26 +67,18 @@ export default async function Page({ params }: { params: { locale: Locale } }) {
               <p className="text-sm">{signIn.description}</p>
             </div>
             <Input
-              classNames={{
-                inputWrapper: "!bg-light border shadow-none",
-              }}
               name="email"
               label="Email"
               type="email"
               placeholder="example@mail.com"
-              isRequired
               required
               autoComplete="off"
             />
             <Input
-              classNames={{
-                inputWrapper: "!bg-light border shadow-none",
-              }}
               name="password"
               label={signIn.form.password.label}
               type="password"
               placeholder="**********"
-              isRequired
               required
             />
             <p className="text-sm">

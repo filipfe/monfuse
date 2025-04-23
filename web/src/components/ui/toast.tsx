@@ -3,6 +3,7 @@
 import { XIcon } from "lucide-react";
 import toast, { Toast as ToastProps } from "react-hot-toast";
 import { AnimatePresence, motion } from "framer-motion";
+import { Hatch } from "ldrs/react";
 
 export default function Toast({ id, type, message, visible }: ToastProps) {
   const isError = type === "error";
@@ -24,7 +25,7 @@ export default function Toast({ id, type, message, visible }: ToastProps) {
             <div className="flex items-start gap-2.5">
               {isLoading ? (
                 <div className="mr-1.5">
-                  <l-hatch size={16} stroke={2} />
+                  <Hatch size={16} stroke={2} />
                 </div>
               ) : (
                 !isBlank && (

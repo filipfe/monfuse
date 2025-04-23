@@ -1,6 +1,6 @@
 "use client";
 
-import { Divider } from "@nextui-org/react";
+import { Divider } from "@heroui/react";
 import { useState } from "react";
 
 type Props = {

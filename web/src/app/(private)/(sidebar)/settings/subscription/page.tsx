@@ -1,14 +1,12 @@
-import Active from "@/components/settings/subscription/active";
+import ActiveOrPaused from "@/components/settings/subscription/active-or-paused";
 import Form from "@/components/settings/subscription/form";
 import getDictionary from "@/const/dict";
 import { getSettings } from "@/lib/general/actions";
-import {
-  getOrCreateSubscription,
-  resumeSubscription,
-} from "@/lib/subscription/actions";
+import { getSubscription } from "@/lib/subscription/actions";
 import { Check, ChevronRight } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
+import Canceled from "@/components/settings/subscription/canceled";
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSettings();
@@ -24,14 +22,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function Subscription() {
   const settings = await getSettings();
-  const { result: subscription, error } = await getOrCreateSubscription();
-
-  if (subscription?.status === "paused") {
-    const client_secret = await resumeSubscription(subscription.id);
-    if (client_secret) {
-      subscription.client_secret = client_secret;
-    }
-  }
+  const { result: subscription, error } = await getSubscription(settings.id);
 
   const {
     private: {
@@ -53,26 +44,27 @@ export default async function Subscription() {
       subscription.status === "trialing" ||
       subscription.is_trial);
 
+  const isPaused = subscription && subscription.status === "paused";
+
   return (
     <div className="flex-1 w-full flex flex-col gap-6 2xl:grid grid-cols-[2fr_1fr]">
-      {isActive ? (
-        <Active dict={dict.active} {...subscription} />
+      {!subscription ? (
+        <Canceled
+          dict={{ ...dict.create, month: dict.active.month }}
+          settings={settings}
+        />
+      ) : isActive || isPaused ? (
+        <ActiveOrPaused dict={dict} {...subscription} />
       ) : (
         subscription && (
           <Form dict={dict.form} settings={settings} {...subscription} />
         )
       )}
-
       <div className="px-10 py-8 border bg-light rounded-md flex flex-col gap-6 self-start">
         <h3 className="font-medium">{dict.benefits.title}</h3>
         <ul className="grid gap-3">
-          {dict.benefits.list.map((benefit) => (
-            <li className="flex items-start gap-3 text-sm sm:text-base">
-              <div className="bg-primary rounded-full h-4 w-4 min-w-4 mt-1 grid place-content-center">
-                <Check color="white" size={12} strokeWidth={3} />
-              </div>
-              {benefit}
-            </li>
+          {dict.benefits.list.map((benefit, i) => (
+            <BenefitRef content={benefit} key={i} />
           ))}
         </ul>
         <div className="flex-1 flex flex-col justify-end">
@@ -88,3 +80,12 @@ export default async function Subscription() {
     </div>
   );
 }
+
+const BenefitRef = ({ content }: { content: string }) => (
+  <li className="flex items-start gap-3 text-sm sm:text-base">
+    <div className="bg-primary rounded-full h-4 w-4 min-w-4 mt-1 grid place-content-center">
+      <Check color="white" size={12} strokeWidth={3} />
+    </div>
+    {content}
+  </li>
+);

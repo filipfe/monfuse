@@ -1,32 +1,19 @@
 "use client";
 
-import {
-  Table,
-  TableHeader,
-  TableColumn,
-  TableBody,
-  TableRow,
-  TableCell,
-  Pagination,
-  ScrollShadow,
-  getKeyValue,
-  Button,
-} from "@nextui-org/react";
+import { Pagination } from "@heroui/react";
 import Block from "../../ui/block";
 import { useActivePayments } from "@/lib/recurring-payments/queries";
-import {
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useMemo,
-  useState,
-} from "react";
+import { Dispatch, SetStateAction, useMemo, useState } from "react";
 import { Coins, PlusIcon, Wallet2 } from "lucide-react";
 import Link from "next/link";
 import Loader from "@/components/stocks/loader";
 import { Dict } from "@/const/dict";
 import Menu from "./menu";
 import Empty from "@/components/ui/empty";
+import DataTable from "@/components/ui/data-table";
+import { ColumnDef } from "@tanstack/react-table";
+import { formatPrice } from "@/utils/format";
+import { Button } from "@/components/ui/button";
 
 type Props = {
   settings: Settings;
@@ -41,88 +28,64 @@ export default function RecurringPaymentsTable({
   page,
   setPage,
 }: Props) {
-  const { isLoading, data } = useActivePayments(page);
+  const [pages, setPages] = useState(0);
+  const { data, isLoading, mutate } = useActivePayments(page, {
+    onSuccess: (data) => setPages(Math.ceil(data.count / 6)),
+  });
 
-  const columns = useMemo(
+  const columns = useMemo<ColumnDef<RecurringPayment>[]>(
     () => [
       {
-        key: "type",
-        label: "",
-      },
-      {
-        key: "title",
-        label: dict.columns.title,
-      },
-      {
-        key: "amount",
-        label: dict.columns.amount,
-      },
-      {
-        key: "currency",
-        label: dict.columns.currency,
-      },
-      {
-        key: "next_payment",
-        label: dict.columns["next-payment"],
-      },
-      { key: "actions", label: "" },
-    ],
-    [dict.columns]
-  );
-
-  const renderCell = useCallback(
-    (item: any, columnKey: any) => {
-      const cellValue = item[columnKey];
-
-      switch (columnKey) {
-        case "type":
-          return item.type === "income" ? (
+        accessorKey: "type",
+        header: "",
+        cell: ({ row }) =>
+          row.original.type === "income" ? (
             <Wallet2 size={15} color="#177981" />
           ) : (
             <Coins size={16} color="#fdbb2d" />
-          );
-        case "title":
-          return (
-            <span className="line-clamp-1 break-all min-w-[14ch]">
-              {cellValue}
-            </span>
-          );
-        case "amount":
-          return new Intl.NumberFormat(settings.language).format(cellValue);
-        case "next_payment":
-          return new Intl.DateTimeFormat(settings.language).format(
-            new Date(cellValue)
-          );
-        case "actions":
-          return (
-            <Menu
-              payment={item}
-              timezone={settings.timezone}
-              page={page}
-              dict={dict.menu}
-            />
-          );
-        default:
-          return cellValue;
-      }
-    },
-    [page, settings.timezone]
+          ),
+        size: 20,
+      },
+      {
+        accessorKey: "title",
+        header: dict.columns.title,
+      },
+      {
+        accessorFn: ({ amount, currency }) =>
+          formatPrice(amount, currency, settings.language),
+        header: dict.columns.amount,
+      },
+      {
+        accessorFn: ({ next_payment }) =>
+          new Intl.DateTimeFormat(settings.language).format(
+            new Date(next_payment)
+          ),
+        header: dict.columns["next-payment"],
+      },
+      {
+        id: "actions",
+        header: "",
+        cell: ({ row }) => (
+          <Menu
+            payment={row.original}
+            timezone={settings.timezone}
+            dict={dict.menu}
+            onDelete={mutate}
+          />
+        ),
+        size: 20,
+      },
+    ],
+    [dict, settings]
   );
 
   const cta = (
-    <Link href="/recurring-payments/add">
-      <Button
-        as="div"
-        variant="light"
-        disableRipple
-        startContent={<PlusIcon size={14} />}
-        className="h-8 bg-light border"
-        size="sm"
-        radius="md"
-      >
+    <Button variant="outline" size="sm" asChild>
+      <Link href="/recurring-payments/add">
+        <PlusIcon size={14} />
         {dict.add.label}
-      </Button>
-    </Link>
+      </Link>
+    </Button>
   );
 
   if (isLoading)
@@ -135,8 +98,7 @@ export default function RecurringPaymentsTable({
       />
     );
 
-  const results = data?.results || [];
-  const count = data?.count || 0;
+  const payments = data?.results || [];
 
   return (
     <Block
@@ -144,43 +106,16 @@ export default function RecurringPaymentsTable({
       className="row-span-2 col-start-1 col-end-2"
       cta={cta}
     >
-      {results.length > 0 ? (
+      {payments.length > 0 || isLoading ? (
         <>
-          <ScrollShadow
-            className="max-w-[calc(100vw-48px)]"
-            orientation="horizontal"
-            hideScrollBar
-          >
-            <Table
-              removeWrapper
-              shadow="none"
-              color="primary"
-              bottomContentPlacement="outside"
-              aria-label="recurring-paymants-table"
-              className="max-w-full w-full flex-1"
-              classNames={{
-                td: "[&_span:last-child]:before:!border-neutral-200 first:w-4",
-              }}
-            >
-              <TableHeader columns={columns}>
-                {(column) => (
-                  <TableColumn className="uppercase" key={column.key}>
-                    {column.label}
-                  </TableColumn>
-                )}
-              </TableHeader>
-              <TableBody items={results}>
-                {(item) => (
-                  <TableRow key={item.id} className="hover:bg-light">
-                    {(columnKey) => (
-                      <TableCell>{renderCell(item, columnKey)}</TableCell>
-                    )}
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
-          </ScrollShadow>
-          {count > 0 && (
+          <DataTable
+            data={payments}
+            columns={columns}
+            isLoading={isLoading}
+            dict={{ _empty: dict._empty.title }}
+            className="[&_td]:h-11"
+          />
+          {pages > 0 && (
             <div className="mt-2 flex-1 flex items-end justify-end">
               <Pagination
                 size="sm"
@@ -194,7 +129,7 @@ export default function RecurringPaymentsTable({
                 }}
                 page={page}
                 isDisabled={isLoading}
-                total={Math.ceil(count / 8)}
+                total={pages}
                 onChange={setPage}
               />
             </div>

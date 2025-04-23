@@ -3,7 +3,6 @@
 import { useEffect, useState, useTransition } from "react";
 import Dropdown from "./dropdown";
 import { Dict } from "@/const/dict";
-import { Button, Input, Progress } from "@nextui-org/react";
 import UniversalSelect from "../ui/universal-select";
 import TelegramBot from "../automation/telegram-bot";
 import { useTimezoneSelect } from "react-timezone-select";
@@ -14,6 +13,9 @@ import toast from "@/utils/toast";
 import { LOCALE_CURRENCIES } from "@/const/locales";
 import { CURRENCIES } from "@/const";
 import getLang from "@/utils/get-lang";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { Progress } from "../ui/progress";
 
 export default function AccountSetupForm({
   dict,
@@ -71,19 +73,14 @@ export default function AccountSetupForm({
             {dict["account-setup"].description}
           </p>
         </div>
-        <div className="max-w-32 w-full mb-1">
-          <Progress
-            size="sm"
-            value={step + 1}
-            label={dict["account-setup"].progress.label}
-            maxValue={4}
-            classNames={{
-              label: "text-xs text-font/60",
-              value: "text-xs font-medium",
-            }}
-            showValueLabel
-            valueLabel={`${step + 1} / 4`}
-          />
+        <div className="max-w-32 w-full mb-1 flex flex-col gap-2">
+          <div className="flex items-center justify-between">
+            <span className="text-xs text-font/60">
+              {dict["account-setup"].progress.label}
+            </span>
+            <span className="text-xs font-medium">{step + 1} / 4</span>
+          </div>
+          <Progress className="h-1.5" value={((step + 1) / 4) * 100} />
         </div>
       </div>
       <form action={action}>
@@ -96,7 +93,6 @@ export default function AccountSetupForm({
               index={0}
             >
               <Input
-                classNames={{ inputWrapper: "!bg-light shadow-none border" }}
                 name="first_name"
                 label={
                   dict.settings.account["personal-data"].form["first-name"]
@@ -107,11 +103,10 @@ export default function AccountSetupForm({
                     .label
                 }
                 value={firstName}
-                onValueChange={(value) => setFirstName(value)}
+                onChange={(e) => setFirstName(e.target.value)}
                 className="max-w-xl"
               />
               <Input
-                classNames={{ inputWrapper: "!bg-light shadow-none border" }}
                 label={
                   dict.settings.account["personal-data"].form["last-name"].label
                 }
@@ -120,7 +115,7 @@ export default function AccountSetupForm({
                   dict.settings.account["personal-data"].form["last-name"].label
                 }
                 value={lastName}
-                onValueChange={(value) => setLastName(value)}
+                onChange={(e) => setLastName(e.target.value)}
                 className="max-w-xl"
               />
             </Dropdown>
@@ -134,11 +129,10 @@ export default function AccountSetupForm({
               <UniversalSelect
                 name="currency"
                 aria-label="Currency select"
-                selectedKeys={[currency]}
+                value={currency}
                 elements={CURRENCIES}
                 required
-                isRequired
-                onChange={(e) => setCurrency(e.target.value)}
+                onValueChange={(value) => setCurrency(value)}
               />
             </Dropdown>
             <Dropdown
@@ -152,9 +146,8 @@ export default function AccountSetupForm({
                 name="language"
                 aria-label="Language select"
                 label={dict.settings.preferences.location.language.label}
-                selectedKeys={[language]}
-                isLoading={isLoading}
-                isDisabled={isLoading}
+                value={language}
+                disabled={isLoading}
                 elements={
                   languages
                     ? languages.map((lang) => ({
@@ -166,18 +159,18 @@ export default function AccountSetupForm({
                 placeholder={
                   dict.settings.preferences.location.language.placeholder
                 }
-                onChange={(e) => setLanguage(e.target.value as Lang)}
+                onValueChange={(value) => setLanguage(value as Lang)}
               />
               <UniversalSelect
                 label={dict.settings.preferences.location.timezone.label}
-                selectedKeys={timezone ? [parseTimezone(timezone).value] : []}
+                value={timezone ? parseTimezone(timezone).value : undefined}
                 elements={options as Option<string>[]}
-                onChange={(e) =>
+                onValueChange={(val) =>
                   setTimezone(
-                    parseTimezone(e.target.value).value ===
+                    parseTimezone(val).value ===
                       parseTimezone(deviceTimezone).value
                       ? deviceTimezone
-                      : e.target.value
+                      : val
                   )
                 }
               />
@@ -199,23 +192,17 @@ export default function AccountSetupForm({
           </div>
           <div className="flex items-center justify-end gap-3 px-6 sm:px-0">
             <Button
-              className="font-medium bg-white border disabled:opacity-60"
-              disableRipple
-              isDisabled={step === 0}
+              variant="outline"
+              className="bg-white"
               disabled={step === 0}
-              onPress={() => setStep((prev) => prev - 1)}
+              onClick={() => setStep((prev) => prev - 1)}
             >
               {dict["account-setup"].form._back}
             </Button>
             <Button
-              isDisabled={isDisabled || isPending}
               disabled={isDisabled || isPending}
-              isLoading={isPending}
-              color="primary"
-              className="font-medium disabled:opacity-60"
-              disableRipple
               type={submitAvailable ? "submit" : "button"}
-              onPress={() => step < 3 && setStep((prev) => prev + 1)}
+              onClick={() => step < 3 && setStep((prev) => prev + 1)}
             >
               {step < 3
                 ? dict["account-setup"].form._submit.next

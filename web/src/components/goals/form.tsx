@@ -1,6 +1,5 @@
 "use client";
 
-import { Button, Input, Spinner, Textarea } from "@nextui-org/react";
 import formatAmount from "@/utils/operations/format-amount";
 import { useState, useTransition } from "react";
 import { CheckIcon } from "lucide-react";
@@ -10,6 +9,10 @@ import { CURRENCIES } from "@/const";
 import Block from "../ui/block";
 import Toast from "../ui/toast";
 import { addGoal } from "@/lib/goals/actions";
+import { Button } from "../ui/button";
+import { Hatch } from "ldrs/react";
+import { Input } from "../ui/input";
+import { Dict } from "@/const/dict";
 
 interface NewGoal
   extends Omit<
@@ -25,11 +28,12 @@ const defaultRecord: NewGoal = {
   currency: "",
 };
 
-export default function GoalForm({
-  defaultCurrency,
-}: {
-  defaultCurrency: string;
-}) {
+type Props = {
+  defaultCurrency: Settings["currency"];
+  dict: Dict["private"]["goals"]["add"];
+};
+
+export default function GoalForm({ defaultCurrency, dict }: Props) {
   const [isPending, startTransition] = useTransition();
   const [singleRecord, setSingleRecord] = useState<NewGoal>({
     ...defaultRecord,
@@ -37,18 +41,14 @@ export default function GoalForm({
   });
 
   return (
-    <Block title="Nowy cel" className="w-full max-w-2xl">
+    <Block title={dict.title} className="w-full max-w-2xl">
       <form
         action={(formData) =>
           startTransition(async () => {
             const { error } = await addGoal(formData);
             if (error) {
               toast.custom((t) => (
-                <Toast
-                  {...t}
-                  type="error"
-                  message="Wystąpił błąd przy dodawaniu celu"
-                />
+                <Toast {...t} type="error" message={dict.form._error} />
               ));
             }
           })
@@ -56,22 +56,20 @@ export default function GoalForm({
         className="flex flex-col md:grid grid-cols-2 gap-4"
       >
         <Input
-          classNames={{ inputWrapper: "!bg-light shadow-none border" }}
           name="title"
-          label="Tytuł"
-          placeholder="Mieszkanie"
-          isRequired
+          label={dict.form.title.label}
+          placeholder={dict.form.title.placeholder}
+          required
           value={singleRecord.title}
           onChange={(e) =>
             setSingleRecord((prev) => ({ ...prev, title: e.target.value }))
           }
         />
         <Input
-          classNames={{ inputWrapper: "!bg-light shadow-none border" }}
           name="amount"
-          label="Kwota"
+          label={dict.form.amount.label}
           placeholder="0.00"
-          isRequired
+          required
           value={singleRecord.price}
           onBlur={(_) => {
             const value = parseFloat(singleRecord.price);
@@ -90,21 +88,20 @@ export default function GoalForm({
         />
         <UniversalSelect
           name="currency"
-          label="Waluta"
-          selectedKeys={[singleRecord.currency]}
+          required
+          label={dict.form.currency.label}
+          value={singleRecord.currency}
           elements={CURRENCIES}
-          onChange={(e) => {
+          onValueChange={(value) => {
             setSingleRecord((prev) => ({
               ...prev,
-              currency: e.target.value,
+              currency: value,
             }));
           }}
         />
         <Input
-          classNames={{ inputWrapper: "!bg-light shadow-none border" }}
           name="deadline"
-          label="Termin ostateczny"
-          placeholder="24.01.2024"
+          label={dict.form.deadline.label}
           type="date"
           value={singleRecord.deadline}
           onChange={(e) =>
@@ -129,13 +126,13 @@ export default function GoalForm({
           }
         /> */}
         <div className="col-span-2 flex justify-end mt-4">
-          <Button color="primary" type="submit" isDisabled={isPending}>
+          <Button type="submit" disabled={isPending}>
             {isPending ? (
-              <Spinner color="white" size="sm" />
+              <Hatch size={12} stroke={1.5} color="#FFF" />
             ) : (
               <CheckIcon size={16} />
             )}
-            Zapisz
+            {dict.form._submit}
           </Button>
         </div>
         <input type="hidden" value={JSON.stringify(singleRecord)} name="data" />

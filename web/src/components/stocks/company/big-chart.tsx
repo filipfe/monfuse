@@ -30,11 +30,11 @@ export default function BigChart({ quotes, isUp, isDown, currency }: Props) {
     notation: "standard",
     maximumFractionDigits: 2,
   });
-  const { width, tickFormatter } = useYAxisWidth(
-    currency,
-    settings?.language,
-    (value) => numberFormat.format(value)
-  );
+  // const { width, tickFormatter } = useYAxisWidth(
+  //   currency,
+  //   settings?.language,
+  //   (value) => numberFormat.format(value)
+  // );
   const [activeTime, setActiveTime] = useState<number | null>(null);
   const prices = quotes.map(({ price }) => price);
   const maxPrice = Math.max(...prices);
@@ -70,8 +70,8 @@ export default function BigChart({ quotes, isUp, isDown, currency }: Props) {
         <YAxis
           tick={{ fontSize: 12 }}
           tickLine={false}
-          tickFormatter={tickFormatter}
-          width={width + 16}
+          // tickFormatter={tickFormatter}
+          // width={width + 16}
           // domain={[minPrice - diff, maxPrice + diff]}
           axisLine={false}
         />

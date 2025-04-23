@@ -1,11 +1,12 @@
+import { Button } from "@/components/ui/button";
 import { Dict } from "@/const/dict";
 import toast from "@/utils/toast";
-import { Button } from "@nextui-org/react";
 import {
   PaymentElement,
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
+import { Hatch } from "ldrs/react";
 import { FormEvent, useState } from "react";
 
 export default function Checkout({
@@ -64,15 +65,12 @@ export default function Checkout({
     <form id="payment-form" onSubmit={handleSubmit}>
       <PaymentElement id="payment-element" options={{ layout: "tabs" }} />
       <Button
-        color="primary"
         type="submit"
-        isDisabled={isDisabled}
-        disabled={isLoading || !stripe || !elements}
+        disabled={isDisabled}
         id="submit"
-        className="w-full mt-6 font-medium"
-        disableRipple
+        className="w-full mt-4 font-medium"
       >
-        {isLoading && <l-hatch stroke={1.5} size={14} color="white" />}
+        {isLoading && <Hatch stroke={1.5} size={14} color="white" />}
         {dict}
       </Button>
     </form>

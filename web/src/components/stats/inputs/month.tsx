@@ -1,5 +1,11 @@
 import { StatsFilterContext } from "@/app/(private)/(sidebar)/stats/providers";
-import { cn, Select, SelectItem } from "@nextui-org/react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useContext } from "react";
 
 type Props = {
@@ -17,34 +23,29 @@ export default function MonthInput({ value, onChange, disabledKeys }: Props) {
   return (
     <Select
       name="month"
-      placeholder="Miesiąc"
-      aria-label="Month filter"
-      size="sm"
-      radius="md"
-      selectedKeys={[value.toString()]}
-      onChange={(e) => onChange(parseInt(e.target.value))}
-      classNames={{
-        trigger: "!bg-light shadow-none border min-w-32 sm:min-w-40",
-      }}
-      disallowEmptySelection
-      disabledKeys={disabledKeys}
+      value={value.toString()}
+      onValueChange={(value) => onChange(parseInt(value))}
     >
-      {Array.from(Array(12)).map((_, k) => {
-        const date = new Date();
-        date.setDate(1);
-        date.setMonth(k);
-        const month = formatter.format(date);
-        return (
-          <SelectItem
-            classNames={{
-              base: cn(value === k ? "!bg-light" : "!bg-white hover:!bg-light"),
-            }}
-            key={k.toString()}
-          >
-            {month.charAt(0).toUpperCase() + month.substring(1)}
-          </SelectItem>
-        );
-      })}
+      <SelectTrigger size="sm" className="min-w-32 sm:min-w-40">
+        <SelectValue />
+      </SelectTrigger>
+      <SelectContent>
+        {Array.from(Array(12)).map((_, k) => {
+          const date = new Date();
+          date.setDate(1);
+          date.setMonth(k);
+          const month = formatter.format(date);
+          return (
+            <SelectItem
+              disabled={disabledKeys.includes(k.toString())}
+              value={k.toString()}
+              key={k.toString()}
+            >
+              {month.charAt(0).toUpperCase() + month.substring(1)}
+            </SelectItem>
+          );
+        })}
+      </SelectContent>
     </Select>
   );
 }

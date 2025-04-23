@@ -1,13 +1,10 @@
 import OperationTable from "@/components/operations/table";
-import Loader from "@/components/stocks/loader";
 import { getOperationsStats } from "@/lib/operations/actions";
-import { createClient } from "@/utils/supabase/server";
-import { Suspense } from "react";
 import Providers from "../providers";
 import OperationsByMonth from "@/components/operations/operations-by-month";
 import Stat from "@/components/ui/stat-ref";
 import { getSettings } from "@/lib/general/actions";
-import getDictionary, { Dict } from "@/const/dict";
+import getDictionary from "@/const/dict";
 import { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -23,10 +20,11 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Page({
-  searchParams,
+  searchParams: searchParamsPromise,
 }: {
-  searchParams: SearchParams;
+  searchParams: Promise<SearchParams>;
 }) {
+  const searchParams = await searchParamsPromise;
   const settings = await getSettings();
 
   const {
@@ -78,52 +76,15 @@ export default async function Page({
             dict={dict["operations-by-month"]}
           />
         </div>
-        <Suspense fallback={<Loader className="row-span-2 col-span-2" />}>
-          <Incomes
-            searchParams={searchParams}
+        <div className="row-span-2 col-span-2 flex items-stretch">
+          <OperationTable
+            title={title}
+            type="income"
             settings={settings}
-            dict={{ title, ...dict["operation-table"] }}
+            dict={dict["operation-table"]}
           />
-        </Suspense>
+        </div>
       </Providers>
-    </div>
-  );
-}
-
-async function Incomes({
-  searchParams,
-  settings,
-  dict,
-}: {
-  searchParams: SearchParams;
-  settings: Settings;
-  dict: {
-    title: Dict["private"]["general"]["incomes" | "expenses"];
-  } & Dict["private"]["operations"]["operation-table"];
-}) {
-  const supabase = createClient();
-  const {
-    data: { results: incomes, count },
-  } = await supabase.rpc("get_incomes_own_rows", {
-    p_timezone: settings.timezone,
-    p_page: searchParams.page,
-    p_sort: searchParams.sort,
-    p_search: searchParams.search,
-    p_currency: searchParams.currency,
-    p_from: searchParams.from,
-    p_to: searchParams.to,
-  });
-
-  return (
-    <div className="row-span-2 col-span-2 flex items-stretch">
-      <OperationTable
-        title={dict.title}
-        type="income"
-        rows={incomes || []}
-        count={count || 0}
-        settings={settings}
-        dict={dict}
-      />
     </div>
   );
 }

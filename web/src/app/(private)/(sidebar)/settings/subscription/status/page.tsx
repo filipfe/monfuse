@@ -9,17 +9,25 @@ export async function generateMetadata(): Promise<Metadata> {
   const {
     private: {
       settings: {
-        subscription: { _metadata },
+        subscription: { _metadata, status: dict },
       },
     },
   } = await getDictionary(settings.language);
   return _metadata;
 }
 
-export default function Page() {
+export default async function Page() {
+  const settings = await getSettings();
+  const {
+    private: {
+      settings: {
+        subscription: { status: dict },
+      },
+    },
+  } = await getDictionary(settings.language);
   return (
     <Suspense>
-      <SubscriptionModal />
+      <SubscriptionModal dict={dict} />
     </Suspense>
   );
 }

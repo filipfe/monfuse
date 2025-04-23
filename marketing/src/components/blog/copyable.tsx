@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 
 export default function Copyable({ content }: { content: string }) {
-  const timerRef = useRef<number>();
+  const timerRef = useRef<number>(undefined);
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {

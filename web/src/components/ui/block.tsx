@@ -1,4 +1,4 @@
-import { cn } from "@nextui-org/react";
+import { cn } from "@/utils/cn";
 import React, { HTMLAttributes } from "react";
 
 type Props = {
@@ -36,7 +36,7 @@ export default function Block({
       {title && (
         <div
           className={cn(
-            "flex items-center gap-4 justify-between mb-1 sm:mb-2 h-8",
+            "flex items-center gap-4 justify-between h-8",
             titleClassName
           )}
         >
@@ -55,7 +55,7 @@ export default function Block({
         </div>
       )}
       {description && (
-        <p className="-mt-3 text-sm text-font/60 mb-1 sm:mb-2">{description}</p>
+        <p className="-mt-3 text-sm text-font/60">{description}</p>
       )}
       {children}
     </div>

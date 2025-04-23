@@ -1,6 +1,6 @@
 // "use client";
 
-// import { Pagination, ScrollShadow, Spinner } from "@nextui-org/react";
+// import { Pagination, ScrollShadow, Spinner } from "@heroui/react";
 // import {
 //   SortDescriptor,
 //   Table,
@@ -9,7 +9,7 @@
 //   TableColumn,
 //   TableHeader,
 //   TableRow,
-// } from "@nextui-org/react";
+// } from "@heroui/react";
 // import { TRANSACTION_TYPES } from "@/const";
 // import { useCallback, useEffect } from "react";
 // import useTableQuery from "@/hooks/useTableQuery";

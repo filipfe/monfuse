@@ -1,15 +1,16 @@
 import Logo from "@/assets/icons/logo";
 import Form from "@/components/auth/form";
+import { Input } from "@/components/ui/input";
 import getDictionary from "@/const/dict";
 import { LOCALES } from "@/const/locales";
 import getLang from "@/utils/get-lang";
-import { Input } from "@nextui-org/react";
 
 export async function generateMetadata({
-  params: { locale },
+  params,
 }: {
-  params: { locale: Locale };
+  params: Promise<{ locale: Locale }>;
 }) {
+  const { locale } = await params;
   const lang = getLang(locale);
   const {
     public: { auth },
@@ -38,8 +39,13 @@ export async function generateMetadata({
   };
 }
 
-export default async function Page({ params }: { params: { locale: Locale } }) {
-  const lang = getLang(params.locale);
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}) {
+  const { locale } = await params;
+  const lang = getLang(locale);
   const {
     private: { general },
     public: {
@@ -61,51 +67,35 @@ export default async function Page({ params }: { params: { locale: Locale } }) {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <Input
-                classNames={{
-                  inputWrapper: "!bg-light shadow-none border",
-                }}
                 name="first-name"
                 label={signUp.form["first-name"].label}
                 type="text"
                 placeholder="Jan"
-                isRequired
                 required
                 autoComplete="off"
               />
               <Input
-                classNames={{
-                  inputWrapper: "!bg-light shadow-none border",
-                }}
                 name="last-name"
                 label={signUp.form["last-name"].label}
                 type="text"
-                isRequired
                 required
                 placeholder="Kowalski"
                 autoComplete="off"
               />
             </div>
             <Input
-              classNames={{
-                inputWrapper: "!bg-light shadow-none border",
-              }}
               name="email"
               label="Email"
               type="email"
               placeholder="example@mail.com"
-              isRequired
               required
               autoComplete="off"
             />
             <Input
-              classNames={{
-                inputWrapper: "!bg-light shadow-none border",
-              }}
               name="password"
               label={signUp.form.password.label}
               type="password"
               placeholder="**********"
-              isRequired
               required
             />
           </div>

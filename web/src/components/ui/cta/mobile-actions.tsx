@@ -7,7 +7,7 @@ import {
   DropdownMenu,
   DropdownSection,
   DropdownTrigger,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import {
   AlignHorizontalDistributeCenterIcon,
   CoinsIcon,

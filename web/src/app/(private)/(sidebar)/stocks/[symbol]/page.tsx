@@ -5,8 +5,13 @@ import { getPricePeriod, getSpecificStocks } from "@/lib/stocks/actions";
 import NumberFormat from "@/utils/formatters/currency";
 import { redirect } from "next/navigation";
 
-export default async function Page({ params }: { params: { symbol: string } }) {
-  const { results: stocks } = await getSpecificStocks([params.symbol]);
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ symbol: string }>;
+}) {
+  const { symbol } = await params;
+  const { results: stocks } = await getSpecificStocks([symbol]);
   const settings = await getSettings();
 
   if (stocks.length === 0) redirect("/stocks");

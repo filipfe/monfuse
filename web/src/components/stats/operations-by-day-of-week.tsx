@@ -16,6 +16,14 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { Dict } from "@/const/dict";
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "../ui/chart";
 
 export default function OperationsByDayOfWeek({
   dict,
@@ -49,8 +57,18 @@ export default function OperationsByDayOfWeek({
   return (
     <Block className="col-span-2 " title={dict.title}>
       <div className="flex flex-col sm:grid grid-cols-2 flex-1 w-full">
-        <ResponsiveContainer width="100%" className="aspect-square">
+        <ChartContainer
+          config={
+            {
+              total_incomes: {
+                label: dict.general.incomes,
+              },
+            } satisfies ChartConfig
+          }
+          className="w-full aspect-square"
+        >
           <RadarChart outerRadius="80%" data={results}>
+            <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
             <PolarGrid />
             <PolarAngleAxis
               dataKey="day_of_week"
@@ -74,18 +92,29 @@ export default function OperationsByDayOfWeek({
               fillOpacity={0.6}
               strokeWidth={2}
             />
-            <Legend />
+            <ChartLegend
+              content={<ChartLegendContent className="text-primary" />}
+            />
           </RadarChart>
-        </ResponsiveContainer>
-        <ResponsiveContainer width="100%" className="aspect-square">
+        </ChartContainer>
+        <ChartContainer
+          config={
+            {
+              total_expenses: {
+                label: dict.general.expenses,
+              },
+            } satisfies ChartConfig
+          }
+          className="w-full aspect-square"
+        >
           <RadarChart outerRadius="80%" data={results}>
+            <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
             <PolarGrid />
             <PolarAngleAxis
               dataKey="day_of_week"
-              tickFormatter={(dayNumber) => {
-                const date = new Date(2023, 0, dayNumber + 1);
-                return formatter.format(date);
-              }}
+              tickFormatter={(dayNumber) =>
+                formatter.format(new Date(2023, 0, dayNumber + 1))
+              }
             />
             <PolarRadiusAxis
               angle={65}
@@ -102,9 +131,11 @@ export default function OperationsByDayOfWeek({
               fillOpacity={0.6}
               strokeWidth={2}
             />
-            <Legend />
+            <ChartLegend
+              content={<ChartLegendContent className="text-secondary" />}
+            />
           </RadarChart>
-        </ResponsiveContainer>
+        </ChartContainer>
       </div>
     </Block>
   );

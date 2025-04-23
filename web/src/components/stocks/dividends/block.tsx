@@ -1,11 +1,12 @@
 import Block from "@/components/ui/block";
-import { Button, ScrollShadow } from "@nextui-org/react";
+import { ScrollShadow } from "@heroui/react";
 import { ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
 import DividendsTable from "./dividends-table";
 import { getDividendInfo } from "@/lib/stocks/actions";
 import sortDividends from "@/utils/stocks/sort-dividends";
 import groupDividends from "@/utils/stocks/group-dividends";
+import { Button } from "@/components/ui/button";
 
 export default async function Dividends() {
   const { results: dividends } = await getDividendInfo();
@@ -25,16 +26,10 @@ export default async function Dividends() {
 }
 
 const cta = (
-  <Link href="/stocks/dividends">
-    <Button
-      as="div"
-      size="sm"
-      color="primary"
-      variant="light"
-      className="h-7 bg-white data-[hover=true]:bg-primary/10 transition-colors"
-    >
+  <Button size="sm" variant="outline" asChild>
+    <Link href="/stocks/dividends">
       <span className="mb-px">Więcej</span>
       <ChevronRightIcon size={14} />
-    </Button>
-  </Link>
+    </Link>
+  </Button>
 );

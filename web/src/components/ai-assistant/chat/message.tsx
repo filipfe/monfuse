@@ -1,7 +1,7 @@
-import { cn } from "@nextui-org/react";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { motion } from "framer-motion";
+import { cn } from "@/utils/cn";
 
 export default function MessageRef({ from, content }: ChatMessage) {
   return (

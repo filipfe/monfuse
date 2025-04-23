@@ -1,5 +1,6 @@
 import { satoshi } from "@/assets/font/satoshi";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { YAxisProps } from "recharts";
 
 const checkWidth = (label: string): number => {
   const tempElement = document.createElement("p");
@@ -23,8 +24,10 @@ export default function useYAxisWidth(
   currency?: string,
   language?: Lang,
   formatter?: (value: number) => string
-) {
+): YAxisProps {
   const [longestTick, setLongestTick] = useState(0);
+  const longestTickRef = useRef(0);
+
   const tickFormatter = useCallback(
     (val: number): string => {
       const formattedTick = formatter
@@ -38,12 +41,13 @@ export default function useYAxisWidth(
         : val.toString();
       const width = checkWidth(formattedTick);
       if (width > longestTick) {
-        setLongestTick(width);
+        longestTickRef.current = width;
       }
       return formattedTick;
     },
     [currency, formatter, longestTick]
   );
+
   return {
     width: longestTick + 8.2 * 1,
     tickFormatter,

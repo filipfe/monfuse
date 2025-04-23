@@ -1,60 +1,57 @@
 "use client";
 
+import Autocomplete from "@/components/ui/autocomplete";
 import { Dict } from "@/const/dict";
 import { useLabels } from "@/lib/operations/queries";
-import { Autocomplete, AutocompleteItem, cn, Tooltip } from "@nextui-org/react";
-import { HelpCircleIcon } from "lucide-react";
+import { useEffect, useState } from "react";
 
 type Props = {
-  dict: Dict["private"]["operations"]["operation-table"]["dropdown"]["modal"]["edit"]["form"]["label"];
-  className?: string;
+  dict: {
+    placeholder: string;
+    label: string;
+    description: string;
+  };
   defaultValue?: string | null;
+  value?: string;
+  onChange?: (value: string) => void;
+  disabled?: boolean;
 };
 
-export default function LabelInput({ dict, defaultValue, className }: Props) {
-  const { data: labels, isLoading } = useLabels();
+export default function LabelInput({
+  dict,
+  defaultValue,
+  value,
+  onChange,
+  disabled,
+}: Props) {
+  const [label, setLabel] = useState(defaultValue || value || "");
+  const { data: labels } = useLabels();
+
+  useEffect(() => {
+    if (value === undefined) return;
+    setLabel(value);
+  }, [value]);
 
   return (
     <div className="relative flex items-center">
       <Autocomplete
-        name="label"
-        label={dict.label}
+        disabled={disabled}
+        value={label}
         placeholder={dict.placeholder}
-        isClearable={false}
-        multiple
-        allowsCustomValue
-        allowsEmptyCollection={false}
-        isLoading={isLoading}
-        defaultSelectedKey={defaultValue ? defaultValue : undefined}
-        inputProps={{
-          classNames: {
-            inputWrapper: cn("bg-light border shadow-none", className),
-          },
+        label={dict.label}
+        onChange={(value) => {
+          setLabel(value);
+          onChange?.(value);
         }}
-        maxLength={48}
-        showScrollIndicators
-      >
-        {labels
-          ? labels.map((label) => (
-              <AutocompleteItem
-                value={label.name}
-                textValue={label.name}
-                description={`${label.count} ${dict.description}`}
-                classNames={{
-                  base: "!bg-white hover:!bg-light",
-                }}
-                key={label.name}
-              >
-                {label.name}
-              </AutocompleteItem>
-            ))
-          : []}
-      </Autocomplete>
-      <div className="absolute left-12 top-2.5">
-        <Tooltip size="sm" content={dict.tooltip}>
-          <HelpCircleIcon size={12} className="text-primary" />
-        </Tooltip>
-      </div>
+        items={
+          labels?.map((label) => ({
+            value: label.name,
+            label: label.name,
+            description: `${label.count} ${dict.description}`,
+          })) || []
+        }
+      />
+      <input type="hidden" name="label" value={label} />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { getSpecificStocks } from "@/lib/stocks/actions";
 import Block from "../ui/block";
-import { ScrollShadow } from "@nextui-org/react";
+import { ScrollShadow } from "@heroui/react";
 import StockTable from "./table";
 import { Fragment } from "react";
 import HorizontalScroll from "../ui/horizontal-scroll";

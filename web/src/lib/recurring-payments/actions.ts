@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 export async function getTimeline(
   timezone: string,
 ): Promise<SupabaseResponse<TimelineEntry>> {
-  const supabase = createClient();
+  const supabase = await createClient();
   const { data, error } = await supabase.rpc(
     "get_recurring_payments_timeline",
     {
@@ -28,7 +28,7 @@ export async function getTimeline(
 export async function getRecurringPayments(
   searchParams: SearchParams,
 ): Promise<SupabaseResponse<WithId<RecurringPayment>>> {
-  const supabase = createClient();
+  const supabase = await createClient();
   const { data, error } = await supabase.rpc(
     "get_recurring_payments_active_payments",
     {
@@ -51,7 +51,7 @@ export async function getRecurringPayments(
 }
 
 export async function getLatestPayments(): Promise<SupabaseResponse<Payment>> {
-  const supabase = createClient();
+  const supabase = await createClient();
   const { data: results, error } = await supabase
     .from("operations")
     .select("id, title, amount, currency, type, issued_at")
@@ -81,7 +81,7 @@ export async function addRecurringPayment(formData: FormData) {
   const interval_unit = formData.get("interval_unit") as string;
   const interval_amount = formData.get("interval_amount") as string;
 
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const { error } = await supabase.from("recurring_payments").insert({
     title,

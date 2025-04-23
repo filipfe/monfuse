@@ -2,7 +2,7 @@ import Block from "@/components/ui/block";
 import { getLatestPayments } from "@/lib/recurring-payments/actions";
 import Ref from "./ref";
 import Empty from "@/components/ui/empty";
-import { ScrollShadow } from "@nextui-org/react";
+import { ScrollShadow } from "@heroui/react";
 import { Dict } from "@/const/dict";
 import { Coins } from "lucide-react";
 
@@ -18,11 +18,15 @@ export default async function Latest({
   return (
     <Block title={dict.title} className="gap-0">
       {payments.length > 0 ? (
-        <ScrollShadow className="2xl:max-h-[calc(100vh-702px)]" hideScrollBar>
-          {payments.map((payment) => (
-            <Ref payment={payment} settings={settings} key={payment.id} />
-          ))}
-        </ScrollShadow>
+        <div className="flex-1 relative min-h-48 2xl:min-h-0">
+          <div className="absolute inset-0 w-full h-full">
+            <ScrollShadow className="h-full" hideScrollBar>
+              {payments.map((payment) => (
+                <Ref payment={payment} settings={settings} key={payment.id} />
+              ))}
+            </ScrollShadow>
+          </div>
+        </div>
       ) : (
         <Empty icon={Coins} title={dict._empty.title} />
       )}

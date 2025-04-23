@@ -2,12 +2,13 @@
 
 import { Section } from "@/components/ui/block";
 import Option from "./option";
-import { cn, Progress, Skeleton } from "@nextui-org/react";
+import { Progress, Skeleton } from "@heroui/react";
 import { useGoals } from "@/lib/goals/queries";
 import { useAIAssistant } from "@/app/(private)/(sidebar)/ai-assistant/providers";
 import NumberFormat from "@/utils/formatters/currency";
 import Empty from "@/components/ui/empty";
 import { Dict } from "@/const/dict";
+import { cn } from "@/utils/cn";
 
 export default function GoalsContext({
   dict,

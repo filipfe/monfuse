@@ -1,9 +1,9 @@
 "use client";
 
-import { cn } from "@nextui-org/react";
 import Block from "../../ui/block";
 import NumberFormat from "@/utils/formatters/currency";
 import { Dict } from "@/const/dict";
+import { cn } from "@/utils/cn";
 
 export default function Comparison({
   dict,

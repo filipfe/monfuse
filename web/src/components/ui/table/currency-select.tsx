@@ -2,59 +2,71 @@
 
 import { CURRENCIES } from "@/const";
 import { Dict } from "@/const/dict";
-import { Select, SelectItem, SelectProps } from "@nextui-org/react";
+import {
+  Select,
+  SelectItem,
+  SelectContent,
+  SelectTrigger,
+  SelectValue,
+} from "../select";
+import { useEffect, useState } from "react";
+
+interface Props extends Partial<State> {
+  className?: string;
+  hideAll?: boolean;
+  defaultValue?: string;
+  required?: boolean;
+  dict: {
+    label: string;
+    default?: string;
+  };
+}
 
 export default function CurrencySelect({
   dict,
+  value: forcedValue,
   onChange,
-  value,
-  ...props
-}: Pick<SelectProps, "labelPlacement"> &
-  State & {
-    dict: Dict["private"]["operations"]["operation-table"]["top-content"]["filter"]["currency"];
-  }) {
+  className,
+  hideAll,
+  required,
+  defaultValue,
+}: Props) {
+  const [value, setValue] = useState(defaultValue || forcedValue);
+
+  useEffect(() => {
+    if (!forcedValue) return;
+    setValue(forcedValue);
+  }, [forcedValue]);
+
+  const onValueChange = (newValue: string) => {
+    setValue(newValue);
+    onChange?.(newValue);
+  };
+
   return (
-    <Select
-      name="currency"
-      label={dict.label}
-      size="sm"
-      radius="md"
-      selectedKeys={[value]}
-      onSelectionChange={(keys) => {
-        const selectedKey = Array.from(keys)[0]?.toString();
-        onChange(selectedKey === "all" ? "" : selectedKey);
-      }}
-      classNames={{
-        trigger: "bg-light shadow-none ",
-      }}
-      disallowEmptySelection
-      className="w-full"
-      {...props}
-    >
-      {
-        (
-          <SelectItem
-            value=""
-            className={`${
-              value === "" ? "!bg-light" : "!bg-white hover:!bg-light"
-            }`}
-            key=""
-          >
-            {dict.default}
-          </SelectItem>
-        ) as any
-      }
-      {CURRENCIES.map((curr) => (
-        <SelectItem
-          value={curr}
-          className={`${
-            curr === value ? "!bg-light" : "!bg-white hover:!bg-light"
-          }`}
-          key={curr}
+    <>
+      <Select
+        value={value}
+        defaultValue={defaultValue}
+        onValueChange={onValueChange}
+      >
+        <SelectTrigger
+          required={required}
+          label={dict.label}
+          className={className}
         >
-          {curr}
-        </SelectItem>
-      ))}
-    </Select>
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent>
+          {!hideAll && <SelectItem value="*">{dict.default}</SelectItem>}
+          {CURRENCIES.map((curr) => (
+            <SelectItem value={curr} key={curr}>
+              {curr}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+      <input type="hidden" name="currency" value={value} />
+    </>
   );
 }

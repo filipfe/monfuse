@@ -2,7 +2,7 @@
 
 import { Fragment, useContext, useTransition } from "react";
 import { signOut } from "@/lib/auth/actions";
-import { BreadcrumbItem, Breadcrumbs, Button, cn } from "@nextui-org/react";
+import { BreadcrumbItem, Breadcrumbs, Button, cn } from "@heroui/react";
 import { AlignJustifyIcon, Bot, LogOutIcon, SettingsIcon } from "lucide-react";
 import { PAGES, SETTINGS_PAGES } from "@/const";
 import { usePathname } from "next/navigation";
@@ -10,6 +10,7 @@ import { MenuContext } from "@/app/(private)/(sidebar)/providers";
 import { Dict } from "@/const/dict";
 import Logo from "@/assets/icons/logo";
 import toast from "@/utils/toast";
+import { Hatch } from "ldrs/react";
 
 const automationPage: Page = {
   href: "/automation",
@@ -107,7 +108,7 @@ export default function Header({
             className="font-medium"
           >
             {isPending ? (
-              <l-hatch size={12} stroke={1.5} />
+              <Hatch size={12} stroke={1.5} />
             ) : (
               <LogOutIcon size={16} />
             )}

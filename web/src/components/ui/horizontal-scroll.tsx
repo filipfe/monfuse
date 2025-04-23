@@ -1,7 +1,7 @@
 "use client";
 
 import { MenuContext } from "@/app/(private)/(sidebar)/providers";
-import { ScrollShadow, cn } from "@nextui-org/react";
+import { ScrollShadow, cn } from "@heroui/react";
 import { useContext } from "react";
 
 type Props = {
