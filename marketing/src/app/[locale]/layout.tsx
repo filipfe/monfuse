@@ -11,6 +11,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { cn, getLang } from "@/lib/utils";
 import Script from "next/script";
 import { LOCALES } from "@/lib/locales";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,6 +21,7 @@ export async function generateMetadata({
   const { locale } = await params;
   const lang = getLang(locale);
   const { _metadata } = await getDictionary(lang);
+
   return {
     ..._metadata,
     ...metadata,
@@ -63,6 +65,13 @@ export default async function RootLayout({
   const lang = getLang(locale);
   const dict = await getDictionary(lang);
   const { banner } = dict;
+
+  const GOOGLE_ANALYTICS_KEY = process.env.GOOGLE_ANALYTICS_KEY;
+
+  if (!GOOGLE_ANALYTICS_KEY) {
+    throw new Error("Environment variables missing: GOOGLE_ANALYTICS_KEY");
+  }
+
   return (
     <html lang={lang} className="light scroll-p-20">
       <body className={cn(inter.className)}>
@@ -84,6 +93,7 @@ export default async function RootLayout({
           })}
         </Script>
       </body>
+      <GoogleAnalytics gaId={GOOGLE_ANALYTICS_KEY} />
     </html>
   );
 }
